@@ -1,0 +1,1 @@
+org.springframework.context.ApplicationContextInitializer=io.committed.jonah.server.app.extensions.ExtensionInitializer
