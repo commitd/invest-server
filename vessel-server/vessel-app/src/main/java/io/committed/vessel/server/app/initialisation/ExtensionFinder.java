@@ -14,8 +14,7 @@ public class ExtensionFinder {
       "-java.",
       "-javax.",
       // TODO: We might need to construct this from the plugins/ dir? so that we whitelist the
-      // ones
-      // there
+      // ones there. Premature optimisation?
       // "-jar:"
   };
   private final boolean verbose;

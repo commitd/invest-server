@@ -1,12 +1,15 @@
 package io.committed.vessel.server.app.initialisation;
 
+
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import io.committed.vessel.server.extensions.VesselExtension;
 import io.committed.vessel.server.extensions.VesselUiExtension;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
+@Slf4j
 public class ExtensionInitializer implements
     ApplicationContextInitializer<AnnotationConfigApplicationContext> {
 
@@ -14,7 +17,7 @@ public class ExtensionInitializer implements
   @Override
   public void initialize(final AnnotationConfigApplicationContext applicationContext) {
 
-    // TODO: THis should be set from configuration or similar.
+    // TODO: Verbose should should be set from configuration or similar.
     final boolean verbose = false;
     final ExtensionFinder finder = new ExtensionFinder(verbose);
     final Flux<Class<? extends VesselExtension>> extensions = finder.find();
@@ -45,7 +48,7 @@ public class ExtensionInitializer implements
           applicationContext.register(configuration);
         }
       } catch (final Exception ex) {
-        ex.printStackTrace();
+        log.error("Unable to inspect for plugins", ex);
       }
     });
 
