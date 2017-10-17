@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>vessel-app</artifactId>
+  <artifactId>vessel-server-app</artifactId>
   <packaging>jar</packaging>
 
   <dependencies>
@@ -32,6 +32,10 @@
     <dependency>
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-extensions</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.committed.vessel</groupId>
+      <artifactId>vessel-server-graphql</artifactId>
     </dependency>
 
   </dependencies>
