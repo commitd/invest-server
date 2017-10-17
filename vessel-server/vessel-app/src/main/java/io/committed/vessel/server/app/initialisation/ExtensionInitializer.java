@@ -14,7 +14,9 @@ public class ExtensionInitializer implements
   @Override
   public void initialize(final AnnotationConfigApplicationContext applicationContext) {
 
-    final ExtensionFinder finder = new ExtensionFinder(true);
+    // TODO: THis should be set from configuration or similar.
+    final boolean verbose = false;
+    final ExtensionFinder finder = new ExtensionFinder(verbose);
     final Flux<Class<? extends VesselExtension>> extensions = finder.find();
 
     extensions.subscribe(e -> {

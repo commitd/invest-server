@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -14,9 +13,9 @@
   <packaging>jar</packaging>
 
   <dependencies>
-	<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -34,6 +33,7 @@
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-extensions</artifactId>
     </dependency>
+
   </dependencies>
 
   <build>
@@ -42,6 +42,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot.version}</version>
+        <configuration>
+          <!-- In order to run with external plugins on the classpath we use the PropertiesLauncher, with has the loader.path configuration -->
+          <layout>ZIP</layout>
+          <!-- We want an exectuable service -->
+          <executable>true</executable>
+ 
+        </configuration>
         <executions>
           <execution>
             <goals>
@@ -50,7 +57,21 @@
           </execution>
         </executions>
       </plugin>
-    </plugins>
+
+  
+<!-- TODO: I want to add a plugin directory to the manifest by default. This works but its not picked up?
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Class-Path>plugins/</Class-Path>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin> -->
+    </plugins> 
   </build>
 
 </project>

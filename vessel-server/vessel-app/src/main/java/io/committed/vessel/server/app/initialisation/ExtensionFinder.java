@@ -16,7 +16,7 @@ public class ExtensionFinder {
       // TODO: We might need to construct this from the plugins/ dir? so that we whitelist the
       // ones
       // there
-      "-jar:"
+      // "-jar:"
   };
   private final boolean verbose;
 
