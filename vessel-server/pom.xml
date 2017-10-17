@@ -30,5 +30,6 @@
 
   <modules>
     <module>vessel-app</module>
+    <module>vessel-server-core</module>
   </modules>
 </project>

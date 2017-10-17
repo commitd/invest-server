@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.committed.vessel.server.extensions.VesselExtension;
+import io.committed.vessel.extensions.VesselExtension;
 import lombok.extern.slf4j.Slf4j;
 
 @Component

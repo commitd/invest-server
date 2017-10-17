@@ -1,4 +1,4 @@
-package io.committed.vessel.server.extensions;
+package io.committed.vessel.extensions;
 
 public interface VesselApiExtension extends VesselExtension {
 

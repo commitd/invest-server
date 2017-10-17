@@ -3,7 +3,7 @@ package io.committed.vessel.server.app.initialisation;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.committed.vessel.server.extensions.VesselExtension;
+import io.committed.vessel.extensions.VesselExtension;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import reactor.core.publisher.Flux;
 

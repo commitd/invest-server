@@ -12,7 +12,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import io.committed.vessel.server.extensions.VesselUiExtension;
+import io.committed.vessel.extensions.VesselUiExtension;
 
 @Configuration
 public class UiMerger {
@@ -44,6 +44,8 @@ public class UiMerger {
         combined.andRoute(RequestPredicates.all(), request -> ServerResponse.notFound().build());
 
     return RouterFunctions.nest(RequestPredicates.path("/ui"), combined);
+
+
 
   }
 

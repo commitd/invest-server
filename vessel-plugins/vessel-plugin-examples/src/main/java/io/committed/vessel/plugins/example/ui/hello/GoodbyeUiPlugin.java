@@ -1,6 +1,6 @@
 package io.committed.vessel.plugins.example.ui.hello;
 
-import io.committed.vessel.server.extensions.VesselUiExtension;
+import io.committed.vessel.extensions.VesselUiExtension;
 
 public class GoodbyeUiPlugin implements VesselUiExtension {
 
