@@ -1,0 +1,16 @@
+package io.committed.vessel.plugins.ui.graphql;
+
+import io.committed.vessel.extensions.VesselUiExtension;
+
+public class GraphiQlUiPlugin implements VesselUiExtension {
+
+  @Override
+  public String getId() {
+    return "graphiql";
+  }
+
+  @Override
+  public String getStaticResourcePath() {
+    return "/ui-graphql/";
+  }
+}

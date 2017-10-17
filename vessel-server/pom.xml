@@ -29,7 +29,8 @@
 
 
   <modules>
-    <module>vessel-app</module>
+    <module>vessel-server-app</module>
+    <module>vessel-server-graphql</module>
     <module>vessel-server-core</module>
   </modules>
 </project>

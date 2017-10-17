@@ -18,6 +18,8 @@
     <!-- Version -->
     <spring-boot.version>2.0.0.M5</spring-boot.version>
     <maven-shade.version>3.1.0</maven-shade.version>
+    <graphql-java.version>4.2</graphql-java.version>
+    <graphql-spqr.version>0.9.3</graphql-spqr.version>
   </properties>
 
   <modules>
@@ -34,10 +36,28 @@
         <version>${maven-shade.version}</version>
       </dependency>
 
+      <!-- GraphQl -->
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>${graphql-java.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.leangen.graphql</groupId>
+        <artifactId>spqr</artifactId>
+        <version>${graphql-spqr.version}</version>
+      </dependency>
+
+
       <!-- Vessel specific: Note these are override in vessel-plugins -->
       <dependency>
         <groupId>io.committed.vessel</groupId>
         <artifactId>vessel-extensions</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.vessel</groupId>
+        <artifactId>vessel-server-graphql</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
@@ -84,60 +104,19 @@
   </pluginRepositories>
 
 
-<!--  This appears to be correct as per web, but it doesn't work: See https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
- <!--  <build>
-    <pluginManagement>
-      <plugins>
-        Support Java9 and sub Java9
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.7.0</version>
-          <executions>
-            <execution>
-              <id>default-compile</id>
-              <configuration>
-                compile everything to ensure module-info contains right 
-                  entries
-                required when JAVA_HOME is JDK 8 or below
-                <jdkToolchain>
-                  <version>9</version>
-                </jdkToolchain>
-                <release>9</release>
-              </configuration>
-            </execution>
-            <execution>
-              <id>base-compile</id>
-              <goals>
-                <goal>compile</goal>
-              </goals>
-              recompile everything for target VM except the module-info.java
-              <configuration>
-                <excludes>
-                  <exclude>module-info.java</exclude>
-                </excludes>
-              </configuration>
-            </execution>
-          </executions>
-          defaults for compile and testCompile
-          <configuration>
-            jdkToolchain required when JAVA_HOME is JDK 9 or above
-            <jdkToolchain>
-              <version>[1.5,9)</version>
-            </jdkToolchain>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
-
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build> -->
+  <!-- This appears to be correct as per web, but it doesn't work: See https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+  <!-- <build> <pluginManagement> <plugins> Support Java9 and sub Java9 <plugin> 
+    <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+    <version>3.7.0</version> <executions> <execution> <id>default-compile</id> 
+    <configuration> compile everything to ensure module-info contains right entries 
+    required when JAVA_HOME is JDK 8 or below <jdkToolchain> <version>9</version> 
+    </jdkToolchain> <release>9</release> </configuration> </execution> <execution> 
+    <id>base-compile</id> <goals> <goal>compile</goal> </goals> recompile everything 
+    for target VM except the module-info.java <configuration> <excludes> <exclude>module-info.java</exclude> 
+    </excludes> </configuration> </execution> </executions> defaults for compile 
+    and testCompile <configuration> jdkToolchain required when JAVA_HOME is JDK 
+    9 or above <jdkToolchain> <version>[1.5,9)</version> </jdkToolchain> <source>${java.version}</source> 
+    <target>${java.version}</target> </configuration> </plugin> </plugins> </pluginManagement> 
+    <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+    </plugin> </plugins> </build> -->
 </project>

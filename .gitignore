@@ -4,4 +4,7 @@
 target/
 bin/
 .vscode/
-plugins/
+/plugins/
+.factorypath
+.springBeans
+

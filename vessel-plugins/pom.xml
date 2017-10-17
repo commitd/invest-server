@@ -34,6 +34,36 @@
         <version>${spring-boot.version}</version>
         <scope>provided</scope>
       </dependency>
+      <!-- TODO: Do we want this type of thing -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        <version>${spring-boot.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>${spring-boot.version}</version>
+        <scope>test</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>${graphql-java.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.leangen.graphql</groupId>
+        <artifactId>spqr</artifactId>
+        <version>${graphql-spqr.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+
+
+
     </dependencies>
 
   </dependencyManagement>
@@ -61,5 +91,6 @@
 
   <modules>
     <module>vessel-plugin-examples</module>
+    <module>vessel-plugin-ui-graphiql</module>
   </modules>
 </project>
