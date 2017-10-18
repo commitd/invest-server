@@ -37,7 +37,10 @@
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-server-graphql</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>io.committed.vessel</groupId>
+      <artifactId>vessel-server-libs</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
