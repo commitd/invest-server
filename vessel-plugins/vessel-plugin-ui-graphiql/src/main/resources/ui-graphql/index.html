@@ -95,16 +95,35 @@
             }
         });
     }
+    
+    const store = {
+    		
+    }
+    const storage = {
+    	setItem: function(key, value) {
+    		store[key] = value
+    	},
+    	getItem: function(key) {
+    		return store[key]
+    	},
+    	removeItem: function(key) {
+    		delete store[key]
+    	}
+    
+    }
+    
     // Render <GraphiQL /> into the body.
     ReactDOM.render(
         React.createElement(GraphiQL, {
             fetcher: graphQLFetcher,
+    
             query: parameters.query,
             variables: parameters.variables,
             operationName: parameters.operationName,
             onEditQuery: onEditQuery,
             onEditVariables: onEditVariables,
-            onEditOperationName: onEditOperationName
+            onEditOperationName: onEditOperationName,
+            storage: storage
         }),
         document.getElementById('graphiql')
     );
