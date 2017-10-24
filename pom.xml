@@ -16,6 +16,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
 
     <!-- Version -->
+    <lombok.version>1.16.18</lombok.version>
     <spring-boot.version>2.0.0.M5</spring-boot.version>
     <maven-shade.version>3.1.0</maven-shade.version>
     <graphql-java.version>4.2</graphql-java.version>
@@ -28,6 +29,7 @@
     <module>vessel-server</module>
     <module>vessel-plugins</module>
     <module>vessel-extensions</module>
+    <module>vessel-core</module>
   </modules>
 
   <dependencyManagement>
@@ -65,6 +67,11 @@
       <dependency>
         <groupId>io.committed.vessel</groupId>
         <artifactId>vessel-server-libs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.vessel</groupId>
+        <artifactId>vessel-core</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
