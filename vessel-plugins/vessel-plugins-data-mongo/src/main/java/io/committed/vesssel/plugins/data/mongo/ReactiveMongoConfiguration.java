@@ -18,6 +18,7 @@ public class ReactiveMongoConfiguration extends AbstractReactiveMongoConfigurati
 
   @Override
   protected String getDatabaseName() {
+    // TODO: This will be configurable... and a factory!
     return "baleen";
   }
 
