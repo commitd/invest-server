@@ -25,10 +25,6 @@
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-mongodb</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.graphql-java</groupId>
       <artifactId>graphql-java</artifactId>
     </dependency>
@@ -36,7 +32,14 @@
       <groupId>io.leangen.graphql</groupId>
       <artifactId>spqr</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongodb-driver-reactivestreams</artifactId>
+    </dependency>
     <!-- Note not including the test dependencies -->
   </dependencies>
 </project>

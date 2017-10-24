@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.schema.GraphQLSchema;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.committed.vessel.server.graphql.data.VesselGraphQlServices;
+import io.committed.vessel.server.graphql.mappers.FluxToCollectionTypeAdapter;
+import io.committed.vessel.server.graphql.mappers.MonoAdapter;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
 import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
@@ -59,13 +61,20 @@ public class GraphQlConfig {
 
 
     GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
+        .withDefaults()
         .withResolverBuilders(
             new AnnotatedResolverBuilder(),
             // Resolve public methods everywhere
             // TODO: is this safe... I don't know what else we could do?
             new PublicResolverBuilder(null))
-        .withValueMapperFactory(new JacksonValueMapperFactory());
+        .withValueMapperFactory(new JacksonValueMapperFactory())
+        // Deal with reactive types
+        .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());
 
+    // At least one service must be registered otherwise GraphQL will thrown an exception
+    if (services.getServices().isEmpty()) {
+      factory = factory.withOperationsFromSingleton(new NoopGraphQLService());
+    }
 
     for (final Object service : services.getServices()) {
       factory = factory.withOperationsFromSingleton(service);
