@@ -46,6 +46,26 @@ public class GeoBox {
     }
   }
 
+  @JsonIgnore
+  public double getSafeN() {
+    return getN() == null ? 180.0 : getN();
+  }
+
+  @JsonIgnore
+  public double getSafeS() {
+    return getS() == null ? 180.0 : getS();
+  }
+
+  @JsonIgnore
+  public double getSafeE() {
+    return getE() == null ? 180.0 : getE();
+  }
+
+  @JsonIgnore
+  public double getSafeW() {
+    return getW() == null ? 180.0 : getW();
+  }
+
   public boolean contains(final double lat, final double lon) {
     return s <= lat && lat <= n && w <= lon && lon <= e;
   }
@@ -56,7 +76,7 @@ public class GeoBox {
         && w <= 180 && -90 <= n && n <= 90 && -90 <= s && s <= 90;
   }
 
-  public GeoBox intersection(GeoBox geobox) {
+  public GeoBox intersection(final GeoBox geobox) {
     return new GeoBox(
         minOrSet(n, geobox.getN()),
         minOrSet(e, geobox.getE()),
@@ -64,7 +84,7 @@ public class GeoBox {
         maxOrSet(w, geobox.getW()));
   }
 
-  private Double minOrSet(Double d1, Double d2) {
+  private static Double minOrSet(final Double d1, final Double d2) {
     if (d1 == null) {
       return d2;
     }
@@ -74,7 +94,7 @@ public class GeoBox {
     return Math.min(d1, d2);
   }
 
-  private Double maxOrSet(Double d1, Double d2) {
+  private static Double maxOrSet(final Double d1, final Double d2) {
     if (d1 == null) {
       return d2;
     }
