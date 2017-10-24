@@ -61,6 +61,7 @@ public class GraphQlConfig {
 
 
     GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
+        .withDefaults()
         .withResolverBuilders(
             new AnnotatedResolverBuilder(),
             // Resolve public methods everywhere
@@ -70,6 +71,10 @@ public class GraphQlConfig {
         // Deal with reactive types
         .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());
 
+    // At least one service must be registered otherwise GraphQL will thrown an exception
+    if (services.getServices().isEmpty()) {
+      factory = factory.withOperationsFromSingleton(new NoopGraphQLService());
+    }
 
     for (final Object service : services.getServices()) {
       factory = factory.withOperationsFromSingleton(service);
