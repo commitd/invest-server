@@ -18,6 +18,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.schema.GraphQLSchema;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.committed.vessel.server.graphql.data.VesselGraphQlServices;
+import io.committed.vessel.server.graphql.mappers.FluxToCollectionTypeAdapter;
+import io.committed.vessel.server.graphql.mappers.MonoAdapter;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
 import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
@@ -64,7 +66,9 @@ public class GraphQlConfig {
             // Resolve public methods everywhere
             // TODO: is this safe... I don't know what else we could do?
             new PublicResolverBuilder(null))
-        .withValueMapperFactory(new JacksonValueMapperFactory());
+        .withValueMapperFactory(new JacksonValueMapperFactory())
+        // Deal with reactive types
+        .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());
 
 
     for (final Object service : services.getServices()) {
