@@ -30,6 +30,7 @@
     <module>vessel-plugins</module>
     <module>vessel-extensions</module>
     <module>vessel-core</module>
+    <module>vessel-test</module>
   </modules>
 
   <dependencyManagement>
