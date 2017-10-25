@@ -12,7 +12,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 public abstract class AbstractWithAuthSecurityConfig {
 
   @Bean
-  public SecurityWebFilterChain springWebFilterChain(final HttpSecurity http) throws Exception {
+  public SecurityWebFilterChain springWebFilterChain(final HttpSecurity http) {
     return http
         // we rely on method security
         .authorizeExchange()

@@ -33,6 +33,7 @@
       <groupId>io.leangen.graphql</groupId>
       <artifactId>spqr</artifactId>
     </dependency>
+
   </dependencies>
 
   <build>

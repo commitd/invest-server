@@ -1,10 +1,12 @@
 package io.committed.vessel.plugins.example.graphql;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.leangen.graphql.annotations.GraphQLQuery;
+import reactor.core.publisher.Flux;
 
 @VesselGraphQlService
 public class ThingService {
@@ -19,10 +21,15 @@ public class ThingService {
     public String getName() {
       return name;
     }
+
+    public String getPassword() {
+      return "secret";
+    }
   }
 
   @GraphQLQuery(name = "things")
-  public Stream<Thing> getThings() {
-    return Arrays.asList(new Thing("hello")).stream();
+  @PreAuthorize("hasRole('USER')")
+  public Flux<Thing> getThings() {
+    return Flux.fromIterable(Arrays.asList(new Thing("hello")));
   }
 }
