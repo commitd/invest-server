@@ -11,8 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
-import io.committed.vessel.plugin.server.services.UserAccountRepository;
+import io.committed.vessel.plugin.server.services.ReactiveUserAccountRepositoryWrapper;
+import io.committed.vessel.plugin.server.services.UnreactiveUserAccountRepository;
 import io.committed.vessel.plugin.server.services.UserAccountDetailsRepositoryService;
+import io.committed.vessel.plugin.server.services.UserAccountRepository;
 
 
 @EnableWebFluxSecurity
@@ -41,11 +43,14 @@ public abstract class AbstractWithAuthSecurityConfig {
   @Profile("auth-jpa")
   public UserAccountRepository userAccountRepository(
       final JpaRepositoryFactory repositoryFactory) {
-    return repositoryFactory.getRepository(UserAccountRepository.class);
+    final UnreactiveUserAccountRepository repo =
+        repositoryFactory.getRepository(UnreactiveUserAccountRepository.class);
+    return new ReactiveUserAccountRepositoryWrapper(repo);
   }
 
   @Bean
-  public UserAccountDetailsRepositoryService userAccountService(final UserAccountRepository repository) {
+  public UserAccountDetailsRepositoryService userAccountService(
+      final UserAccountRepository repository) {
     return new UserAccountDetailsRepositoryService(repository);
   }
 
