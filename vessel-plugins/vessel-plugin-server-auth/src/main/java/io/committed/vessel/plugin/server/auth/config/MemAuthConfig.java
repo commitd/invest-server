@@ -1,4 +1,4 @@
-package io.committed.vessel.plugin.server.auth.mem;
+package io.committed.vessel.plugin.server.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.security.core.userdetails.MapUserDetailsRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-
-import io.committed.vessel.plugin.server.auth.AbstractWithAuthSecurityConfig;
 
 @Configuration
 @Profile({ "auth-mem" })

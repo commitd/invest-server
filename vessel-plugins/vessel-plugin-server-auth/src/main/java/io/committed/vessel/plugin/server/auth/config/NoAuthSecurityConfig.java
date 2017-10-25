@@ -1,4 +1,4 @@
-package io.committed.vessel.plugin.server.auth.none;
+package io.committed.vessel.plugin.server.auth.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
