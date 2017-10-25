@@ -15,12 +15,12 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class EnsureAdminUserExists {
 
-  private final SecurityService securityService;
-  private final UserAccountDataRepository userAccounts;
+  private final UserService securityService;
+  private final UserAccountRepository userAccounts;
 
   @Autowired
-  public EnsureAdminUserExists(final SecurityService securityService,
-      final UserAccountDataRepository userAccounts) {
+  public EnsureAdminUserExists(final UserService securityService,
+      final UserAccountRepository userAccounts) {
     this.securityService = securityService;
     this.userAccounts = userAccounts;
   }

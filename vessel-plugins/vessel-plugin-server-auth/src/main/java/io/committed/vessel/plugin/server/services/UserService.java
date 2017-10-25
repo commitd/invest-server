@@ -18,11 +18,11 @@ import reactor.core.publisher.Mono;
 
 
 @Slf4j
-public class SecurityService {
-  private final UserAccountDataRepository userAccounts;
+public class UserService {
+  private final UserAccountRepository userAccounts;
   private final PasswordEncoder passwordEncoder;
 
-  public SecurityService(final UserAccountDataRepository userAccounts,
+  public UserService(final UserAccountRepository userAccounts,
       final PasswordEncoder passwordEncoder) {
     this.userAccounts = userAccounts;
     this.passwordEncoder = passwordEncoder;

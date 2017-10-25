@@ -13,11 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsRepository;
 import io.committed.vessel.plugin.server.auth.dao.UserAccount;
 import reactor.core.publisher.Mono;
 
-public class UserAccountService implements UserDetailsRepository {
+public class UserAccountDetailsRepositoryService implements UserDetailsRepository {
 
-  private final UserAccountDataRepository repository;
+  private final UserAccountRepository repository;
 
-  public UserAccountService(final UserAccountDataRepository repository) {
+  public UserAccountDetailsRepositoryService(final UserAccountRepository repository) {
     this.repository = repository;
   }
 

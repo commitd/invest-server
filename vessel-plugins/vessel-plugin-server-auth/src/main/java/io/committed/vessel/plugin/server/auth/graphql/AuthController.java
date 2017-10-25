@@ -11,16 +11,16 @@ import org.springframework.security.core.GrantedAuthority;
 import io.committed.vessel.core.dto.auth.VesselUser;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
-import io.committed.vessel.plugin.server.services.SecurityService;
+import io.committed.vessel.plugin.server.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @VesselGraphQlService
 @Slf4j
 public class AuthController {
 
-  private final SecurityService securityService;
+  private final UserService securityService;
 
-  public AuthController(final SecurityService securityService) {
+  public AuthController(final UserService securityService) {
     this.securityService = securityService;
   }
 
