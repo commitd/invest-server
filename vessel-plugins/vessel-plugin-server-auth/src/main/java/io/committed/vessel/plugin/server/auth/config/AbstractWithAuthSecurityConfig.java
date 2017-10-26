@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
+import io.committed.vessel.plugin.server.services.EnsureAdminUserExists;
 import io.committed.vessel.plugin.server.services.UserAccountDetailsRepositoryService;
 import io.committed.vessel.plugin.server.services.UserAccountRepository;
 import io.committed.vessel.plugin.server.services.UserService;
@@ -27,6 +28,12 @@ public abstract class AbstractWithAuthSecurityConfig {
         .anyExchange().permitAll()
         .and()
         .build();
+  }
+
+  @Bean
+  public EnsureAdminUserExists ensureAdminUserExists(final UserService userService,
+      final UserAccountRepository userAccounts) {
+    return new EnsureAdminUserExists(userService, userAccounts);
   }
 
   @Bean
