@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -16,6 +17,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import graphql.schema.GraphQLSchema;
+import graphql.schema.idl.SchemaPrinter;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.committed.vessel.server.graphql.data.VesselGraphQlServices;
 import io.committed.vessel.server.graphql.mappers.FluxToCollectionTypeAdapter;
@@ -24,8 +26,10 @@ import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
 import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 public class GraphQlConfig {
 
   @Autowired
@@ -77,10 +81,18 @@ public class GraphQlConfig {
     }
 
     for (final Object service : services.getServices()) {
-      factory = factory.withOperationsFromSingleton(service);
+      // Spring might have proxied our classes so they won't work with SPQR directly
+      final Class<?> userClass = ClassUtils.getUserClass(service);
+      factory = factory.withOperationsFromSingleton(service, userClass);
     }
 
-    return factory.generate();
+
+    final GraphQLSchema schema = factory.generate();
+
+    final String schemaString = new SchemaPrinter().print(schema);
+    log.info(schemaString);
+
+    return schema;
 
   }
 

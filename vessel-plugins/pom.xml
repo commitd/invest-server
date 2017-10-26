@@ -27,8 +27,12 @@
     </dependency>
     <dependency>
       <groupId>io.projectreactor</groupId>
-       <artifactId>reactor-core</artifactId>
-       <version>${reactor.version}</version>
+      <artifactId>reactor-core</artifactId>
+      <version>${reactor.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
     </dependency>
   </dependencies>
 
@@ -39,7 +43,7 @@
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.16.18</version>
+        <version>${lombok.version}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -58,6 +62,36 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-webflux</artifactId>
         <version>${spring-boot.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-core</artifactId>
+        <version>${spring-security.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>${spring-security.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-webflux</artifactId>
+        <version>${spring-security.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+        <version>${spring-boot.version}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>${h2.version}</version>
         <scope>provided</scope>
       </dependency>
       <!-- TODO: Do we want this type of thing -->
@@ -123,5 +157,7 @@
     <module>vessel-plugins-data-mongo</module>
     <module>vessel-plugins-data-elasticsearch</module>
     <module>vessel-plugin-data-jdbc</module>
+    <module>vessel-plugin-server-audit</module>
+    <module>vessel-plugin-server-auth</module>
   </modules>
 </project>
