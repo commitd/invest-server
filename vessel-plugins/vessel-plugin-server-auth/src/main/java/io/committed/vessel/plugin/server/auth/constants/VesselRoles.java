@@ -2,6 +2,10 @@ package io.committed.vessel.plugin.server.auth.constants;
 
 public class VesselRoles {
 
+  private VesselRoles() {
+    // Singleton
+  }
+
 
   public static final String USER_AUTHORITY = "USER";
   public static final String ADMINISTRATOR_AUTHORITY = "ADMIN";

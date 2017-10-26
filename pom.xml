@@ -23,7 +23,7 @@
     <graphql-spqr.version>0.9.3</graphql-spqr.version>
     <spring-data-elasticsearch.version>3.0.0.RELEASE</spring-data-elasticsearch.version>
     <spring-security.version>5.0.0.M5</spring-security.version>
-    
+    <h2.version>1.4.196</h2.version>
     <reactor.version>3.1.0.RELEASE</reactor.version>
   </properties>
 
