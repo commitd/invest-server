@@ -1,9 +1,6 @@
 package io.committed.vessel.plugin.server.auth.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
-import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-import org.springframework.data.mongodb.repository.support.ReactiveMongoRepositoryFactory;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.HttpSecurity;
@@ -12,10 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
-import io.committed.vessel.plugin.server.services.ReactiveUserAccountRepositoryWrapper;
-import io.committed.vessel.plugin.server.services.UnreactiveUserAccountRepository;
 import io.committed.vessel.plugin.server.services.UserAccountDetailsRepositoryService;
 import io.committed.vessel.plugin.server.services.UserAccountRepository;
+import io.committed.vessel.plugin.server.services.UserService;
 
 
 @EnableWebFluxSecurity
@@ -34,19 +30,9 @@ public abstract class AbstractWithAuthSecurityConfig {
   }
 
   @Bean
-  @Profile("auth-mongo")
-  public UserAccountRepository userAccountRepository(
-      final ReactiveMongoRepositoryFactory repositoryFactory) {
-    return repositoryFactory.getRepository(UserAccountRepository.class);
-  }
-
-  @Bean
-  @Profile("auth-jpa")
-  public UserAccountRepository userAccountRepository(
-      final JpaRepositoryFactory repositoryFactory) {
-    final UnreactiveUserAccountRepository repo =
-        repositoryFactory.getRepository(UnreactiveUserAccountRepository.class);
-    return new ReactiveUserAccountRepositoryWrapper(repo);
+  public UserService userService(final UserAccountRepository userAccounts,
+      final PasswordEncoder passwordEncoder) {
+    return new UserService(userAccounts, passwordEncoder);
   }
 
   @Bean
