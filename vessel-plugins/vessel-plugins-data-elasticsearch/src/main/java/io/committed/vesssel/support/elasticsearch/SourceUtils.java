@@ -17,7 +17,7 @@ public class SourceUtils {
     // Singleton
   }
 
-  public static <T> Flux<T> convertHitsToList(final ObjectMapper mapper, final SearchResponse r,
+  public static <T> Flux<T> convertHits(final ObjectMapper mapper, final SearchResponse r,
       final Class<T> clazz) {
 
     // NOTE this loses id
