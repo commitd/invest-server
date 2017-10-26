@@ -1,10 +1,11 @@
 package io.committed.vessel.plugin.server.services;
 
-import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
 import io.committed.vessel.plugin.server.auth.dao.UserAccount;
@@ -13,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class EnsureAdminUserExists {
+public class EnsureAdminUserExists implements ApplicationListener<ContextRefreshedEvent> {
 
   private final UserService securityService;
   private final UserAccountRepository userAccounts;
@@ -25,9 +26,8 @@ public class EnsureAdminUserExists {
     this.userAccounts = userAccounts;
   }
 
-  @PostConstruct
-  @Transactional
-  public void ensureUser() throws Exception {
+
+  public void ensureUser() {
     final Mono<Boolean> adminUser =
         userAccounts.findAll()
             .any(u -> u.hasAuthority(VesselRoles.ADMINISTRATOR_AUTHORITY));
@@ -51,7 +51,11 @@ public class EnsureAdminUserExists {
           username);
 
     }
+  }
 
-
+  @Override
+  @Transactional
+  public void onApplicationEvent(final ContextRefreshedEvent event) {
+    ensureUser();
   }
 }

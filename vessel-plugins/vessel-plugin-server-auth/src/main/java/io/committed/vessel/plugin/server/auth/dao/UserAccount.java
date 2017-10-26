@@ -3,15 +3,17 @@ package io.committed.vessel.plugin.server.auth.dao;
 import java.util.Set;
 
 import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 
 @Data
+@Entity
 public class UserAccount {
   @Id
   @GeneratedValue(generator = "uuid")
