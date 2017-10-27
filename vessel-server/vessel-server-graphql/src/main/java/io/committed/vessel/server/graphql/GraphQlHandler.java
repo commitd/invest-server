@@ -17,6 +17,7 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
+import io.committed.vessel.core.graphql.Context;
 import io.committed.vessel.server.graphql.data.GraphQlQuery;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -46,6 +47,7 @@ public class GraphQlHandler {
                 .operationName(q.getOperationName())
                 .query(q.getQuery())
                 .variables(q.getVariables())
+                .context(buildContext(request))
                 .build())
             .map(this::performQuery)
             .map(ExecutionResult::toSpecification),
@@ -69,15 +71,26 @@ public class GraphQlHandler {
 
     if (variablesString.isPresent()) {
       try {
-        input.variables(mapper.readValue(variablesString.get().toString(), mapStringObject));
+        input =
+            input.variables(mapper.readValue(variablesString.get().toString(), mapStringObject));
       } catch (final Exception e) {
         log.warn("Dropping variables unable to deserialise", e);
       }
     }
 
+    final Context context = buildContext(request);
+    input = input.context(context);
+
     final ExecutionResult result = performQuery(input.build());
     return ServerResponse.ok().syncBody(result.toSpecification());
+  }
 
+  private Context buildContext(final ServerRequest request) {
+    final Context context = Context.builder()
+        .authentication(request.principal())
+        .session(request.session())
+        .build();
+    return context;
   }
 
   public Mono<ServerResponse> getSchema(final ServerRequest request) {

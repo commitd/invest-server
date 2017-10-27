@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import org.hibernate.annotations.GenericGenerator;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class UserAccount {
   @Id
   @GeneratedValue(generator = "uuid")

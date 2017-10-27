@@ -2,7 +2,7 @@ package io.committed.vessel.core.dto.auth;
 
 import java.util.Set;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
