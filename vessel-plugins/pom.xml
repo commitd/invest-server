@@ -156,7 +156,7 @@
     <module>vessel-plugin-extensions-graphql</module>
     <module>vessel-plugins-data-mongo</module>
     <module>vessel-plugins-data-elasticsearch</module>
-    <module>vessel-plugin-data-jdbc</module>
+    <module>vessel-plugin-data-jpa</module>
     <module>vessel-plugin-server-audit</module>
     <module>vessel-plugin-server-auth</module>
   </modules>
