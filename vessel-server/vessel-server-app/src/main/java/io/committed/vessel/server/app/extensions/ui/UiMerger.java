@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import io.committed.vessel.core.services.UiUrlService;
 import io.committed.vessel.extensions.VesselUiExtension;
 
 @Configuration
@@ -19,6 +20,9 @@ public class UiMerger {
 
   @Autowired(required = false)
   private final List<VesselUiExtension> extensions = Collections.emptyList();
+
+  @Autowired
+  private UiUrlService urlService;
 
   @Bean
   public RouterFunction<?> uiExtensionRoutes() {
@@ -32,7 +36,7 @@ public class UiMerger {
     for (final VesselUiExtension e : extensions) {
 
       final String classPath = e.getStaticResourcePath();
-      final String urlPath = String.format("/%s", e.getId());
+      final String urlPath = urlService.getContextRelativePath(e);
 
       combined = combined
           .andNest(RequestPredicates.path(urlPath),
@@ -43,7 +47,7 @@ public class UiMerger {
     combined =
         combined.andRoute(RequestPredicates.all(), request -> ServerResponse.notFound().build());
 
-    return RouterFunctions.nest(RequestPredicates.path("/ui"), combined);
+    return RouterFunctions.nest(RequestPredicates.path(urlService.getContextPath()), combined);
 
 
 

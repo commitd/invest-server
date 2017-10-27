@@ -6,16 +6,12 @@
     <artifactId>vessel-plugins</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>vessel-plugin-extensions-graphql</artifactId>
-
-  <name>Vessel-GraphQL Extension Plugin</name>
-  <description>Provides access to available plugins via GraphQL</description>
+  <artifactId>vessel-plugin-graphql-ui</artifactId>
 
   <dependencies>
-
     <dependency>
-      <groupId>io.leangen.graphql</groupId>
-      <artifactId>spqr</artifactId>
+      <groupId>io.committed.vessel</groupId>
+      <artifactId>vessel-core</artifactId>
     </dependency>
   </dependencies>
 </project>
