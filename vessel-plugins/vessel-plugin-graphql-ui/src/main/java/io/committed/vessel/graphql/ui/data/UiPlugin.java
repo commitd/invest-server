@@ -14,11 +14,13 @@ public class UiPlugin {
   private String name;
   private String description;
   private String url;
+  private String icon;
 
   public UiPlugin(final VesselUiExtension extension, final String url) {
     this.id = extension.getId();
     this.name = extension.getName();
     this.description = extension.getDescription();
     this.url = url;
+    this.icon = extension.getIcon();
   }
 }

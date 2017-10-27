@@ -28,8 +28,9 @@ public class VesselServerGraphQLService {
 
   @GraphQLQuery
   public Flux<UiPlugin> uiPlugins() {
+    // HACK: Adding index.html shouldn't be needed
     return Flux.fromIterable(uiExtensions)
-        .map(e -> new UiPlugin(e, urlService.getFullPath(e)));
+        .map(e -> new UiPlugin(e, urlService.getFullPath(e) + "/index.html"));
   }
 
 }
