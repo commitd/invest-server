@@ -11,6 +11,13 @@
   <artifactId>vessel-extensions</artifactId>
 
   <dependencies>
+     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  
     <!-- Need the spring annotations -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
