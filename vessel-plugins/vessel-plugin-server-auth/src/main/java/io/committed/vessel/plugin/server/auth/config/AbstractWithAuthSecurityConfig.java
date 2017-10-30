@@ -27,13 +27,20 @@ public abstract class AbstractWithAuthSecurityConfig {
 
   @Bean
   public SecurityWebFilterChain springWebFilterChain(final HttpSecurity http) {
-    return http
-        // we rely on method security
+
+    // For the /view we want to allow iframe acccess
+    // TODO: Can we limit this just to /ui?
+    http
+        .headers().frameOptions().disable();
+
+    http// we rely on method security
         .authorizeExchange()
+        .pathMatchers("/ui/**").permitAll()
         .pathMatchers("/actuator/**").hasRole(VesselRoles.ROLE_ADMINISTRATOR)
-        .anyExchange().permitAll()
-        .and()
-        .build();
+        .anyExchange().permitAll();
+
+
+    return http.build();
   }
 
   // TODO: Blocks forever with MongoReactive.. probably me (CF) not understanding the flux/mono
