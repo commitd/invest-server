@@ -2,8 +2,6 @@ package io.committed.vessel.plugins.example.graphql;
 
 import java.util.Arrays;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
@@ -28,7 +26,6 @@ public class ThingService {
   }
 
   @GraphQLQuery(name = "things")
-  @PreAuthorize("hasRole('USER')")
   public Flux<Thing> getThings() {
     return Flux.fromIterable(Arrays.asList(new Thing("hello")));
   }
