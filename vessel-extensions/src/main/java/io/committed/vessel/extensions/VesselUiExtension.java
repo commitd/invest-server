@@ -25,4 +25,8 @@ public interface VesselUiExtension extends VesselExtension {
     return Collections.emptyList();
   }
 
+  default Class<?> getSettings() {
+    return null;
+  }
+
 }
