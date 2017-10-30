@@ -29,6 +29,11 @@
       <groupId>io.leangen.graphql</groupId>
       <artifactId>spqr</artifactId>
     </dependency>
+      <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
+    </dependency>
     <dependency>
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-core</artifactId>
