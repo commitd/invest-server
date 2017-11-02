@@ -22,13 +22,13 @@
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-actuator</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-core</artifactId>
-    </dependency> 
+    </dependency>
     <!-- TODO: Currently doesn't work with Java 9, but has embronic support -->
     <dependency>
       <groupId>io.github.lukehutch</groupId>
@@ -50,6 +50,10 @@
     </dependency>
     <dependency>
       <groupId>io.committed.vessel</groupId>
+      <artifactId>vessel-server-data</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-server-libs</artifactId>
     </dependency>
   </dependencies>
@@ -61,11 +65,12 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>${spring-boot.version}</version>
         <configuration>
-          <!-- In order to run with external plugins on the classpath we use the PropertiesLauncher, with has the loader.path configuration -->
+          <!-- In order to run with external plugins on the classpath we 
+            use the PropertiesLauncher, with has the loader.path configuration -->
           <layout>ZIP</layout>
           <!-- We want an exectuable service -->
           <executable>true</executable>
- 
+
         </configuration>
         <executions>
           <execution>
@@ -76,20 +81,13 @@
         </executions>
       </plugin>
 
-  
-<!-- TODO: I want to add a plugin directory to the manifest by default. This works but its not picked up?
-       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Class-Path>plugins/</Class-Path>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin> -->
-    </plugins> 
+
+      <!-- TODO: I want to add a plugin directory to the manifest by default. 
+        This works but its not picked up? <plugin> <groupId>org.apache.maven.plugins</groupId> 
+        <artifactId>maven-jar-plugin</artifactId> <configuration> <archive> <manifestEntries> 
+        <Class-Path>plugins/</Class-Path> </manifestEntries> </archive> </configuration> 
+        </plugin> -->
+    </plugins>
   </build>
 
 </project>

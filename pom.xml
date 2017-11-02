@@ -75,6 +75,11 @@
       </dependency>
       <dependency>
         <groupId>io.committed.vessel</groupId>
+        <artifactId>vessel-server-data</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.vessel</groupId>
         <artifactId>vessel-core</artifactId>
         <version>${project.version}</version>
       </dependency>
