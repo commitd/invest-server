@@ -6,6 +6,6 @@ public interface DataProvider {
 
   String getDatasource();
 
-  String getCorpus();
+  String getDataset();
 
 }

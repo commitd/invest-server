@@ -14,12 +14,12 @@ public class DatasetRegistry {
     this.datasets = datasets;
   }
 
-  public Flux<Dataset> getCorpora() {
+  public Flux<Dataset> getDatasets() {
     return Flux.fromIterable(datasets);
   }
 
   public Mono<Dataset> findById(final String id) {
-    return getCorpora()
+    return getDatasets()
         .filter(c -> c.getId().equalsIgnoreCase(id))
         .next();
   }

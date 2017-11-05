@@ -19,7 +19,7 @@ public class DatasetProviders {
 
   @Autowired
   public DatasetProviders(final List<DataProvider> providers) {
-    this.providers = Multimaps.index(providers, DataProvider::getCorpus);
+    this.providers = Multimaps.index(providers, DataProvider::getDataset);
   }
 
   public Flux<DataProvider> findForDataset(final String datasetId) {

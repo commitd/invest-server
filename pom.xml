@@ -88,7 +88,12 @@
         <artifactId>vessel-server-core</artifactId>
         <version>${project.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>io.committed.vessel</groupId>
+        <artifactId>vessel-test</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
