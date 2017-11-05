@@ -17,58 +17,13 @@ import reactor.core.publisher.Flux;
 public class ExtensionInitializer implements
     ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-  private static interface AnnotationContextProxy {
-
-    <T> void registerBean(String name, Class<T> clazz, Supplier<T> supplier);
-
-    void register(Class<?>... classes);
-
-  }
 
   @Override
   public void initialize(final ConfigurableApplicationContext applicationContext) {
 
 
     // We don't have a common inheritence parent.. but the functions are the same in the end..
-    final AnnotationContextProxy proxy;
-    if (applicationContext instanceof AnnotationConfigApplicationContext) {
-      final AnnotationConfigApplicationContext context =
-          (AnnotationConfigApplicationContext) applicationContext;
-      proxy = new AnnotationContextProxy() {
-
-        @Override
-        public <T> void registerBean(final String beanName, final Class<T> beanClass,
-            final Supplier<T> supplier) {
-          context.registerBean(beanName, beanClass, supplier);
-        }
-
-        @Override
-        public void register(final Class<?>... classes) {
-          context.register(classes);
-        }
-      };
-    } else if (applicationContext instanceof AnnotationConfigServletWebServerApplicationContext) {
-
-      final AnnotationConfigServletWebServerApplicationContext context =
-          (AnnotationConfigServletWebServerApplicationContext) applicationContext;
-      proxy = new AnnotationContextProxy() {
-
-        @Override
-        public <T> void registerBean(final String beanName, final Class<T> beanClass,
-            final Supplier<T> supplier) {
-          context.registerBean(beanName, beanClass, supplier);
-        }
-
-        @Override
-        public void register(final Class<?>... classes) {
-          context.register(classes);
-        }
-      };
-
-    } else {
-      throw new RuntimeException(
-          String.format("Context is not support: %s", applicationContext.getClass().getName()));
-    }
+    final AnnotationContextProxy proxy = createAnnotationContextProxy(applicationContext);
 
 
     // TODO: Verbose should should be set from configuration or similar.
@@ -106,5 +61,47 @@ public class ExtensionInitializer implements
       }
     });
 
+  }
+
+  private AnnotationContextProxy createAnnotationContextProxy(
+      final ConfigurableApplicationContext applicationContext) {
+    if (applicationContext instanceof AnnotationConfigApplicationContext) {
+      final AnnotationConfigApplicationContext context =
+          (AnnotationConfigApplicationContext) applicationContext;
+      return new AnnotationContextProxy() {
+
+        @Override
+        public <T> void registerBean(final String beanName, final Class<T> beanClass,
+            final Supplier<T> supplier) {
+          context.registerBean(beanName, beanClass, supplier);
+        }
+
+        @Override
+        public void register(final Class<?>... classes) {
+          context.register(classes);
+        }
+      };
+    } else if (applicationContext instanceof AnnotationConfigServletWebServerApplicationContext) {
+
+      final AnnotationConfigServletWebServerApplicationContext context =
+          (AnnotationConfigServletWebServerApplicationContext) applicationContext;
+      return new AnnotationContextProxy() {
+
+        @Override
+        public <T> void registerBean(final String beanName, final Class<T> beanClass,
+            final Supplier<T> supplier) {
+          context.registerBean(beanName, beanClass, supplier);
+        }
+
+        @Override
+        public void register(final Class<?>... classes) {
+          context.register(classes);
+        }
+      };
+
+    } else {
+      throw new RuntimeException(
+          String.format("Context is not support: %s", applicationContext.getClass().getName()));
+    }
   }
 }

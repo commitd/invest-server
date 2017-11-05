@@ -28,10 +28,7 @@ public class UiMerger {
   public RouterFunction<?> uiExtensionRoutes() {
 
     RouterFunction<ServerResponse> combined =
-        RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build())
-    // .and(RouterFunctions.route(RequestPredicates.path("/test"),
-    // request -> ServerResponse.ok().syncBody("testing")))
-    ;
+        RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
 
     for (final VesselUiExtension e : extensions) {
 
