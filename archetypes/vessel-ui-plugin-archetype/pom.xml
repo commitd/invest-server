@@ -224,7 +224,7 @@
           <execution>
             <id>copy-resources</id>
             <!-- Run the copy After the compilation, but before we package the JAR up-->
-            <phase>prepare-package</phase>
+            <phase>process-classes</phase>
             <goals>
               <goal>copy-resources</goal>
             </goals>
@@ -232,7 +232,7 @@
               <outputDirectory>${basedir}/target/classes/ui/${project.artifactId}</outputDirectory>
               <resources>          
                 <resource>
-                  <directory>${basedir}/src/main/js/build/dist</directory>
+                  <directory>${basedir}/src/main/js/build</directory>
                   <filtering>false</filtering>
                 </resource>
               </resources>              
