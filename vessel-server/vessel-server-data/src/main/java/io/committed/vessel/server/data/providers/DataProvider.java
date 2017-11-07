@@ -4,7 +4,9 @@ public interface DataProvider {
 
   String getProviderType();
 
-  String getDatasource();
+  // String getDatasource();
+
+  String getDatabase();
 
   String getDataset();
 

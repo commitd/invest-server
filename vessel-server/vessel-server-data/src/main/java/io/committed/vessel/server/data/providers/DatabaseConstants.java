@@ -1,6 +1,6 @@
 package io.committed.vessel.server.data.providers;
 
-public class DatasourceConstants {
+public class DatabaseConstants {
 
   public static final String MONGO = "Mongo";
 

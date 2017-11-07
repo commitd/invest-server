@@ -9,14 +9,19 @@ public class AnotherFakeDataProvider implements DataProvider {
     return "AnotherFakeDataProvider";
   }
 
-  @Override
-  public String getDatasource() {
-    return "test-dataset";
-  }
+  // @Override
+  // public String getDatasource() {
+  // return FakeDataProvider.DATASOURCE;
+  // }
 
   @Override
   public String getDataset() {
     return FakeDataProvider.DATASET;
+  }
+
+  @Override
+  public String getDatabase() {
+    return FakeDataProvider.DATABASE;
   }
 
   public boolean findExample() {
