@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Maps;
 
+import io.committed.vessel.server.data.dataset.DataProviderSpecification;
 import io.committed.vessel.server.data.providers.DataProvider;
 import io.committed.vessel.server.data.providers.DataProviderFactory;
 import io.committed.vessel.server.data.testing.AnotherFakeDataProvider;
@@ -74,14 +75,19 @@ public class DataProviderFactoryRegistryTest {
   @Test
   public void testBuildWhereMatches() {
     final Mono<? extends DataProvider> mono =
-        registry.build(FakeDataProviderFactory.ID, "test-dataset", Maps.newHashMap());
+        registry.build("test-dataset",
+            DataProviderSpecification.builder().factory(FakeDataProviderFactory.ID)
+                .datasource("test-datasource").settings(Maps.newHashMap()).build());
     assertThat(mono.block()).isInstanceOf(FakeDataProvider.class);
   }
 
   @Test
   public void testBuildWhereFails() {
     final Mono<? extends DataProvider> mono =
-        registry.build(AnotherFakeDataProviderFactory.ID, "test-dataset", Maps.newHashMap());
+        registry
+            .build("test-dataset",
+                DataProviderSpecification.builder().factory(AnotherFakeDataProviderFactory.ID)
+                    .datasource("test-datasource").settings(Maps.newHashMap()).build());
     assertThat(mono.hasElement().block()).isFalse();
   }
 }

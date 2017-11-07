@@ -46,9 +46,7 @@ public class DatasetDataProviderCreationService implements BeanFactoryPostProces
       final DataProviderSpecification spec) {
 
     final Mono<? extends DataProvider> mono =
-        dataProviderFactoryRegistry.build(spec.getFactory(),
-            dataset.getId(),
-            spec.getSettings());
+        dataProviderFactoryRegistry.build(dataset.getId(), spec);
 
     final DataProvider provider = mono.block();
 

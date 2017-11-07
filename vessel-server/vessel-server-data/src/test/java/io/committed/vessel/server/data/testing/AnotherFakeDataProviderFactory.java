@@ -21,7 +21,7 @@ public class AnotherFakeDataProviderFactory
   }
 
   @Override
-  public Mono<AnotherFakeDataProvider> build(final String corpus,
+  public Mono<AnotherFakeDataProvider> build(final String dataset, final String datasource,
       final Map<String, Object> settings) {
     return Mono.justOrEmpty(fdp);
   }

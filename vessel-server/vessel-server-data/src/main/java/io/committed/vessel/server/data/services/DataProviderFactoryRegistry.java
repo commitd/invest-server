@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.committed.vessel.server.data.dataset.DataProviderSpecification;
 import io.committed.vessel.server.data.providers.DataProvider;
 import io.committed.vessel.server.data.providers.DataProviderFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -38,15 +39,18 @@ public class DataProviderFactoryRegistry {
         .map(f -> (DataProviderFactory<P>) f);
   }
 
-  public Mono<? extends DataProvider> build(final String id, final String dataset,
-      final Map<String, Object> settings) {
 
-    final Map<String, Object> safeSettings = settings == null ? Collections.emptyMap() : settings;
+  public Mono<? extends DataProvider> build(final String dataset,
+      final DataProviderSpecification spec) {
+    final Map<String, Object> safeSettings =
+        spec.getSettings() == null ? Collections.emptyMap() : spec.getSettings();
 
-    return findFactories(id)
+    final String factoryId = spec.getFactory();
+
+    return findFactories(factoryId)
         .flatMap(f -> {
           try {
-            return f.build(dataset, safeSettings);
+            return f.build(dataset, spec.getDatasource(), safeSettings);
           } catch (final Exception e) {
             log.warn("Unable to create data provider due to error", e);
             return Mono.empty();
@@ -55,5 +59,5 @@ public class DataProviderFactoryRegistry {
         // Grab the first non empty
         .next();
   }
-
 }
+

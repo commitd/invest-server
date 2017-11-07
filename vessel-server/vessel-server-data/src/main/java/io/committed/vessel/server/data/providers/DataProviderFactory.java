@@ -8,10 +8,10 @@ public interface DataProviderFactory<T extends DataProvider> {
 
   String getId();
 
-  Mono<T> build(String corpus, Map<String, Object> settings);
-
   Class<T> getDataProvider();
 
-  String getDatasource();
+  String getDatabase();
+
+  Mono<T> build(String dataset, String datasource, Map<String, Object> settings);
 
 }

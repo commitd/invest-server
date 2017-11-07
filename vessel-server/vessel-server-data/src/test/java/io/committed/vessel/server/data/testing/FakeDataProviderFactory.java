@@ -20,7 +20,8 @@ public class FakeDataProviderFactory extends AbstractDataProviderFactory<FakeDat
   }
 
   @Override
-  public Mono<FakeDataProvider> build(final String corpus, final Map<String, Object> settings) {
+  public Mono<FakeDataProvider> build(final String dataset, final String datasource,
+      final Map<String, Object> settings) {
     return Mono.justOrEmpty(fdp);
   }
 

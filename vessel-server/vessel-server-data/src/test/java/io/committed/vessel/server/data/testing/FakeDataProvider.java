@@ -13,10 +13,10 @@ public class FakeDataProvider implements DataProvider {
     return "TestProvider";
   }
 
-  // @Override
-  // public String getDatasource() {
-  // return DATASOURCE;
-  // }
+  @Override
+  public String getDatasource() {
+    return DATASOURCE;
+  }
 
   @Override
   public String getDataset() {

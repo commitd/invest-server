@@ -9,10 +9,10 @@ public class AnotherFakeDataProvider implements DataProvider {
     return "AnotherFakeDataProvider";
   }
 
-  // @Override
-  // public String getDatasource() {
-  // return FakeDataProvider.DATASOURCE;
-  // }
+  @Override
+  public String getDatasource() {
+    return FakeDataProvider.DATASOURCE;
+  }
 
   @Override
   public String getDataset() {

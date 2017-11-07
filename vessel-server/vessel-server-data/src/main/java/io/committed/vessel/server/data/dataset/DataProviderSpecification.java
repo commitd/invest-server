@@ -13,6 +13,12 @@ public class DataProviderSpecification {
   // the dataproviderfactory id
   private String factory;
 
+  // The a id which uniquely specifies the source of the data (could be the name of the baleen
+  // pipeline + collection which generated the data)
+  // Different data provides of the same or different data provider types might be fed by the same
+  // data sources.
+  private String datasource;
+
   private Map<String, Object> settings = Collections.emptyMap();
 
 }
