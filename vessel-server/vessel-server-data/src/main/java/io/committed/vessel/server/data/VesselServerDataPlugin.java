@@ -37,14 +37,16 @@ public class VesselServerDataPlugin implements VesselServiceExtension {
     }
 
     @Bean
-    public DatasetRegistry corpusRegistry(final List<Dataset> corpora) {
-      return new DatasetRegistry(corpora);
+    public DatasetRegistry corpusRegistry(
+        @Autowired(required = false) final List<Dataset> corpora) {
+      return new DatasetRegistry(corpora == null ? Collections.emptyList() : corpora);
     }
 
     @Bean
     public DataProviderFactoryRegistry dataProviderFactoryRegistry(
-        final List<DataProviderFactory<?>> factories) {
-      return new DataProviderFactoryRegistry(factories);
+        @Autowired(required = false) final List<DataProviderFactory<?>> factories) {
+      return new DataProviderFactoryRegistry(
+          factories == null ? Collections.emptyList() : factories);
     }
 
     @Bean
