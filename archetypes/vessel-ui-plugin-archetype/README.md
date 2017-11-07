@@ -30,6 +30,14 @@ Under `src/main/js` is a  Yarn project using Typescript and create-react-app. It
 
 Our suggested approach for development is simply to ignore the Maven build system, and work within the `src/main/js` directory as you would for any other yarn application.
 
+Start by installing the dependencies with
+
+```
+yarn install
+```
+
+Other useful commands include:
+
 * `yarn start` to run a hot reloading development server
 * `yarn storybook`to run hot reloading storybook environment
 * `yarn test` to run any tests you have, including storybook snapshots
