@@ -7,6 +7,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>vessel-plugin-data-jpa</artifactId>
+  <name>Vessel Plugin JPA</name>
+  <description>JPA configuration for Vessel</description>
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>

@@ -6,6 +6,7 @@
     <artifactId>vessel-server</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
+  <packaging>jar</packaging>
   <artifactId>vessel-server-libs</artifactId>
   <name>Vessel Server Libs</name>
   <description>Contains all the libraries requires by server and available to client (without additional bundling)</description>
@@ -67,8 +68,8 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
     </dependency>
+
     <!-- Note not including the test dependencies -->
   </dependencies>
 </project>

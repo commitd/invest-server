@@ -4,7 +4,6 @@
 target/
 bin/
 .vscode/
-/plugins/
 .factorypath
 .springBeans
 dependency-reduced-pom.xml

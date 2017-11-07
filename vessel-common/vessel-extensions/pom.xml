@@ -2,28 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>vessel</artifactId>
+    <artifactId>vessel-common</artifactId>
     <groupId>io.committed.vessel</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>vessel-extensions</artifactId>
-
+  <name>Vessel Extension</name>
+  <description>Extension point definitions which Vessel plugins can extend</description>
+  
   <dependencies>
-     <dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
     </dependency>
   
     <!-- Need the spring annotations -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
-      <version>${spring-boot.version}</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
 

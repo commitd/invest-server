@@ -15,141 +15,27 @@
     <nodejs.version>v8.9.0</nodejs.version>
     <yarn.version>v1.3.2</yarn.version>
 
-    <!-- Versions: These should largely match the Spring Boot version -->
-    <lombok.version>1.16.18</lombok.version>
-    <spring-boot.version>2.0.0.M5</spring-boot.version>
-    <maven-shade.version>3.1.0</maven-shade.version>
-    <graphql-java.version>4.2</graphql-java.version>
-    <graphql-spqr.version>0.9.3</graphql-spqr.version>
-    <spring-data-elasticsearch.version>3.0.0.RELEASE</spring-data-elasticsearch.version>
-    <spring-security.version>5.0.0.M5</spring-security.version>
-    <h2.version>1.4.196</h2.version>
-    <reactor.version>3.1.0.RELEASE</reactor.version>
-    <guava.version>23.3-jre</guava.version>
+    <vessel-java.version>0.1.0-SNAPSHOT</vessel-java.version>
   </properties>
 
   <dependencies>
-    <!-- Every plugin will need these -->
     <dependency>
       <groupId>io.committed.vessel</groupId>
-      <artifactId>vessel-extensions</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.leangen.graphql</groupId>
-      <artifactId>spqr</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${guava.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.projectreactor</groupId>
-      <artifactId>reactor-core</artifactId>
-      <version>${reactor.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <optional>true</optional>
-      <version>${spring-boot.version}</version>
+      <artifactId>vessel-plugin</artifactId>
     </dependency>
   </dependencies>
 
   <dependencyManagement>
-    <!-- Anything included by the framework should by in the provided scope, 
-      as we don't need a second copy! -->
     <dependencies>
       <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter</artifactId>
-        <version>${spring-boot.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-webflux</artifactId>
-        <version>${spring-boot.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-core</artifactId>
-        <version>${spring-security.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-config</artifactId>
-        <version>${spring-security.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.security</groupId>
-        <artifactId>spring-security-webflux</artifactId>
-        <version>${spring-security.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-        <version>${spring-boot.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <version>${h2.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <!-- TODO: Do we want this type of thing -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
-        <version>${spring-boot.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.data</groupId>
-        <artifactId>spring-data-elasticsearch</artifactId>
-        <version>${spring-data-elasticsearch.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-test</artifactId>
-        <version>${spring-boot.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.graphql-java</groupId>
-        <artifactId>graphql-java</artifactId>
-        <version>${graphql-java.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>io.leangen.graphql</groupId>
-        <artifactId>spqr</artifactId>
-        <version>${graphql-spqr.version}</version>
-        <scope>provided</scope>
+        <groupId>io.committed.vessel</groupId>
+        <artifactId>vessel-dependencies</artifactId>
+        <version>${vessel-java.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
-  </dependencyManagement>
+  </dependencyManagement>  
 
   <build>
     <plugins>

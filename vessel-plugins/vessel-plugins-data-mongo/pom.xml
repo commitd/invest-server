@@ -6,6 +6,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>vessel-plugins-data-mongo</artifactId>
+  <name>Vessel Plugin Mongo</name>
+  <description>Mongo support for Vessel</description>
   
   <dependencies>
       <dependency>

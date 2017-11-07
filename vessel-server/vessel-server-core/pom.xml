@@ -8,7 +8,7 @@
   </parent>
   <artifactId>vessel-server-core</artifactId>
   <name>Vessel Server Core</name>
-  <description>Core elements of the Vessel Serer</description>
+  <description>Core elements of the Vessel Server</description>
 
   <dependencies>
     <dependency>

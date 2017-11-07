@@ -7,8 +7,8 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>vessel-server-graphql</artifactId>
-  <name>vessel-server-graphql</name>
-  <description>GraphQL endspoints inside Vessel server</description>
+  <name>Vessel Server Graphql</name>
+  <description>GraphQL endpoints inside Vessel server</description>
 
   <dependencies>
     <dependency>

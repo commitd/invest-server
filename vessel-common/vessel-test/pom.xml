@@ -3,17 +3,18 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.committed.vessel</groupId>
-    <artifactId>vessel</artifactId>
+    <artifactId>vessel-common</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>vessel-test</artifactId>
+  <name>Vessel Test</name>
+  <description>Test support for Vessel Java projects</description>
 
   <dependencies>
     <dependency>
       <groupId>com.google.code.bean-matchers</groupId>
       <artifactId>bean-matchers</artifactId>
-      <!--  TODO Review version, or even alternatives -->
-      <version>0.10</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
 </project>

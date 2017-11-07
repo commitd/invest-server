@@ -3,27 +3,25 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>io.committed.vessel</groupId>
-    <artifactId>vessel</artifactId>
+    <artifactId>vessel-common</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <artifactId>vessel-core</artifactId>
+  <name>Vessel Core</name>
+  <description>Core data types required by Vessel Java projects</description>
 
   <dependencies>
     <dependency>
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-extensions</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
-      <version>${spring-boot.version}</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
