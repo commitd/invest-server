@@ -3,25 +3,40 @@ package io.committed.vessel.plugin.server.auth.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.core.userdetails.MapUserDetailsRepository;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+
+import com.google.common.collect.Sets;
+
+import io.committed.vessel.plugin.server.auth.dao.UserAccount;
+import io.committed.vessel.plugin.server.services.MapBackedUserAccountRepository;
+import io.committed.vessel.plugin.server.services.ReactiveUserAccountRepositoryWrapper;
+import io.committed.vessel.plugin.server.services.UserAccountRepository;
 
 @Configuration
 @Profile({ "auth-mem" })
 public class MemAuthConfig extends AbstractWithAuthSecurityConfig {
 
+
+
   @Bean
-  public MapUserDetailsRepository userDetailsRepository() {
-    final UserDetails user = User.withUsername("user")
+  public UserAccountRepository userDetailsRepository() {
+    final MapBackedUserAccountRepository repo = new MapBackedUserAccountRepository();
+
+    final UserAccount user = UserAccount.builder()
+        .username("user")
         .password("user")
-        .roles("USER")
+        .authorities(Sets.newHashSet("USER"))
         .build();
-    final UserDetails admin = User.withUsername("admin")
+    final UserAccount admin = UserAccount.builder()
+        .username("admin")
         .password("admin")
-        .roles("ADMIN")
+        .authorities(Sets.newHashSet("ADMIN"))
         .build();
-    return new MapUserDetailsRepository(user, admin);
+
+    repo.save(admin);
+    repo.save(user);
+
+    return new ReactiveUserAccountRepositoryWrapper(repo);
+
   }
 
 
