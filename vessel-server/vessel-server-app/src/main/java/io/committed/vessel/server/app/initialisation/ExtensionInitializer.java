@@ -1,6 +1,7 @@
 package io.committed.vessel.server.app.initialisation;
 
 
+import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
 
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -33,7 +34,8 @@ public class ExtensionInitializer implements
 
     extensions.subscribe(e -> {
       try {
-        final VesselExtension instance = e.newInstance();
+        final Constructor<? extends VesselExtension> constructor = e.getConstructor();
+        final VesselExtension instance = constructor.newInstance();
         Class<? extends VesselExtension> extensionPointClass = VesselExtension.class;
 
         // TODO: I don't know why I need to sort this VesselUiExtension out... seems to just work
@@ -56,6 +58,8 @@ public class ExtensionInitializer implements
         if (configuration != null) {
           proxy.register(configuration);
         }
+      } catch (final NoSuchMethodException error) {
+        log.warn("No available constructor for {}", e.getSimpleName());
       } catch (final Exception ex) {
         log.error("Unable to inspect for plugins", ex);
       }

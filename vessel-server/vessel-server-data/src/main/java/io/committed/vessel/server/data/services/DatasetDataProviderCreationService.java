@@ -51,6 +51,8 @@ public class DatasetDataProviderCreationService implements BeanFactoryPostProces
     final DataProvider provider = mono.block();
 
     if (provider != null) {
+      log.info("Register data provider for dataset '{}' from datasource '{}:{}' ",
+          provider.getDataset(), provider.getDatabase(), provider.getDatasource());
       beanFactory.registerSingleton(makeId(spec, dataset), provider);
 
     } else {

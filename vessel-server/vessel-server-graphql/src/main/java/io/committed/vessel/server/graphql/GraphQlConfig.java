@@ -1,5 +1,8 @@
 package io.committed.vessel.server.graphql;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Member;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
 
@@ -17,14 +20,12 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import graphql.schema.GraphQLSchema;
-import graphql.schema.idl.SchemaPrinter;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
 import io.committed.vessel.server.graphql.data.VesselGraphQlServices;
 import io.committed.vessel.server.graphql.mappers.FluxToCollectionTypeAdapter;
 import io.committed.vessel.server.graphql.mappers.MonoAdapter;
 import io.leangen.graphql.GraphQLSchemaGenerator;
-import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
-import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
+import io.leangen.graphql.annotations.GraphQLIgnore;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -66,11 +67,6 @@ public class GraphQlConfig {
 
     GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
         .withDefaults()
-        .withResolverBuilders(
-            new AnnotatedResolverBuilder(),
-            // Resolve public methods everywhere
-            // TODO: is this safe... I don't know what else we could do?
-            new PublicResolverBuilder(null))
         .withValueMapperFactory(new JacksonValueMapperFactory())
         // Deal with reactive types
         .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());
@@ -89,11 +85,26 @@ public class GraphQlConfig {
 
     final GraphQLSchema schema = factory.generate();
 
-    final String schemaString = new SchemaPrinter().print(schema);
-    log.info(schemaString);
+    // final String schemaString = new SchemaPrinter().print(schema);
+    // log.info(schemaString);
 
     return schema;
 
   }
 
+  private boolean filterMembersWithReturnIgnored(final Member member) {
+    if (member.getDeclaringClass().getAnnotation(GraphQLIgnore.class) != null) {
+      return false;
+    }
+
+    if (member instanceof Method) {
+      final Method m = (Method) member;
+      return m.getReturnType().getAnnotation(GraphQLIgnore.class) == null;
+    } else if (member instanceof Field) {
+      final Field f = (Field) member;
+      return f.getType().getAnnotation(GraphQLIgnore.class) == null;
+    }
+
+    return true;
+  }
 }
