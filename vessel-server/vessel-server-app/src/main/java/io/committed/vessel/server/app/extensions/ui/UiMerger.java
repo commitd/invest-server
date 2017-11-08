@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
@@ -33,12 +34,15 @@ public class UiMerger {
     for (final VesselUiExtension e : extensions) {
 
       final String classPath = e.getStaticResourcePath();
-      final String urlPath = urlService.getContextRelativePath(e);
+      if (!StringUtils.isEmpty(classPath)) {
 
-      combined = combined
-          .andNest(RequestPredicates.path(urlPath),
-              RouterFunctions.resources("/**",
-                  new ClassPathResource(classPath, e.getClass().getClassLoader())));
+        final String urlPath = urlService.getContextRelativePath(e);
+
+        combined = combined
+            .andNest(RequestPredicates.path(urlPath),
+                RouterFunctions.resources("/**",
+                    new ClassPathResource(classPath, e.getClass().getClassLoader())));
+      }
     }
 
     combined =
