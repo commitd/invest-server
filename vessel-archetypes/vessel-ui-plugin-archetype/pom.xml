@@ -4,7 +4,6 @@
   <groupId>io.committed.vessel</groupId>
   <artifactId>vessel-ui-plugin-archetype</artifactId>
   <version>0.1.0</version>
-  <name>Vessel UI Plugin</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,7 +14,7 @@
     <nodejs.version>v8.9.0</nodejs.version>
     <yarn.version>v1.3.2</yarn.version>
 
-    <vessel-java.version>0.1.0-SNAPSHOT</vessel-java.version>
+    <vessel-java.version>1.0-SNAPSHOT</vessel-java.version>
   </properties>
 
   <dependencies>
@@ -126,7 +125,7 @@
           </execution>
         </executions>
       </plugin>
-      <!-- Build fat Jar, with all non-provided dependencies -->
+      <!-- Build fat Jar, with all non-provided dependencies 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -140,6 +139,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
     </plugins>
   </build>
 
