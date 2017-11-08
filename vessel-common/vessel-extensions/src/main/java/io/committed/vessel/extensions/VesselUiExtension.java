@@ -29,5 +29,4 @@ public interface VesselUiExtension extends VesselExtension {
     return null;
   }
 
-
 }
