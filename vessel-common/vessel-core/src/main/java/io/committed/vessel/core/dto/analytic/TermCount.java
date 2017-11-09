@@ -1,6 +1,6 @@
 package io.committed.vessel.core.dto.analytic;
 
-import java.util.Map;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,6 +12,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TermCount {
-  @JsonProperty("terms")
-  private Map<String, Long> terms;
+  @JsonProperty("bins")
+  private List<TermBin> bins;
+
+  public long getCount() {
+    return bins == null ? 0 : bins.size();
+  }
 }
