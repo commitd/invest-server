@@ -1,10 +1,14 @@
 package io.committed.vessel.plugins.ui.livedev;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.reactive.config.CorsRegistry;
+import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersUriSpec;
 import org.springframework.web.reactive.function.server.RequestPredicates;
@@ -20,7 +24,13 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class LiveDevelopmentUIConfig {
+public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
+
+  private static final String[] PATHS = {
+      "/static/**",
+      "/sockjs-node/**",
+      "/__webpack_dev_server__/**"
+  };
 
   @Autowired
   UiUrlService urlService;
@@ -29,16 +39,38 @@ public class LiveDevelopmentUIConfig {
   // to sort that out)
   LiveDevelopmentUIPlugin plugin = new LiveDevelopmentUIPlugin();
 
+  private String getFullPath() {
+    return urlService.getFullPath(plugin);
+
+  }
+
   @Bean
   public RouterFunction<?> routerFunction() {
     // We push out any requests here to another proxy
-    final String fullPath = urlService.getFullPath(plugin);
-    return RouterFunctions
-        .route(RequestPredicates.path(fullPath + "/**"), this::handle)
-        .andRoute(RequestPredicates.path("/static/**"), this::handle)
-        .andRoute(RequestPredicates.path("/sockjs-node/**"), this::handle)
-        .andRoute(RequestPredicates.path("/__webpack_dev_server__/**"), this::handle);
+    RouterFunction<ServerResponse> routes = RouterFunctions
+        .route(RequestPredicates.path(getFullPath() + "/**"), this::handle);
+
+    for (final String path : PATHS) {
+      routes = routes.andRoute(RequestPredicates.path(path), this::handle);
+    }
+
+    return routes;
   }
+
+  @Override
+  public void addCorsMappings(final CorsRegistry registry) {
+    // Each of the above routes needs to have CORS enabled
+    // the /ui route is already controlled by UiMerger
+    // so we need to add the PATHS
+
+    for (final String path : PATHS) {
+      registry.addMapping(path)
+          .allowedHeaders("*")
+          .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+          .allowedOrigins("*");
+    }
+  }
+
 
   Mono<ServerResponse> handle(final ServerRequest request) {
 
@@ -50,6 +82,12 @@ public class LiveDevelopmentUIConfig {
             .port(3001)
             .scheme("http")
             .userInfo(null);
+
+    final String path = request.path();
+    final String fullPath = getFullPath();
+    if (path.startsWith(fullPath)) {
+      info.replacePath(path.substring(fullPath.length()));
+    }
 
     final WebClient client = WebClient.create();
 
@@ -69,8 +107,10 @@ public class LiveDevelopmentUIConfig {
     // TODO: Pass through headers, cookies, etc
     // TODO: Pass through body and params
 
+    final URI uri = info.build();
+
     return requestSpec
-        .uri(info.build())
+        .uri(uri)
         .exchange()
         .flatMap(cr -> {
           if (cr.statusCode() != HttpStatus.OK) {
