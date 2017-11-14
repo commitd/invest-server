@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.vessel.plugins.ui.graphql.GraphiQlUiPlugin

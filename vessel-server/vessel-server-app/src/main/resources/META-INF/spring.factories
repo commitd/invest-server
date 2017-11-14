@@ -1,1 +1,0 @@
-org.springframework.context.ApplicationContextInitializer=io.committed.vessel.server.app.initialisation.ExtensionInitializer

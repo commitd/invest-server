@@ -1,5 +1,8 @@
 package io.committed.vessel.extensions;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public interface VesselExtension {
 
   default String getId() {
@@ -12,10 +15,6 @@ public interface VesselExtension {
 
   default String getDescription() {
     return "";
-  }
-
-  default Class<?> getConfiguration() {
-    return null;
   }
 
 }

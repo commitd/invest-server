@@ -1,4 +1,4 @@
-package io.committed.vessel.extensions.graphql;
+package io.committed.vessel.extensions.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface VesselGraphQlService {
+public @interface VesselPlugin {
 
 }
