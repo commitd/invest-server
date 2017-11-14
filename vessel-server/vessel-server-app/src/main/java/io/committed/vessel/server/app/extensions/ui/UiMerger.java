@@ -17,8 +17,10 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import io.committed.vessel.core.services.UiUrlService;
 import io.committed.vessel.extensions.VesselUiExtension;
+import lombok.extern.slf4j.Slf4j;
 
 @Configuration
+@Slf4j
 public class UiMerger implements WebFluxConfigurer {
 
   @Autowired(required = false)
@@ -29,6 +31,10 @@ public class UiMerger implements WebFluxConfigurer {
 
   @Bean
   public RouterFunction<?> uiExtensionRoutes() {
+
+    if (extensions.isEmpty()) {
+      log.warn("No UI extension points defined");
+    }
 
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());

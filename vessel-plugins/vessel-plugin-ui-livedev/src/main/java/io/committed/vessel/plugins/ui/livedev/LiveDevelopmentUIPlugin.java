@@ -1,7 +1,12 @@
 package io.committed.vessel.plugins.ui.livedev;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+
 import io.committed.vessel.extensions.VesselUiExtension;
 
+@Configuration
+@Import({ LiveDevelopmentUIConfig.class })
 public class LiveDevelopmentUIPlugin implements VesselUiExtension {
 
   @Override
@@ -17,11 +22,6 @@ public class LiveDevelopmentUIPlugin implements VesselUiExtension {
   @Override
   public String getIcon() {
     return "build";
-  }
-
-  @Override
-  public Class<?> getConfiguration() {
-    return LiveDevelopmentUIConfig.class;
   }
 
   @Override

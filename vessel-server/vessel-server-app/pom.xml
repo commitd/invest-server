@@ -31,10 +31,6 @@
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.github.lukehutch</groupId>
-      <artifactId>fast-classpath-scanner</artifactId>
-    </dependency>
 
     <dependency>
       <groupId>io.committed.vessel</groupId>
@@ -48,11 +44,7 @@
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-server-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.committed.vessel</groupId>
-      <artifactId>vessel-server-graphql</artifactId>
-    </dependency>
-    <dependency>
+        <dependency>
       <groupId>io.committed.vessel</groupId>
       <artifactId>vessel-server-data</artifactId>
     </dependency>

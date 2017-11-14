@@ -12,4 +12,6 @@ public interface UiUrlService {
 
   String getContextPath();
 
+  boolean isPathForExtensionRoot(String path);
+
 }
