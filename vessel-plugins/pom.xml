@@ -36,8 +36,8 @@
     <module>vessel-plugin-graphql</module>
     <module>vessel-plugin-examples</module>
     <module>vessel-plugin-ui-graphiql</module>
-    <module>vessel-plugins-data-mongo</module>
-    <module>vessel-plugins-data-elasticsearch</module>
+    <module>vessel-plugin-data-mongo</module>
+    <module>vessel-plugin-data-elasticsearch</module>
     <module>vessel-plugin-data-jpa</module>
     <module>vessel-plugin-server-audit</module>
     <module>vessel-plugin-server-auth</module>
