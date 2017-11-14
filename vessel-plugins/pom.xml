@@ -33,6 +33,7 @@
   </dependencyManagement>  
 
   <modules>
+    <module>vessel-plugin-graphql</module>
     <module>vessel-plugin-examples</module>
     <module>vessel-plugin-ui-graphiql</module>
     <module>vessel-plugins-data-mongo</module>

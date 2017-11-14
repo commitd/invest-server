@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.joda.time.DateTime;
+import org.joda.time.Instant;
 
 import io.committed.vessel.core.dto.analytic.TimeBin;
 import io.committed.vessel.core.dto.analytic.Timeline;
@@ -66,8 +67,8 @@ public class TimeIntervalUtils {
   public static final Timeline create(final Histogram histogram, final TimeInterval interval) {
     final List<TimeBin> list = histogram.getBuckets().stream().map(h -> {
       final DateTime key = (DateTime) h.getKey();
-      final long ts = key.toInstant().getMillis();
-      return new TimeBin(ts, h.getDocCount());
+      final Instant jodaInstant = key.toInstant();
+      return new TimeBin(java.time.Instant.ofEpochMilli(jodaInstant.getMillis()), h.getDocCount());
     }).collect(Collectors.toList());
 
     return new Timeline(interval, list);

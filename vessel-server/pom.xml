@@ -50,7 +50,6 @@
     <module>vessel-server-app</module>
     <module>vessel-server-core</module>
     <module>vessel-server-data</module>
-    <module>vessel-server-graphql</module>
     <module>vessel-server-libs</module>
   </modules>
 </project>
