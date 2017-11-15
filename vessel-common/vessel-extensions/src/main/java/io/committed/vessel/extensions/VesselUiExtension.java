@@ -18,7 +18,7 @@ public interface VesselUiExtension extends VesselExtension {
    * @return string (non null)
    */
   default String getIcon() {
-    return "add-circle";
+    return "browser";
   }
 
   default Collection<ActionDefinition> getActions() {

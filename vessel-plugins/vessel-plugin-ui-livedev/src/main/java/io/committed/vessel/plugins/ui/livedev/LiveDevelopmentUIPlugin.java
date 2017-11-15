@@ -9,6 +9,7 @@ import io.committed.vessel.extensions.VesselUiExtension;
 @Import({ LiveDevelopmentUIConfig.class })
 public class LiveDevelopmentUIPlugin implements VesselUiExtension {
 
+
   @Override
   public String getName() {
     return "Live Development";
@@ -21,7 +22,7 @@ public class LiveDevelopmentUIPlugin implements VesselUiExtension {
 
   @Override
   public String getIcon() {
-    return "build";
+    return "code";
   }
 
   @Override

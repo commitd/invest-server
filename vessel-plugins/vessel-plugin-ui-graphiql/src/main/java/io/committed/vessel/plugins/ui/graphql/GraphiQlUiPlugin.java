@@ -21,7 +21,7 @@ public class GraphiQlUiPlugin implements VesselUiExtension {
 
   @Override
   public String getIcon() {
-    return "bubble_chart";
+    return "database";
   }
 
   @Override
