@@ -53,10 +53,6 @@ public class UiMerger implements WebFluxConfigurer {
       }
     }
 
-    combined =
-        combined.andRoute(RequestPredicates.all(), request -> ServerResponse.notFound().build());
-
-
     return RouterFunctions.nest(RequestPredicates.path(urlService.getContextPath()), combined);
   }
 
