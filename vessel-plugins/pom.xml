@@ -43,5 +43,6 @@
     <module>vessel-plugin-server-auth</module>
     <module>vessel-plugin-graphql-ui</module>
     <module>vessel-plugin-ui-livedev</module>
+    <module>vessel-plugin-ui-app</module>
   </modules>
 </project>

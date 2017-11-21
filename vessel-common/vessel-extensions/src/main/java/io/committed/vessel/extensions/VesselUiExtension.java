@@ -9,7 +9,7 @@ public interface VesselUiExtension extends VesselExtension {
 
 
   default String getStaticResourcePath() {
-    return "/static/";
+    return String.format("/ui/%s/", getId());
   }
 
   /**
