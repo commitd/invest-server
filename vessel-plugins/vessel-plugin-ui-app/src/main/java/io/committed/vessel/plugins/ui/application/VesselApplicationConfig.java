@@ -21,4 +21,9 @@ public class VesselApplicationConfig {
     return new RootIndexHtmlWebFilter();
   }
 
+  @Bean
+  public GqlApplicationSettingService applicationSettingsService(
+      final VesselUiApplicationSettings settings) {
+    return new GqlApplicationSettingService(settings);
+  }
 }
