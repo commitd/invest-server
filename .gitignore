@@ -7,3 +7,4 @@ bin/
 .factorypath
 .springBeans
 dependency-reduced-pom.xml
+build
