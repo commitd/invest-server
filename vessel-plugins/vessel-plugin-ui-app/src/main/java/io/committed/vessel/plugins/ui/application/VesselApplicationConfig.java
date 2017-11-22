@@ -11,7 +11,7 @@ import org.springframework.web.server.WebFilter;
 public class VesselApplicationConfig {
 
   @Bean
-  public RouterFunction<?> root() {
+  public RouterFunction<?> applicationRootRoutes() {
     return RouterFunctions.resources("/**",
         new ClassPathResource("/ui/app/", this.getClass().getClassLoader()));
   }
