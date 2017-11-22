@@ -4,7 +4,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsRepository;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
@@ -15,12 +15,12 @@ import reactor.core.scheduler.Schedulers;
 // Based on UserDetailsRepositoryAuthenticationManager, but adds the user information as details
 public class PopulatingUserDetailsRepositoryAuthenticationManager
     implements ReactiveAuthenticationManager {
-  private final UserDetailsRepository repository;
+  private final ReactiveUserDetailsService repository;
 
   private PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
 
   public PopulatingUserDetailsRepositoryAuthenticationManager(
-      final UserDetailsRepository userDetailsRepository) {
+      final ReactiveUserDetailsService userDetailsRepository) {
     Assert.notNull(userDetailsRepository, "userDetailsRepository cannot be null");
     this.repository = userDetailsRepository;
   }

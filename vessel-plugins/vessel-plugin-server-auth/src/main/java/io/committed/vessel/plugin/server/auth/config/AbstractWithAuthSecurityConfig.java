@@ -4,13 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
-import org.springframework.security.config.web.server.HttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsRepository;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.context.SecurityContextRepository;
-import org.springframework.security.web.server.context.WebSessionSecurityContextRepository;
+import org.springframework.security.web.server.context.ServerSecurityContextRepository;
+import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 
 import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
 import io.committed.vessel.plugin.server.auth.graphql.AuthController;
@@ -26,7 +26,7 @@ import io.committed.vessel.plugin.server.services.UserService;
 public abstract class AbstractWithAuthSecurityConfig {
 
   @Bean
-  public SecurityWebFilterChain springWebFilterChain(final HttpSecurity http) {
+  public SecurityWebFilterChain springWebFilterChain(final ServerHttpSecurity http) {
 
     // For the /view we want to allow iframe acccess
     // TODO: Can we limit this just to /ui?
@@ -75,13 +75,13 @@ public abstract class AbstractWithAuthSecurityConfig {
 
   // Store our security into in the websession
   @Bean
-  SecurityContextRepository securityContextRepository() {
-    return new WebSessionSecurityContextRepository();
+  ServerSecurityContextRepository securityContextRepository() {
+    return new WebSessionServerSecurityContextRepository();
   }
 
   @Bean
   public ReactiveAuthenticationManager authenticationManager(
-      final UserDetailsRepository userRepository, final PasswordEncoder passwordEncoder) {
+      final ReactiveUserDetailsService userRepository, final PasswordEncoder passwordEncoder) {
     final PopulatingUserDetailsRepositoryAuthenticationManager manager =
         new PopulatingUserDetailsRepositoryAuthenticationManager(userRepository);
     manager.setPasswordEncoder(passwordEncoder);

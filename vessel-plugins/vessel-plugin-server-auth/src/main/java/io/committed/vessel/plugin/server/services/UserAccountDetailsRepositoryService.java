@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsRepository;
 
 import io.committed.vessel.plugin.server.auth.dao.UserAccount;
 import reactor.core.publisher.Mono;
 
-public class UserAccountDetailsRepositoryService implements UserDetailsRepository {
+public class UserAccountDetailsRepositoryService implements ReactiveUserDetailsService {
 
   private final UserAccountRepository repository;
 

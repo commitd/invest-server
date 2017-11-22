@@ -12,27 +12,27 @@
   <artifactId>vessel-dependencies</artifactId>
   <name>Vessel Java BOM</name>
   <description>Bill of Materials for Vessel based Java projects</description>
-  
+
   <properties>
-    <!--  For clarity -->
+    <!-- For clarity -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
-    
-    <!-- Majority of versions are defined by Spring -->
-    <spring-boot.version>2.0.0.M5</spring-boot.version>
 
-    <!-- Additional versions-->
+    <!-- Majority of versions are defined by Spring -->
+    <spring-boot.version>2.0.0.M6</spring-boot.version>
+
+    <!-- Additional versions -->
     <graphql-java.version>4.2</graphql-java.version>
-    <graphql-spqr.version>0.9.3</graphql-spqr.version>
+    <graphql-spqr.version>0.9.4</graphql-spqr.version>
     <guava.version>23.3-jre</guava.version>
     <bean-matchers.version>0.10</bean-matchers.version>
     <fast-classpath-scanner.version>2.7.4</fast-classpath-scanner.version>
   </properties>
 
- <dependencyManagement>
+  <dependencyManagement>
     <dependencies>
       <!-- Utils -->
       <dependency>
@@ -109,13 +109,36 @@
         <scope>test</scope>
       </dependency>
 
+
       <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring-boot.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
+        <groupId>org.springframework.</groupId>
+        <artifactId>vessel-test</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <!--  TODO Messy exclude jackson-module-kotlin If we have this then Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
+      break an-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-json</artifactId>
+        <version>${spring-boot.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
