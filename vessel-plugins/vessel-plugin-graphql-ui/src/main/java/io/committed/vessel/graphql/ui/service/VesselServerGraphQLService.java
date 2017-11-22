@@ -32,15 +32,18 @@ public class VesselServerGraphQLService {
     this.uiExtensions = uiExtensions == null ? Collections.emptyList() : uiExtensions;
   }
 
-  @GraphQLQuery
+  @GraphQLQuery(name = "uiPlugins",
+      description = "Access details all UI plugins available on the system")
   public Flux<UiPlugin> uiPlugins() {
     // HACK: Adding index.html shouldn't be needed
     return Flux.fromIterable(uiExtensions)
         .map(e -> new UiPlugin(e, urlService.getFullPath(e) + "/index.html"));
   }
 
-  @GraphQLQuery
-  public Mono<UiPlugin> uiPlugin(@GraphQLArgument(name = "pluginId") final String id) {
+  @GraphQLQuery(name = "uiPlugin",
+      description = "Access details for a specific UI plugin")
+  public Mono<UiPlugin> uiPlugin(
+      @GraphQLArgument(name = "pluginId", description = "The plugin id to get") final String id) {
     // HACK: Adding index.html shouldn't be needed
     return Flux.fromIterable(uiExtensions)
         .filter(p -> p.getId().equalsIgnoreCase(id))

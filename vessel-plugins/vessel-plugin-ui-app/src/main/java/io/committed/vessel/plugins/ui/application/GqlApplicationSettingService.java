@@ -12,7 +12,7 @@ public class GqlApplicationSettingService {
     this.settings = settings;
   }
 
-  @GraphQLQuery(name = "applicationSettings")
+  @GraphQLQuery(name = "applicationSettings", description = "Configuration for the application")
   public VesselUiApplicationSettings applicationSettings() {
     return settings;
 

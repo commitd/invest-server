@@ -33,7 +33,7 @@ public class AuthController {
     this.securityService = securityService;
   }
 
-  @GraphQLMutation(name = "login")
+  @GraphQLMutation(name = "login", description = "Perform user log in")
   public Mono<User> login(@GraphQLRootContext final Context context,
       @GraphQLNonNull @GraphQLArgument(name = "username") final String username,
       @GraphQLNonNull @GraphQLArgument(name = "password") final String password) {
@@ -70,8 +70,7 @@ public class AuthController {
     }
   }
 
-  @GraphQLQuery(name = "session")
-  // @PreAuthorize("isAuthenticated()")
+  @GraphQLQuery(name = "session", description = "Get the user's session id")
   public Mono<String> userSession(@GraphQLContext final User user,
       @GraphQLRootContext final Context context) {
     return context.getSession()
@@ -79,8 +78,7 @@ public class AuthController {
         .map(WebSession::getId);
   }
 
-  @GraphQLQuery(name = "user")
-  // @PreAuthorize("isAuthenticated()")
+  @GraphQLQuery(name = "user", description = "Get user details")
   public Mono<User> user(@GraphQLRootContext final Context context) {
 
     final reactor.util.context.Context block = Mono.subscriberContext()
@@ -91,7 +89,7 @@ public class AuthController {
   }
 
 
-  @GraphQLMutation(name = "logout")
+  @GraphQLMutation(name = "logout", description = "Log out the current session")
   public Mono<Boolean> logout(@GraphQLRootContext final Context context) {
     return context.getSession().doOnNext(s -> {
       ((WebSession) s).getAttributes().remove("USER");

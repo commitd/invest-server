@@ -25,7 +25,7 @@ public class ThingService {
     }
   }
 
-  @GraphQLQuery(name = "things")
+  @GraphQLQuery(name = "things", description = "Example provider of things")
   public Flux<Thing> getThings() {
     return Flux.fromIterable(Arrays.asList(new Thing("hello")));
   }

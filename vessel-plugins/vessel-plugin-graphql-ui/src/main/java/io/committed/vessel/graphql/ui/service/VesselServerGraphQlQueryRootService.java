@@ -15,7 +15,8 @@ public class VesselServerGraphQlQueryRootService {
     this.service = service;
   }
 
-  @GraphQLQuery
+  @GraphQLQuery(name = "vesselServer",
+      description = "Root for all Vessel Server queries and endpoints")
   public VesselServerGraphQLService vesselServer() {
     return service;
   }

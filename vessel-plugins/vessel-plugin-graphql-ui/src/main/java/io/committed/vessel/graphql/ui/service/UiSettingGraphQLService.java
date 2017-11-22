@@ -36,7 +36,7 @@ public class UiSettingGraphQLService {
 
   }
 
-  @GraphQLQuery
+  @GraphQLQuery(name = "settings", description = "Plugin settings ")
   public Mono<String> settings(@GraphQLContext final UiPlugin uiPlugin) {
     return Flux.fromIterable(uiExtensions)
         .filter(p -> p.getId().equalsIgnoreCase(uiPlugin.getId()))
