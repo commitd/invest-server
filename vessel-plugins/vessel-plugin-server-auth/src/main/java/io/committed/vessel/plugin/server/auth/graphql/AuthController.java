@@ -55,7 +55,7 @@ public class AuthController {
 
 
     try {
-      // TODO: Remove blocks but for debugging..
+      // TODO: Remove blocks but for debugging its much easier
       final Authentication authentication = authenticationManager
           .authenticate(new UsernamePasswordAuthenticationToken(username, password)).block();
       // NOTE: Must be exactly attribute as final WebSessionSecurityContextRepository
@@ -63,7 +63,7 @@ public class AuthController {
       final SecurityContextImpl securityContext = new SecurityContextImpl();
       securityContext.setAuthentication(authentication);
       session.getAttributes().put("USER", securityContext);
-      return Mono.just((User) authentication.getDetails());
+      return Mono.just((User) authentication.getPrincipal());
     } catch (final Exception e) {
       log.warn("Authentication failed for {}", username, e);
       return Mono.empty();
@@ -81,11 +81,12 @@ public class AuthController {
   @GraphQLQuery(name = "user", description = "Get user details")
   public Mono<User> user(@GraphQLRootContext final Context context) {
 
-    final reactor.util.context.Context block = Mono.subscriberContext()
-        .defaultIfEmpty(reactor.util.context.Context.empty())
-        .block();
+    return context.getAuthentication().map(a -> {
+      final Authentication auth = (Authentication) a;
+      return (User) auth.getPrincipal();
+    });
 
-    return context.getAuthentication().map(p -> (User) ((Authentication) p).getDetails());
+
   }
 
 

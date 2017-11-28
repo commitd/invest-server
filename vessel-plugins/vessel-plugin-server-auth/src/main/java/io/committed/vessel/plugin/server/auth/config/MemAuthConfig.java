@@ -3,6 +3,7 @@ package io.committed.vessel.plugin.server.auth.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.google.common.collect.Sets;
 
@@ -15,21 +16,19 @@ import io.committed.vessel.plugin.server.services.UserAccountRepository;
 @Profile({ "auth-mem" })
 public class MemAuthConfig extends AbstractWithAuthSecurityConfig {
 
-
-
   @Bean
-  public UserAccountRepository userDetailsRepository() {
+  public UserAccountRepository userDetailsRepository(final PasswordEncoder passwordEncoder) {
     final MapBackedUserAccountRepository repo = new MapBackedUserAccountRepository();
 
     final UserAccount user = UserAccount.builder()
         .username("user")
-        .password("user")
-        .authorities(Sets.newHashSet("USER"))
+        .password(passwordEncoder.encode("user"))
+        .authorities(Sets.newHashSet("ROLE_USER"))
         .build();
     final UserAccount admin = UserAccount.builder()
         .username("admin")
-        .password("admin")
-        .authorities(Sets.newHashSet("ADMIN"))
+        .password(passwordEncoder.encode("admin"))
+        .authorities(Sets.newHashSet("ROLE_ADMIN"))
         .build();
 
     repo.save(admin);
