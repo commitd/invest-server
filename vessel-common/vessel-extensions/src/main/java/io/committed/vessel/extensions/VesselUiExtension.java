@@ -21,6 +21,15 @@ public interface VesselUiExtension extends VesselExtension {
     return "browser";
   }
 
+  /**
+   * The list of roles the user needs to have in order to access these functions.
+   * 
+   * @return
+   */
+  default Collection<String> getRoles() {
+    return Collections.emptyList();
+  }
+
   default Collection<ActionDefinition> getActions() {
     return Collections.emptyList();
   }
