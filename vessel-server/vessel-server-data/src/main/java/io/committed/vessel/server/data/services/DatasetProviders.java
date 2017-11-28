@@ -32,6 +32,18 @@ public class DatasetProviders {
     }
   }
 
+  public Flux<DataProvider> findAll() {
+    return Flux.fromIterable(providers.values());
+  }
+
+  // it is checked...
+  @SuppressWarnings("unchecked")
+  public <T> Flux<T> findAll(final Class<T> providerClass) {
+    return (Flux<T>) findAll()
+        .filter(providerClass::isInstance);
+
+  }
+
   public Flux<DataProvider> findForDataset(final String datasetId) {
     return findForDataset(datasetId, (DataHints) null);
   }

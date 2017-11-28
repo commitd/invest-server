@@ -45,5 +45,6 @@
     <module>vessel-plugin-ui-livedev</module>
     <module>vessel-plugin-ui-app</module>
     <module>vessel-plugin-ui-libs</module>
+    <module>vessel-plugin-feedback</module>
   </modules>
 </project>
