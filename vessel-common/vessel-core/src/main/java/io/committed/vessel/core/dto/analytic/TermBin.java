@@ -15,4 +15,8 @@ public class TermBin {
 
   @JsonProperty("count")
   private long count;
+
+  public String getTerm() {
+    return term == null ? "" : term;
+  }
 }
