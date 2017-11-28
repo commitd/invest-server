@@ -16,7 +16,7 @@ public class VesselUiUrlService implements UiUrlService {
 
   @Override
   public String getContextRelativePath(final VesselUiExtension extension) {
-    return String.format("/%s", extension.getId());
+    return String.format("/%s/", extension.getId());
   }
 
   // TODO: This could be configurable though perhaps that's dangerous!
