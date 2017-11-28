@@ -74,8 +74,9 @@ public class AuthController {
   public Mono<String> userSession(@GraphQLContext final User user,
       @GraphQLRootContext final Context context) {
     return context.getSession()
-        .map(s -> (WebSession) s)
-        .map(WebSession::getId);
+        .map(s -> {
+          return ((WebSession) s).getId();
+        });
   }
 
   @GraphQLQuery(name = "user", description = "Get user details")

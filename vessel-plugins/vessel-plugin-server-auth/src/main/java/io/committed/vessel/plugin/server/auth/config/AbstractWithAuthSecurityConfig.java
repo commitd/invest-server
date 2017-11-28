@@ -50,7 +50,6 @@ public abstract class AbstractWithAuthSecurityConfig {
         .authorizeExchange()
         // Allow access to static files inside the UI
         .pathMatchers(urlService.getContextPath() + "/**").permitAll()
-        .pathMatchers("/graphql").permitAll()
         .pathMatchers("/actuator/**").hasRole(VesselRoles.ROLE_ADMINISTRATOR)
         .anyExchange().permitAll();
 
@@ -94,14 +93,6 @@ public abstract class AbstractWithAuthSecurityConfig {
     return new WebSessionServerSecurityContextRepository();
   }
 
-  // @Bean
-  // public ReactiveAuthenticationManager authenticationManager(
-  // final ReactiveUserDetailsService userRepository, final PasswordEncoder passwordEncoder) {
-  // final PopulatingUserDetailsRepositoryAuthenticationManager manager =
-  // new PopulatingUserDetailsRepositoryAuthenticationManager(userRepository);
-  // manager.setPasswordEncoder(passwordEncoder);
-  // return manager;
-  // }
 
   @Bean
   public UserDetailsRepositoryReactiveAuthenticationManager authenticationManager(
@@ -112,4 +103,6 @@ public abstract class AbstractWithAuthSecurityConfig {
     manager.setPasswordEncoder(passwordEncoder);
     return manager;
   }
+
+
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -78,6 +79,7 @@ public class GraphQlHandler {
       }
     }
 
+
     final Context context = buildContext(request);
     input = input.context(context);
 
@@ -86,11 +88,21 @@ public class GraphQlHandler {
   }
 
   private Context buildContext(final ServerRequest request) {
-    final Context context = Context.builder()
-        .authentication(request.principal())
+    return Context.builder()
+        // TODO: We shoul dbe able to use request.principal here, but it doesn't seem to have any
+        // data in (which it did do in spring boot M5).
+        // It seems like the WebSessionServerSecurityContextRepository.load function is never
+        // called, but I can't see why.
+        // Whilst this should work for our purpposes it means taht prinicpal isn't available to
+        // other users.
+        .authentication(request.session()
+            .flatMap(s -> {
+              final SecurityContext sc = s.getAttribute("USER");
+              return sc != null & sc.getAuthentication() != null
+                  ? Mono.just(sc.getAuthentication()) : Mono.empty();
+            }))
         .session(request.session())
         .build();
-    return context;
   }
 
   public Mono<ServerResponse> getSchema(final ServerRequest request) {
