@@ -1,1 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.vessel.plugins.ui.feedback.VesselFeedbackFormPluginio.committed.vessel.plugins.graphql.feedback.VesselFeedbackGraphQlPlugin,,io.committed.vessel.plugins.ui.feedback.VesselFeedbackReaderPlugin,io.committed.vessel.plugins.data.feedback.VesselFeedbackDataPlugin
