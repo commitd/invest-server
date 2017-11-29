@@ -96,7 +96,7 @@ public class UserService {
     return KeyGenerators.string().generateKey();
   }
 
-  public boolean hasAuthoritory(final Authentication authentication,
+  public boolean hasAuthority(final Authentication authentication,
       final String... authority) {
     final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
     if (authorities == null || authorities.isEmpty()) {

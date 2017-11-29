@@ -6,12 +6,17 @@ public class VesselRoles {
     // Singleton
   }
 
+  public static final String ADMINISTRATOR = "ADMIN";
+  public static final String USER = "USER";
 
-  public static final String USER_AUTHORITY = "USER";
-  public static final String ADMINISTRATOR_AUTHORITY = "ADMIN";
 
-  public static final String ROLE_ADMINISTRATOR = "ROLE_" + ADMINISTRATOR_AUTHORITY;
-  public static final String ROLE_USER = "ROLE_" + USER_AUTHORITY;
+  // Convert to Authorities
+
+  public static final String AUTHORITY_PREFIX = "ROLE_";
+
+  public static final String ROLE_ADMINISTRATOR =
+      AUTHORITY_PREFIX + ADMINISTRATOR;
+  public static final String ROLE_USER = AUTHORITY_PREFIX + USER;
 
 
 }

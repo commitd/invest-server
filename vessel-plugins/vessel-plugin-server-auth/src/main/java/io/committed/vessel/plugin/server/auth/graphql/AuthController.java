@@ -1,15 +1,22 @@
 package io.committed.vessel.plugin.server.auth.graphql;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.server.WebSession;
 
 import io.committed.vessel.core.graphql.Context;
 import io.committed.vessel.extensions.graphql.VesselGraphQlService;
+import io.committed.vessel.plugin.server.auth.constants.VesselRoles;
+import io.committed.vessel.plugin.server.auth.dto.User;
 import io.committed.vessel.plugin.server.services.UserService;
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
@@ -24,6 +31,10 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthController {
 
+
+  // THought we could use Flux and non-blocking code here, it feels more sensible to be
+  // confident that everything has full executed in inside the functions.
+
   private final UserService securityService;
   private final ReactiveAuthenticationManager authenticationManager;
 
@@ -37,33 +48,16 @@ public class AuthController {
   public Mono<User> login(@GraphQLRootContext final Context context,
       @GraphQLNonNull @GraphQLArgument(name = "username") final String username,
       @GraphQLNonNull @GraphQLArgument(name = "password") final String password) {
-    // if (user == null) {
-    // return null;
-    // }
-    //
-    // Set<String> roles;
-    //
-    // if (user instanceof Authentication) {
-    // final Authentication auth = (Authentication) user;
-    // roles = auth.getAuthorities().stream().map(GrantedAuthority::getAuthority)
-    // .collect(Collectors.toSet());
-    // } else {
-    // roles = Collections.emptySet();
-    // }
-    //
-    // return new VesselUser(user.getName(), true, roles);
-
 
     try {
-      // TODO: Remove blocks but for debugging its much easier
       final Authentication authentication = authenticationManager
           .authenticate(new UsernamePasswordAuthenticationToken(username, password)).block();
-      // NOTE: Must be exactly attribute as final WebSessionSecurityContextRepository
-      final WebSession session = (WebSession) context.getSession().block();
+      final WebSession session = context.getSession().block();
       final SecurityContextImpl securityContext = new SecurityContextImpl();
       securityContext.setAuthentication(authentication);
+      // NOTE: Must be exactly attribute as final WebSessionSecurityContextRepository
       session.getAttributes().put("USER", securityContext);
-      return Mono.just((User) authentication.getPrincipal());
+      return Mono.just(fromAuthentication(authentication));
     } catch (final Exception e) {
       log.warn("Authentication failed for {}", username, e);
       return Mono.empty();
@@ -74,17 +68,14 @@ public class AuthController {
   public Mono<String> userSession(@GraphQLContext final User user,
       @GraphQLRootContext final Context context) {
     return context.getSession()
-        .map(s -> {
-          return ((WebSession) s).getId();
-        });
+        .map(WebSession::getId);
   }
 
   @GraphQLQuery(name = "user", description = "Get user details")
   public Mono<User> user(@GraphQLRootContext final Context context) {
 
     return context.getAuthentication().map(a -> {
-      final Authentication auth = (Authentication) a;
-      return (User) auth.getPrincipal();
+      return fromAuthentication(a);
     });
 
 
@@ -94,25 +85,43 @@ public class AuthController {
   @GraphQLMutation(name = "logout", description = "Log out the current session")
   public Mono<Boolean> logout(@GraphQLRootContext final Context context) {
     return context.getSession().doOnNext(s -> {
-      ((WebSession) s).getAttributes().remove("USER");
+      s.getAttributes().remove("USER");
+      s.invalidate();
     }).then(Mono.just(true));
   }
 
 
   @GraphQLMutation(name = "changePassword")
-  @PreAuthorize("isAuthenticated()")
   public void changePassword(
+      @GraphQLRootContext final Context context,
       @GraphQLArgument(name = "username") final String username,
       @GraphQLArgument(name = "password") final String password) {
 
+    final Authentication authentication = context.getAuthentication().block();
 
-    // TODO
-    // if (securityService.hasAuthoritory(authentication, VesselRoles.ADMINISTRATOR_AUTHORITY)
-    // || authentication.getName().equalsIgnoreCase(username)) {
-    // securityService.changePassword(username, password);
-    // } else {
-    // log.warn("Attempt by user {} to change password for {}",
-    // authentication.getName(), username);
-    // }
+    if (securityService.hasAuthority(authentication, VesselRoles.ROLE_ADMINISTRATOR)
+        || authentication.getName().equals(username)) {
+      securityService.changePassword(username, password);
+    } else {
+      log.warn("Attempt by user {} to change password for {}",
+          authentication.getName(), username);
+    }
+  }
+
+  // TODO: These could be Utils
+
+  private User fromAuthentication(final Authentication auth) {
+    final UserDetails ud = (UserDetails) auth.getPrincipal();
+    return new User(ud.getUsername(), ud.getName(), getRolesFromAuthorities(ud.getAuthorities()));
+  }
+
+  private Set<String> getRolesFromAuthorities(
+      final Collection<? extends GrantedAuthority> authorities) {
+    return authorities == null ? Collections.emptySet()
+        : authorities.stream()
+            .map(GrantedAuthority::getAuthority)
+            .filter(a -> a.startsWith(VesselRoles.AUTHORITY_PREFIX))
+            .map(a -> a.substring(VesselRoles.AUTHORITY_PREFIX.length()))
+            .collect(Collectors.toSet());
   }
 }

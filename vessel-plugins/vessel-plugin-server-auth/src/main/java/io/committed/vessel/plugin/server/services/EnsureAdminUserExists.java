@@ -30,7 +30,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
   public void ensureUser() {
     final Mono<Boolean> adminUser =
         userAccounts.findAll()
-            .any(u -> u.hasAuthority(VesselRoles.ADMINISTRATOR_AUTHORITY));
+            .any(u -> u.hasAuthority(VesselRoles.ROLE_ADMINISTRATOR));
 
     if (adminUser.block()) {
       log.info("Admin user exists in the database, not creating a default admin");
@@ -41,7 +41,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
     final String username = "admin";
     final Mono<UserAccount> account =
         securityService.findOrAddAccount(username, password, "admin", "",
-            securityService.toSet(VesselRoles.ADMINISTRATOR_AUTHORITY));
+            securityService.toSet(VesselRoles.ROLE_ADMINISTRATOR));
 
     if (account.hasElement().block()) {
       log.info("Created user {} with password {}", username, password);

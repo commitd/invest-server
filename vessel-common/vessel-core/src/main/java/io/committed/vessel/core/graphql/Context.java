@@ -1,6 +1,7 @@
 package io.committed.vessel.core.graphql;
 
-import java.security.Principal;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.server.WebSession;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +13,8 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class Context {
 
-  // TODO: This is a Websession!
-  private Mono<? extends Object> session;
+  private Mono<WebSession> session;
 
-  private Mono<? extends Principal> authentication;
+  private Mono<Authentication> authentication;
 
 }

@@ -89,11 +89,11 @@ public class GraphQlHandler {
 
   private Context buildContext(final ServerRequest request) {
     return Context.builder()
-        // TODO: We shoul dbe able to use request.principal here, but it doesn't seem to have any
+        // TODO: We should be able to use request.principal here, but it doesn't seem to have any
         // data in (which it did do in spring boot M5).
         // It seems like the WebSessionServerSecurityContextRepository.load function is never
         // called, but I can't see why.
-        // Whilst this should work for our purpposes it means taht prinicpal isn't available to
+        // Whilst this should work for our purpposes it means that prinicpal isn't available to
         // other users.
         .authentication(request.session()
             .flatMap(s -> {

@@ -1,5 +1,7 @@
 package io.committed.vessel.graphql.ui.data;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 import io.committed.vessel.extensions.VesselUiExtension;
@@ -17,6 +19,7 @@ public class UiPlugin {
   private String description;
   private String url;
   private String icon;
+  private Collection<String> roles;
   private Stream<UiActionDefinition> actions;
 
   public UiPlugin(final VesselUiExtension extension, final String url) {
@@ -26,5 +29,9 @@ public class UiPlugin {
     this.url = url;
     this.icon = extension.getIcon();
     this.actions = extension.getActions().stream().map(UiActionDefinition::new);
+    this.roles = extension.getRoles();
+    if (roles == null) {
+      this.roles = Collections.emptyList();
+    }
   }
 }
