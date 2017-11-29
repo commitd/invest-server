@@ -98,7 +98,7 @@ public class GraphQlHandler {
         .authentication(request.session()
             .flatMap(s -> {
               final SecurityContext sc = s.getAttribute("USER");
-              return sc != null & sc.getAuthentication() != null
+              return sc != null && sc.getAuthentication() != null
                   ? Mono.just(sc.getAuthentication()) : Mono.empty();
             }))
         .session(request.session())
