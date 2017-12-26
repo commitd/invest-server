@@ -6,7 +6,7 @@
     <artifactId>invest-plugins</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>invest-plugins-data-elasticsearch</artifactId>
+  <artifactId>invest-plugin-data-elasticsearch</artifactId>
   <name>Invest Plugin Elasticsearch</name>
   <description>Elasticsearch support for Invest</description>
   <dependencies>
