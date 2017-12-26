@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.extensions.ui;
+package io.committed.invest.server.app.filters;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;

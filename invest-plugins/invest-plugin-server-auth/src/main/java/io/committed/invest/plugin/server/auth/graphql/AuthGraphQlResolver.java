@@ -13,8 +13,8 @@ import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.server.WebSession;
 
+import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.core.graphql.Context;
-import io.committed.invest.extensions.graphql.GraphQLService;
 import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.dto.User;
 import io.committed.invest.plugin.server.services.UserService;
@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 
 @GraphQLService
 @Slf4j
-public class AuthController {
+public class AuthGraphQlResolver {
 
 
   // THought we could use Flux and non-blocking code here, it feels more sensible to be
@@ -38,7 +38,7 @@ public class AuthController {
   private final UserService securityService;
   private final ReactiveAuthenticationManager authenticationManager;
 
-  public AuthController(final ReactiveAuthenticationManager authenticationManager,
+  public AuthGraphQlResolver(final ReactiveAuthenticationManager authenticationManager,
       final UserService securityService) {
     this.authenticationManager = authenticationManager;
     this.securityService = securityService;

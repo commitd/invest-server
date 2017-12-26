@@ -2,7 +2,7 @@ package io.committed.invest.graphql.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import io.committed.invest.extensions.graphql.GraphQLService;
+import io.committed.invest.annotations.GraphQLService;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
 @GraphQLService

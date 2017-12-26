@@ -20,7 +20,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import graphql.schema.GraphQLSchema;
-import io.committed.invest.extensions.graphql.GraphQLService;
+import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.server.graphql.data.GraphQlServices;
 import io.committed.invest.server.graphql.mappers.FluxToCollectionTypeAdapter;
 import io.committed.invest.server.graphql.mappers.MonoAdapter;

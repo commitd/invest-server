@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.extensions.ui;
+package io.committed.invest.server.app.config;
 
 import java.util.Collections;
 import java.util.List;

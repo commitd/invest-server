@@ -9,7 +9,7 @@ import io.committed.invest.extensions.InvestExtension;
 public class GraphQlExample implements InvestExtension {
 
   @Bean
-  public ThingService thingService() {
-    return new ThingService();
+  public ThingGraphQlResolver thingService() {
+    return new ThingGraphQlResolver();
   }
 }

@@ -16,7 +16,7 @@ import org.springframework.security.web.server.context.WebSessionServerSecurityC
 
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.plugin.server.auth.constants.InvestRoles;
-import io.committed.invest.plugin.server.auth.graphql.AuthController;
+import io.committed.invest.plugin.server.auth.graphql.AuthGraphQlResolver;
 import io.committed.invest.plugin.server.services.EnsureAdminUserExists;
 import io.committed.invest.plugin.server.services.UserAccountDetailsRepositoryService;
 import io.committed.invest.plugin.server.services.UserAccountRepository;
@@ -82,9 +82,9 @@ public abstract class AbstractWithAuthSecurityConfig {
   }
 
   @Bean
-  public AuthController authController(final UserService userService,
+  public AuthGraphQlResolver authController(final UserService userService,
       final ReactiveAuthenticationManager authenticationManager) {
-    return new AuthController(authenticationManager, userService);
+    return new AuthGraphQlResolver(authenticationManager, userService);
   }
 
   // Store our security into in the websession

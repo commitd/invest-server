@@ -9,8 +9,8 @@ import org.springframework.util.ClassUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.extensions.InvestUiExtension;
-import io.committed.invest.extensions.graphql.GraphQLService;
 import io.committed.invest.graphql.ui.data.UiPlugin;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
