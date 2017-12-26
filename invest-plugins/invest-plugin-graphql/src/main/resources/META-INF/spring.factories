@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.server.graphql.GraphQlPlugin
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.server.graphql.GraphQlExtension

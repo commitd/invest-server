@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.data.jpa.JpaPlugin
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.data.jpa.JpaExtension

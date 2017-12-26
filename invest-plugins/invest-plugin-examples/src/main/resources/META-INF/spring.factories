@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.example.VesselExamplePluginAuthConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.example.InvestExamplePluginAuthConfiguration

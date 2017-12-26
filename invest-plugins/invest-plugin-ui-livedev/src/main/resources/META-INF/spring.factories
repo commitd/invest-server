@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.ui.livedev.LiveDevelopmentUIPlugin
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.ui.livedev.LiveDevelopmentUIExtension
