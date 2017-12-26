@@ -19,7 +19,7 @@
     
     <script src="/static/libs/react-16.0.js"></script>
 	<script src="/static/libs/react-dom-16.0.js"></script>
-	<script src="/static/libs/vessel.js"></script>
+	<script src="/static/libs/invest.js"></script>
 
 	<!--  Graphiql 0.11.10 -->
     <link rel="stylesheet" href="graphiql.css" />
@@ -31,10 +31,15 @@
 <script>
 
 	////////////////////////////////////////
-	// Vessel specific
+	// Invest specific
 	// Redirect fetch through vessel plugin
-	var vessel = Vessel.connect()
-	window.fetch = vessel.fetch.bind(vessel)
+	var invest;
+	if(typeof Invest !== 'undefined') {
+		invest = Invest.connect()
+		window.fetch = invest.fetch.bind(invest)
+	} else {
+		console.log("Invest JS library is not available, falling back to browser only")
+	}
 
 	// Provide implement store as localStorage is disabled
     const store = {}
