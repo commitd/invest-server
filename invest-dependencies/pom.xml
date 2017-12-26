@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.committed.invest</groupId>
+    <artifactId>invest-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <packaging>pom</packaging>
+  <artifactId>invest-dependencies</artifactId>
+  <name>Invest Java BOM</name>
+  <description>Bill of Materials for Invest based Java projects</description>
+
+  <properties>
+    <!-- For clarity -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>1.8</java.version>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+
+    <!-- Majority of versions are defined by Spring -->
+    <spring-boot.version>2.0.0.M6</spring-boot.version>
+
+    <!-- Additional versions -->
+    <graphql-java.version>4.2</graphql-java.version>
+    <graphql-spqr.version>0.9.4</graphql-spqr.version>
+    <guava.version>23.3-jre</guava.version>
+    <bean-matchers.version>0.10</bean-matchers.version>
+    <fast-classpath-scanner.version>2.7.4</fast-classpath-scanner.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Utils -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.lukehutch</groupId>
+        <artifactId>fast-classpath-scanner</artifactId>
+        <version>${fast-classpath-scanner.version}</version>
+      </dependency>
+      <!-- GraphQl -->
+      <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphql-java</artifactId>
+        <version>${graphql-java.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.leangen.graphql</groupId>
+        <artifactId>spqr</artifactId>
+        <version>${graphql-spqr.version}</version>
+      </dependency>
+
+      <!-- Test -->
+
+      <dependency>
+        <groupId>com.google.code.bean-matchers</groupId>
+        <artifactId>bean-matchers</artifactId>
+        <version>${bean-matchers.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <!-- Invest specific -->
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-extensions</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-server-graphql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-server-libs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-server-data</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-server-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-test</artifactId>
+        <version>${project.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <!--  TODO Messy exclude jackson-module-kotlin If we have this then Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
+      break an-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-json</artifactId>
+        <version>${spring-boot.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- This appears to be correct as per web, but it doesn't work: See https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
+  <!-- <build> <pluginManagement> <plugins> Support Java9 and sub Java9 <plugin> 
+    <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+    <version>3.7.0</version> <executions> <execution> <id>default-compile</id> 
+    <configuration> compile everything to ensure module-info contains right entries 
+    required when JAVA_HOME is JDK 8 or below <jdkToolchain> <version>9</version> 
+    </jdkToolchain> <release>9</release> </configuration> </execution> <execution> 
+    <id>base-compile</id> <goals> <goal>compile</goal> </goals> recompile everything 
+    for target VM except the module-info.java <configuration> <excludes> <exclude>module-info.java</exclude> 
+    </excludes> </configuration> </execution> </executions> defaults for compile 
+    and testCompile <configuration> jdkToolchain required when JAVA_HOME is JDK 
+    9 or above <jdkToolchain> <version>[1.5,9)</version> </jdkToolchain> <source>${java.version}</source> 
+    <target>${java.version}</target> </configuration> </plugin> </plugins> </pluginManagement> 
+    <plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 
+    </plugin> </plugins> </build> -->
+</project>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>io.committed.invest</groupId>
+    <artifactId>invest-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <artifactId>invest-plugins</artifactId>
+  <name>Invest Plugins</name>
+  <description>A set of Invest plugins for common required server functionality</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-plugin</artifactId>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-dependencies</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>  
+
+  <modules>
+    <module>invest-plugin-graphql</module>
+    <module>invest-plugin-examples</module>
+    <module>invest-plugin-ui-graphiql</module>
+    <module>invest-plugin-data-mongo</module>
+    <module>invest-plugin-data-elasticsearch</module>
+    <module>invest-plugin-data-jpa</module>
+    <module>invest-plugin-server-audit</module>
+    <module>invest-plugin-server-auth</module>
+    <module>invest-plugin-graphql-ui</module>
+    <module>invest-plugin-ui-livedev</module>
+    <module>invest-plugin-ui-app</module>
+    <module>invest-plugin-ui-libs</module>
+  </modules>
+</project>
