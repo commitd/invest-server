@@ -3,13 +3,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.committed.vessel</groupId>
-  <artifactId>vessel-parent</artifactId>
+  <groupId>io.committed.invest</groupId>
+  <artifactId>invest-parent</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
 
-  <name>Vessel</name>
-  <description>Modular plugin based application framework</description>
+  <name>Invest</name>
+  <description>Modular plugin based application framework, based on Spring</description>
   <url>http://committed.io</url>
   <inceptionYear>2017</inceptionYear>
 
@@ -74,11 +74,11 @@
   </pluginRepositories>
 
   <modules>
-    <module>vessel-dependencies</module>
-    <module>vessel-common</module>
-    <module>vessel-server</module>
-    <module>vessel-plugin</module> 
-    <module>vessel-plugins</module>
-    <module>vessel-archetypes</module>
+    <module>invest-dependencies</module>
+    <module>invest-common</module>
+    <module>invest-server</module>
+    <module>invest-plugin</module> 
+    <module>invest-plugins</module>
+    <module>invest-archetypes</module>
   </modules>
 </project>

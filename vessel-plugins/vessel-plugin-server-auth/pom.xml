@@ -2,13 +2,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>io.committed.vessel</groupId>
-    <artifactId>vessel-plugins</artifactId>
+    <groupId>io.committed.invest</groupId>
+    <artifactId>invest-plugins</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  <artifactId>vessel-plugin-server-auth</artifactId>
-  <name>Vessel Plugin Auth</name>
-  <description>Auth for Vessel</description>
+  <artifactId>invest-plugin-server-auth</artifactId>
+  <name>Invest Plugin Auth</name>
+  <description>Auth for Invest</description>
 
   <dependencies>
     <dependency>
@@ -29,8 +29,8 @@
       <artifactId>spring-security-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.committed.vessel</groupId>
-      <artifactId>vessel-core</artifactId>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-core</artifactId>
     </dependency>
 
     <!-- These different auth types should be in different plugins -->

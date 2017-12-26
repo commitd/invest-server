@@ -4,27 +4,27 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>io.committed.vessel</groupId>
-    <artifactId>vessel-parent</artifactId>
+    <groupId>io.committed.invest</groupId>
+    <artifactId>invest-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
 
   <packaging>pom</packaging>
-  <artifactId>vessel-common</artifactId>
-  <name>Vessel Common</name>
+  <artifactId>invest-common</artifactId>
+  <name>Invest Common</name>
   <description>Projects which are shared between plugins and server</description>
 
   <modules>
-    <module>vessel-core</module>
-    <module>vessel-extensions</module>
-    <module>vessel-test</module>
+    <module>invest-core</module>
+    <module>invest-extensions</module>
+    <module>invest-test</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.committed.vessel</groupId>
-        <artifactId>vessel-dependencies</artifactId>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-dependencies</artifactId>
         <version>${project.version}</version>
         <type>pom</type>
         <scope>import</scope>

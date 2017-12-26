@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>io.committed.vessel</groupId>
-  <artifactId>vessel-ui-plugin-archetype</artifactId>
+  <groupId>io.committed.invest</groupId>
+  <artifactId>invest-ui-plugin-archetype</artifactId>
   <version>0.1.0</version>
 
   <properties>
@@ -14,13 +14,13 @@
     <nodejs.version>v8.9.0</nodejs.version>
     <yarn.version>v1.3.2</yarn.version>
 
-    <vessel-java.version>1.0-SNAPSHOT</vessel-java.version>
+    <invest-java.version>1.0-SNAPSHOT</invest-java.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>io.committed.vessel</groupId>
-      <artifactId>vessel-plugin</artifactId>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>vessinvestel-plugin</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -32,9 +32,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.committed.vessel</groupId>
-        <artifactId>vessel-dependencies</artifactId>
-        <version>${vessel-java.version}</version>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-dependencies</artifactId>
+        <version>${invest-java.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

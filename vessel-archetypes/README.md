@@ -1,8 +1,8 @@
-# Vessel Archetypes
+# Invest Archetypes
 
 You need to build and install these to your local machine.
 
-Firstly ensure you've installed the rest of the Vessel Java projects using:
+Firstly ensure you've installed the rest of the Invest Java projects using:
 
 ```
 mvn install

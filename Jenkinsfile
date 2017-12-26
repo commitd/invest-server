@@ -37,17 +37,17 @@ pipeline {
             junit '**/target/surefire-reports/*.xml'
         }
         success {
-            slackSend channel: '#vessel_ci',
+            slackSend channel: '#invest_ci',
                   color: 'good',
                   message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
         }
         unstable {
-            slackSend channel: '#vessel_ci',
+            slackSend channel: '#invest_ci',
                   color: 'warning',
                   message: "The pipeline ${currentBuild.fullDisplayName} failed tests."
         }
         failure {
-            slackSend channel: '#vessel_ci',
+            slackSend channel: '#invest_ci',
                   color: 'danger',
                   message: "The pipeline ${currentBuild.fullDisplayName} failed."
         }
