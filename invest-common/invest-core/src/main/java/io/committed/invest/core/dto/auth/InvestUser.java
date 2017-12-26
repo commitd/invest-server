@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VesselUser {
+public class InvestUser {
   @NotBlank
   @JsonProperty("username")
   private String username;

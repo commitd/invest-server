@@ -13,7 +13,7 @@ public interface InvestExtension {
   }
 
   default String getName() {
-    return getId();
+    return ClassUtils.getUserClass(this.getClass()).getSimpleName();
   }
 
   default String getDescription() {

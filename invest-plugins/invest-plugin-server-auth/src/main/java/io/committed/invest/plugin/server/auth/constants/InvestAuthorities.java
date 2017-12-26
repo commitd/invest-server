@@ -1,8 +1,8 @@
 package io.committed.invest.plugin.server.auth.constants;
 
-public class VesselAuthorities {
+public class InvestAuthorities {
 
-  private VesselAuthorities() {
+  private InvestAuthorities() {
     // Singleton
   }
 
