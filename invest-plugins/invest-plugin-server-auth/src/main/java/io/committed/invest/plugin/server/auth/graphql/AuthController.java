@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.server.WebSession;
 
 import io.committed.invest.core.graphql.Context;
-import io.committed.invest.extensions.graphql.VesselGraphQlService;
-import io.committed.invest.plugin.server.auth.constants.VesselRoles;
+import io.committed.invest.extensions.graphql.GraphQLService;
+import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.dto.User;
 import io.committed.invest.plugin.server.services.UserService;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -27,7 +27,7 @@ import io.leangen.graphql.annotations.GraphQLRootContext;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@VesselGraphQlService
+@GraphQLService
 @Slf4j
 public class AuthController {
 
@@ -99,7 +99,7 @@ public class AuthController {
 
     final Authentication authentication = context.getAuthentication().block();
 
-    if (securityService.hasAuthority(authentication, VesselRoles.ROLE_ADMINISTRATOR)
+    if (securityService.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)
         || authentication.getName().equals(username)) {
       securityService.changePassword(username, password);
     } else {
@@ -120,8 +120,8 @@ public class AuthController {
     return authorities == null ? Collections.emptySet()
         : authorities.stream()
             .map(GrantedAuthority::getAuthority)
-            .filter(a -> a.startsWith(VesselRoles.AUTHORITY_PREFIX))
-            .map(a -> a.substring(VesselRoles.AUTHORITY_PREFIX.length()))
+            .filter(a -> a.startsWith(InvestRoles.AUTHORITY_PREFIX))
+            .map(a -> a.substring(InvestRoles.AUTHORITY_PREFIX.length()))
             .collect(Collectors.toSet());
   }
 }

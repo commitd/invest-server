@@ -16,7 +16,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import io.committed.invest.core.services.UiUrlService;
-import io.committed.invest.extensions.VesselUiExtension;
+import io.committed.invest.extensions.InvestUiExtension;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UiMerger implements WebFluxConfigurer {
 
   @Autowired(required = false)
-  private final List<VesselUiExtension> extensions = Collections.emptyList();
+  private final List<InvestUiExtension> extensions = Collections.emptyList();
 
   @Autowired
   private UiUrlService urlService;
@@ -39,7 +39,7 @@ public class UiMerger implements WebFluxConfigurer {
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
 
-    for (final VesselUiExtension e : extensions) {
+    for (final InvestUiExtension e : extensions) {
 
       final String classPath = e.getStaticResourcePath();
       if (!StringUtils.isEmpty(classPath)) {

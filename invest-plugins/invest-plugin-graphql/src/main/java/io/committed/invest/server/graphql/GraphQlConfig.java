@@ -20,8 +20,8 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import graphql.schema.GraphQLSchema;
-import io.committed.invest.extensions.graphql.VesselGraphQlService;
-import io.committed.invest.server.graphql.data.VesselGraphQlServices;
+import io.committed.invest.extensions.graphql.GraphQLService;
+import io.committed.invest.server.graphql.data.GraphQlServices;
 import io.committed.invest.server.graphql.mappers.FluxToCollectionTypeAdapter;
 import io.committed.invest.server.graphql.mappers.MonoAdapter;
 import io.leangen.graphql.GraphQLSchemaGenerator;
@@ -52,17 +52,17 @@ public class GraphQlConfig {
   }
 
   @Bean
-  public VesselGraphQlServices graphQlServices() {
+  public GraphQlServices graphQlServices() {
     final Map<String, Object> beansWithAnnotation =
-        context.getBeansWithAnnotation(VesselGraphQlService.class);
+        context.getBeansWithAnnotation(GraphQLService.class);
 
-    return new VesselGraphQlServices(
+    return new GraphQlServices(
         Collections.unmodifiableCollection(beansWithAnnotation.values()));
   }
 
 
   @Bean
-  public GraphQLSchema schema(final VesselGraphQlServices services) {
+  public GraphQLSchema schema(final GraphQlServices services) {
 
 
     GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()

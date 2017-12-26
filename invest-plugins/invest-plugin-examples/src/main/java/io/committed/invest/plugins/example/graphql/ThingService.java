@@ -2,11 +2,11 @@ package io.committed.invest.plugins.example.graphql;
 
 import java.util.Arrays;
 
-import io.committed.invest.extensions.graphql.VesselGraphQlService;
+import io.committed.invest.extensions.graphql.GraphQLService;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
 
-@VesselGraphQlService
+@GraphQLService
 public class ThingService {
 
   public static final class Thing {

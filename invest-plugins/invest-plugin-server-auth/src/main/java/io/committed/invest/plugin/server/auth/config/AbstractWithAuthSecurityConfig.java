@@ -15,7 +15,7 @@ import org.springframework.security.web.server.context.ServerSecurityContextRepo
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
 
 import io.committed.invest.core.services.UiUrlService;
-import io.committed.invest.plugin.server.auth.constants.VesselRoles;
+import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.graphql.AuthController;
 import io.committed.invest.plugin.server.services.EnsureAdminUserExists;
 import io.committed.invest.plugin.server.services.UserAccountDetailsRepositoryService;
@@ -50,7 +50,7 @@ public abstract class AbstractWithAuthSecurityConfig {
         .authorizeExchange()
         // Allow access to static files inside the UI
         .pathMatchers(urlService.getContextPath() + "/**").permitAll()
-        .pathMatchers("/actuator/**").hasRole(VesselRoles.ROLE_ADMINISTRATOR)
+        .pathMatchers("/actuator/**").hasRole(InvestRoles.ROLE_ADMINISTRATOR)
         .anyExchange().permitAll();
 
 

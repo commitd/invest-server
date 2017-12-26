@@ -39,7 +39,7 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
 
   // TODO: I want to inject this but it not defined of this type... rather VesselUiExtension (need
   // to sort that out)
-  LiveDevelopmentUIPlugin plugin = new LiveDevelopmentUIPlugin();
+  LiveDevelopmentUIExtension plugin = new LiveDevelopmentUIExtension();
 
   private String getFullPath() {
     return urlService.getFullPath(plugin);

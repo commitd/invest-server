@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import io.committed.invest.extensions.VesselUiExtension;
+import io.committed.invest.extensions.InvestUiExtension;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +22,7 @@ public class UiPlugin {
   private Collection<String> roles;
   private Stream<UiActionDefinition> actions;
 
-  public UiPlugin(final VesselUiExtension extension, final String url) {
+  public UiPlugin(final InvestUiExtension extension, final String url) {
     this.id = extension.getId();
     this.name = extension.getName();
     this.description = extension.getDescription();

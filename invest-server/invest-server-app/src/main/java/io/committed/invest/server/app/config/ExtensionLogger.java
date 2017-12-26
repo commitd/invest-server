@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import io.committed.invest.extensions.VesselExtension;
+import io.committed.invest.extensions.InvestExtension;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ExtensionLogger {
 
   @Autowired(required = false)
-  private List<VesselExtension> extensions;
+  private List<InvestExtension> extensions;
 
   @PostConstruct
   public void postConstruct() {
@@ -26,7 +26,7 @@ public class ExtensionLogger {
     }
   }
 
-  private void logExtension(final VesselExtension e) {
+  private void logExtension(final InvestExtension e) {
     log.info("Found extension {} with name {} of type {}", e.getId(), e.getName(), e.getClass());
   }
 }

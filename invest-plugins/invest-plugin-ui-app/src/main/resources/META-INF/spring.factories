@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.ui.application.VesselUiApplication
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.ui.application.InvestUiApplicationExtension
