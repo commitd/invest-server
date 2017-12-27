@@ -153,6 +153,8 @@
     <module>invest-server</module>
     <module>invest-plugin</module>
     <module>invest-plugins</module>
+    <!-- Not included in build presently
     <module>invest-archetypes</module>
+    -->
   </modules>
 </project>
