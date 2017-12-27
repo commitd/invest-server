@@ -5,9 +5,9 @@
     <artifactId>invest-plugins</artifactId>
     <version>0.0.1</version>
   </parent>
-  <artifactId>invest-plugin-ui-livedev</artifactId>
+  <artifactId>invest-plugin-ui-actiondev</artifactId>
   <name>Invest UI Live Development Plugin</name>
-  <description>Redirects request to a another ui server</description>
+  <description>Allows developer to send actions to other plugins</description>
   
   <dependencies>
     <dependency>

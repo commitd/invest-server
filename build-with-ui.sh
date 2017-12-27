@@ -12,6 +12,11 @@ mkdir -p invest-plugins/invest-plugin-ui-app/src/main/resources/ui/app
 rm -rf invest-plugins/invest-plugin-ui-app/src/main/resources/ui/app/*
 cp -a $1/apps/invest-app/build/. invest-plugins/invest-plugin-ui-app/src/main/resources/ui/app/.
 
+echo "Copy UI plugins into place"
+mkdir -p invest-plugins/invest-plugin-ui-actiondev/src/main/resources/ui/dev-action
+rm -rf invest-plugins/invest-plugin-ui-actiondev/src/main/resources/ui/dev-action/*
+cp -a $1/plugins/ingest-plugin-actiondev/build/. invest-plugins/invest-plugin-actiondev/src/main/resources/ui/dev-action/.
+
 echo "Copying invest.js library into place"
 mkdir -p invest-plugins/invest-plugin-ui-libs/src/main/resources/ui/libs
 rm -rf invest-plugins/invest-plugin-ui-libs/src/main/resources/ui/libs/invest.js
@@ -21,6 +26,7 @@ echo "Downloading new UI libs"
 cd invest-plugins/invest-plugin-ui-libs
 ./download.sh
 cd -
+
 
 echo "Build with Maven (without testing)"
 mvn clean package -DskipTests
@@ -40,6 +46,7 @@ cp invest-plugins/invest-plugin-ui-app/target/*.jar build/plugins/.
 cp invest-plugins/invest-plugin-ui-graphiql/target/*.jar build/plugins/.
 cp invest-plugins/invest-plugin-ui-libs/target/*.jar build/plugins/.
 cp invest-plugins/invest-plugin-ui-livedev/target/*.jar build/plugins/.
+cp invest-plugins/invest-plugin-ui-actiondev/target/*.jar build/plugins/.
 
 
 echo "java -Dloader.path=plugins/ -jar invest-server-app-1.0-SNAPSHOT.jar" > build/run.sh

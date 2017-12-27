@@ -1,4 +1,4 @@
-package io.committed.invest.plugins.ui.livedev;
+package io.committed.invest.plugins.ui.actiondev;
 
 import java.net.URI;
 
@@ -24,7 +24,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Configuration
-public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
+public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
 
   private static final String[] PATHS = {
       "/static/**",
@@ -39,7 +39,7 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
 
   // TODO: I want to inject this but it not defined of this type... rather VesselUiExtension (need
   // to sort that out)
-  LiveDevelopmentUIExtension plugin = new LiveDevelopmentUIExtension();
+  ActionDevelopmentUIExtension plugin = new ActionDevelopmentUIExtension();
 
   private String getFullPath() {
     return urlService.getFullPath(plugin);

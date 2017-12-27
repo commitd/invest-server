@@ -43,6 +43,7 @@
     <module>invest-plugin-server-auth</module>
     <module>invest-plugin-graphql-ui</module>
     <module>invest-plugin-ui-livedev</module>
+    <module>invest-plugin-ui-actiondev</module>
     <module>invest-plugin-ui-app</module>
     <module>invest-plugin-ui-libs</module>
   </modules>
