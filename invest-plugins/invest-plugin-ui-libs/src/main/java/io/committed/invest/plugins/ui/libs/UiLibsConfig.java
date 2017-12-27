@@ -11,7 +11,7 @@ public class UiLibsConfig {
 
   @Bean
   public RouterFunction<?> root() {
-    return RouterFunctions.resources("/static/libs/**",
+    return RouterFunctions.resources("/ui/libs/**",
         new ClassPathResource("/ui/libs/", this.getClass().getClassLoader()));
   }
 
