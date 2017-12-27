@@ -6,25 +6,29 @@
   <groupId>io.committed.invest</groupId>
   <artifactId>invest-parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>Invest</name>
   <description>Modular plugin based application framework, based on Spring</description>
   <url>http://committed.io</url>
   <inceptionYear>2017</inceptionYear>
 
-<licenses>
-  <license>
-    <name>Apache License, Version 2.0</name>
-    <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    <distribution>repo</distribution>
-  </license>
-</licenses>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <organization>
     <name>Committed</name>
     <url>http://committed.io</url>
-  </organization>  
+  </organization>
+  
+  <scm>
+    <url>https://bitbucket.org/committed/invest-java</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -72,12 +76,82 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
+  
+  
+  <!--  Release to Maven Central via OSSHR -->
+    <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.4</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.8</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <modules>
     <module>invest-dependencies</module>
     <module>invest-common</module>
     <module>invest-server</module>
-    <module>invest-plugin</module> 
+    <module>invest-plugin</module>
     <module>invest-plugins</module>
     <module>invest-archetypes</module>
   </modules>

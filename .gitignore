@@ -8,3 +8,4 @@ bin/
 .springBeans
 dependency-reduced-pom.xml
 build
+*.versionsBackup
