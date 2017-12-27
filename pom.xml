@@ -25,10 +25,17 @@
     <name>Committed</name>
     <url>http://committed.io</url>
   </organization>
-  
+
   <scm>
     <url>https://bitbucket.org/committed/invest-java</url>
   </scm>
+
+  <developers>
+    <developer>
+      <name>Chris Flatley</name>
+      <organization>Committed</organization>
+    </developer>
+  </developers>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -76,10 +83,10 @@
       </snapshots>
     </pluginRepository>
   </pluginRepositories>
-  
-  
-  <!--  Release to Maven Central via OSSHR -->
-    <distributionManagement>
+
+
+  <!-- Release to Maven Central via OSSHR -->
+  <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -153,8 +160,6 @@
     <module>invest-server</module>
     <module>invest-plugin</module>
     <module>invest-plugins</module>
-    <!-- Not included in build presently
-    <module>invest-archetypes</module>
-    -->
+    <!-- Not included in build presently <module>invest-archetypes</module> -->
   </modules>
 </project>
