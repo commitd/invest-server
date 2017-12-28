@@ -15,7 +15,7 @@ public class ApplicationConfig {
   @Bean
   @Order(value = Ordered.LOWEST_PRECEDENCE)
   public RouterFunction<?> applicationRootRoutes() {
-    return RouterFunctions.resources("/**",
+    return RouterFunctions.resources("/ui/app/**",
         new ClassPathResource("/ui/app/", this.getClass().getClassLoader()));
   }
 
