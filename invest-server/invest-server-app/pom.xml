@@ -54,18 +54,16 @@
     </dependency>
   </dependencies>
 
-  <build>
+<build>
     <plugins>
+    <!--  We use a ZIP so that we have plugin jars via the loader mechanism -->
+    <!--  We also want this to be executable -->
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <!-- In order to run with external plugins on the classpath we 
-            use the PropertiesLauncher, with has the loader.path configuration -->
           <layout>ZIP</layout>
-          <!-- We want an exectuable service -->
           <executable>true</executable>
-
         </configuration>
         <executions>
           <execution>
@@ -77,12 +75,12 @@
       </plugin>
 
 
-      <!-- TODO: I want to add a plugin directory to the manifest by default. 
+  <!--     TODO: I want to add a plugin directory to the manifest by default. 
         This works but its not picked up? <plugin> <groupId>org.apache.maven.plugins</groupId> 
         <artifactId>maven-jar-plugin</artifactId> <configuration> <archive> <manifestEntries> 
         <Class-Path>plugins/</Class-Path> </manifestEntries> </archive> </configuration> 
-        </plugin> -->
+    -->        
     </plugins>
-  </build>
+  </build>  
 
 </project>
