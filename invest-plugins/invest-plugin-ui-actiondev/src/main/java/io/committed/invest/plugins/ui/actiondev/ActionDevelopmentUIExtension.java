@@ -12,7 +12,7 @@ public class ActionDevelopmentUIExtension implements InvestUiExtension {
 
   @Override
   public String getId() {
-    return "dev-actions";
+    return "dev-action";
   }
 
   @Override
