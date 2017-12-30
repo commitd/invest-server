@@ -1,4 +1,4 @@
-package io.committed.invest.support.elasticsearch;
+package io.committed.invest.support.elasticsearch.utils;
 
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.ListenableActionFuture;

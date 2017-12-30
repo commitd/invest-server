@@ -161,5 +161,6 @@
     <module>invest-plugin</module>
     <module>invest-plugins</module>
     <!-- Not included in build presently <module>invest-archetypes</module> -->
+    <module>invest-support</module>
   </modules>
 </project>

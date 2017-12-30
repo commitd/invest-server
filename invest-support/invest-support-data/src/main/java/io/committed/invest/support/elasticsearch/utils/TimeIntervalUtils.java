@@ -1,4 +1,4 @@
-package io.committed.invest.support.elasticsearch;
+package io.committed.invest.support.elasticsearch.utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
