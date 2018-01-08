@@ -3,11 +3,9 @@ package io.committed.invest.server.data;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import io.committed.invest.server.data.dataset.Dataset;
 import io.committed.invest.server.data.providers.DataProvider;
 import io.committed.invest.server.data.providers.DataProviderFactory;
@@ -51,11 +49,8 @@ public class DataCreationConfig {
   @Bean
   List<DataProvider> dataProviders(final DatasetRegistry datasetRegistry,
       final DataProviderFactoryRegistry dataProviderFactoryRegistry) {
-    final DataProviderCreator creator =
-        new DataProviderCreator(dataProviderFactoryRegistry);
-    return creator.createProviders(datasetRegistry)
-        .collect(Collectors.toList())
-        .block();
+    final DataProviderCreator creator = new DataProviderCreator(dataProviderFactoryRegistry);
+    return creator.createProviders(datasetRegistry).collect(Collectors.toList()).block();
   }
 
   private <T> List<T> toSafeList(final List<T> providers, final String name) {

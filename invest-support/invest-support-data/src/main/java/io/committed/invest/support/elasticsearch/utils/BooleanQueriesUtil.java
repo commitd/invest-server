@@ -2,7 +2,6 @@ package io.committed.invest.support.elasticsearch.utils;
 
 import java.util.Arrays;
 import java.util.List;
-
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;

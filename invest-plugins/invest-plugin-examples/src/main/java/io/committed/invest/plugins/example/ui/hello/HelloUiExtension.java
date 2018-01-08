@@ -2,9 +2,7 @@ package io.committed.invest.plugins.example.ui.hello;
 
 import java.util.Arrays;
 import java.util.Collection;
-
 import org.springframework.stereotype.Component;
-
 import io.committed.invest.actions.ActionDefinition;
 import io.committed.invest.actions.SimpleActionDefinition;
 import io.committed.invest.extensions.InvestUiExtension;
@@ -14,13 +12,8 @@ public class HelloUiExtension implements InvestUiExtension {
 
   @Override
   public Collection<ActionDefinition> getActions() {
-    return Arrays.asList(
-        SimpleActionDefinition.builder()
-            .action("documents.view")
-            .description("View a document")
-            .title("Say Hello")
-            .payload(ExamplePayload.class)
-            .build());
+    return Arrays.asList(SimpleActionDefinition.builder().action("documents.view")
+        .description("View a document").title("Say Hello").payload(ExamplePayload.class).build());
   }
 
 

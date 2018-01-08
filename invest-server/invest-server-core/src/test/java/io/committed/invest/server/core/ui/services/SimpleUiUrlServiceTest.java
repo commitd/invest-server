@@ -1,9 +1,7 @@
 package io.committed.invest.server.core.ui.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.Test;
-
 import io.committed.invest.extensions.InvestUiExtension;
 
 public class SimpleUiUrlServiceTest {

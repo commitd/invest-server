@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
-
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.graphql.AuthGraphQlResolver;
@@ -38,20 +37,17 @@ public abstract class AbstractWithAuthSecurityConfig {
 
     // For the /view we want to allow iframe acccess
     // TODO: Can we limit this just to /ui?
-    http
-        .headers().frameOptions().disable();
+    http.headers().frameOptions().disable();
 
     http.csrf().disable();
 
     http.authenticationManager(authenticationManager);
     http.securityContextRepository(securityContextRepository);
 
-    http
-        .authorizeExchange()
+    http.authorizeExchange()
         // Allow access to static files inside the UI
-        .pathMatchers(urlService.getContextPath() + "/**").permitAll()
-        .pathMatchers("/actuator/**").hasRole(InvestRoles.ROLE_ADMINISTRATOR)
-        .anyExchange().permitAll();
+        .pathMatchers(urlService.getContextPath() + "/**").permitAll().pathMatchers("/actuator/**")
+        .hasRole(InvestRoles.ROLE_ADMINISTRATOR).anyExchange().permitAll();
 
 
     return http.build();

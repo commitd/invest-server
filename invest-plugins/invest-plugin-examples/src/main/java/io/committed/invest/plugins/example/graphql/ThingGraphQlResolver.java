@@ -1,7 +1,6 @@
 package io.committed.invest.plugins.example.graphql;
 
 import java.util.Arrays;
-
 import io.committed.invest.annotations.GraphQLService;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;

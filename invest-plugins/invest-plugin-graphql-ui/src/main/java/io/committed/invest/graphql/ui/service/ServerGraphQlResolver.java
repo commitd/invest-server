@@ -6,13 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.graphql.ui.UiPluginsSettings;
@@ -32,8 +29,8 @@ public class ServerGraphQlResolver {
   @Autowired
   public ServerGraphQlResolver(final UiUrlService urlService,
       @Autowired(required = false) final List<InvestUiExtension> uiExtensions,
-      final ApplicationContext applicationcontext,
-      final UiPluginsSettings uiPluginSettings, final ObjectMapper mapper) {
+      final ApplicationContext applicationcontext, final UiPluginsSettings uiPluginSettings,
+      final ObjectMapper mapper) {
     this.urlService = urlService;
     this.uiExtensions =
         uiExtensions == null ? Collections.emptyList() : sort(uiExtensions, uiPluginSettings);
@@ -43,18 +40,14 @@ public class ServerGraphQlResolver {
   @GraphQLQuery(name = "uiPlugins",
       description = "Access details all UI plugins available on the system")
   public Flux<UiPlugin> uiPlugins() {
-    return Flux.fromIterable(uiExtensions)
-        .map(e -> new UiPlugin(e, urlService.getFullPath(e)));
+    return Flux.fromIterable(uiExtensions).map(e -> new UiPlugin(e, urlService.getFullPath(e)));
   }
 
-  @GraphQLQuery(name = "uiPlugin",
-      description = "Access details for a specific UI plugin")
+  @GraphQLQuery(name = "uiPlugin", description = "Access details for a specific UI plugin")
   public Mono<UiPlugin> uiPlugin(
       @GraphQLArgument(name = "pluginId", description = "The plugin id to get") final String id) {
-    return Flux.fromIterable(uiExtensions)
-        .filter(p -> p.getId().equalsIgnoreCase(id))
-        .map(e -> new UiPlugin(e, urlService.getFullPath(e)))
-        .next();
+    return Flux.fromIterable(uiExtensions).filter(p -> p.getId().equalsIgnoreCase(id))
+        .map(e -> new UiPlugin(e, urlService.getFullPath(e))).next();
   }
 
   private List<InvestUiExtension> sort(final List<InvestUiExtension> uiExtensions,
@@ -72,13 +65,10 @@ public class ServerGraphQlResolver {
 
     // Add the ones in the order list, remove any from the map so we have just wantever has not been
     // used (in case they've added it twice etc)
-    order.stream()
-        .map(idToExtension::get)
-        .filter(Objects::nonNull)
-        .forEach(e -> {
-          idToExtension.remove(e.getId());
-          ordered.add(e);
-        });
+    order.stream().map(idToExtension::get).filter(Objects::nonNull).forEach(e -> {
+      idToExtension.remove(e.getId());
+      ordered.add(e);
+    });
 
     // Add any left at the end, sorting by alphabetical name just so its consistent to the user
     idToExtension.values().stream().sorted((a, b) -> a.getName().compareTo(b.getName()))

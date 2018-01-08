@@ -2,9 +2,7 @@ package io.committed.invest.core.dto.analytic;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Value;
 
 @Value

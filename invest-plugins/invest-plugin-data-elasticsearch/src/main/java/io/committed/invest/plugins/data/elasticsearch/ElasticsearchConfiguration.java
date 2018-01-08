@@ -2,7 +2,6 @@ package io.committed.invest.plugins.data.elasticsearch;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
@@ -16,9 +15,8 @@ public class ElasticsearchConfiguration {
   @SuppressWarnings("resource")
   @Bean
   public Client elasticsearchClient() throws UnknownHostException {
-    return new PreBuiltTransportClient(Settings.EMPTY)
-        .addTransportAddress(
-            new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
+    return new PreBuiltTransportClient(Settings.EMPTY).addTransportAddress(
+        new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));
   }
 
 }

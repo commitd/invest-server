@@ -2,7 +2,6 @@ package io.committed.invest.server.data.query;
 
 import java.util.Collection;
 import java.util.function.Function;
-
 import io.committed.invest.server.data.providers.DataProvider;
 import lombok.Data;
 import reactor.core.publisher.Flux;
@@ -50,8 +49,7 @@ public class DataHints implements Function<Collection<DataProvider>, Flux<DataPr
     }
 
     if (!duplicate) {
-      flux = flux.groupBy(DataProvider::getDatasource)
-          .flatMap(GroupedFlux::next);
+      flux = flux.groupBy(DataProvider::getDatasource).flatMap(GroupedFlux::next);
     }
 
     return flux;

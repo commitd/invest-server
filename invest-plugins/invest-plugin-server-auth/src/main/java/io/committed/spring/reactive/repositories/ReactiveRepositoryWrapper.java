@@ -3,7 +3,6 @@ package io.committed.spring.reactive.repositories;
 import org.reactivestreams.Publisher;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -2,7 +2,6 @@ package io.committed.invest.support.data.mongo;
 
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-
 import reactor.core.publisher.Mono;
 
 public abstract class AbstractMongoRepositoryDataProvider<T, I, R extends ReactiveCrudRepository<T, I>>

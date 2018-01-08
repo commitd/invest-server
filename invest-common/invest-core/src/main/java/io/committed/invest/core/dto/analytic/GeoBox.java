@@ -3,7 +3,6 @@ package io.committed.invest.core.dto.analytic;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -77,11 +76,8 @@ public class GeoBox {
   }
 
   public GeoBox intersection(final GeoBox geobox) {
-    return new GeoBox(
-        minOrSet(n, geobox.getN()),
-        minOrSet(e, geobox.getE()),
-        maxOrSet(s, geobox.getS()),
-        maxOrSet(w, geobox.getW()));
+    return new GeoBox(minOrSet(n, geobox.getN()), minOrSet(e, geobox.getE()),
+        maxOrSet(s, geobox.getS()), maxOrSet(w, geobox.getW()));
   }
 
   private static Double minOrSet(final Double d1, final Double d2) {

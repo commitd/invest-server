@@ -3,10 +3,8 @@ package io.committed.invest.server.data.services;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import io.committed.invest.server.data.dataset.DataProviderSpecification;
 import io.committed.invest.server.data.providers.DataProvider;
 import io.committed.invest.server.data.providers.DataProviderFactory;
@@ -26,16 +24,14 @@ public class DataProviderFactoryRegistry {
   }
 
   public Flux<DataProviderFactory<? extends DataProvider>> findFactories(final String id) {
-    return Flux.fromIterable(factories)
-        .filter(f -> f.getId().equalsIgnoreCase(id));
+    return Flux.fromIterable(factories).filter(f -> f.getId().equalsIgnoreCase(id));
   }
 
   // This is checked in the flux
   @SuppressWarnings("unchecked")
   public <P extends DataProvider> Flux<DataProviderFactory<P>> findFactories(final String id,
       final Class<P> clazz) {
-    return findFactories(id)
-        .filter(f -> clazz.isAssignableFrom(f.getDataProvider()))
+    return findFactories(id).filter(f -> clazz.isAssignableFrom(f.getDataProvider()))
         .map(f -> (DataProviderFactory<P>) f);
   }
 
@@ -47,15 +43,14 @@ public class DataProviderFactoryRegistry {
 
     final String factoryId = spec.getFactory();
 
-    return findFactories(factoryId)
-        .flatMap(f -> {
-          try {
-            return f.build(dataset, spec.getDatasource(), safeSettings);
-          } catch (final Exception e) {
-            log.warn("Unable to create data provider due to error", e);
-            return Mono.empty();
-          }
-        })
+    return findFactories(factoryId).flatMap(f -> {
+      try {
+        return f.build(dataset, spec.getDatasource(), safeSettings);
+      } catch (final Exception e) {
+        log.warn("Unable to create data provider due to error", e);
+        return Mono.empty();
+      }
+    })
         // Grab the first non empty
         .next();
   }

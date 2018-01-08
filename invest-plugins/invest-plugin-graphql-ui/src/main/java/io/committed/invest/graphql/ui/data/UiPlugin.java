@@ -3,7 +3,6 @@ package io.committed.invest.graphql.ui.data;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
-
 import io.committed.invest.extensions.InvestUiExtension;
 import lombok.AllArgsConstructor;
 import lombok.Data;

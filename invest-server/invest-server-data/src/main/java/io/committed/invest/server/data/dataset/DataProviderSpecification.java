@@ -2,7 +2,6 @@ package io.committed.invest.server.data.dataset;
 
 import java.util.Collections;
 import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

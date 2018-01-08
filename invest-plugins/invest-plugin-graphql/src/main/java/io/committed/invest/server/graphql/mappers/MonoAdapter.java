@@ -1,7 +1,6 @@
 package io.committed.invest.server.graphql.mappers;
 
 import java.lang.reflect.AnnotatedType;
-
 import io.leangen.geantyref.GenericTypeReflector;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
@@ -18,8 +17,7 @@ public class MonoAdapter extends AbstractTypeAdapter<Mono<?>, Object> {
   public Object convertOutput(final Mono<?> original, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
     return original
-        .map(inner -> resolutionEnvironment.convertOutput(inner, getSubstituteType(type)))
-        .block();
+        .map(inner -> resolutionEnvironment.convertOutput(inner, getSubstituteType(type))).block();
   }
 
   @Override

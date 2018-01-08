@@ -12,8 +12,7 @@ public final class GeoUtil {
   private static final double WGS84_b = 6356752.3;
 
   public static GeoBox createBoundingBox(final double latitudeInDegrees,
-      final double longitudeInDegrees,
-      final double halfSideInMeters) {
+      final double longitudeInDegrees, final double halfSideInMeters) {
     final double lat = Math.toRadians(latitudeInDegrees);
     final double lon = Math.toRadians(longitudeInDegrees);
     final double halfSide = halfSideInMeters;

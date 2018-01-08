@@ -4,7 +4,6 @@ package io.committed.invest.server.graphql.mappers;
 import java.lang.reflect.AnnotatedType;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import io.leangen.geantyref.GenericTypeReflector;
 import io.leangen.geantyref.TypeFactory;
 import io.leangen.graphql.execution.ResolutionEnvironment;
@@ -19,10 +18,8 @@ public class FluxToCollectionTypeAdapter extends AbstractTypeAdapter<Flux<?>, Li
   @Override
   public List<?> convertOutput(final Flux<?> flux, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
-    return flux
-        .map(item -> resolutionEnvironment.convertOutput(item, getElementType(type)))
-        .collect(Collectors.toList())
-        .block();
+    return flux.map(item -> resolutionEnvironment.convertOutput(item, getElementType(type)))
+        .collect(Collectors.toList()).block();
   }
 
   @Override

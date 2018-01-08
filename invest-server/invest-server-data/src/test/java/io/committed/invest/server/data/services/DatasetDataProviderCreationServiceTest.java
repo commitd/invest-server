@@ -1,21 +1,15 @@
 package io.committed.invest.server.data.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import io.committed.invest.server.data.dataset.DataProviderSpecification;
 import io.committed.invest.server.data.dataset.Dataset;
 import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.services.DataProviderCreator;
-import io.committed.invest.server.data.services.DataProviderFactoryRegistry;
-import io.committed.invest.server.data.services.DatasetRegistry;
 import io.committed.invest.server.data.testing.AnotherFakeDataProviderFactory;
 import io.committed.invest.server.data.testing.FakeDataProvider;
 import io.committed.invest.server.data.testing.FakeDataProviderFactory;
@@ -25,20 +19,17 @@ import reactor.core.publisher.Flux;
 public class DatasetDataProviderCreationServiceTest {
 
 
-  DataProviderFactoryRegistry dpfr = new DataProviderFactoryRegistry(Arrays.asList(
-      new FakeDataProviderFactory(),
-      new AnotherFakeDataProviderFactory()));
+  DataProviderFactoryRegistry dpfr = new DataProviderFactoryRegistry(
+      Arrays.asList(new FakeDataProviderFactory(), new AnotherFakeDataProviderFactory()));
 
-  DatasetRegistry dr = new DatasetRegistry(Arrays.asList(
-      Dataset.builder().id("testds")
-          .providers(Arrays.asList(
-              DataProviderSpecification.builder().factory(FakeDataProviderFactory.ID).build()))
-          .build()));
+  DatasetRegistry dr = new DatasetRegistry(Arrays.asList(Dataset.builder().id("testds")
+      .providers(Arrays
+          .asList(DataProviderSpecification.builder().factory(FakeDataProviderFactory.ID).build()))
+      .build()));
 
   @Test
   public void test() {
-    final DataProviderCreator creator =
-        new DataProviderCreator(dpfr);
+    final DataProviderCreator creator = new DataProviderCreator(dpfr);
 
     final Flux<DataProvider> providers = creator.createProviders(dr);
 

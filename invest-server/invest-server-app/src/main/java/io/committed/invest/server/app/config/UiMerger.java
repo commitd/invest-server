@@ -2,7 +2,6 @@ package io.committed.invest.server.app.config;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +13,6 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import lombok.extern.slf4j.Slf4j;
@@ -46,10 +44,8 @@ public class UiMerger implements WebFluxConfigurer {
 
         final String urlPath = urlService.getContextRelativePath(e);
 
-        combined = combined
-            .andNest(RequestPredicates.path(urlPath),
-                RouterFunctions.resources("/**",
-                    new ClassPathResource(classPath, e.getClass().getClassLoader())));
+        combined = combined.andNest(RequestPredicates.path(urlPath), RouterFunctions
+            .resources("/**", new ClassPathResource(classPath, e.getClass().getClassLoader())));
       }
     }
 
@@ -59,10 +55,8 @@ public class UiMerger implements WebFluxConfigurer {
 
   @Override
   public void addCorsMappings(final CorsRegistry registry) {
-    registry.addMapping(urlService.getContextPath() + "/**")
-        .allowedHeaders("*")
-        .allowedMethods("GET", "OPTIONS")
-        .allowedOrigins("*");
+    registry.addMapping(urlService.getContextPath() + "/**").allowedHeaders("*")
+        .allowedMethods("GET", "OPTIONS").allowedOrigins("*");
   }
 
 

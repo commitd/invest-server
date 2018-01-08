@@ -14,8 +14,7 @@ public class InvestRoles {
 
   public static final String AUTHORITY_PREFIX = "ROLE_";
 
-  public static final String ROLE_ADMINISTRATOR =
-      AUTHORITY_PREFIX + ADMINISTRATOR;
+  public static final String ROLE_ADMINISTRATOR = AUTHORITY_PREFIX + ADMINISTRATOR;
   public static final String ROLE_USER = AUTHORITY_PREFIX + USER;
 
 

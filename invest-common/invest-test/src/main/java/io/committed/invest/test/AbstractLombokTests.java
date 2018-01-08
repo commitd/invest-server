@@ -10,8 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class AbstractLombokTests {
 
-  protected void testDataClasses(final Class<?>... classes)
-      throws Exception {
+  protected void testDataClasses(final Class<?>... classes) throws Exception {
     for (final Class<?> clazz : classes) {
       assertThat(clazz, allOf(hasValidBeanConstructor(), hasValidGettersAndSetters(),
           hasValidBeanHashCode(), hasValidBeanEquals()));
@@ -23,11 +22,9 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testImmutableInstances(final Object... instances)
-      throws Exception {
+  protected void testImmutableInstances(final Object... instances) throws Exception {
     for (final Object o : instances) {
-      assertThat(o,
-          allOf(isABeanWithValidGettersAndSetters()));
+      assertThat(o, allOf(isABeanWithValidGettersAndSetters()));
 
       // Note we don't include hasValidBeanToString() since toString() whilst
       // can be overridden to be more usuful that the bean version
@@ -35,8 +32,7 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testImmutableDataClasses(final Class<?>... classes)
-      throws Exception {
+  protected void testImmutableDataClasses(final Class<?>... classes) throws Exception {
     for (final Class<?> clazz : classes) {
       assertThat(clazz,
           allOf(hasValidGettersAndSetters(), hasValidBeanHashCode(), hasValidBeanEquals()));

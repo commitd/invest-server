@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,7 +11,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.server.WebSession;
-
 import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.core.graphql.Context;
 import io.committed.invest.plugin.server.auth.constants.InvestRoles;
@@ -67,8 +65,7 @@ public class AuthGraphQlResolver {
   @GraphQLQuery(name = "session", description = "Get the user's session id")
   public Mono<String> userSession(@GraphQLContext final User user,
       @GraphQLRootContext final Context context) {
-    return context.getSession()
-        .map(WebSession::getId);
+    return context.getSession().map(WebSession::getId);
   }
 
   @GraphQLQuery(name = "user", description = "Get user details")
@@ -92,8 +89,7 @@ public class AuthGraphQlResolver {
 
 
   @GraphQLMutation(name = "changePassword")
-  public void changePassword(
-      @GraphQLRootContext final Context context,
+  public void changePassword(@GraphQLRootContext final Context context,
       @GraphQLArgument(name = "username") final String username,
       @GraphQLArgument(name = "password") final String password) {
 
@@ -103,8 +99,7 @@ public class AuthGraphQlResolver {
         || authentication.getName().equals(username)) {
       securityService.changePassword(username, password);
     } else {
-      log.warn("Attempt by user {} to change password for {}",
-          authentication.getName(), username);
+      log.warn("Attempt by user {} to change password for {}", authentication.getName(), username);
     }
   }
 
@@ -118,8 +113,7 @@ public class AuthGraphQlResolver {
   private Set<String> getRolesFromAuthorities(
       final Collection<? extends GrantedAuthority> authorities) {
     return authorities == null ? Collections.emptySet()
-        : authorities.stream()
-            .map(GrantedAuthority::getAuthority)
+        : authorities.stream().map(GrantedAuthority::getAuthority)
             .filter(a -> a.startsWith(InvestRoles.AUTHORITY_PREFIX))
             .map(a -> a.substring(InvestRoles.AUTHORITY_PREFIX.length()))
             .collect(Collectors.toSet());

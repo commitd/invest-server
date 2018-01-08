@@ -2,16 +2,13 @@ package io.committed.invest.server.graphql;
 
 import java.util.Map;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import graphql.ExecutionInput;
 import graphql.ExecutionInput.Builder;
 import graphql.ExecutionResult;
@@ -42,17 +39,14 @@ public class GraphQlHandler {
   }
 
   public Mono<ServerResponse> postQuery(final ServerRequest request) {
-    return ServerResponse.ok().body(
-        request.bodyToMono(GraphQlQuery.class)
-            .map(q -> ExecutionInput.newExecutionInput()
-                .operationName(q.getOperationName())
-                .query(q.getQuery())
-                .variables(q.getVariables())
-                .context(buildContext(request))
-                .build())
-            .map(this::performQuery)
-            .map(ExecutionResult::toSpecification),
-        Map.class);
+    return ServerResponse.ok()
+        .body(
+            request.bodyToMono(GraphQlQuery.class)
+                .map(q -> ExecutionInput.newExecutionInput().operationName(q.getOperationName())
+                    .query(q.getQuery()).variables(q.getVariables()).context(buildContext(request))
+                    .build())
+                .map(this::performQuery).map(ExecutionResult::toSpecification),
+            Map.class);
   }
 
   public Mono<ServerResponse> getQuery(final ServerRequest request) {
@@ -95,20 +89,16 @@ public class GraphQlHandler {
         // called, but I can't see why.
         // Whilst this should work for our purpposes it means that prinicpal isn't available to
         // other users.
-        .authentication(request.session()
-            .flatMap(s -> {
-              final SecurityContext sc = s.getAttribute("USER");
-              return sc != null && sc.getAuthentication() != null
-                  ? Mono.just(sc.getAuthentication()) : Mono.empty();
-            }))
-        .session(request.session())
-        .build();
+        .authentication(request.session().flatMap(s -> {
+          final SecurityContext sc = s.getAttribute("USER");
+          return sc != null && sc.getAuthentication() != null ? Mono.just(sc.getAuthentication())
+              : Mono.empty();
+        })).session(request.session()).build();
   }
 
   public Mono<ServerResponse> getSchema(final ServerRequest request) {
-    final ExecutionInput input = ExecutionInput.newExecutionInput()
-        .query(IntrospectionQuery.INTROSPECTION_QUERY)
-        .build();
+    final ExecutionInput input =
+        ExecutionInput.newExecutionInput().query(IntrospectionQuery.INTROSPECTION_QUERY).build();
     final ExecutionResult result = performQuery(input);
     return ServerResponse.ok().syncBody(result.toSpecification());
   }

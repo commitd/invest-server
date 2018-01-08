@@ -1,9 +1,7 @@
 package io.committed.invest.server.core.ui.services;
 
 import java.util.regex.Pattern;
-
 import org.springframework.stereotype.Service;
-
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 

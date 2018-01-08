@@ -1,7 +1,6 @@
 package io.committed.invest.plugins.ui.actiondev;
 
 import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,6 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.function.server.ServerResponse.BodyBuilder;
 import org.springframework.web.util.UriBuilder;
-
 import io.committed.invest.core.services.UiUrlService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,11 +24,8 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
 
-  private static final String[] PATHS = {
-      "/static/**",
-      "/sockjs-node/**",
-      "/__webpack_dev_server__/**"
-  };
+  private static final String[] PATHS =
+      {"/static/**", "/sockjs-node/**", "/__webpack_dev_server__/**"};
 
   @Autowired
   UiUrlService urlService;
@@ -49,8 +44,8 @@ public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
   @Bean
   public RouterFunction<?> routerFunction() {
     // We push out any requests here to another proxy
-    RouterFunction<ServerResponse> routes = RouterFunctions
-        .route(RequestPredicates.path(getFullPath() + "/**"), this::handle);
+    RouterFunction<ServerResponse> routes =
+        RouterFunctions.route(RequestPredicates.path(getFullPath() + "/**"), this::handle);
 
     for (final String path : PATHS) {
       routes = routes.andRoute(RequestPredicates.path(path), this::handle);
@@ -66,10 +61,8 @@ public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
     // so we need to add the PATHS
 
     for (final String path : PATHS) {
-      registry.addMapping(path)
-          .allowedHeaders("*")
-          .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-          .allowedOrigins("*");
+      registry.addMapping(path).allowedHeaders("*")
+          .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedOrigins("*");
     }
   }
 
@@ -77,13 +70,9 @@ public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
   Mono<ServerResponse> handle(final ServerRequest request) {
 
     // Modify the URI to go to our proxy
-    final UriBuilder info =
-        request.uriBuilder()
-            // TODO: Configurable settings
-            .host("localhost")
-            .port(3001)
-            .scheme("http")
-            .userInfo(null);
+    final UriBuilder info = request.uriBuilder()
+        // TODO: Configurable settings
+        .host("localhost").port(3001).scheme("http").userInfo(null);
 
     final String path = request.path();
     final String fullPath = getFullPath();
@@ -111,24 +100,21 @@ public class ActionDevelopmentUIConfig implements WebFluxConfigurer {
 
     final URI uri = info.build();
 
-    return requestSpec
-        .uri(uri)
-        .exchange()
-        .flatMap(cr -> {
-          if (cr.statusCode() != HttpStatus.OK) {
-            return ServerResponse.status(cr.statusCode()).build();
-          }
+    return requestSpec.uri(uri).exchange().flatMap(cr -> {
+      if (cr.statusCode() != HttpStatus.OK) {
+        return ServerResponse.status(cr.statusCode()).build();
+      }
 
-          BodyBuilder response = ServerResponse.ok();
-          if (cr.headers().contentLength().isPresent()) {
-            response = response.contentLength(cr.headers().contentLength().getAsLong());
-          }
-          if (cr.headers().contentType().isPresent()) {
-            response = response.contentType(cr.headers().contentType().get());
-          }
+      BodyBuilder response = ServerResponse.ok();
+      if (cr.headers().contentLength().isPresent()) {
+        response = response.contentLength(cr.headers().contentLength().getAsLong());
+      }
+      if (cr.headers().contentType().isPresent()) {
+        response = response.contentType(cr.headers().contentType().get());
+      }
 
-          final Flux<DataBuffer> in = cr.body((inputMessage, context) -> inputMessage.getBody());
-          return response.body((outputMessage, context) -> outputMessage.writeWith(in));
-        });
+      final Flux<DataBuffer> in = cr.body((inputMessage, context) -> inputMessage.getBody());
+      return response.body((outputMessage, context) -> outputMessage.writeWith(in));
+    });
   }
 }

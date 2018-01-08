@@ -5,8 +5,8 @@ public abstract class AbstractElasticsearchServiceDataProvider<R extends Abstrac
 
   private final R service;
 
-  protected AbstractElasticsearchServiceDataProvider(final String dataset,
-      final String datasource, final R service) {
+  protected AbstractElasticsearchServiceDataProvider(final String dataset, final String datasource,
+      final R service) {
     super(dataset, datasource);
     this.service = service;
   }

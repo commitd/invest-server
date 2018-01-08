@@ -3,13 +3,11 @@ package io.committed.invest.plugin.server.services;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import reactor.core.publisher.Mono;
 
@@ -38,7 +36,6 @@ public class UserAccountDetailsRepositoryService implements ReactiveUserDetailsS
     // Javadoc says that we should do the password check in addititonalAuthenticationChecks, rather
     // than using here in the find by
 
-    return repository.findByUsername(username)
-        .map(this::toUser);
+    return repository.findByUsername(username).map(this::toUser);
   }
 }

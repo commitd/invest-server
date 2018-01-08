@@ -12,9 +12,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
 import org.springframework.util.StringUtils;
-
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 
 public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepository {
@@ -39,9 +37,7 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   @Override
   public <S extends UserAccount> Iterable<S> saveAll(final Iterable<S> entities) {
-    return StreamSupport
-        .stream(entities.spliterator(), false)
-        .map(this::save)
+    return StreamSupport.stream(entities.spliterator(), false).map(this::save)
         .collect(Collectors.toList());
   }
 

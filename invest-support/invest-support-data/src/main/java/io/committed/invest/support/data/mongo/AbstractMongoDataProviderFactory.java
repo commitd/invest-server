@@ -1,15 +1,12 @@
 package io.committed.invest.support.data.mongo;
 
 import java.util.Map;
-
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.repository.support.ReactiveMongoRepositoryFactory;
 import org.springframework.data.repository.core.support.ReactiveRepositoryFactorySupport;
-
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
-
 import io.committed.invest.server.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.server.data.providers.DataProvider;
 import io.committed.invest.server.data.providers.DatabaseConstants;

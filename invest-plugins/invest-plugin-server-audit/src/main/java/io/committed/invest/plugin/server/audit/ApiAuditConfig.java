@@ -6,9 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.server.WebFilter;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.committed.invest.plugin.server.audit.filter.ApiActivityLoggingFilter;
 import io.committed.invest.plugin.server.audit.services.AuditService;
 import io.committed.invest.plugin.server.audit.services.NoAuditService;
@@ -23,13 +21,13 @@ public class ApiAuditConfig {
   }
 
   @Bean
-  @Profile({ "audit-slf4j" })
+  @Profile({"audit-slf4j"})
   public AuditService loggingAuditService(final ObjectMapper objectMapper) {
     return new Slf4jAuditService(objectMapper);
   }
 
   @Bean
-  @Profile({ "audit-none" })
+  @Profile({"audit-none"})
   public AuditService noAuditService() {
     return new NoAuditService();
   }

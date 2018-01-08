@@ -17,13 +17,11 @@ public class DataProviderCreator {
   }
 
   public Flux<DataProvider> createProviders(final DatasetRegistry datasetRegistry) {
-    return datasetRegistry.getDatasets()
-        .flatMap(this::createProviders);
+    return datasetRegistry.getDatasets().flatMap(this::createProviders);
   }
 
   public Flux<DataProvider> createProviders(final Dataset dataset) {
-    return Flux.fromIterable(dataset.getProviders())
-        .flatMap(s -> createProvider(dataset, s));
+    return Flux.fromIterable(dataset.getProviders()).flatMap(s -> createProvider(dataset, s));
   }
 
   public Mono<? extends DataProvider> createProvider(final Dataset dataset,

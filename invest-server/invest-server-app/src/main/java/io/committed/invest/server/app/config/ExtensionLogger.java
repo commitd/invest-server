@@ -1,12 +1,9 @@
 package io.committed.invest.server.app.config;
 
 import java.util.List;
-
 import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import io.committed.invest.extensions.InvestExtension;
 import lombok.extern.slf4j.Slf4j;
 

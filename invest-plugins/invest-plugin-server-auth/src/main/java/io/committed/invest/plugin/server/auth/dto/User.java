@@ -1,7 +1,6 @@
 package io.committed.invest.plugin.server.auth.dto;
 
 import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

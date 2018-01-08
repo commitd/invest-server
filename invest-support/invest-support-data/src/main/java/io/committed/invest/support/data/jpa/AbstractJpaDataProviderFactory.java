@@ -1,16 +1,13 @@
 package io.committed.invest.support.data.jpa;
 
 import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
-
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.util.StringUtils;
-
 import io.committed.invest.server.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.server.data.providers.DataProvider;
 import io.committed.invest.server.data.providers.DatabaseConstants;
@@ -29,17 +26,15 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
     this.entityPackageClass = entityPackageClass;
   }
 
-  protected JpaRepositoryFactory buildRepositoryFactory(
-      final Map<String, Object> settings) {
+  protected JpaRepositoryFactory buildRepositoryFactory(final Map<String, Object> settings) {
 
     final String driverClassName = (String) settings.get("driverClassName");
     final String url = (String) settings.get("url");
     final String username = (String) settings.get("username");
     final String password = (String) settings.get("password");
 
-    final DataSourceBuilder<?> dataSourceBuilder = DataSourceBuilder.create()
-        .driverClassName(driverClassName)
-        .url(url);
+    final DataSourceBuilder<?> dataSourceBuilder =
+        DataSourceBuilder.create().driverClassName(driverClassName).url(url);
 
     if (!StringUtils.isEmpty(username)) {
       dataSourceBuilder.username(username);

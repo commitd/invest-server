@@ -2,13 +2,10 @@ package io.committed.invest.server.data.services;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimaps;
-
 import io.committed.invest.server.data.providers.DataProvider;
 import io.committed.invest.server.data.query.DataHints;
 import reactor.core.publisher.Flux;
@@ -39,8 +36,7 @@ public class DatasetProviders {
   // it is checked...
   @SuppressWarnings("unchecked")
   public <T> Flux<T> findAll(final Class<T> providerClass) {
-    return (Flux<T>) findAll()
-        .filter(providerClass::isInstance);
+    return (Flux<T>) findAll().filter(providerClass::isInstance);
 
   }
 
@@ -55,18 +51,16 @@ public class DatasetProviders {
     return dh.apply(datasetProviders);
   }
 
-  public <T> Flux<T> findForDataset(final String datasetId,
-      final Class<T> providerClass) {
+  public <T> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass) {
     return findForDataset(datasetId, providerClass, null);
   }
 
   // It is checked...
   @SuppressWarnings("unchecked")
-  public <T> Flux<T> findForDataset(final String datasetId,
-      final Class<T> providerClass, final DataHints hints) {
+  public <T> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
+      final DataHints hints) {
 
-    return (Flux<T>) findForDataset(datasetId, hints)
-        .filter(providerClass::isInstance);
+    return (Flux<T>) findForDataset(datasetId, hints).filter(providerClass::isInstance);
   }
 
   private DataHints getHints(final DataHints hints) {

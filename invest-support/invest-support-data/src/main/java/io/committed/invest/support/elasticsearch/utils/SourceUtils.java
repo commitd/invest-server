@@ -1,11 +1,8 @@
 package io.committed.invest.support.elasticsearch.utils;
 
 import java.util.Objects;
-
 import org.elasticsearch.action.search.SearchResponse;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -23,8 +20,7 @@ public class SourceUtils {
     // NOTE this loses id
 
     return Flux.just(r.getHits().getHits())
-        .flatMap(h -> convertSource(mapper, h.getSourceAsString(), clazz))
-        .filter(Objects::nonNull);
+        .flatMap(h -> convertSource(mapper, h.getSourceAsString(), clazz)).filter(Objects::nonNull);
 
   }
 

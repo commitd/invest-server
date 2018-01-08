@@ -3,14 +3,12 @@ package io.committed.invest.support.elasticsearch.utils;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.index.query.GeoBoundingBoxQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.index.query.RangeQueryBuilder;
-
 import io.committed.invest.core.dto.analytic.GeoBox;
 import io.committed.invest.core.dto.analytic.GeoRadius;
 import io.committed.invest.core.dto.analytic.TimeRange;
@@ -31,8 +29,7 @@ public class QueryUtils {
 
   public GeoBoundingBoxQueryBuilder createBoundingBoxQuery(final String field, final GeoBox box) {
     return QueryBuilders.geoBoundingBoxQuery(field)
-        .setCorners(box.getSafeN(), box.getSafeW(), box.getSafeS(), box.getSafeE())
-        .type("indexed");
+        .setCorners(box.getSafeN(), box.getSafeW(), box.getSafeS(), box.getSafeE()).type("indexed");
   }
 
   public QueryStringQueryBuilder createQueryString(final String defaultField, final String query) {

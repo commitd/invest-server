@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
-
 import io.committed.invest.core.services.UiUrlService;
 import reactor.core.publisher.Mono;
 

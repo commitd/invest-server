@@ -2,7 +2,6 @@ package io.committed.invest.core.graphql;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.web.server.WebSession;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Value;

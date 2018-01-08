@@ -1,9 +1,7 @@
 package io.committed.invest.core.dto.analytic;
 
 import java.util.Collection;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

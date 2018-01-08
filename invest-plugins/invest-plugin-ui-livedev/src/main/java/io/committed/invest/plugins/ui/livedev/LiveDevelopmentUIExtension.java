@@ -2,11 +2,10 @@ package io.committed.invest.plugins.ui.livedev;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
 import io.committed.invest.extensions.InvestUiExtension;
 
 @Configuration
-@Import({ LiveDevelopmentUIConfig.class })
+@Import({LiveDevelopmentUIConfig.class})
 public class LiveDevelopmentUIExtension implements InvestUiExtension {
 
 

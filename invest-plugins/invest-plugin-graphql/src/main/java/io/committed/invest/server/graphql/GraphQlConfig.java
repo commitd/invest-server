@@ -5,7 +5,6 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -16,9 +15,7 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import graphql.schema.GraphQLSchema;
 import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.server.graphql.data.GraphQlServices;
@@ -56,8 +53,7 @@ public class GraphQlConfig {
     final Map<String, Object> beansWithAnnotation =
         context.getBeansWithAnnotation(GraphQLService.class);
 
-    return new GraphQlServices(
-        Collections.unmodifiableCollection(beansWithAnnotation.values()));
+    return new GraphQlServices(Collections.unmodifiableCollection(beansWithAnnotation.values()));
   }
 
 
@@ -65,8 +61,7 @@ public class GraphQlConfig {
   public GraphQLSchema schema(final GraphQlServices services) {
 
 
-    GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
-        .withDefaults()
+    GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator().withDefaults()
         .withValueMapperFactory(new JacksonValueMapperFactory())
         // Deal with reactive types
         .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());

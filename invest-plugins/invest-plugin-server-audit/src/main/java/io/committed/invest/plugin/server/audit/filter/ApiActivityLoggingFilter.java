@@ -5,13 +5,11 @@ import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
-
 import io.committed.invest.plugin.server.audit.services.AuditService;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -60,8 +58,7 @@ public class ApiActivityLoggingFilter implements WebFilter {
   private void logError(final ServerWebExchange exchange, final Throwable reason) {
     // TODO: Currently as per logSuccess but with a different action
     final ServerHttpResponse response = exchange.getResponse();
-    final Map<String, Object> params =
-        new HashMap<>(2);
+    final Map<String, Object> params = new HashMap<>(2);
     params.put("status", response.getStatusCode());
     auditService.audit(getUser(exchange), getAction("ApiError", exchange.getRequest()), "", params);
   }

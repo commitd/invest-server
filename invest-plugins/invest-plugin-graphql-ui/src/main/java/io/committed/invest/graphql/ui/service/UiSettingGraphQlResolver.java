@@ -2,13 +2,10 @@ package io.committed.invest.graphql.ui.service;
 
 import java.util.Collections;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ClassUtils;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.committed.invest.annotations.GraphQLService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.graphql.ui.data.UiPlugin;
@@ -38,11 +35,8 @@ public class UiSettingGraphQlResolver {
 
   @GraphQLQuery(name = "settings", description = "Plugin settings ")
   public Mono<String> settings(@GraphQLContext final UiPlugin uiPlugin) {
-    return Flux.fromIterable(uiExtensions)
-        .filter(p -> p.getId().equalsIgnoreCase(uiPlugin.getId()))
-        .next()
-        .flatMap(p -> Mono.justOrEmpty(p.getSettings()))
-        .map(applicationcontext::getBean)
+    return Flux.fromIterable(uiExtensions).filter(p -> p.getId().equalsIgnoreCase(uiPlugin.getId()))
+        .next().flatMap(p -> Mono.justOrEmpty(p.getSettings())).map(applicationcontext::getBean)
         .flatMap(b -> {
           try {
             // We use ClassUtils here because typically we'll be looking at a COnfiguration class

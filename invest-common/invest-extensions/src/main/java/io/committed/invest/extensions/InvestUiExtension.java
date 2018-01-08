@@ -2,7 +2,6 @@ package io.committed.invest.extensions;
 
 import java.util.Collection;
 import java.util.Collections;
-
 import io.committed.invest.actions.ActionDefinition;
 
 public interface InvestUiExtension extends InvestExtension {

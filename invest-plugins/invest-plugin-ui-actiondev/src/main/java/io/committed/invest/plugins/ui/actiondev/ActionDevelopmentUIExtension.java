@@ -2,11 +2,10 @@ package io.committed.invest.plugins.ui.actiondev;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
 import io.committed.invest.extensions.InvestUiExtension;
 
 @Configuration
-@Import({ ActionDevelopmentUIConfig.class })
+@Import({ActionDevelopmentUIConfig.class})
 public class ActionDevelopmentUIExtension implements InvestUiExtension {
 
 

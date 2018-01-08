@@ -1,7 +1,6 @@
 package io.committed.invest.server.graphql.data;
 
 import java.util.Map;
-
 import lombok.Data;
 
 @Data

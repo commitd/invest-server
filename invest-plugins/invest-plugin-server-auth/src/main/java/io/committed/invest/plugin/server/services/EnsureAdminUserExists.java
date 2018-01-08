@@ -1,12 +1,10 @@
 package io.committed.invest.plugin.server.services;
 
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
 import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import lombok.extern.slf4j.Slf4j;
@@ -29,8 +27,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
 
   public void ensureUser() {
     final Mono<Boolean> adminUser =
-        userAccounts.findAll()
-            .any(u -> u.hasAuthority(InvestRoles.ROLE_ADMINISTRATOR));
+        userAccounts.findAll().any(u -> u.hasAuthority(InvestRoles.ROLE_ADMINISTRATOR));
 
     if (adminUser.block()) {
       log.info("Admin user exists in the database, not creating a default admin");
@@ -39,9 +36,8 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
 
     final String password = securityService.generateRandomPassword();
     final String username = "admin";
-    final Mono<UserAccount> account =
-        securityService.findOrAddAccount(username, password, "admin", "",
-            securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
+    final Mono<UserAccount> account = securityService.findOrAddAccount(username, password, "admin",
+        "", securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
 
     if (account.hasElement().block()) {
       log.info("Created user {} with password {}", username, password);

@@ -3,7 +3,6 @@ package io.committed.invest.support.elasticsearch.utils;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
-
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.geogrid.GeoGridAggregationBuilder;
@@ -12,7 +11,6 @@ import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggre
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-
 import io.committed.invest.core.dto.constants.TimeInterval;
 
 public class AggregiationQueryUtils {
@@ -39,9 +37,8 @@ public class AggregiationQueryUtils {
       final String aggregationName) {
     final Histogram agg = r.getAggregations().get(aggregationName);
     return agg.getBuckets().stream()
-        .sorted((b1, b2) -> b1.getKeyAsString().compareTo(b2.getKeyAsString()))
-        .collect(Collectors.toMap(Histogram.Bucket::getKeyAsString, Histogram.Bucket::getDocCount,
-            (u, v) -> {
+        .sorted((b1, b2) -> b1.getKeyAsString().compareTo(b2.getKeyAsString())).collect(Collectors
+            .toMap(Histogram.Bucket::getKeyAsString, Histogram.Bucket::getDocCount, (u, v) -> {
               throw new IllegalStateException(String.format("Duplicate key %s", u));
             }, TreeMap::new));
   }
