@@ -43,13 +43,11 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testToString(final Class<?> clazz)
-      throws InstantiationException, IllegalAccessException {
-    testToString(clazz.newInstance());
+  protected void testToString(final Class<?> clazz) throws Exception {
+    testToString(clazz.getConstructor().newInstance());
   }
 
-  protected void testToString(final Object i)
-      throws InstantiationException, IllegalAccessException {
+  protected void testToString(final Object i) {
     final String toString = i.toString();
     assert (toString != null);
     assert (toString.length() > 0);

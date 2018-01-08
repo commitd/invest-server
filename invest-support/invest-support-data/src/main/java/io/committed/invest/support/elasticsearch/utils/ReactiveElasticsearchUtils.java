@@ -2,10 +2,8 @@ package io.committed.invest.support.elasticsearch.utils;
 
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.ListenableActionFuture;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 public class ReactiveElasticsearchUtils {
 
   private ReactiveElasticsearchUtils() {

@@ -22,7 +22,7 @@ public interface InvestUiExtension extends InvestExtension {
 
   /**
    * The list of roles the user needs to have in order to access these functions.
-   * 
+   *
    * @return
    */
   default Collection<String> getRoles() {

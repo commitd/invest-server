@@ -11,10 +11,8 @@ import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import io.committed.invest.plugin.server.audit.services.AuditService;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 public class ApiActivityLoggingFilter implements WebFilter {
 
   private final AuditService auditService;

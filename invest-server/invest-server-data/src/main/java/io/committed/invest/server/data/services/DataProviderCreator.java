@@ -3,11 +3,9 @@ package io.committed.invest.server.data.services;
 import io.committed.invest.server.data.dataset.DataProviderSpecification;
 import io.committed.invest.server.data.dataset.Dataset;
 import io.committed.invest.server.data.providers.DataProvider;
-import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Slf4j
 public class DataProviderCreator {
 
   private final DataProviderFactoryRegistry dataProviderFactoryRegistry;

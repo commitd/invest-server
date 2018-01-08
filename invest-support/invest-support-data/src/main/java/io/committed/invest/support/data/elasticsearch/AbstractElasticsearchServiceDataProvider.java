@@ -1,6 +1,6 @@
 package io.committed.invest.support.data.elasticsearch;
 
-public abstract class AbstractElasticsearchServiceDataProvider<R extends AbstractEsService>
+public abstract class AbstractElasticsearchServiceDataProvider<E, R extends AbstractEsService<E>>
     extends AbstractElasticsearchDataProvider {
 
   private final R service;

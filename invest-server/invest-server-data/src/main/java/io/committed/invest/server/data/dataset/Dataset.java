@@ -17,7 +17,10 @@ public class Dataset {
 
   private String name;
 
+
+  @Builder.Default
   private String description = "";
 
+  @Builder.Default
   private List<DataProviderSpecification> providers = Collections.emptyList();
 }

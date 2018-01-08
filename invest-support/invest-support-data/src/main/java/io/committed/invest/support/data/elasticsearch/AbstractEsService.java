@@ -64,7 +64,7 @@ public abstract class AbstractEsService<E> {
         .addAggregation(new DateHistogramAggregationBuilder("agg").field(field)).build();
 
     return getElastic().query(query, response -> {
-      final ParsedDateHistogram terms = (ParsedDateHistogram) response.getAggregations().get("agg");
+      final ParsedDateHistogram terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets()).map(b -> {
         final Instant i = Instant.ofEpochMilli(((DateTime) b.getKey()).toInstant().getMillis());
         return new TimeBin(i, b.getDocCount());
@@ -77,7 +77,7 @@ public abstract class AbstractEsService<E> {
         .addAggregation(new TermsAggregationBuilder("agg", ValueType.STRING).field(field)).build();
 
     return getElastic().query(query, response -> {
-      final StringTerms terms = (StringTerms) response.getAggregations().get("agg");
+      final StringTerms terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets())
           .map(b -> new TermBin(b.getKeyAsString(), b.getDocCount()));
     });
@@ -92,9 +92,7 @@ public abstract class AbstractEsService<E> {
   }
 
   protected ResultsExtractor<Flux<E>> resultsToDocumentExtractor() {
-    return response -> {
-      return SourceUtils.convertHits(getMapper(), response, entityClazz);
-    };
+    return response -> SourceUtils.convertHits(getMapper(), response, entityClazz);
   }
 
 

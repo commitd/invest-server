@@ -22,6 +22,7 @@ public class DataProviderSpecification {
   // data sources.
   private String datasource;
 
+  @Builder.Default
   private Map<String, Object> settings = Collections.emptyMap();
 
 }
