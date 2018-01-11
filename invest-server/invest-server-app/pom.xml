@@ -1,86 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>io.committed.invest</groupId>
-    <artifactId>invest-server</artifactId>
-    <version>0.0.1</version>
-  </parent>
+	<parent>
+		<groupId>io.committed.invest</groupId>
+		<artifactId>invest-server</artifactId>
+		<version>0.0.1</version>
+	</parent>
 
-  <artifactId>invest-server-app</artifactId>
-  <packaging>jar</packaging>
-  <name>Invest Server Application</name>
-  <description>Runnable, pluggable, Spring based Java server for Invest</description>
+	<artifactId>invest-server-app</artifactId>
+	<packaging>jar</packaging>
+	<name>Invest Server Application</name>
+	<description>Runnable, pluggable, Spring based Java server for Invest</description>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-webflux</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.session</groupId>
-      <artifactId>spring-session-core</artifactId>
-    </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session-core</artifactId>
+		</dependency>
 
-    <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-extensions</artifactId>
-    </dependency>
-        <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-server-core</artifactId>
-    </dependency>
-        <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-server-data</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-server-libs</artifactId>
-    </dependency>
-  </dependencies>
+		<dependency>
+			<groupId>io.committed.invest</groupId>
+			<artifactId>invest-extensions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.committed.invest</groupId>
+			<artifactId>invest-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.committed.invest</groupId>
+			<artifactId>invest-server-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.committed.invest</groupId>
+			<artifactId>invest-server-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.committed.invest</groupId>
+			<artifactId>invest-server-libs</artifactId>
+		</dependency>
 
-<build>
-    <plugins>
-    <!--  We use a ZIP so that we have plugin jars via the loader mechanism -->
-    <!--  We also want this to be executable -->
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <layout>ZIP</layout>
-          <executable>true</executable>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- We use a ZIP so that we have plugin jars via the loader mechanism -->
+			<!-- We also want this to be executable -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<layout>ZIP</layout>
+					<executable>true</executable>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 
-  <!--     TODO: I want to add a plugin directory to the manifest by default. 
-        This works but its not picked up? <plugin> <groupId>org.apache.maven.plugins</groupId> 
-        <artifactId>maven-jar-plugin</artifactId> <configuration> <archive> <manifestEntries> 
-        <Class-Path>plugins/</Class-Path> </manifestEntries> </archive> </configuration> 
-    -->        
-    </plugins>
-  </build>  
+			<!-- TODO: I want to add a plugin directory to the manifest by default. 
+				This works but its not picked up? <plugin> <groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-jar-plugin</artifactId> <configuration> <archive> <manifestEntries> 
+				<Class-Path>plugins/</Class-Path> </manifestEntries> </archive> </configuration> -->
+		</plugins>
+	</build>
 
 </project>

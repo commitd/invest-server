@@ -3,7 +3,7 @@ package io.committed.invest.server.app.config;
 import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.session.MapReactiveSessionRepository;
+import org.springframework.session.ReactiveMapSessionRepository;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
 import org.springframework.web.server.session.HeaderWebSessionIdResolver;
 
@@ -12,8 +12,8 @@ import org.springframework.web.server.session.HeaderWebSessionIdResolver;
 public class WebfluxSessionConfig {
 
   @Bean
-  public MapReactiveSessionRepository reactorSessionRepository() {
-    return new MapReactiveSessionRepository(new ConcurrentHashMap<>());
+  public ReactiveMapSessionRepository reactorSessionRepository() {
+    return new ReactiveMapSessionRepository(new ConcurrentHashMap<>());
   }
 
   // Support Session in header not in cookie
