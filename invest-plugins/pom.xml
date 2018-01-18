@@ -46,5 +46,6 @@
     <module>invest-plugin-ui-actiondev</module>
     <module>invest-plugin-ui-app</module>
     <module>invest-plugin-ui-libs</module>
+    <module>invest-plugin-ui-host</module>
   </modules>
 </project>
