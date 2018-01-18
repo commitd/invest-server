@@ -1,7 +1,7 @@
 package io.committed.invest.graphql.ui.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import io.committed.invest.graphql.ui.UiPluginsSettings;
 import io.committed.invest.graphql.ui.data.UiPlugin;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -22,18 +23,17 @@ import reactor.core.publisher.Mono;
 @Service
 public class ServerGraphQlResolver {
 
-  private final List<InvestUiExtension> uiExtensions;
+  private final Collection<InvestUiExtension> uiExtensions;
   private final UiUrlService urlService;
 
 
   @Autowired
   public ServerGraphQlResolver(final UiUrlService urlService,
-      @Autowired(required = false) final List<InvestUiExtension> uiExtensions,
+      @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry,
       final ApplicationContext applicationcontext, final UiPluginsSettings uiPluginSettings,
       final ObjectMapper mapper) {
     this.urlService = urlService;
-    this.uiExtensions =
-        uiExtensions == null ? Collections.emptyList() : sort(uiExtensions, uiPluginSettings);
+    this.uiExtensions = sort(uiRegistry.getExtensions(), uiPluginSettings);
   }
 
 
@@ -50,7 +50,7 @@ public class ServerGraphQlResolver {
         .map(e -> new UiPlugin(e, urlService.getFullPath(e))).next();
   }
 
-  private List<InvestUiExtension> sort(final List<InvestUiExtension> uiExtensions,
+  private Collection<InvestUiExtension> sort(final Collection<InvestUiExtension> uiExtensions,
       final UiPluginsSettings uiPluginSettings) {
 
     final List<String> order = uiPluginSettings.getPlugins();

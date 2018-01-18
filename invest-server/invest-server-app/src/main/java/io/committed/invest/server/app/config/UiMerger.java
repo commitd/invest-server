@@ -1,7 +1,5 @@
 package io.committed.invest.server.app.config;
 
-import java.util.Collections;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +13,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
@@ -22,22 +21,25 @@ import lombok.extern.slf4j.Slf4j;
 public class UiMerger implements WebFluxConfigurer {
 
   @Autowired(required = false)
-  private final List<InvestUiExtension> extensions = Collections.emptyList();
+  private InvestUiExtensionRegistry uiRegistry;
 
   @Autowired
   private UiUrlService urlService;
 
   @Bean
   public RouterFunction<?> uiExtensionRoutes() {
-
-    if (extensions.isEmpty()) {
+    if (uiRegistry.isEmpty()) {
       log.warn("No UI extension points defined");
     }
+
+    uiRegistry.stream().forEach(e -> System.out.println(e.getId()));
+
 
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
 
-    for (final InvestUiExtension e : extensions) {
+
+    for (final InvestUiExtension e : uiRegistry.getExtensions()) {
 
       final String classPath = e.getStaticResourcePath();
       if (!StringUtils.isEmpty(classPath)) {
@@ -51,6 +53,7 @@ public class UiMerger implements WebFluxConfigurer {
 
     return RouterFunctions.nest(RequestPredicates.path(urlService.getContextPath()), combined);
   }
+
 
 
   @Override

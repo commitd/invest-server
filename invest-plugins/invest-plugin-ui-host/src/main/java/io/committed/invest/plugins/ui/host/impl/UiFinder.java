@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.PathResource;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,44 +29,45 @@ public class UiFinder {
   }
 
   @Bean
-  public InvestUiExtensions uiHostedExtensions() throws IOException {
+  public InvestHostedUiExtensions pluginJsonUiHostedExtensions() throws IOException {
+    return findUiHostedExtensions();
+  }
+
+  @Bean
+  public InvestExtensions uiHostedExtensions() throws IOException {
+    return new InvestExtensions(pluginJsonUiHostedExtensions().getExtensions());
+  }
+
+  private InvestHostedUiExtensions findUiHostedExtensions() throws IOException {
     final List<PluginJson> extensions = new LinkedList<>();
 
-    // @formatter:off
-
     Files.walk(settings.getRoot().toPath())
-      .map(Path::toFile)
-      .filter(File::isFile)
-      .filter(this::isPlugin)
-      .map(this::processPlugin)
-      .filter(Optional::isPresent)
-      .map(Optional::get)
-      .forEach(extensions::add);
+        .map(Path::toFile)
+        .filter(File::isFile)
+        .map(this::processPlugin)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .forEach(extensions::add);
 
-
-    // @formatter:on
-
-    return new InvestUiExtensions(extensions);
+    return new InvestHostedUiExtensions(extensions);
   }
 
-  private boolean isPlugin(final File f) {
-    final String name = f.getName().toLowerCase();
-    return name.equalsIgnoreCase(settings.getPluginFilename()) || f.getName().endsWith(".zip");
-
-  }
 
   private Optional<PluginJson> processPlugin(final File f) {
-    if (f.getName().equalsIgnoreCase(settings.getPluginFilename())) {
+    final String name = f.getName().toLowerCase();
+    if (name.equalsIgnoreCase(settings.getPluginFilename())) {
       try {
         return processPluginJson(mapper.readValue(f, PluginJson.class), f);
       } catch (final IOException e) {
         e.printStackTrace();
         log.warn("Unable to process {} as UI plugin", f.getAbsolutePath(), e);
       }
-    } else {
-      // TODO: Support zip
-    }
+    } else if (name.endsWith(".zip")) {
+      // TODO: Deal with zip..
+      // Open up the zip file, look for a invest.json
+      // if has it then read that, and see if the FilesystemResource will work.
 
+    }
 
     return Optional.empty();
   }
