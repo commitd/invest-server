@@ -13,10 +13,8 @@
 
   <!-- Dependencies -->
   <dependencies>
-    <dependency>
-      <groupId>io.committed.invest</groupId>
-      <artifactId>invest-extensions</artifactId>
-    </dependency>
+
+    <!-- Basic Spring functionality -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
@@ -26,13 +24,25 @@
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.graphql-java</groupId>
-      <artifactId>graphql-java</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
+    
+    <!--  Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.leangen.graphql</groupId>
-      <artifactId>spqr</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
     </dependency>
+        <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+    </dependency>
+    
+    <!-- Spring data functionality -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
@@ -46,29 +56,41 @@
       <artifactId>mongodb-driver-reactivestreams</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+    </dependency>
+
+    <!-- GraphQL -->
+    <dependency>
+      <groupId>com.graphql-java</groupId>
+      <artifactId>graphql-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.leangen.graphql</groupId>
+      <artifactId>spqr</artifactId>
+    </dependency>
+
+    <!--  Utilities -->
+
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-    </dependency>
+    
+
+
 
     <!-- Note not including the test dependencies -->
   </dependencies>
