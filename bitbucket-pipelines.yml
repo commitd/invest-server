@@ -8,8 +8,8 @@ pipelines:
             - maven
           script:
             - mvn -s ci-maven-settings.xml -B clean install
-            - mvn -s ci-maven-settings.xml sonar:sonar
-            - mvn -s ci-maven-settings.xml deploy
+            - mvn -s ci-maven-settings.xml -B sonar:sonar
+            - mvn -s ci-maven-settings.xml deploy -DskipTests=true
     # As per above exactly, technically this would also output Maven central
     master:
       - step:
@@ -17,8 +17,8 @@ pipelines:
             - maven
           script:
             - mvn -s ci-maven-settings.xml -B clean install
-            - mvn -s ci-maven-settings.xml sonar:sonar
-            - mvn -s ci-maven-settings.xml deploy          
+            - mvn -s ci-maven-settings.xml -B sonar:sonar
+            - mvn -s ci-maven-settings.xml -B deploy -DskipTests=true         
   default:
     - step:
         caches:

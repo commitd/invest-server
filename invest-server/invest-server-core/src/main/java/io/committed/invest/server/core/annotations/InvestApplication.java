@@ -27,7 +27,7 @@ import io.committed.invest.server.core.ServerCoreConfiguration;
 // Disable webflux security until it's actually enabled by profile
 @EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class,})
 @EnableConfigurationProperties
-@ComponentScan(basePackageClasses = investApplication.class)
-public @interface investApplication {
+@ComponentScan(basePackageClasses = InvestApplication.class)
+public @interface InvestApplication {
 
 }
