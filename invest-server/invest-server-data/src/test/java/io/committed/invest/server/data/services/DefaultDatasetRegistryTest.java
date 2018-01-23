@@ -4,10 +4,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.junit.Test;
 import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.dataset.DatasetRegistry;
 import io.committed.invest.server.data.testing.Fixtures;
 
 
-public class DatasetRegistryTest {
+public class DefaultDatasetRegistryTest {
 
   @Test
   public void testGetCorpora() {
@@ -16,7 +17,7 @@ public class DatasetRegistryTest {
     final List<Dataset> datasets = Fixtures.createDatasets();
 
 
-    final DatasetRegistry registry = new DatasetRegistry(datasets);
+    final DatasetRegistry registry = new DefaultDatasetRegistry(datasets);
 
     assertThat(registry.getDatasets().collectList().block()).containsExactlyElementsOf(datasets);
   }
@@ -24,7 +25,7 @@ public class DatasetRegistryTest {
   @Test
   public void testFindById() {
     final List<Dataset> datasets = Fixtures.createDatasets();
-    final DatasetRegistry registry = new DatasetRegistry(datasets);
+    final DatasetRegistry registry = new DefaultDatasetRegistry(datasets);
 
     assertThat(registry.findById("a").block()).isEqualTo(datasets.get(0));
   }
@@ -33,7 +34,7 @@ public class DatasetRegistryTest {
   @Test
   public void testFindByIdMissing() {
     final List<Dataset> datasets = Fixtures.createDatasets();
-    final DatasetRegistry registry = new DatasetRegistry(datasets);
+    final DatasetRegistry registry = new DefaultDatasetRegistry(datasets);
 
     assertThat(registry.findById("missing").hasElement().block()).isFalse();
   }

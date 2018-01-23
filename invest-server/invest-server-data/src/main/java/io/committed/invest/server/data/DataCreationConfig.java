@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.dataset.DatasetRegistry;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DataProviderFactory;
+import io.committed.invest.extensions.data.providers.DataProviders;
 import io.committed.invest.server.data.services.DataProviderCreator;
 import io.committed.invest.server.data.services.DataProviderFactoryRegistry;
-import io.committed.invest.server.data.services.DatasetProviders;
-import io.committed.invest.server.data.services.DatasetRegistry;
+import io.committed.invest.server.data.services.DefaultDatasetProviders;
+import io.committed.invest.server.data.services.DefaultDatasetRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration
@@ -20,15 +22,15 @@ import lombok.extern.slf4j.Slf4j;
 public class DataCreationConfig {
 
   @Bean
-  public DatasetProviders datasetProviders(
+  public DataProviders datasetProviders(
       @Autowired(required = false) final List<DataProvider> providers) {
-    return new DatasetProviders(toSafeList(providers, "data providers"));
+    return new DefaultDatasetProviders(toSafeList(providers, "data providers"));
   }
 
   @Bean
   public DatasetRegistry datasetRegistry(
       @Autowired(required = false) final List<Dataset> datasets) {
-    return new DatasetRegistry(toSafeList(datasets, "datasets"));
+    return new DefaultDatasetRegistry(toSafeList(datasets, "datasets"));
   }
 
   @Bean

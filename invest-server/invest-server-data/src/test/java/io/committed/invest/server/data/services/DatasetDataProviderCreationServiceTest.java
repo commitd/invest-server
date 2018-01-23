@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 import io.committed.invest.extensions.data.dataset.DataProviderSpecification;
 import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.dataset.DatasetRegistry;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.server.data.testing.AnotherFakeDataProviderFactory;
 import io.committed.invest.server.data.testing.FakeDataProvider;
@@ -22,7 +23,7 @@ public class DatasetDataProviderCreationServiceTest {
   DataProviderFactoryRegistry dpfr = new DataProviderFactoryRegistry(
       Arrays.asList(new FakeDataProviderFactory(), new AnotherFakeDataProviderFactory()));
 
-  DatasetRegistry dr = new DatasetRegistry(Arrays.asList(Dataset.builder().id("testds")
+  DatasetRegistry dr = new DefaultDatasetRegistry(Arrays.asList(Dataset.builder().id("testds")
       .providers(Arrays
           .asList(DataProviderSpecification.builder().factory(FakeDataProviderFactory.ID).build()))
       .build()));

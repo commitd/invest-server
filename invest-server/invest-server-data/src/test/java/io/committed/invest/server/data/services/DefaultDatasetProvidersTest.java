@@ -4,17 +4,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import org.junit.Test;
 import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProviders;
 import io.committed.invest.server.data.testing.AnotherFakeDataProvider;
 import io.committed.invest.server.data.testing.FakeDataProvider;
 import io.committed.invest.server.data.testing.Fixtures;
 import reactor.core.publisher.Flux;
 
-public class DatasetProvidersTest {
+public class DefaultDatasetProvidersTest {
 
   @Test
   public void testFindForDataset() {
     final List<DataProvider> providers = Fixtures.createProviders();
-    final DatasetProviders dps = new DatasetProviders(providers);
+    final DataProviders dps = new DefaultDatasetProviders(providers);
 
     final Flux<DataProvider> dataset = dps.findForDataset(FakeDataProvider.DATASET);
 
@@ -25,7 +26,7 @@ public class DatasetProvidersTest {
   @Test
   public void testFindForDatasetForMissingDatabset() {
     final List<DataProvider> providers = Fixtures.createProviders();
-    final DatasetProviders dps = new DatasetProviders(providers);
+    final DataProviders dps = new DefaultDatasetProviders(providers);
 
     final Flux<DataProvider> dataset = dps.findForDataset("missing");
 
@@ -35,7 +36,7 @@ public class DatasetProvidersTest {
   @Test
   public void testFindForDatasetMatched() {
     final List<DataProvider> providers = Fixtures.createProviders();
-    final DatasetProviders dps = new DatasetProviders(providers);
+    final DefaultDatasetProviders dps = new DefaultDatasetProviders(providers);
 
     final Flux<FakeDataProvider> dataset =
         dps.findForDataset(FakeDataProvider.DATASET, FakeDataProvider.class);
@@ -47,7 +48,7 @@ public class DatasetProvidersTest {
   @Test
   public void testFindForDatasetNoMatch() {
     final List<DataProvider> providers = Fixtures.createProviders();
-    final DatasetProviders dps = new DatasetProviders(providers);
+    final DefaultDatasetProviders dps = new DefaultDatasetProviders(providers);
 
     final Flux<AnotherFakeDataProvider> dataset =
         dps.findForDataset(FakeDataProvider.DATASET, AnotherFakeDataProvider.class);
@@ -60,7 +61,7 @@ public class DatasetProvidersTest {
   @Test
   public void testFindForDatasetMatchSuperclass() {
     final List<DataProvider> providers = Fixtures.createProviders();
-    final DatasetProviders dps = new DatasetProviders(providers);
+    final DefaultDatasetProviders dps = new DefaultDatasetProviders(providers);
 
     final Flux<DataProvider> dataset =
         dps.findForDataset(FakeDataProvider.DATASET, DataProvider.class);
