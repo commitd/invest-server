@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.config;
+package io.committed.invest.server.core.services;
 
 import java.util.List;
 import javax.annotation.PostConstruct;

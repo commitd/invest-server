@@ -19,27 +19,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-core</artifactId>
-		</dependency>
 
-		<dependency>
-			<groupId>io.committed.invest</groupId>
-			<artifactId>invest-extensions</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.committed.invest</groupId>
-			<artifactId>invest-core</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>io.committed.invest</groupId>
 			<artifactId>invest-server-core</artifactId>

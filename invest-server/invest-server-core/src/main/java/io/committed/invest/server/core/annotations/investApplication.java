@@ -1,4 +1,4 @@
-package io.committed.invest.server.app;
+package io.committed.invest.server.core.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -27,7 +27,7 @@ import io.committed.invest.server.core.ServerCoreConfiguration;
 // Disable webflux security until it's actually enabled by profile
 @EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class,})
 @EnableConfigurationProperties
-@ComponentScan(basePackageClasses = Invest.class)
+@ComponentScan(basePackageClasses = investApplication.class)
 public @interface investApplication {
 
 }

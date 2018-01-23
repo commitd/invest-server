@@ -1,4 +1,4 @@
-package io.committed.invest.server.core.ui.services;
+package io.committed.invest.server.core.services;
 
 import java.util.regex.Pattern;
 import org.springframework.stereotype.Service;
