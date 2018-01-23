@@ -27,7 +27,7 @@ public class UiMerger implements WebFluxConfigurer {
   private UiUrlService urlService;
 
   @Bean
-  public RouterFunction<?> uiExtensionRoutes() {
+  public RouterFunction<ServerResponse> uiExtensionRoutes() {
     if (uiRegistry.isEmpty()) {
       log.warn("No UI extension points defined");
     }

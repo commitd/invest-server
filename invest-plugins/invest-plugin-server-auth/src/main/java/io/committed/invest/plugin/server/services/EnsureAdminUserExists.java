@@ -17,7 +17,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
   private final UserService securityService;
   private final UserAccountRepository userAccounts;
 
-  private final String DEFAULT_ADMIN_USERNAME = "admin";
+  private final static String DEFAULT_ADMIN_USERNAME = "admin";
 
 
   @Autowired

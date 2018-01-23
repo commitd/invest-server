@@ -33,7 +33,7 @@ public class DataCreationConfig {
 
   @Bean
   public DataProviderFactoryRegistry dataProviderFactoryRegistry(
-      @Autowired(required = false) final List<DataProviderFactory<? extends DataProvider>> factories) {
+      @Autowired(required = false) final List<DataProviderFactory<DataProvider>> factories) {
     return new DataProviderFactoryRegistry(toSafeList(factories, "data provider factories"));
   }
 

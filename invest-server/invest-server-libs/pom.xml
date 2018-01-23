@@ -27,8 +27,8 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-cache</artifactId>
     </dependency>
-    
-    <!--  Spring Security -->
+
+    <!-- Spring Security -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-core</artifactId>
@@ -37,11 +37,11 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-web</artifactId>
     </dependency>
-    
+
     <!-- Spring data functionality -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -78,7 +78,7 @@
       <artifactId>spqr</artifactId>
     </dependency>
 
-    <!--  Utilities -->
+    <!-- Utilities -->
 
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -88,7 +88,7 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
-    
+
 
 
 

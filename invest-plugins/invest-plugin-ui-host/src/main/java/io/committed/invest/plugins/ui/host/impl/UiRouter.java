@@ -22,7 +22,7 @@ public class UiRouter {
   private UiUrlService urlService;
 
   @Bean
-  public RouterFunction<?> hostedUiRoutes() {
+  public RouterFunction<ServerResponse> hostedUiRoutes() {
 
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
