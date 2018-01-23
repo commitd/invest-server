@@ -78,7 +78,7 @@ public class GraphQlConfig {
     final GraphQLSchema schema = factory.generate();
 
     final String schemaString = new SchemaPrinter().print(schema);
-    log.trace(schemaString);
+    log.info(schemaString);
 
     return schema;
 

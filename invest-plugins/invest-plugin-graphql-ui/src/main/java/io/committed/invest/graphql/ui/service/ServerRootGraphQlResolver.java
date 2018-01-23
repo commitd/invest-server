@@ -8,12 +8,13 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 public class ServerRootGraphQlResolver {
 
   private final ServerGraphQlResolver serverResolver;
-  private final OuterFrameUiResolver uiResolver;
+  private final InvestUiNode uiNode;
 
   @Autowired
-  public ServerRootGraphQlResolver(final ServerGraphQlResolver service, final OuterFrameUiResolver uiResolver) {
+  public ServerRootGraphQlResolver(final ServerGraphQlResolver service) {
     this.serverResolver = service;
-    this.uiResolver = uiResolver;
+    this.uiNode = new InvestUiNode();
+
   }
 
   @GraphQLQuery(name = "investServer",
@@ -25,7 +26,8 @@ public class ServerRootGraphQlResolver {
 
   @GraphQLQuery(name = "investUi",
       description = "Mirrors the application's ui endpoint, allowing for testing of plugins withouth the Outer Frame")
-  public OuterFrameUiResolver outerFrameUi() {
-    return uiResolver;
+  public InvestUiNode investUiQuery() {
+    return uiNode;
   }
+
 }
