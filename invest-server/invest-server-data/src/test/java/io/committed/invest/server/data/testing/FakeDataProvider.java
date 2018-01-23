@@ -1,6 +1,6 @@
 package io.committed.invest.server.data.testing;
 
-import io.committed.invest.server.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProvider;
 
 public class FakeDataProvider implements DataProvider {
 

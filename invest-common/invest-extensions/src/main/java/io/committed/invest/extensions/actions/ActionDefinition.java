@@ -1,4 +1,4 @@
-package io.committed.invest.actions;
+package io.committed.invest.extensions.actions;
 
 public interface ActionDefinition {
 

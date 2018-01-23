@@ -1,4 +1,4 @@
-package io.committed.invest.server.data.dataset;
+package io.committed.invest.extensions.data.dataset;
 
 import java.util.Collections;
 import java.util.List;

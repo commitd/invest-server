@@ -3,9 +3,9 @@ package io.committed.invest.plugins.example.ui.hello;
 import java.util.Arrays;
 import java.util.Collection;
 import org.springframework.stereotype.Component;
-import io.committed.invest.actions.ActionDefinition;
-import io.committed.invest.actions.SimpleActionDefinition;
 import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.actions.ActionDefinition;
+import io.committed.invest.extensions.actions.SimpleActionDefinition;
 
 @Component
 public class HelloUiExtension implements InvestUiExtension {

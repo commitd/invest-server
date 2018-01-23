@@ -7,9 +7,9 @@ import org.springframework.data.mongodb.repository.support.ReactiveMongoReposito
 import org.springframework.data.repository.core.support.ReactiveRepositoryFactorySupport;
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
-import io.committed.invest.server.data.providers.AbstractDataProviderFactory;
-import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.providers.DatabaseConstants;
+import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
+import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
 public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {

@@ -6,7 +6,7 @@ import java.util.List;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
 
-public class InvestUiExtensionRegistry extends AbstractInvestRegistry<InvestUiExtension> {
+public class InvestUiExtensionRegistry extends AbstractInvestExtensionRegistry<InvestUiExtension> {
 
   public InvestUiExtensionRegistry(final Collection<InvestUiExtension> extensions) {
     super(extensions);

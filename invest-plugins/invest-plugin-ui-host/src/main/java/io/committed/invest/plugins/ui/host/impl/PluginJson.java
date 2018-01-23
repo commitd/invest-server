@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import org.springframework.core.io.Resource;
-import io.committed.invest.actions.ActionDefinition;
 import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.actions.ActionDefinition;
 import lombok.Data;
 
 /**

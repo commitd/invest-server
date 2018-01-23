@@ -1,4 +1,4 @@
-package io.committed.invest.annotations;
+package io.committed.invest.extensions.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

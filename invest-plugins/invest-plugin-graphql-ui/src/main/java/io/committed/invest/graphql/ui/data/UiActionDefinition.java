@@ -1,6 +1,6 @@
 package io.committed.invest.graphql.ui.data;
 
-import io.committed.invest.actions.ActionDefinition;
+import io.committed.invest.extensions.actions.ActionDefinition;
 import lombok.Data;
 
 @Data

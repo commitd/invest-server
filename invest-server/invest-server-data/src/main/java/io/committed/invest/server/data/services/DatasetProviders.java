@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimaps;
-import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.query.DataHints;
+import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.query.DataHints;
 import reactor.core.publisher.Flux;
 
 public class DatasetProviders {

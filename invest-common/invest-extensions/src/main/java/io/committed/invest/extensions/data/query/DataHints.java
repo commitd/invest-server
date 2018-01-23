@@ -1,8 +1,8 @@
-package io.committed.invest.server.data.query;
+package io.committed.invest.extensions.data.query;
 
 import java.util.Collection;
 import java.util.function.Function;
-import io.committed.invest.server.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProvider;
 import lombok.Data;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.GroupedFlux;

@@ -2,8 +2,9 @@ package io.committed.invest.server.data.testing;
 
 import java.util.Arrays;
 import java.util.List;
-import io.committed.invest.server.data.dataset.Dataset;
-import io.committed.invest.server.data.providers.DataProvider;
+import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.providers.DataProvider;
+
 
 public final class Fixtures {
 

@@ -8,9 +8,9 @@ import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.util.StringUtils;
-import io.committed.invest.server.data.providers.AbstractDataProviderFactory;
-import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.providers.DatabaseConstants;
+import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
+import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
 public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {

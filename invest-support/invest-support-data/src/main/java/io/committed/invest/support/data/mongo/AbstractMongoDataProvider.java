@@ -3,8 +3,8 @@ package io.committed.invest.support.data.mongo;
 import org.bson.Document;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.AggregationExpression;
-import io.committed.invest.server.data.providers.AbstractDataProvider;
-import io.committed.invest.server.data.providers.DatabaseConstants;
+import io.committed.invest.extensions.data.providers.AbstractDataProvider;
+import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
 public abstract class AbstractMongoDataProvider extends AbstractDataProvider {
 

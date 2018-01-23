@@ -1,8 +1,9 @@
 package io.committed.invest.server.data.services;
 
-import io.committed.invest.server.data.dataset.DataProviderSpecification;
-import io.committed.invest.server.data.dataset.Dataset;
-import io.committed.invest.server.data.providers.DataProvider;
+
+import io.committed.invest.extensions.data.dataset.DataProviderSpecification;
+import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.providers.DataProvider;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import io.committed.invest.server.data.dataset.Dataset;
-import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.providers.DataProviderFactory;
+import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProviderFactory;
 import io.committed.invest.server.data.services.DataProviderCreator;
 import io.committed.invest.server.data.services.DataProviderFactoryRegistry;
 import io.committed.invest.server.data.services.DatasetProviders;
@@ -36,15 +36,6 @@ public class DataCreationConfig {
       @Autowired(required = false) final List<DataProviderFactory<?>> factories) {
     return new DataProviderFactoryRegistry(toSafeList(factories, "data provider factories"));
   }
-
-  // @Bean
-  // @Order(Ordered.LOWEST_PRECEDENCE)
-  // public DatasetDataProviderCreationService corpusDataProviderCreationService(
-  // final DatasetRegistry datasetRegistry,
-  // final DataProviderFactoryRegistry dataProviderFactoryRegistry) {
-  // return new DatasetDataProviderCreationService(datasetRegistry, dataProviderFactoryRegistry);
-  // }
-
 
   @Bean
   List<DataProvider> dataProviders(final DatasetRegistry datasetRegistry,

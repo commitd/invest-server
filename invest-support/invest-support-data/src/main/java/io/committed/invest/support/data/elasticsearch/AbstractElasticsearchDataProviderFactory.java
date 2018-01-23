@@ -8,9 +8,9 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import io.committed.invest.server.data.providers.AbstractDataProviderFactory;
-import io.committed.invest.server.data.providers.DataProvider;
-import io.committed.invest.server.data.providers.DatabaseConstants;
+import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
+import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
 public abstract class AbstractElasticsearchDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {

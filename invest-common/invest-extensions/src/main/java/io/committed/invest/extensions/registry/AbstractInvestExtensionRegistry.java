@@ -5,11 +5,11 @@ import java.util.Collections;
 import java.util.stream.Stream;
 import io.committed.invest.extensions.InvestExtension;
 
-public abstract class AbstractInvestRegistry<T extends InvestExtension> {
+public abstract class AbstractInvestExtensionRegistry<T extends InvestExtension> {
 
   private final Collection<T> extensions;
 
-  public AbstractInvestRegistry(final Collection<T> extensions) {
+  public AbstractInvestExtensionRegistry(final Collection<T> extensions) {
     this.extensions = Collections.unmodifiableCollection(extensions);
   }
 

@@ -1,4 +1,4 @@
-package io.committed.invest.server.data.providers;
+package io.committed.invest.extensions.data.providers;
 
 public abstract class AbstractDataProvider implements DataProvider {
 
