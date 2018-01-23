@@ -1,10 +1,28 @@
 image: maven:3.3.9
 
 pipelines:
+  branches:
+    develop:
+      - step:
+          caches:
+            - maven
+          script:
+            - mvn -s ci-maven-settings.xml -B clean install
+            - mvn -s ci-maven-settings.xml sonar:sonar
+            - mvn -s ci-maven-settings.xml deploy
+    # As per above exactly, technically this would also output Maven central
+    master:
+      - step:
+          caches:
+            - maven
+          script:
+            - mvn -s ci-maven-settings.xml -B clean install
+            - mvn -s ci-maven-settings.xml sonar:sonar
+            - mvn -s ci-maven-settings.xml deploy          
   default:
     - step:
         caches:
           - maven
         script:
-          - mvn -B clean install # -B batch mode makes Maven less verbose
-          - mvn sonar:sonar  -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_USER -Dsonar.password=$SONAR_PWD
+          - mvn -s ci-maven-settings.xml -B clean verify
+          # Don't run sonar / etc as it'll interfere with the develop/deploy branch  
