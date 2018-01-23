@@ -6,7 +6,7 @@
   <groupId>io.committed.invest</groupId>
   <artifactId>invest-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
 
   <name>Invest</name>
   <description>Modular plugin based application framework, based on Spring</description>
