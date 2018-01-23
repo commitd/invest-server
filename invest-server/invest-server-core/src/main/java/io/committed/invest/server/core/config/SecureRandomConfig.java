@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.config;
+package io.committed.invest.server.core.config;
 
 import java.security.SecureRandom;
 import java.util.Random;

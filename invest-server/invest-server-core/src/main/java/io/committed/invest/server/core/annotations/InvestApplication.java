@@ -8,6 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.cassandra.CassandraReactiveDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.cassandra.CassandraReactiveRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,9 +29,12 @@ import io.committed.invest.server.core.ServerCoreConfiguration;
 @EnableAsync
 @EnableScheduling
 // Disable webflux security until it's actually enabled by profile
-@EnableAutoConfiguration(exclude = {ReactiveSecurityAutoConfiguration.class,})
+@EnableAutoConfiguration(
+    exclude = {ReactiveSecurityAutoConfiguration.class, CassandraReactiveDataAutoConfiguration.class,
+        CassandraReactiveRepositoriesAutoConfiguration.class,
+        CassandraAutoConfiguration.class, CassandraDataAutoConfiguration.class})
 @EnableConfigurationProperties
-@ComponentScan(basePackageClasses = InvestApplication.class)
+@ComponentScan(basePackageClasses = ServerCoreConfiguration.class)
 public @interface InvestApplication {
 
 }

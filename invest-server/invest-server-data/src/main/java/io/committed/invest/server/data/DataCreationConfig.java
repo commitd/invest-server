@@ -34,8 +34,9 @@ public class DataCreationConfig {
   }
 
   @Bean
+  // NOTE: Do not remove the ? extends here... otherwise Spring does not wire any beans in!
   public DataProviderFactoryRegistry dataProviderFactoryRegistry(
-      @Autowired(required = false) final List<DataProviderFactory<DataProvider>> factories) {
+      @Autowired(required = false) final List<DataProviderFactory<? extends DataProvider>> factories) {
     return new DataProviderFactoryRegistry(toSafeList(factories, "data provider factories"));
   }
 

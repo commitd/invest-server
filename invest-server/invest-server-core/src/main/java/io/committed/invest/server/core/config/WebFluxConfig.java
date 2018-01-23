@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.config;
+package io.committed.invest.server.core.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.EnableWebFlux;

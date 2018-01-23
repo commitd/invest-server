@@ -2,16 +2,17 @@ package io.committed.invest.graphql.ui.service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import io.committed.invest.graphql.ui.UiPluginsSettings;
 import io.committed.invest.graphql.ui.data.UiPlugin;
@@ -20,7 +21,7 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-@Service
+@GraphQLService
 public class ServerGraphQlResolver {
 
   private final Collection<InvestUiExtension> uiExtensions;
@@ -33,7 +34,7 @@ public class ServerGraphQlResolver {
       final ApplicationContext applicationcontext, final UiPluginsSettings uiPluginSettings,
       final ObjectMapper mapper) {
     this.urlService = urlService;
-    this.uiExtensions = sort(uiRegistry.getExtensions(), uiPluginSettings);
+    this.uiExtensions = sort(uiRegistry, uiPluginSettings);
   }
 
 
@@ -50,8 +51,16 @@ public class ServerGraphQlResolver {
         .map(e -> new UiPlugin(e, urlService.getFullPath(e))).next();
   }
 
-  private Collection<InvestUiExtension> sort(final Collection<InvestUiExtension> uiExtensions,
+  private Collection<InvestUiExtension> sort(final InvestUiExtensionRegistry uiRegistry,
       final UiPluginsSettings uiPluginSettings) {
+
+
+    Collection<InvestUiExtension> uiExtensions;
+    if (uiRegistry != null) {
+      uiExtensions = uiRegistry.getExtensions();
+    } else {
+      uiExtensions = Collections.emptyList();
+    }
 
     final List<String> order = uiPluginSettings.getPlugins();
     if (order == null || order.isEmpty()) {

@@ -1,4 +1,4 @@
-package io.committed.invest.server.app.config;
+package io.committed.invest.server.core.config;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
