@@ -29,10 +29,10 @@ public class DataProviderFactoryRegistryTest {
 
   @Test
   public void testFindFactoryWhereExists() {
-    final Flux<DataProviderFactory<? extends DataProvider>> factories =
+    final Flux<DataProviderFactory<DataProvider>> factories =
         registry.findFactories(FakeDataProviderFactory.ID);
 
-    final List<DataProviderFactory<? extends DataProvider>> block = factories.collectList().block();
+    final List<DataProviderFactory<DataProvider>> block = factories.collectList().block();
     assertThat(block).hasSize(1);
     assertThat(block.get(0).getId()).isEqualTo(FakeDataProviderFactory.ID);
 
@@ -40,10 +40,10 @@ public class DataProviderFactoryRegistryTest {
 
   @Test
   public void testFindFactoryWhereMissing() {
-    final Flux<DataProviderFactory<? extends DataProvider>> factories =
+    final Flux<DataProviderFactory<DataProvider>> factories =
         registry.findFactories("missing");
 
-    final List<DataProviderFactory<? extends DataProvider>> block = factories.collectList().block();
+    final List<DataProviderFactory<DataProvider>> block = factories.collectList().block();
     assertThat(block).hasSize(0);
   }
 

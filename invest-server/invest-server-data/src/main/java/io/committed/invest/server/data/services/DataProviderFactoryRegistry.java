@@ -16,15 +16,16 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class DataProviderFactoryRegistry {
 
-  private final List<DataProviderFactory<DataProvider>> factories;
+  private final List<? extends DataProviderFactory<? extends DataProvider>> factories;
 
   @Autowired
-  public DataProviderFactoryRegistry(final List<DataProviderFactory<DataProvider>> factories) {
+  public DataProviderFactoryRegistry(final List<? extends DataProviderFactory<? extends DataProvider>> factories) {
     this.factories = factories;
   }
 
   public Flux<DataProviderFactory<DataProvider>> findFactories(final String id) {
-    return Flux.fromIterable(factories).filter(f -> f.getId().equalsIgnoreCase(id));
+    return Flux.fromIterable(factories).filter(f -> f.getId().equalsIgnoreCase(id))
+        .map(DataProviderFactory.class::cast);
   }
 
   // This is checked in the flux
