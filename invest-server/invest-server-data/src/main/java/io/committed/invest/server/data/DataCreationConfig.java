@@ -33,7 +33,7 @@ public class DataCreationConfig {
 
   @Bean
   public DataProviderFactoryRegistry dataProviderFactoryRegistry(
-      @Autowired(required = false) final List<DataProviderFactory<?>> factories) {
+      @Autowired(required = false) final List<DataProviderFactory<? extends DataProvider>> factories) {
     return new DataProviderFactoryRegistry(toSafeList(factories, "data provider factories"));
   }
 
@@ -46,7 +46,8 @@ public class DataCreationConfig {
 
   private <T> List<T> toSafeList(final List<T> providers, final String name) {
     final List<T> list = providers == null ? Collections.emptyList() : providers;
-    if (list.isEmpty()) {
+    // Technically this provides null check is not required, but Sonar complains.
+    if (providers == null || list.isEmpty()) {
       log.warn("No {} available, no data will be served", name);
     } else {
       log.warn("{} {} available", providers.size(), name);

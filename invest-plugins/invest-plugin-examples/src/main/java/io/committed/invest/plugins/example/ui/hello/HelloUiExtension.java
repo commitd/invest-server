@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.actions.ActionDefinition;
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
+import lombok.Data;
 
 @Component
 public class HelloUiExtension implements InvestUiExtension {
@@ -37,8 +38,9 @@ public class HelloUiExtension implements InvestUiExtension {
     return HelloUiPluginSettings.class;
   }
 
+  @Data
   public static class ExamplePayload {
-    public String documentId;
+    private String documentId;
   }
 
 

@@ -16,10 +16,10 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class DataProviderFactoryRegistry {
 
-  private final List<DataProviderFactory<?>> factories;
+  private final List<DataProviderFactory<? extends DataProvider>> factories;
 
   @Autowired
-  public DataProviderFactoryRegistry(final List<DataProviderFactory<?>> factories) {
+  public DataProviderFactoryRegistry(final List<DataProviderFactory<? extends DataProvider>> factories) {
     this.factories = factories;
   }
 

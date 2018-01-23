@@ -5,7 +5,7 @@ import org.springframework.data.domain.Sort;
 
 public class ZeroPageRequest implements Pageable {
 
-  public static ZeroPageRequest AGGREGATION_ONLY = new ZeroPageRequest();
+  public static final ZeroPageRequest AGGREGATION_ONLY = new ZeroPageRequest();
 
   @Override
   public Pageable first() {

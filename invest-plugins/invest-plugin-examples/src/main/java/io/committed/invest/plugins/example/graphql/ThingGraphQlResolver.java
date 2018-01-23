@@ -19,9 +19,6 @@ public class ThingGraphQlResolver {
       return name;
     }
 
-    public String getPassword() {
-      return "secret";
-    }
   }
 
   @GraphQLQuery(name = "things", description = "Example provider of things")

@@ -17,7 +17,6 @@ public class SimpleUiUrlService implements UiUrlService {
     return String.format("/%s/", extension.getId());
   }
 
-  // TODO: This could be configurable though perhaps that's dangerous!
   @Override
   public String getContextPath() {
     return "/ui";

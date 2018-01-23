@@ -23,7 +23,8 @@ public class DataProviderFactoryRegistryTest {
   @Before
   public void setUp() {
     registry = new DataProviderFactoryRegistry(
-        Arrays.asList(new FakeDataProviderFactory(), new AnotherFakeDataProviderFactory(null)));
+        Arrays.asList(new FakeDataProviderFactory(),
+            new AnotherFakeDataProviderFactory(null)));
   }
 
   @Test

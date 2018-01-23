@@ -20,6 +20,6 @@ public final class DatabaseConstants {
 
   public static final String MEMORY = "Memory";
 
-  public static final String File = "File";
+  public static final String FILE = "File";
 
 }

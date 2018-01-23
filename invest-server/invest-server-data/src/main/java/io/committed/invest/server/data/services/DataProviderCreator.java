@@ -23,9 +23,10 @@ public class DataProviderCreator {
     return Flux.fromIterable(dataset.getProviders()).flatMap(s -> createProvider(dataset, s));
   }
 
-  public Mono<? extends DataProvider> createProvider(final Dataset dataset,
+  public Mono<DataProvider> createProvider(final Dataset dataset,
       final DataProviderSpecification spec) {
-    return dataProviderFactoryRegistry.build(dataset.getId(), spec);
+    return dataProviderFactoryRegistry.build(dataset.getId(), spec)
+        .map(d -> (DataProvider) d);
   }
 
 }

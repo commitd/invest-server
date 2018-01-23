@@ -32,9 +32,6 @@ public class UiMerger implements WebFluxConfigurer {
       log.warn("No UI extension points defined");
     }
 
-    uiRegistry.stream().forEach(e -> System.out.println(e.getId()));
-
-
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
 
