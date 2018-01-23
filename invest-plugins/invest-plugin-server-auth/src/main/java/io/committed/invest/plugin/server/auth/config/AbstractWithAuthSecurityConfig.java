@@ -34,7 +34,6 @@ public abstract class AbstractWithAuthSecurityConfig {
       final ServerSecurityContextRepository securityContextRepository,
       final ReactiveAuthenticationManager authenticationManager) {
 
-
     // For the /view we want to allow iframe acccess
     // TODO: Can we limit this just to /ui?
     http.headers().frameOptions().disable();

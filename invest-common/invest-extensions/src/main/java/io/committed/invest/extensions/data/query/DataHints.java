@@ -28,9 +28,8 @@ public class DataHints implements Function<Collection<DataProvider>, Flux<DataPr
   private final String datasource;
 
   /**
-   * If we have multiple providers for the same datasource should we use them? Typically you
-   * wouldn't want this, because they would contain the same data so the query would duplicate the
-   * results.
+   * If we have multiple providers for the same datasource should we use them? Typically you wouldn't
+   * want this, because they would contain the same data so the query would duplicate the results.
    */
   private final boolean duplicate;
 
