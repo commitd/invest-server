@@ -4,7 +4,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class DateAxis {
+public final class DateAxis {
+
+  private DateAxis() {
+    // Singleton
+  }
 
   public static final List<String> MONTHS_OF_YEAR =
       Collections.unmodifiableList(Arrays.asList("January", "Febraury", "March", "April", "May", "June",
