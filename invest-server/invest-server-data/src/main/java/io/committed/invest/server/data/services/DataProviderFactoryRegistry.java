@@ -36,7 +36,7 @@ public class DataProviderFactoryRegistry {
   }
 
 
-  public Mono<? extends DataProvider> build(final String dataset,
+  public Mono<DataProvider> build(final String dataset,
       final DataProviderSpecification spec) {
     final Map<String, Object> safeSettings =
         spec.getSettings() == null ? Collections.emptyMap() : spec.getSettings();
@@ -52,7 +52,8 @@ public class DataProviderFactoryRegistry {
       }
     })
         // Grab the first non empty
-        .next();
+        .next()
+        .map(DataProvider.class::cast);
   }
 }
 

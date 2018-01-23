@@ -6,19 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class Graph {
 
-  private static Graph EMPTY;
-
-  static {
-    Graph.EMPTY = new Graph();
-    Graph.EMPTY.setEdges(Collections.emptyList());
-    Graph.EMPTY.setNodes(Collections.emptyList());
-  }
+  private static final Graph EMPTY = new Graph(Collections.emptyList(), Collections.emptyList());
 
   public static Graph empty() {
     return Graph.EMPTY;
@@ -29,13 +21,13 @@ public class Graph {
   }
 
   @JsonProperty("nodes")
-  private List<Node> nodes;
+  private final List<Node> nodes;
 
   @JsonProperty("edges")
-  private List<Edge> edges;
+  private final List<Edge> edges;
 
   public Graph(final Collection<Node> nodes, final Collection<Edge> edges) {
-    this.nodes = new ArrayList<>(nodes);
-    this.edges = new ArrayList<>(edges);
+    this.nodes = Collections.unmodifiableList(new ArrayList<>(nodes));
+    this.edges = Collections.unmodifiableList(new ArrayList<>(edges));
   }
 }

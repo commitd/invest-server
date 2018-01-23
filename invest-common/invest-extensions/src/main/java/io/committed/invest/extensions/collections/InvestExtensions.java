@@ -20,8 +20,8 @@ public class InvestExtensions {
     return extensions == null || extensions.isEmpty();
   }
 
-  public Stream<? extends InvestExtension> stream() {
-    return extensions == null ? Stream.empty() : extensions.stream();
+  public Stream<InvestExtension> stream() {
+    return extensions == null ? Stream.empty() : extensions.stream().map(InvestExtension.class::cast);
   }
 
   public <E extends InvestExtension> Stream<E> stream(final Class<E> clazz) {

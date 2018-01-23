@@ -1,6 +1,8 @@
 package io.committed.invest.core.dto.constants;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.List;
 
 public enum TimeInterval {
   SECOND() {
@@ -41,10 +43,8 @@ public enum TimeInterval {
   };
 
 
-  public static String[] getAxis(final TimeInterval x) {
+  public static List<String> getAxis(final TimeInterval x) {
     switch (x) {
-      default:
-        return null;
       case MONTH:
         return DateAxis.MONTHS_OF_YEAR;
       case DAY:
@@ -53,6 +53,8 @@ public enum TimeInterval {
         return DateAxis.HOURS_OF_DAY;
       case MINUTE:
         return DateAxis.MINUTES_OF_HOUR;
+      default:
+        return Collections.emptyList();
     }
   }
 
@@ -65,8 +67,8 @@ public enum TimeInterval {
 
   }
 
-
   public int mapTime(final ZonedDateTime time) {
+    // TODO: What is this for!!
     return 0;
   }
 }

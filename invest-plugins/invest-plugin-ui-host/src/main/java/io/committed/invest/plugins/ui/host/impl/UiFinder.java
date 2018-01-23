@@ -59,7 +59,6 @@ public class UiFinder {
       try {
         return processPluginJson(mapper.readValue(f, PluginJson.class), f);
       } catch (final IOException e) {
-        e.printStackTrace();
         log.warn("Unable to process {} as UI plugin", f.getAbsolutePath(), e);
       }
     } else if (name.endsWith(".zip")) {

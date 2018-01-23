@@ -6,10 +6,10 @@ public final class GeoUtil {
 
   // Semi-axes of WGS-84 geoidal reference
   // Major semiaxis [m]
-  private static final double WGS84_a = 6378137.0;
+  private static final double WGS84_A = 6378137.0;
 
   // Minor semiaxis [m]
-  private static final double WGS84_b = 6356752.3;
+  private static final double WGS84_B = 6356752.3;
 
   public static GeoBox createBoundingBox(final double latitudeInDegrees,
       final double longitudeInDegrees, final double halfSideInMeters) {
@@ -32,10 +32,10 @@ public final class GeoUtil {
 
   private static double calculateWGS84EarthRadius(final double lat) {
     // http://en.wikipedia.org/wiki/Earth_radius
-    final double An = WGS84_a * WGS84_a * Math.cos(lat);
-    final double Bn = WGS84_b * WGS84_b * Math.sin(lat);
-    final double Ad = WGS84_a * Math.cos(lat);
-    final double Bd = WGS84_b * Math.sin(lat);
+    final double An = WGS84_A * WGS84_A * Math.cos(lat);
+    final double Bn = WGS84_B * WGS84_B * Math.sin(lat);
+    final double Ad = WGS84_A * Math.cos(lat);
+    final double Bd = WGS84_B * Math.sin(lat);
     return Math.sqrt((An * An + Bn * Bn) / (Ad * Ad + Bd * Bd));
   }
 

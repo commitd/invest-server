@@ -12,9 +12,7 @@ import io.committed.invest.extensions.InvestApiExtension;
 public class StatusApiExtension implements InvestApiExtension {
 
   @Bean
-  RouterFunction<?> statusRouter() {
-    return RouterFunctions.route(RequestPredicates.GET("/api/status"), request -> {
-      return ServerResponse.ok().syncBody("ok");
-    });
+  RouterFunction<ServerResponse> statusRouter() {
+    return RouterFunctions.route(RequestPredicates.GET("/api/status"), request -> ServerResponse.ok().syncBody("ok"));
   }
 }

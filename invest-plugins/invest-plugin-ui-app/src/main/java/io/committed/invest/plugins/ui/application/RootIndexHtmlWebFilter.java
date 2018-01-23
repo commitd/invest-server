@@ -20,9 +20,6 @@ public class RootIndexHtmlWebFilter implements WebFilter {
       response.setStatusCode(HttpStatus.SEE_OTHER);
       response.getHeaders().add(HttpHeaders.LOCATION, "/ui/app/");
       return Mono.just(response).then();
-
-      // return chain.filter(exchange.mutate()
-      // .request(exchange.getRequest().mutate().path("/ui/app/index.html").build()).build());
     } else {
       return chain.filter(exchange);
     }

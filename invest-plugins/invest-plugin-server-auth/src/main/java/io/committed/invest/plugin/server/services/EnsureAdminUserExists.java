@@ -17,6 +17,9 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
   private final UserService securityService;
   private final UserAccountRepository userAccounts;
 
+  private final String DEFAULT_ADMIN_USERNAME = "admin";
+
+
   @Autowired
   public EnsureAdminUserExists(final UserService securityService,
       final UserAccountRepository userAccounts) {
@@ -35,16 +38,15 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
     }
 
     final String password = securityService.generateRandomPassword();
-    final String username = "admin";
-    final Mono<UserAccount> account = securityService.findOrAddAccount(username, password, "admin",
+    final Mono<UserAccount> account = securityService.findOrAddAccount(DEFAULT_ADMIN_USERNAME, password, "admin",
         "", securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
 
     if (account.hasElement().block()) {
-      log.info("Created user {} with password {}", username, password);
+      log.info("Created user {} with password {}", DEFAULT_ADMIN_USERNAME, password);
 
     } else {
       log.error("Unable to create admin user {}, no admin users are present in the database",
-          username);
+          DEFAULT_ADMIN_USERNAME);
 
     }
   }

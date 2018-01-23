@@ -110,8 +110,9 @@
       </dependency>
 
 
-      <!--  TODO Messy exclude jackson-module-kotlin If we have this then Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
-      break an-->
+      <!-- TODO Messy exclude jackson-module-kotlin If we have this then 
+        Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
+        break an -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-json</artifactId>

@@ -19,11 +19,12 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   private final Map<String, UserAccount> db = new ConcurrentHashMap<>();
 
-  private final AtomicLong id = new AtomicLong();
+  private final AtomicLong idGenerator = new AtomicLong();
 
   private String randomId() {
-    // TODO: A better implementation required here which will generate something more random perhaps
-    return Long.toString(id.incrementAndGet());
+    // ARguable a A better implementation required here which will generate something more random
+    // perhaps but this should not be used in production.
+    return Long.toString(idGenerator.incrementAndGet());
   }
 
   @Override
@@ -59,7 +60,7 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   @Override
   public Iterable<UserAccount> findAllById(final Iterable<String> ids) {
-    final List<UserAccount> accounts = new ArrayList<UserAccount>();
+    final List<UserAccount> accounts = new ArrayList<>();
     for (final String id : ids) {
       final UserAccount userAccount = db.get(id);
       if (userAccount != null) {
@@ -112,9 +113,7 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   @Override
   public Stream<UserAccount> findByAuthorities(final String authority) {
-    return db.values().stream().filter(p -> {
-      return p.getAuthorities() != null && p.getAuthorities().contains(authority);
-    });
+    return db.values().stream().filter(p -> p.getAuthorities() != null && p.getAuthorities().contains(authority));
   }
 
   @Override

@@ -6,8 +6,8 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public class ReactiveRepositoryWrapper<T, ID, R extends CrudRepository<T, ID>>
-    implements ReactiveCrudRepository<T, ID> {
+public class ReactiveRepositoryWrapper<T, I, R extends CrudRepository<T, I>>
+    implements ReactiveCrudRepository<T, I> {
 
   protected final R repo;
 
@@ -31,22 +31,22 @@ public class ReactiveRepositoryWrapper<T, ID, R extends CrudRepository<T, ID>>
   }
 
   @Override
-  public Mono<T> findById(final ID id) {
+  public Mono<T> findById(final I id) {
     return Mono.justOrEmpty(repo.findById(id));
   }
 
   @Override
-  public Mono<T> findById(final Publisher<ID> id) {
+  public Mono<T> findById(final Publisher<I> id) {
     return findById(Mono.from(id).block());
   }
 
   @Override
-  public Mono<Boolean> existsById(final ID id) {
+  public Mono<Boolean> existsById(final I id) {
     return Mono.justOrEmpty(repo.existsById(id));
   }
 
   @Override
-  public Mono<Boolean> existsById(final Publisher<ID> id) {
+  public Mono<Boolean> existsById(final Publisher<I> id) {
     return existsById(Mono.from(id).block());
   }
 
@@ -56,12 +56,12 @@ public class ReactiveRepositoryWrapper<T, ID, R extends CrudRepository<T, ID>>
   }
 
   @Override
-  public Flux<T> findAllById(final Iterable<ID> ids) {
+  public Flux<T> findAllById(final Iterable<I> ids) {
     return Flux.fromIterable(repo.findAllById(ids));
   }
 
   @Override
-  public Flux<T> findAllById(final Publisher<ID> idStream) {
+  public Flux<T> findAllById(final Publisher<I> idStream) {
     return findAllById(Flux.from(idStream).toIterable());
   }
 
@@ -71,13 +71,13 @@ public class ReactiveRepositoryWrapper<T, ID, R extends CrudRepository<T, ID>>
   }
 
   @Override
-  public Mono<Void> deleteById(final ID id) {
+  public Mono<Void> deleteById(final I id) {
     repo.deleteById(id);
     return Mono.empty();
   }
 
   @Override
-  public Mono<Void> deleteById(final Publisher<ID> id) {
+  public Mono<Void> deleteById(final Publisher<I> id) {
     deleteById(Mono.from(id).block());
     return Mono.empty();
   }

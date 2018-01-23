@@ -1,14 +1,10 @@
 package io.committed.invest.plugin.server.services;
 
-import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
+import io.committed.invest.plugin.server.auth.utils.AuthUtils;
 import reactor.core.publisher.Mono;
 
 public class UserAccountDetailsRepositoryService implements ReactiveUserDetailsService {
@@ -22,13 +18,10 @@ public class UserAccountDetailsRepositoryService implements ReactiveUserDetailsS
   private UserDetails toUser(final UserAccount account) {
     return new User(account.getUsername(), account.getPassword(), account.isEnabled(),
         !account.isExpired(), !account.isPasswordExpired(), !account.isLocked(),
-        toGrantAuthorities(account.getAuthorities()));
+        AuthUtils.toGrantAuthorities(account.getAuthorities()));
   }
 
-  private Collection<? extends GrantedAuthority> toGrantAuthorities(final Set<String> authorities) {
-    return authorities.stream().map(a -> new SimpleGrantedAuthority(a))
-        .collect(Collectors.toList());
-  }
+
 
   @Override
   public Mono<UserDetails> findByUsername(final String username) {

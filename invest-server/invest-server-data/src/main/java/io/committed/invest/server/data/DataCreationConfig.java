@@ -38,7 +38,7 @@ public class DataCreationConfig {
   }
 
   @Bean
-  List<DataProvider> dataProviders(final DatasetRegistry datasetRegistry,
+  public List<DataProvider> dataProviders(final DatasetRegistry datasetRegistry,
       final DataProviderFactoryRegistry dataProviderFactoryRegistry) {
     final DataProviderCreator creator = new DataProviderCreator(dataProviderFactoryRegistry);
     return creator.createProviders(datasetRegistry).collect(Collectors.toList()).block();

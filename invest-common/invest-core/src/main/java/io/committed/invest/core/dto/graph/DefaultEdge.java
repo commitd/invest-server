@@ -30,5 +30,5 @@ public class DefaultEdge implements Edge {
     this.to = to;
     this.group = group;
     this.type = type;
-  };
+  }
 }

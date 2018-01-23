@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class AbstractLombokTests {
 
-  protected void testDataClasses(final Class<?>... classes) throws Exception {
+  protected void testDataClasses(final Class<?>... classes) {
     for (final Class<?> clazz : classes) {
       assertThat(clazz, allOf(hasValidBeanConstructor(), hasValidGettersAndSetters(),
           hasValidBeanHashCode(), hasValidBeanEquals()));
@@ -22,7 +22,7 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testImmutableInstances(final Object... instances) throws Exception {
+  protected void testImmutableInstances(final Object... instances) {
     for (final Object o : instances) {
       assertThat(o, allOf(isABeanWithValidGettersAndSetters()));
 
@@ -32,7 +32,7 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testImmutableDataClasses(final Class<?>... classes) throws Exception {
+  protected void testImmutableDataClasses(final Class<?>... classes) {
     for (final Class<?> clazz : classes) {
       assertThat(clazz,
           allOf(hasValidGettersAndSetters(), hasValidBeanHashCode(), hasValidBeanEquals()));
@@ -43,8 +43,12 @@ public abstract class AbstractLombokTests {
     }
   }
 
-  protected void testToString(final Class<?> clazz) throws Exception {
-    testToString(clazz.getConstructor().newInstance());
+  protected void testToString(final Class<?> clazz) {
+    try {
+      testToString(clazz.getConstructor().newInstance());
+    } catch (final Exception e) {
+      throw new AssertionError("Unable to instance class", e);
+    }
   }
 
   protected void testToString(final Object i) {
