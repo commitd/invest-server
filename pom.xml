@@ -85,12 +85,15 @@
   </pluginRepositories>
 
 
-  <!-- Release to Maven Central via OSSHR -->
   <distributionManagement>
     <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <id>committed.nexus.snapshots</id>
+      <url>https://nexus.committed.software/repository/maven-snapshots/</url>
     </snapshotRepository>
+    <repository>
+      <id>committed.nexus.releases</id>
+      <url>https://nexus.committed.software/repository/maven-releases/</url>
+    </repository>
   </distributionManagement>
 
   <build>
@@ -120,6 +123,13 @@
   <profiles>
     <profile>
       <id>release</id>
+      <!-- Release to Maven Central via OSSHR -->
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+      </distributionManagement>
       <build>
         <plugins>
           <plugin>
