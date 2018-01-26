@@ -22,20 +22,27 @@ import org.bson.Document;
  */
 public class AddFieldsOperation implements AggregationOperation {
 
-  private final Map<String, AggregationExpression> fields;
+  private final Map<String, Object> fields;
 
 
-  public AddFieldsOperation(final Map<String, AggregationExpression> fields) {
+  /**
+   * @param fields fieldname to either String or {@link AggregationExpression}
+   */
+  public AddFieldsOperation(final Map<String, Object> fields) {
     this.fields = fields;
-
   }
 
   @Override
   public Document toDocument(final AggregationOperationContext context) {
     final Document fieldObject = new Document();
 
-    for (final Map.Entry<String, AggregationExpression> e : fields.entrySet()) {
-      fieldObject.put(e.getKey(), e.getValue().toDocument(context));
+    for (final Map.Entry<String, Object> e : fields.entrySet()) {
+      Object value = e.getValue();
+      if (e.getValue() instanceof AggregationExpression) {
+        value = ((AggregationExpression) e.getValue()).toDocument(context);
+      }
+
+      fieldObject.put(e.getKey(), value);
     }
 
     return new Document("$addFields", fieldObject);
