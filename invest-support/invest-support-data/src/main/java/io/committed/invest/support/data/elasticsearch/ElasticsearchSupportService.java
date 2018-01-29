@@ -1,10 +1,12 @@
 package io.committed.invest.support.data.elasticsearch;
 
 import java.time.Instant;
+import java.util.Optional;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
 import org.elasticsearch.search.aggregations.bucket.histogram.ParsedDateHistogram;
@@ -24,7 +26,7 @@ import io.committed.invest.support.elasticsearch.utils.SourceUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public abstract class AbstractEsService<E> {
+public class ElasticsearchSupportService<E> {
 
   private final Client client;
   private final ObjectMapper mapper;
@@ -33,7 +35,7 @@ public abstract class AbstractEsService<E> {
   private final String type;
   private final Class<E> entityClazz;
 
-  public AbstractEsService(final ObjectMapper mapper, final ElasticsearchTemplate elastic,
+  public ElasticsearchSupportService(final ObjectMapper mapper, final ElasticsearchTemplate elastic,
       final String index, final String type, final Class<E> entityClazz) {
     this.mapper = mapper;
     this.elastic = elastic;
@@ -55,15 +57,44 @@ public abstract class AbstractEsService<E> {
     return mapper;
   }
 
-  protected NativeSearchQueryBuilder queryBuilder() {
-    return new NativeSearchQueryBuilder().withIndices(index).withTypes(type);
+  public NativeSearchQueryBuilder queryBuilder() {
+    return new NativeSearchQueryBuilder()
+        .withIndices(index)
+        .withTypes(type);
   }
 
-  protected Flux<TimeBin> timelineAggregation(final String field) {
-    final NativeSearchQuery query = queryBuilder()
-        .addAggregation(new DateHistogramAggregationBuilder("agg").field(field)).build();
+  public Flux<E> searchByQuery(final String search, final int offset, final int limit) {
+    return search(QueryBuilders.queryStringQuery(search), offset, limit);
+  }
 
-    return getElastic().query(query, response -> {
+  public Flux<E> search(final QueryBuilder query, final int offset, final int limit) {
+    final ListenableActionFuture<SearchResponse> future = getClient().prepareSearch()
+        .setIndices(index)
+        .setTypes(type)
+        .setQuery(query)
+        .setFrom(offset)
+        .setSize(limit)
+        .execute();
+
+
+
+    return ReactiveElasticsearchUtils.toMono(future)
+        .flatMapMany(r -> SourceUtils.convertHits(getMapper(), r, entityClazz));
+  }
+
+  public Flux<E> search(final NativeSearchQuery query, final int offset, final int limit) {
+    return getElastic().query(query, resultsToDocumentExtractor());
+  }
+
+  public Flux<TimeBin> timelineAggregation(final Optional<QueryBuilder> q, final String field) {
+    final NativeSearchQueryBuilder qb = queryBuilder()
+        .addAggregation(new DateHistogramAggregationBuilder("agg").field(field));
+
+    if (q.isPresent()) {
+      qb.withQuery(q.get());
+    }
+
+    return query(qb, response -> {
       final ParsedDateHistogram terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets()).map(b -> {
         final Instant i = Instant.ofEpochMilli(((DateTime) b.getKey()).toInstant().getMillis());
@@ -72,20 +103,51 @@ public abstract class AbstractEsService<E> {
     });
   }
 
-  protected Flux<TermBin> termAggregation(final String field) {
-    final NativeSearchQuery query = queryBuilder()
-        .addAggregation(new TermsAggregationBuilder("agg", ValueType.STRING).field(field)).build();
+  public <T> T query(final NativeSearchQueryBuilder qb, final ResultsExtractor<T> extractor) {
+    return getElastic().query(qb.build(), extractor);
+  }
 
-    return getElastic().query(query, response -> {
+
+  public Flux<TermBin> termAggregation(final Optional<QueryBuilder> q, final String field, final int size) {
+    final NativeSearchQueryBuilder qb = queryBuilder()
+        .addAggregation(new TermsAggregationBuilder("agg", ValueType.STRING).field(field).size(size));
+
+    if (q.isPresent()) {
+      qb.withQuery(q.get());
+    }
+
+    return getElastic().query(qb.build(), response -> {
       final StringTerms terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets())
           .map(b -> new TermBin(b.getKeyAsString(), b.getDocCount()));
     });
   }
 
-  protected Mono<E> getDocumentById(final String id) {
+
+  public Mono<Long> count() {
+    return count(queryBuilder().withQuery(QueryBuilders.matchAllQuery()));
+  }
+
+  public Mono<Long> count(final NativeSearchQueryBuilder query) {
+    return Mono
+        .just(getElastic().count(query.build()));
+  }
+
+  public Mono<Long> count(final QueryBuilder query) {
+    return count(queryBuilder().withQuery(query));
+  }
+
+  public Flux<E> getAll(final int offset, final int limit) {
+    return search(QueryBuilders.matchAllQuery(), offset, limit);
+  }
+
+  public Mono<E> getById(final String id) {
     final ListenableActionFuture<GetResponse> future =
-        getClient().prepareGet().setIndex(index).setType(type).setId(id).execute();
+        getClient().prepareGet()
+            .setIndex(index)
+            .setType(type)
+            .setId(id)
+            .execute();
 
     return ReactiveElasticsearchUtils.toMono(future)
         .flatMap(r -> SourceUtils.convertSource(getMapper(), r.getSourceAsString(), entityClazz));
@@ -95,13 +157,4 @@ public abstract class AbstractEsService<E> {
     return response -> SourceUtils.convertHits(getMapper(), response, entityClazz);
   }
 
-
-  protected Flux<E> searchForDocuments(final String search, final int offset, final int limit) {
-    final ListenableActionFuture<SearchResponse> future = getClient().prepareSearch()
-        .setIndices(index).setTypes(type).setQuery(QueryBuilders.queryStringQuery(search))
-        .setFrom(offset).setSize(limit).execute();
-
-    return ReactiveElasticsearchUtils.toMono(future)
-        .flatMapMany(r -> SourceUtils.convertHits(getMapper(), r, entityClazz));
-  }
 }

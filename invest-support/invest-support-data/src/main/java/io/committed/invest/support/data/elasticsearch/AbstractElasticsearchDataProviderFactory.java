@@ -24,8 +24,13 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
 
     final String host = (String) settings.getOrDefault("host", "localhost");
     final int port = (int) settings.getOrDefault("port", 9300);
+    final String cluster = (String) settings.getOrDefault("cluster", "elasticsearch");
 
-    final TransportClient transportClient = new PreBuiltTransportClient(Settings.EMPTY)
+
+    final Settings esSettings = Settings.builder()
+        .put("cluster.name", cluster).build();
+
+    final TransportClient transportClient = new PreBuiltTransportClient(esSettings)
         .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
 
     return new ElasticsearchTemplate(transportClient);
