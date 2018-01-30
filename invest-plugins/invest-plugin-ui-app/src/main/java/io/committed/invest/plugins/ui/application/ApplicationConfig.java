@@ -25,7 +25,7 @@ public class ApplicationConfig {
   public RouterFunction<ServerResponse> applicationRootRoutes() {
     Resource resource;
     if (settings.isHostedFromFileSystem()) {
-      resource = new PathResource(new File(settings.getDirectory()).toPath());
+      resource = new PathResource(new File(settings.getDirectory()).getAbsoluteFile().toPath());
     } else {
       // Fallback to classpath
       resource = new ClassPathResource("/ui/app/", this.getClass().getClassLoader());

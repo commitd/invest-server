@@ -87,7 +87,7 @@ public class UiFinder {
     // TODO: Validity checks / fix issues
 
     // Check a resource to mount provide access
-    final PathResource r = new PathResource(f.getParentFile().toPath());
+    final PathResource r = new PathResource(f.getAbsoluteFile().getParentFile().toPath());
     json.setResource(r);
 
     return Optional.of(json);

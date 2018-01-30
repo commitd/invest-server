@@ -3,10 +3,12 @@ package io.committed.invest.plugins.ui.host.impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.core.io.Resource;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.actions.ActionDefinition;
+import io.committed.invest.extensions.actions.SimpleActionDefinition;
 import lombok.Data;
 
 /**
@@ -25,7 +27,7 @@ public class PluginJson implements InvestUiExtension {
 
   private Set<String> roles = Collections.emptySet();
 
-  private Collection<ActionDefinition> actions = Collections.emptyList();
+  private Collection<SimpleActionDefinition> actions = Collections.emptyList();
 
   // TODO; Seperate PluginJson definition from the extension implementation
   @JsonIgnore
@@ -38,4 +40,8 @@ public class PluginJson implements InvestUiExtension {
     return null;
   }
 
+  @Override
+  public Collection<ActionDefinition> getActions() {
+    return actions.stream().map(ActionDefinition.class::cast).collect(Collectors.toList());
+  }
 }
