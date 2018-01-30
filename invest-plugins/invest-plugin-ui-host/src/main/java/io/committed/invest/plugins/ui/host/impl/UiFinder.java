@@ -4,9 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.PathResource;
@@ -39,17 +40,28 @@ public class UiFinder {
   }
 
   private InvestHostedUiExtensions findUiHostedExtensions() throws IOException {
-    final List<PluginJson> extensions = new LinkedList<>();
-
-    Files.walk(settings.getRoot().toPath())
-        .map(Path::toFile)
-        .filter(File::isFile)
-        .map(this::processPlugin)
-        .filter(Optional::isPresent)
-        .map(Optional::get)
-        .forEach(extensions::add);
+    final List<PluginJson> extensions = settings.getRoots().stream()
+        .flatMap(this::readPluginsFromDirectory)
+        .collect(Collectors.toList());
 
     return new InvestHostedUiExtensions(extensions);
+  }
+
+  private Stream<PluginJson> readPluginsFromDirectory(final File root) {
+    // TODO: This will look through every dir and every file to see its its a plugin...
+    // we could be more efficient and just filter on stuff which might match
+    // but then that's what processPlugin does
+    try {
+      return Files.walk(root.toPath())
+          .map(Path::toFile)
+          .filter(File::isFile)
+          .map(this::processPlugin)
+          .filter(Optional::isPresent)
+          .map(Optional::get);
+    } catch (final IOException e) {
+      log.error("Failed to read directory {}", root.getAbsolutePath(), e);
+      return Stream.empty();
+    }
   }
 
 
