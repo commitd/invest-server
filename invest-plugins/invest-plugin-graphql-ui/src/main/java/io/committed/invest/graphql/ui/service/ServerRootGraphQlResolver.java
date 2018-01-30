@@ -24,7 +24,7 @@ public class ServerRootGraphQlResolver {
   }
 
 
-  @GraphQLQuery(name = "investUi",
+  @GraphQLQuery(name = "remoteInvestUi",
       description = "Mirrors the application's ui endpoint, allowing for testing of plugins withouth the Outer Frame")
   public InvestUiNode investUiQuery() {
     return uiNode;

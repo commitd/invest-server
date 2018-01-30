@@ -15,7 +15,7 @@ public class InvestUiMutationResolver {
 
   // Mutations
 
-  @GraphQLMutation(name = "navigateToPlugin")
+  @GraphQLMutation(name = "remoteNavigateToPlugin")
   public NavigateOutput navigate(@GraphQLArgument(name = "input") final Navigate input) {
     log.info("Request to navigate from UI ignored");
     return new NavigateOutput(false);
