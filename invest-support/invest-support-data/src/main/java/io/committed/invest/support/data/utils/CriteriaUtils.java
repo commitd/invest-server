@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import javax.annotation.Nullable;
+import java.util.Optional;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -38,20 +38,16 @@ public final class CriteriaUtils {
   }
 
 
-  public static Aggregation createAggregation(@Nullable final Collection<CriteriaDefinition> matches,
+  public static Aggregation createAggregation(final Collection<CriteriaDefinition> matches,
       final AggregationOperation... operations) {
     final List<AggregationOperation> aggregations = new ArrayList<>();
 
-    if (matches != null) {
-      matches.stream()
-          .filter(Objects::nonNull)
-          .map(Aggregation::match)
-          .forEach(aggregations::add);
-    }
+    matches.stream()
+        .filter(Objects::nonNull)
+        .map(Aggregation::match)
+        .forEach(aggregations::add);
 
-    if (operations != null) {
-      Arrays.stream(operations).forEach(aggregations::add);
-    }
+    Arrays.stream(operations).forEach(aggregations::add);
 
     return newAggregation(aggregations);
 
@@ -67,10 +63,10 @@ public final class CriteriaUtils {
     return query;
   }
 
-  public static Aggregation createAggregation(@Nullable final CriteriaDefinition criteria,
+  public static Aggregation createAggregation(final Optional<CriteriaDefinition> criteria,
       final AggregationOperation... operations) {
     return createAggregation(
-        criteria == null ? Collections.singletonList(criteria) : Collections.emptyList(),
+        criteria.isPresent() ? Collections.singletonList(criteria.get()) : Collections.emptyList(),
         operations);
   }
 }

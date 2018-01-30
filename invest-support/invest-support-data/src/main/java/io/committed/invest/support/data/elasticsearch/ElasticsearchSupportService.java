@@ -9,8 +9,8 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
-import org.elasticsearch.search.aggregations.bucket.histogram.ParsedDateHistogram;
-import org.elasticsearch.search.aggregations.bucket.terms.StringTerms;
+import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
 import org.elasticsearch.search.aggregations.support.ValueType;
 import org.joda.time.DateTime;
@@ -21,8 +21,10 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.core.dto.analytic.TermBin;
 import io.committed.invest.core.dto.analytic.TimeBin;
+import io.committed.invest.core.dto.constants.TimeInterval;
 import io.committed.invest.support.elasticsearch.utils.ReactiveElasticsearchUtils;
 import io.committed.invest.support.elasticsearch.utils.SourceUtils;
+import io.committed.invest.support.elasticsearch.utils.TimeIntervalUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -83,19 +85,25 @@ public class ElasticsearchSupportService<E> {
   }
 
   public Flux<E> search(final NativeSearchQuery query, final int offset, final int limit) {
-    return getElastic().query(query, resultsToDocumentExtractor());
+    return getElastic().query(query, resultsToDocumentExtractor())
+        .skip(0)
+        .take(limit);
   }
 
-  public Flux<TimeBin> timelineAggregation(final Optional<QueryBuilder> q, final String field) {
+  public Flux<TimeBin> timelineAggregation(final Optional<QueryBuilder> q, final String field,
+      final TimeInterval interval) {
     final NativeSearchQueryBuilder qb = queryBuilder()
-        .addAggregation(new DateHistogramAggregationBuilder("agg").field(field));
+        .addAggregation(new DateHistogramAggregationBuilder("agg").field(field)
+            .dateHistogramInterval(TimeIntervalUtils.toDateHistogram(interval)));
+
+
 
     if (q.isPresent()) {
       qb.withQuery(q.get());
     }
 
     return query(qb, response -> {
-      final ParsedDateHistogram terms = response.getAggregations().get("agg");
+      final Histogram terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets()).map(b -> {
         final Instant i = Instant.ofEpochMilli(((DateTime) b.getKey()).toInstant().getMillis());
         return new TimeBin(i, b.getDocCount());
@@ -110,14 +118,14 @@ public class ElasticsearchSupportService<E> {
 
   public Flux<TermBin> termAggregation(final Optional<QueryBuilder> q, final String field, final int size) {
     final NativeSearchQueryBuilder qb = queryBuilder()
-        .addAggregation(new TermsAggregationBuilder("agg", ValueType.STRING).field(field).size(size));
+        .addAggregation(new TermsAggregationBuilder("agg", ValueType.STRING).field(field + ".keyword").size(size));
 
     if (q.isPresent()) {
       qb.withQuery(q.get());
     }
 
     return getElastic().query(qb.build(), response -> {
-      final StringTerms terms = response.getAggregations().get("agg");
+      final Terms terms = response.getAggregations().get("agg");
       return Flux.fromIterable(terms.getBuckets())
           .map(b -> new TermBin(b.getKeyAsString(), b.getDocCount()));
     });
