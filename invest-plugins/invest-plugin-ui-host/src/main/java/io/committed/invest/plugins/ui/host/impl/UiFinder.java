@@ -2,15 +2,20 @@ package io.committed.invest.plugins.ui.host.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.PathResource;
+import org.springframework.core.io.UrlResource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.plugins.ui.host.UiHostSettings;
@@ -77,7 +82,27 @@ public class UiFinder {
       // TODO: Deal with zip..
       // Open up the zip file, look for a invest.json
       // if has it then read that, and see if the FilesystemResource will work.
+      return processZip(f);
+    }
 
+    return Optional.empty();
+  }
+
+  private Optional<PluginJson> processZip(final File f) {
+    try (ZipFile zipFile = new ZipFile(f)) {
+      final ZipEntry entry = zipFile.getEntry("invest.json");
+      if (entry != null) {
+
+        try (InputStream is = zipFile.getInputStream(entry)) {
+          // We can serve the resources straight from the zip... nice!
+          final URI uri = URI.create("jar:" + f.toURI() + "!/");
+          final PluginJson json = mapper.readValue(is, PluginJson.class);
+          json.setResource(new UrlResource(uri));
+          return Optional.of(json);
+        }
+      }
+    } catch (final IOException e) {
+      log.warn("Unable to open {} as a zip file", f.getAbsolutePath());
     }
 
     return Optional.empty();
