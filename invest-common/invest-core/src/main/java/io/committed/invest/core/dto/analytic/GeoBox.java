@@ -52,17 +52,17 @@ public class GeoBox {
 
   @JsonIgnore
   public double getSafeS() {
-    return getS() == null ? 180.0 : getS();
+    return getS() == null ? -180.0 : getS();
   }
 
   @JsonIgnore
   public double getSafeE() {
-    return getE() == null ? 180.0 : getE();
+    return getE() == null ? 90.0 : getE();
   }
 
   @JsonIgnore
   public double getSafeW() {
-    return getW() == null ? 180.0 : getW();
+    return getW() == null ? -90.0 : getW();
   }
 
   public boolean contains(final double lat, final double lon) {
