@@ -12,6 +12,16 @@ import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfigurati
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraReactiveDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraReactiveRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,9 +40,21 @@ import io.committed.invest.server.core.ServerCoreConfiguration;
 @EnableScheduling
 // Disable webflux security until it's actually enabled by profile
 @EnableAutoConfiguration(
-    exclude = {ReactiveSecurityAutoConfiguration.class, CassandraReactiveDataAutoConfiguration.class,
+    exclude = {ReactiveSecurityAutoConfiguration.class,
+        // We configure our own data bases via DataProvider
+        // Prevent Cassandra auto config
+        CassandraReactiveDataAutoConfiguration.class,
         CassandraReactiveRepositoriesAutoConfiguration.class,
-        CassandraAutoConfiguration.class, CassandraDataAutoConfiguration.class})
+        CassandraAutoConfiguration.class, CassandraDataAutoConfiguration.class,
+        // Prevent Mongo auto config
+        MongoReactiveAutoConfiguration.class, MongoReactiveDataAutoConfiguration.class,
+        MongoReactiveRepositoriesAutoConfiguration.class, MongoAutoConfiguration.class,
+        MongoDataAutoConfiguration.class, MongoRepositoriesAutoConfiguration.class,
+        // Prevent Jpa auto config
+        JpaRepositoriesAutoConfiguration.class,
+        // Prevent Elasticsearch auto config
+        ElasticsearchAutoConfiguration.class, ElasticsearchDataAutoConfiguration.class,
+        ElasticsearchRepositoriesAutoConfiguration.class})
 @EnableConfigurationProperties
 @ComponentScan(basePackageClasses = ServerCoreConfiguration.class)
 public @interface InvestApplication {
