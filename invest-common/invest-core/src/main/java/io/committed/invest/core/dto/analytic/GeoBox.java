@@ -47,22 +47,22 @@ public class GeoBox {
 
   @JsonIgnore
   public double getSafeN() {
-    return getN() == null ? 180.0 : getN();
+    return getN() == null || getN() > 90 ? 90.0 : getN();
   }
 
   @JsonIgnore
   public double getSafeS() {
-    return getS() == null ? -180.0 : getS();
+    return getS() == null || getS() < -90 ? -90.0 : getS();
   }
 
   @JsonIgnore
   public double getSafeE() {
-    return getE() == null ? 90.0 : getE();
+    return getE() == null || getS() > 180 ? 180.0 : getE();
   }
 
   @JsonIgnore
   public double getSafeW() {
-    return getW() == null ? -90.0 : getW();
+    return getW() == null || getW() < -180 ? -180.0 : getW();
   }
 
   public boolean contains(final double lat, final double lon) {
