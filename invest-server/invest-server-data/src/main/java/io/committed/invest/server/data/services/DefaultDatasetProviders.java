@@ -32,7 +32,7 @@ public class DefaultDatasetProviders implements DataProviders {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findAll()
    */
   @Override
@@ -43,19 +43,19 @@ public class DefaultDatasetProviders implements DataProviders {
   // it is checked...
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findAll(java.lang.Class)
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T> Flux<T> findAll(final Class<T> providerClass) {
+  public <T extends DataProvider> Flux<T> findAll(final Class<T> providerClass) {
     return (Flux<T>) findAll().filter(providerClass::isInstance);
 
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findForDataset(java.lang.String)
    */
   @Override
@@ -65,7 +65,7 @@ public class DefaultDatasetProviders implements DataProviders {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findForDataset(java.lang.String,
    * io.committed.invest.extensions.data.query.DataHints)
    */
@@ -73,31 +73,30 @@ public class DefaultDatasetProviders implements DataProviders {
   public Flux<DataProvider> findForDataset(final String datasetId, final DataHints hints) {
     final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
     final DataHints dh = getHints(hints);
-
-    return dh.apply(datasetProviders);
+    return dh.filter(datasetProviders);
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findForDataset(java.lang.String,
    * java.lang.Class)
    */
   @Override
-  public <T> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass) {
+  public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass) {
     return findForDataset(datasetId, providerClass, null);
   }
 
   // It is checked...
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see io.committed.invest.server.data.services.DataProviderIntf#findForDataset(java.lang.String,
    * java.lang.Class, io.committed.invest.extensions.data.query.DataHints)
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
+  public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
       final DataHints hints) {
 
     return (Flux<T>) findForDataset(datasetId, hints).filter(providerClass::isInstance);
@@ -106,5 +105,13 @@ public class DefaultDatasetProviders implements DataProviders {
   private DataHints getHints(final DataHints hints) {
     return hints != null ? hints : DataHints.DEFAULT;
   }
+
+  @Override
+  public <T extends DataProvider> Flux<T> find(final Class<T> providerClass, final DataHints hints) {
+    final Flux<T> datasetProviders = findAll(providerClass);
+    final DataHints dh = getHints(hints);
+    return dh.filter(datasetProviders);
+  }
+
 }
 

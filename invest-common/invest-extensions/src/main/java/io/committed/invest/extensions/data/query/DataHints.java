@@ -1,7 +1,6 @@
 package io.committed.invest.extensions.data.query;
 
 import java.util.Collection;
-import java.util.function.Function;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import lombok.Data;
 import reactor.core.publisher.Flux;
@@ -9,7 +8,7 @@ import reactor.core.publisher.GroupedFlux;
 
 
 @Data
-public class DataHints implements Function<Collection<DataProvider>, Flux<DataProvider>> {
+public class DataHints {
 
   public static final DataHints DEFAULT = new DataHints(null, null, false);
 
@@ -33,10 +32,9 @@ public class DataHints implements Function<Collection<DataProvider>, Flux<DataPr
    */
   private final boolean duplicate;
 
-  @Override
-  public Flux<DataProvider> apply(final Collection<DataProvider> input) {
+  public <T extends DataProvider> Flux<T> filter(final Flux<T> input) {
 
-    Flux<DataProvider> flux = Flux.fromIterable(input);
+    Flux<T> flux = input;
 
     if (datasource != null) {
       flux = flux.filter(p -> datasource.equals(p.getDatasource()));
@@ -55,6 +53,9 @@ public class DataHints implements Function<Collection<DataProvider>, Flux<DataPr
 
   }
 
+  public Flux<DataProvider> filter(final Collection<DataProvider> input) {
+    return this.filter(Flux.fromIterable(input));
+  }
 
 
 }
