@@ -1,6 +1,7 @@
 package io.committed.invest.support.data.elasticsearch;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.Optional;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.get.GetResponse;
@@ -163,6 +164,11 @@ public class ElasticsearchSupportService<E> {
 
   protected ResultsExtractor<Flux<E>> resultsToDocumentExtractor() {
     return response -> SourceUtils.convertHits(getMapper(), response, entityClazz);
+  }
+
+  @SuppressWarnings("unchecked")
+  public Map<String, Object> getMapping() {
+    return getElastic().getMapping(index, type);
   }
 
 }
