@@ -1,19 +1,23 @@
 package io.committed.invest.extensions.actions;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SimpleActionDefinition implements ActionDefinition {
 
-  private final String action;
+  private String action;
 
-  private final Class<?> payload;
+  private Class<?> payload;
 
-  private final String title;
+  private String title;
 
-  private final String description;
+  private String description;
 
 
 }

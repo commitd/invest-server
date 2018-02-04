@@ -7,6 +7,7 @@ import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @GraphQLService
@@ -24,6 +25,7 @@ public class InvestUiMutationResolver {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public static final class Navigate {
 
     @GraphQLQuery(name = "pluginId")
@@ -36,6 +38,7 @@ public class InvestUiMutationResolver {
 
   @Data
   @AllArgsConstructor
+  @NoArgsConstructor
   public static final class NavigateOutput {
     private boolean success;
   }
