@@ -7,7 +7,7 @@ cd -
 
 
 echo "Build with Maven (without testing)"
-mvn clean package -DskipTests
+mvn clean package install -DskipTests
 
 echo "Moving artifacts to the build dir"
 rm -rf build

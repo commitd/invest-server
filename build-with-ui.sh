@@ -2,10 +2,10 @@
 
 echo "Using UI from $1"
 
-echo "Building UI"
-cd $1
-yarn build
-cd -
+#echo "Building UI"
+#cd $1
+#yarn build
+#cd -
 
 echo "Copy main UI app into place"
 mkdir -p invest-plugins/invest-plugin-ui-app/src/main/resources/ui/app
