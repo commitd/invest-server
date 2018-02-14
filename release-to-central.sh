@@ -1,3 +1,4 @@
 #!/bin/sh
-mvn clean deploy -P release
+./build-with-ui.sh
+mvn  deploy -P release
 
