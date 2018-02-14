@@ -1,0 +1,3 @@
+# Use a separate context path for the actuator
+#management:
+#  context-path: /actuator

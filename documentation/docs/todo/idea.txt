@@ -1,0 +1,1 @@
+'So your going to develop an app with invest... what to do step by step'. This will go beyond the simple create a ui app, and into the lerna type stuff. repo layout etc.
