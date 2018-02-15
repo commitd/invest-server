@@ -15,8 +15,14 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractElasticsearchDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
-  protected AbstractElasticsearchDataProviderFactory(final String id, final Class<P> clazz) {
+  private final String defaultIndexName;
+  private final String defaultTypeName;
+
+  protected AbstractElasticsearchDataProviderFactory(final String id, final Class<P> clazz,
+      final String defaultIndexName, final String defaultTypeName) {
     super(id, clazz, DatabaseConstants.ELASTICSEARCH);
+    this.defaultIndexName = defaultIndexName;
+    this.defaultTypeName = defaultTypeName;
   }
 
   protected ElasticsearchTemplate buildElasticTemplate(final Map<String, Object> settings)
@@ -36,6 +42,12 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
     return new ElasticsearchTemplate(transportClient);
   }
 
+  protected String getIndexName(final Map<String, Object> settings) {
+    return (String) settings.getOrDefault("index", defaultIndexName);
 
+  }
 
+  protected String getTypeName(final Map<String, Object> settings) {
+    return (String) settings.getOrDefault("type", defaultTypeName);
+  }
 }
