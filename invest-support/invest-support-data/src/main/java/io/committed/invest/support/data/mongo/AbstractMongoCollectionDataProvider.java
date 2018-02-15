@@ -32,6 +32,10 @@ public abstract class AbstractMongoCollectionDataProvider<T> extends AbstractMon
     return toMono(getCollection().find(Filters.eq(field, value)).first());
   }
 
+  protected Flux<T> findAllByField(final String field, final String value) {
+    return toFlux(getCollection().find(Filters.eq(field, value)));
+  }
+
   protected Flux<T> findAll(final int offset, final int size) {
     return toFlux(getCollection().find()
         .skip(offset)
