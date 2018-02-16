@@ -33,10 +33,6 @@ public class HelloUiExtension implements InvestUiExtension {
     return "Says hello to you";
   }
 
-  @Override
-  public Class<?> getSettings() {
-    return HelloUiPluginSettings.class;
-  }
 
   @Data
   public static class ExamplePayload {

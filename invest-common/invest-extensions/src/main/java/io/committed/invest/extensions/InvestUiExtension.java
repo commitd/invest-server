@@ -2,6 +2,7 @@ package io.committed.invest.extensions;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 import io.committed.invest.extensions.actions.ActionDefinition;
 
 public interface InvestUiExtension extends InvestExtension {
@@ -33,8 +34,8 @@ public interface InvestUiExtension extends InvestExtension {
     return Collections.emptyList();
   }
 
-  default Class<?> getSettings() {
-    return null;
+  default Optional<? extends Object> getSettings() {
+    return Optional.empty();
   }
 
 }

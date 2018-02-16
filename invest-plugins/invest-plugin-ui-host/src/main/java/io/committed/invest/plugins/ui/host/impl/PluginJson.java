@@ -2,6 +2,8 @@ package io.committed.invest.plugins.ui.host.impl;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.core.io.Resource;
@@ -11,9 +13,6 @@ import io.committed.invest.extensions.actions.ActionDefinition;
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
 import lombok.Data;
 
-/**
- * This class mirrors (but does not implement) the {@link InvestUiExtension} *
- */
 @Data
 public class PluginJson implements InvestUiExtension {
 
@@ -33,6 +32,8 @@ public class PluginJson implements InvestUiExtension {
   @JsonIgnore
   private Resource resource;
 
+  private Map<String, Object> settings;
+
   @Override
   public String getStaticResourcePath() {
     // TODO: We could abstract this to a resource (in InvestUiExtension) rather than a classpath string
@@ -44,4 +45,10 @@ public class PluginJson implements InvestUiExtension {
   public Collection<ActionDefinition> getActions() {
     return actions.stream().map(ActionDefinition.class::cast).collect(Collectors.toList());
   }
+
+  @Override
+  public Optional<Map<String, Object>> getSettings() {
+    return Optional.ofNullable(settings);
+  }
+
 }
