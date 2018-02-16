@@ -3,7 +3,7 @@ package io.committed.invest.support.data.elasticsearch;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
-import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.client.Client;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
@@ -25,7 +25,8 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
     this.defaultTypeName = defaultTypeName;
   }
 
-  protected ElasticsearchTemplate buildElasticTemplate(final Map<String, Object> settings)
+
+  protected Client buildElasticClient(final Map<String, Object> settings)
       throws UnknownHostException {
 
     final String host = (String) settings.getOrDefault("host", "localhost");
@@ -36,10 +37,14 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
     final Settings esSettings = Settings.builder()
         .put("cluster.name", cluster).build();
 
-    final TransportClient transportClient = new PreBuiltTransportClient(esSettings)
+    return new PreBuiltTransportClient(esSettings)
         .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
+  }
 
-    return new ElasticsearchTemplate(transportClient);
+  protected ElasticsearchTemplate buildElasticTemplate(final Map<String, Object> settings)
+      throws UnknownHostException {
+    final Client client = buildElasticClient(settings);
+    return new ElasticsearchTemplate(client);
   }
 
   protected String getIndexName(final Map<String, Object> settings) {
