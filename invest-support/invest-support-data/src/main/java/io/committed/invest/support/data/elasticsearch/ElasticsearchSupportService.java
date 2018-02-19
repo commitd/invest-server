@@ -126,7 +126,7 @@ public class ElasticsearchSupportService<E> {
         .filter("filtered", q.orElse(QueryBuilders.matchAllQuery()))
         .subAggregation(AggregationBuilders.terms("agg")
             .valueType(ValueType.STRING)
-            .field(field + ".keyword")
+            .field(field)
             .size(size));
 
     return aggregation(Optional.empty(), ab)
