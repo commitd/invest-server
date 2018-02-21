@@ -8,7 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import io.committed.invest.plugin.server.auth.constants.InvestRoles;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dto.User;
 
 public final class AuthUtils {

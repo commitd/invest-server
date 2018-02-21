@@ -1,4 +1,4 @@
-package io.committed.invest.plugin.server.auth.constants;
+package io.committed.invest.core.auth;
 
 public class InvestRoles {
 
@@ -8,6 +8,7 @@ public class InvestRoles {
 
   public static final String ADMINISTRATOR = "ADMIN";
   public static final String USER = "USER";
+  public static final String DEV = "DEV";
 
 
   // Convert to Authorities
@@ -16,6 +17,7 @@ public class InvestRoles {
 
   public static final String ROLE_ADMINISTRATOR = AUTHORITY_PREFIX + ADMINISTRATOR;
   public static final String ROLE_USER = AUTHORITY_PREFIX + USER;
+  public static final String ROLE_DEV = AUTHORITY_PREFIX + DEV;
 
 
 }

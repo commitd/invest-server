@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import io.committed.invest.plugin.server.auth.constants.InvestRoles;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;

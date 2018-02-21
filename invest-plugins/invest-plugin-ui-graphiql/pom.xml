@@ -15,5 +15,9 @@
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-extensions</artifactId>
     </dependency>
+        <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-core</artifactId>
+    </dependency>
   </dependencies>
 </project>

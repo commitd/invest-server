@@ -1,7 +1,10 @@
 package io.committed.invest.plugins.ui.livedev;
 
+import java.util.Collection;
+import java.util.Collections;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.extensions.InvestUiExtension;
 
 @Configuration
@@ -22,6 +25,11 @@ public class LiveDevelopmentUIExtension implements InvestUiExtension {
   @Override
   public String getIcon() {
     return "code";
+  }
+
+  @Override
+  public Collection<String> getRoles() {
+    return Collections.singleton(InvestRoles.DEV);
   }
 
   @Override
