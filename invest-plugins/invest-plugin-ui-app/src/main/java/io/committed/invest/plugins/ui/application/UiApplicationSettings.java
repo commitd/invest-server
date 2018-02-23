@@ -12,4 +12,5 @@ public class UiApplicationSettings {
 
   private Map<String, Object> settings;
 
+
 }
