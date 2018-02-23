@@ -3,7 +3,10 @@ package io.committed.invest.plugins.ui.host;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import io.committed.invest.plugins.ui.host.impl.PluginOverride;
 import lombok.Data;
 
 @ConfigurationProperties("invest.ui.host")
@@ -13,5 +16,17 @@ public class UiHostSettings {
       new File("./ui"));
 
   private String pluginFilename = "invest.json";
+
+  private List<PluginOverride> override;
+
+  public Optional<Map<String, Object>> getSettingsForPluginId(final String pluginId) {
+    if (override == null) {
+      return Optional.empty();
+    }
+
+    return override.stream().filter(s -> s.getId().equals(pluginId))
+        .findFirst()
+        .map(PluginOverride::getSettings);
+  }
 }
 

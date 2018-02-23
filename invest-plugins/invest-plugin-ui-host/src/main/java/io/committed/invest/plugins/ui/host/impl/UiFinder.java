@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -115,6 +117,29 @@ public class UiFinder {
     final PathResource r = new PathResource(f.getAbsoluteFile().getParentFile().toPath());
     json.setResource(r);
 
+
+    mergeSettings(json);
+
     return Optional.of(json);
+  }
+
+  private void mergeSettings(final PluginJson json) {
+    final Optional<Map<String, Object>> overriddenSettings = settings.getSettingsForPluginId(json.getId());
+
+    if (!overriddenSettings.isPresent()) {
+      return;
+    }
+
+    if (!json.getSettings().isPresent()) {
+      json.setSettings(overriddenSettings.get());
+      return;
+    }
+
+    // We need to merge the settings.. we go invest.json then settings
+    // NOTE: this isn't a deep merge (that seems dangerous)
+    final Map<String, Object> merged = new HashMap<>();
+    merged.putAll(json.getSettings().get());
+    merged.putAll(overriddenSettings.get());
+    json.setSettings(merged);
   }
 }
