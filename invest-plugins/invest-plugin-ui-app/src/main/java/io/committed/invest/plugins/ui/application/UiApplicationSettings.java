@@ -1,18 +1,15 @@
 package io.committed.invest.plugins.ui.application;
 
+import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Data;
 
 @Data
-@ConfigurationProperties("invest.app")
+@ConfigurationProperties("invest.config")
 public class UiApplicationSettings {
 
-  private String title = "Vessel";
+  private String title = "Invest";
 
-  private String directory = null;
+  private Map<String, Object> settings;
 
-
-  public boolean isHostedFromFileSystem() {
-    return directory != null;
-  }
 }

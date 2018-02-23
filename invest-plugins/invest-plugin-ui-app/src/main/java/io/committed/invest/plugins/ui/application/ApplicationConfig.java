@@ -18,7 +18,7 @@ import org.springframework.web.server.WebFilter;
 public class ApplicationConfig {
 
   @Autowired
-  private UiApplicationSettings settings;
+  private ApplicationSettings settings;
 
   @Bean
   @Order(value = Ordered.LOWEST_PRECEDENCE)
@@ -41,8 +41,8 @@ public class ApplicationConfig {
   }
 
   @Bean
-  public ApplicationSettingGraphQlResolver applicationSettingsService(
+  public UiApplicationSettingGraphQlResolver applicationSettingsService(
       final UiApplicationSettings settings) {
-    return new ApplicationSettingGraphQlResolver(settings);
+    return new UiApplicationSettingGraphQlResolver(settings);
   }
 }
