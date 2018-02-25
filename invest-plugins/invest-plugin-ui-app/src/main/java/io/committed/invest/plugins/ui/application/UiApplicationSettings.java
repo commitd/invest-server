@@ -1,6 +1,6 @@
 package io.committed.invest.plugins.ui.application;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Data;
@@ -11,7 +11,7 @@ public class UiApplicationSettings {
 
   private String title = "Invest";
 
-  private Map<String, Object> settings = Collections.emptyMap();
+  private Map<String, Object> settings = new HashMap<>();
 
 
 }
