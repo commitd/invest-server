@@ -2,8 +2,10 @@ package io.committed.invest.server.graphql.mappers;
 
 import java.lang.reflect.AnnotatedType;
 import io.leangen.geantyref.GenericTypeReflector;
+import io.leangen.graphql.execution.GlobalEnvironment;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
+import io.leangen.graphql.metadata.strategy.value.ValueMapper;
 import io.leangen.graphql.util.ClassUtils;
 import reactor.core.publisher.Mono;
 
@@ -11,20 +13,13 @@ import reactor.core.publisher.Mono;
  * * Based on OptionalAdapter
  *
  */
-public class MonoAdapter extends AbstractTypeAdapter<Mono<?>, Object> {
+public class MonoAdapter<T> extends AbstractTypeAdapter<Mono<T>, T> {
 
   @Override
-  public Object convertOutput(final Mono<?> original, final AnnotatedType type,
+  public T convertOutput(final Mono<T> original, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
-    return original
+    return (T) original
         .map(inner -> resolutionEnvironment.convertOutput(inner, getSubstituteType(type))).block();
-  }
-
-  @Override
-  public Mono<?> convertInput(final Object substitute, final AnnotatedType type,
-      final ResolutionEnvironment resolutionEnvironment) {
-    return Mono
-        .justOrEmpty(resolutionEnvironment.convertInput(substitute, getSubstituteType(type)));
   }
 
   @Override
@@ -32,5 +27,11 @@ public class MonoAdapter extends AbstractTypeAdapter<Mono<?>, Object> {
     final AnnotatedType innerType =
         GenericTypeReflector.getTypeParameter(original, Mono.class.getTypeParameters()[0]);
     return ClassUtils.addAnnotations(innerType, original.getAnnotations());
+  }
+
+  @Override
+  public Mono<T> convertInput(final T substitute, final AnnotatedType type, final GlobalEnvironment environment,
+      final ValueMapper valueMapper) {
+    return Mono.justOrEmpty(environment.convertInput(substitute, getSubstituteType(type), valueMapper));
   }
 }

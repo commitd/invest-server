@@ -58,11 +58,14 @@ public class GraphQlConfig {
   public GraphQLSchema schema(final GraphQlServices services) {
 
 
-    GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator().withDefaults()
+    GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
         .withValueMapperFactory(new JacksonValueMapperFactory())
         // Deal with reactive types
-        .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter());
-
+        .withTypeAdapters(new MonoAdapter(), new FluxToCollectionTypeAdapter())
+        .withOutputConverters(new MonoAdapter(), new FluxToCollectionTypeAdapter())
+        .withInputConverters(new MonoAdapter(), new FluxToCollectionTypeAdapter())
+        // Default MUST be after the Mono/Flux adapters so the they take priority over the PublisherMapper
+        .withDefaults();
     // At least one service must be registered otherwise GraphQL will thrown an exception
     if (services.getServices().isEmpty()) {
       factory = factory.withOperationsFromSingleton(new NoopGraphQLService());

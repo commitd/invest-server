@@ -25,8 +25,8 @@
     <spring-boot.version>2.0.0.M7</spring-boot.version>
 
     <!-- Additional versions -->
-    <graphql-java.version>4.2</graphql-java.version>
-    <graphql-spqr.version>0.9.5</graphql-spqr.version>
+    <graphql-java.version>7.0</graphql-java.version>
+    <graphql-spqr.version>0.9.6</graphql-spqr.version>
     <guava.version>23.3-jre</guava.version>
     <bean-matchers.version>0.10</bean-matchers.version>
     <fast-classpath-scanner.version>2.7.4</fast-classpath-scanner.version>
