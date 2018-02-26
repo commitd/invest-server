@@ -27,5 +27,5 @@ cp invest-plugins/invest-plugin-ui-livedev/target/*.jar build/plugins/.
 cp invest-plugins/invest-plugin-ui-actiondev/target/*.jar build/plugins/.
 
 
-echo "java -Dloader.path=plugins/ -jar invest-server-app-1.0-SNAPSHOT.jar" > build/run.sh
+echo "java -Dloader.path=plugins/ -jar invest-server-app-0.2-SNAPSHOT.jar" > build/run.sh
 chmod +x build/run.sh
