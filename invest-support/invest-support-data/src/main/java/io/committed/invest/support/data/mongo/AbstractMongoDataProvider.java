@@ -32,6 +32,10 @@ public abstract class AbstractMongoDataProvider extends AbstractDataProvider {
     return mongoDatabase.getCollection(name);
   }
 
+  public <T> MongoCollection<T> getCollection(final String name, final Class<T> clazz) {
+    return mongoDatabase.getCollection(name, clazz);
+  }
+
   protected <S> Mono<S> toMono(final Publisher<S> publisher) {
     return Mono.from(publisher);
   }
