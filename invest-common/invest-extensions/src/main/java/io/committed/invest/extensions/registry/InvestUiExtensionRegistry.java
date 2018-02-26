@@ -19,7 +19,7 @@ public class InvestUiExtensionRegistry extends AbstractInvestExtensionRegistry<I
     if (extensions != null) {
       all.addAll(extensions);
     }
-    if (collections.isEmpty()) {
+    if (collections != null && !collections.isEmpty()) {
       collections.forEach(a -> a.stream(InvestUiExtension.class).forEach(all::add));
     }
 
