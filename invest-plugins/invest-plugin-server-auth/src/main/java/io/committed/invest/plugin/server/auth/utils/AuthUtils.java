@@ -19,7 +19,7 @@ public final class AuthUtils {
 
   public static User fromAuthentication(final Authentication auth) {
     final UserDetails ud = (UserDetails) auth.getPrincipal();
-    return new User(ud.getUsername(), ud.getName(), getRolesFromAuthorities(ud.getAuthorities()));
+    return new User(ud.getUsername(), ud.getUsername(), getRolesFromAuthorities(ud.getAuthorities()));
   }
 
   public static Set<String> getRolesFromAuthorities(
