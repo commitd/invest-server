@@ -21,12 +21,14 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     this.defaultCollectionName = defaultCollectionName;
   }
 
+  @SuppressWarnings({"squid:S00112"})
   protected MongoDatabase buildMongoDatabase(final Map<String, Object> settings) {
     final String connectionString =
         (String) settings.getOrDefault("uri", "mongodb://localhost:27017/");
     final String databaseName = (String) settings.getOrDefault("db", defaultDatabaseName);
 
 
+    // TODO: SHould I hold onto this client?
     final MongoClient mongoClient = MongoClients.create(connectionString);
 
     return mongoClient.getDatabase(databaseName);

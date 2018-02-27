@@ -26,6 +26,7 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   }
 
 
+  @SuppressWarnings({"resource", "squid:S00112"})
   protected Client buildElasticClient(final Map<String, Object> settings)
       throws UnknownHostException {
 
