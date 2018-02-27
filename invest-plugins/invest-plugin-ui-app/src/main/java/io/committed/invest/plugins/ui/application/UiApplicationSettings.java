@@ -14,6 +14,8 @@ public class UiApplicationSettings {
 
   private String title = "Invest";
 
+  private String serverUrl = "http://localhost:8080";
+
   private Map<String, Object> settings = new HashMap<>();
 
   @GraphQLIgnore
