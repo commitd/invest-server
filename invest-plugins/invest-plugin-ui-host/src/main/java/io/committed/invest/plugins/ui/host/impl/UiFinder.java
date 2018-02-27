@@ -130,7 +130,8 @@ public class UiFinder {
       return;
     }
 
-    if (!json.getSettings().isPresent()) {
+    final Optional<Map<String, Object>> jsonSettings = json.getSettings();
+    if (!jsonSettings.isPresent()) {
       json.setSettings(overriddenSettings.get());
       return;
     }
@@ -138,7 +139,7 @@ public class UiFinder {
     // We need to merge the settings.. we go invest.json then settings
     // NOTE: this isn't a deep merge (that seems dangerous)
     final Map<String, Object> merged = new HashMap<>();
-    merged.putAll(json.getSettings().get());
+    merged.putAll(jsonSettings.get());
     merged.putAll(overriddenSettings.get());
     json.setSettings(merged);
   }
