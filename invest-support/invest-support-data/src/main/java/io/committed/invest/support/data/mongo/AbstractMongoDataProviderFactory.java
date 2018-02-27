@@ -11,6 +11,12 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
+  private static final String SETTING_URI = "uri";
+  private static final String SETTING_DB = "db";
+  private static final String SETTING_COLLECTION = "collection";
+
+  private static final String DEFAULT_URI = "mongodb://localhost:27017/";
+
   private final String defaultDatabaseName;
   private final String defaultCollectionName;
 
@@ -24,9 +30,8 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
   @SuppressWarnings({"squid:S00112"})
   protected MongoDatabase buildMongoDatabase(final Map<String, Object> settings) {
     final String connectionString =
-        (String) settings.getOrDefault("uri", "mongodb://localhost:27017/");
-    final String databaseName = (String) settings.getOrDefault("db", defaultDatabaseName);
-
+        (String) settings.getOrDefault(SETTING_URI, DEFAULT_URI);
+    final String databaseName = (String) settings.getOrDefault(SETTING_DB, defaultDatabaseName);
 
     // TODO: SHould I hold onto this client?
     final MongoClient mongoClient = MongoClients.create(connectionString);
@@ -35,7 +40,7 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
   }
 
   protected String getCollectionName(final Map<String, Object> settings) {
-    return (String) settings.getOrDefault("collection", defaultCollectionName);
+    return (String) settings.getOrDefault(SETTING_COLLECTION, defaultCollectionName);
   }
 
 }

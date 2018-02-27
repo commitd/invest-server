@@ -15,6 +15,16 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractElasticsearchDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
+  private static final String SETTING_HOST = "host";
+  private static final String SETTING_PORT = "port";
+  private static final String SETTING_CLUSTER = "cluster";
+  private static final String SETTING_TYPE = "type";
+  private static final String SETTING_INDEX = "index";
+
+  private static final String DEFAULT_HOST = "localhost";
+  private static final int DEFAULT_PORT = 9300;
+  private static final String DEFAULT_CLUSTER = "elasticsearch";
+
   private final String defaultIndexName;
   private final String defaultTypeName;
 
@@ -30,9 +40,9 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   protected Client buildElasticClient(final Map<String, Object> settings)
       throws UnknownHostException {
 
-    final String host = (String) settings.getOrDefault("host", "localhost");
-    final int port = (int) settings.getOrDefault("port", 9300);
-    final String cluster = (String) settings.getOrDefault("cluster", "elasticsearch");
+    final String host = (String) settings.getOrDefault(SETTING_HOST, DEFAULT_HOST);
+    final int port = (int) settings.getOrDefault(SETTING_PORT, DEFAULT_PORT);
+    final String cluster = (String) settings.getOrDefault(SETTING_CLUSTER, DEFAULT_CLUSTER);
 
 
     final Settings esSettings = Settings.builder()
@@ -49,11 +59,11 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   }
 
   protected String getIndexName(final Map<String, Object> settings) {
-    return (String) settings.getOrDefault("index", defaultIndexName);
+    return (String) settings.getOrDefault(SETTING_INDEX, defaultIndexName);
 
   }
 
   protected String getTypeName(final Map<String, Object> settings) {
-    return (String) settings.getOrDefault("type", defaultTypeName);
+    return (String) settings.getOrDefault(SETTING_TYPE, defaultTypeName);
   }
 }
