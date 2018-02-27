@@ -89,9 +89,6 @@
       <artifactId>h2</artifactId>
     </dependency>
 
-
-
-
     <!-- Note not including the test dependencies -->
   </dependencies>
 </project>
