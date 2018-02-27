@@ -1,30 +1,34 @@
 package io.committed.invest.support.data.mongo;
 
-import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
+import org.bson.Document;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import com.mongodb.reactivestreams.client.MongoCollection;
+import com.mongodb.reactivestreams.client.MongoDatabase;
 import reactor.core.publisher.Mono;
 
 public abstract class AbstractMongoRepositoryDataProvider<T, I, R extends ReactiveCrudRepository<T, I>>
     extends AbstractMongoDataProvider {
 
-  private final R repository;
+  private final String collectionName;
+  private final MongoCollection<Document> collection;
 
   protected AbstractMongoRepositoryDataProvider(final String dataset, final String datasource,
-      final ReactiveMongoTemplate mongoTemplate, final R repository) {
-    super(dataset, datasource, mongoTemplate);
-    this.repository = repository;
+      final MongoDatabase mongoDatabase, final String collectionName) {
+    super(dataset, datasource, mongoDatabase);
+    this.collectionName = collectionName;
+    collection = mongoDatabase.getCollection(collectionName);
   }
 
-  protected R getRepository() {
-    return repository;
+  public String getCollectionName() {
+    return collectionName;
   }
 
+  public MongoCollection<Document> getCollection() {
+    return collection;
+  }
 
   public Mono<Long> count() {
-    return repository.count();
+    return Mono.from(collection.count());
   }
-
-  // TODO: We could replicate the functions here... indeed implement the ReactiveCrudRepository with
-  // NoBean...
 
 }

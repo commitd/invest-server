@@ -13,10 +13,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.annotations.GraphQLService;
+import io.committed.invest.extensions.graphql.InvestServerNode;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import io.committed.invest.graphql.ui.UiPluginsSettings;
 import io.committed.invest.graphql.ui.data.UiPlugin;
 import io.leangen.graphql.annotations.GraphQLArgument;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -40,12 +42,12 @@ public class ServerGraphQlResolver {
 
   @GraphQLQuery(name = "uiPlugins",
       description = "Access details all UI plugins available on the system")
-  public Flux<UiPlugin> uiPlugins() {
+  public Flux<UiPlugin> uiPlugins(@GraphQLContext final InvestServerNode serverNode) {
     return Flux.fromIterable(uiExtensions).map(e -> new UiPlugin(e, urlService.getFullPath(e)));
   }
 
   @GraphQLQuery(name = "uiPlugin", description = "Access details for a specific UI plugin")
-  public Mono<UiPlugin> uiPlugin(
+  public Mono<UiPlugin> uiPlugin(@GraphQLContext final InvestServerNode serverNode,
       @GraphQLArgument(name = "pluginId", description = "The plugin id to get") final String id) {
     return Flux.fromIterable(uiExtensions).filter(p -> p.getId().equalsIgnoreCase(id))
         .map(e -> new UiPlugin(e, urlService.getFullPath(e))).next();

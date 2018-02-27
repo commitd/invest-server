@@ -6,33 +6,35 @@ import java.util.List;
 import java.util.stream.Collectors;
 import io.leangen.geantyref.GenericTypeReflector;
 import io.leangen.geantyref.TypeFactory;
+import io.leangen.graphql.execution.GlobalEnvironment;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
+import io.leangen.graphql.metadata.strategy.value.ValueMapper;
 import reactor.core.publisher.Flux;
 
 /**
  * Based on StreamToCollectionType
  */
-public class FluxToCollectionTypeAdapter extends AbstractTypeAdapter<Flux<?>, List<?>> {
+public class FluxToCollectionTypeAdapter<T> extends AbstractTypeAdapter<Flux<T>, List<T>> {
 
   @Override
-  public List<?> convertOutput(final Flux<?> flux, final AnnotatedType type,
+  public List<T> convertOutput(final Flux<T> original, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
-    return flux.map(item -> resolutionEnvironment.convertOutput(item, getElementType(type)))
-        .collect(Collectors.toList()).block();
+    return original
+        .map(item -> resolutionEnvironment.<T, T>convertOutput(item, getElementType(type)))
+        .collect(Collectors.toList())
+        .block();
   }
 
   @Override
-  public Flux<?> convertInput(final List<?> substitute, final AnnotatedType type,
-      final ResolutionEnvironment resolutionEnvironment) {
-    return Flux.fromIterable(substitute)
-        .map(item -> resolutionEnvironment.convertInput(item, getElementType(type)));
+  public Flux<T> convertInput(final List<T> substitute, final AnnotatedType type, final GlobalEnvironment environment,
+      final ValueMapper valueMapper) {
+    return Flux.fromIterable(substitute).map(item -> environment.convertInput(item, getElementType(type), valueMapper));
   }
 
   @Override
   public AnnotatedType getSubstituteType(final AnnotatedType original) {
-    return TypeFactory.parameterizedAnnotatedClass(List.class, original.getAnnotations(),
-        getElementType(original));
+    return TypeFactory.parameterizedAnnotatedClass(List.class, original.getAnnotations(), getElementType(original));
   }
 
   private AnnotatedType getElementType(final AnnotatedType type) {

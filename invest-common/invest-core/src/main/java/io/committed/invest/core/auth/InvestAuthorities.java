@@ -1,4 +1,4 @@
-package io.committed.invest.plugin.server.auth.constants;
+package io.committed.invest.core.auth;
 
 public class InvestAuthorities {
 

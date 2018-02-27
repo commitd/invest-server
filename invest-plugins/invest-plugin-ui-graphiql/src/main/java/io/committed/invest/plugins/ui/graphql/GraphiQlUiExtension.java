@@ -24,6 +24,11 @@ public class GraphiQlUiExtension implements InvestUiExtension {
     return "database";
   }
 
+  // @Override
+  // public Collection<String> getRoles() {
+  // return Collections.singleton(InvestRoles.DEV);
+  // }
+
   @Override
   public String getStaticResourcePath() {
     return "/ui-graphql/";

@@ -16,8 +16,12 @@ public class InvestUiExtensionRegistry extends AbstractInvestExtensionRegistry<I
       final Collection<InvestExtensions> collections) {
     final List<InvestUiExtension> all = new LinkedList<>();
 
-    all.addAll(extensions);
-    collections.forEach(a -> a.stream(InvestUiExtension.class).forEach(all::add));
+    if (extensions != null) {
+      all.addAll(extensions);
+    }
+    if (collections != null && !collections.isEmpty()) {
+      collections.forEach(a -> a.stream(InvestUiExtension.class).forEach(all::add));
+    }
 
     return new InvestUiExtensionRegistry(all);
   }

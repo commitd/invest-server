@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TermBin {
+public class TermBin implements Comparable<TermBin> {
   @JsonProperty("term")
   private String term;
 
@@ -17,5 +17,11 @@ public class TermBin {
 
   public String getTerm() {
     return term == null ? "" : term;
+  }
+
+  @Override
+  public int compareTo(final TermBin o) {
+    // Order high to low
+    return Long.compare(o.getCount(), count);
   }
 }

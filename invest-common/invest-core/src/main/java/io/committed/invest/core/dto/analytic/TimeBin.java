@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TimeBin {
+public class TimeBin implements Comparable<TimeBin> {
 
   @JsonProperty("time")
   private Instant ts;
@@ -17,4 +17,9 @@ public class TimeBin {
   @JsonProperty("count")
   private long count;
 
+  @Override
+  public int compareTo(final TimeBin o) {
+    // Order high to low
+    return getTs().compareTo(o.getTs());
+  }
 }

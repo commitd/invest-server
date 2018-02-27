@@ -5,9 +5,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.server.WebSession;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.graphql.Context;
 import io.committed.invest.extensions.annotations.GraphQLService;
-import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.dto.User;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
 import io.committed.invest.plugin.server.services.UserService;

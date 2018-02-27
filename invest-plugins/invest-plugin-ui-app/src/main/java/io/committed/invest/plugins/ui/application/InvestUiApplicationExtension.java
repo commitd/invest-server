@@ -12,7 +12,7 @@ import io.committed.invest.extensions.InvestExtension;
  * be.
  */
 @Configuration
-@EnableConfigurationProperties(UiApplicationSettings.class)
+@EnableConfigurationProperties({UiApplicationSettings.class, ApplicationSettings.class})
 @Import(ApplicationConfig.class)
 public class InvestUiApplicationExtension implements InvestExtension {
 

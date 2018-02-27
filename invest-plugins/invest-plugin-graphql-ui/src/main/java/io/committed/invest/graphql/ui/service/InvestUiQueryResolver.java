@@ -3,6 +3,7 @@ package io.committed.invest.graphql.ui.service;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.committed.invest.extensions.annotations.GraphQLService;
+import io.committed.invest.extensions.graphql.InvestUiNode;
 import io.committed.invest.graphql.ui.data.UiActionDefinition;
 import io.committed.invest.graphql.ui.data.UiPlugin;
 import io.leangen.graphql.annotations.GraphQLArgument;
@@ -38,7 +39,7 @@ public class InvestUiQueryResolver {
       return new QueryActionOutput();
     }
 
-    final Flux<PluginActionDefinition> stream = serverResolver.uiPlugins()
+    final Flux<PluginActionDefinition> stream = serverResolver.uiPlugins(null)
         .flatMap(p -> Flux.fromStream(p.getActions())
             .filter(a -> a.getAction().equalsIgnoreCase(input.getAction()))
             .map(a -> new PluginActionDefinition(p, a)));

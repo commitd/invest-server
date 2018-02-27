@@ -4,12 +4,16 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-plugins</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
   </parent>
   <artifactId>invest-plugin-ui-app</artifactId>
   <name>Invest Plugin UI App</name>
   <description>UI for the main application </description>
   <dependencies>
+      <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-core</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>

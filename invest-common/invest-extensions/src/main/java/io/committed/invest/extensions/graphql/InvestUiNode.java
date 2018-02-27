@@ -1,4 +1,4 @@
-package io.committed.invest.graphql.ui.service;
+package io.committed.invest.extensions.graphql;
 
 /**
  *
@@ -14,7 +14,5 @@ package io.committed.invest.graphql.ui.service;
  *
  */
 public class InvestUiNode {
-
-
 
 }

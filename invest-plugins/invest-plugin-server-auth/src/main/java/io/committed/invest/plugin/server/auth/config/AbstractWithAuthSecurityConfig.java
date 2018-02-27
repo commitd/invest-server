@@ -13,8 +13,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
+import io.committed.invest.core.auth.AuthenticationSettings;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.services.UiUrlService;
-import io.committed.invest.plugin.server.auth.constants.InvestRoles;
 import io.committed.invest.plugin.server.auth.graphql.AuthGraphQlResolver;
 import io.committed.invest.plugin.server.services.EnsureAdminUserExists;
 import io.committed.invest.plugin.server.services.UserAccountDetailsRepositoryService;
@@ -99,5 +100,8 @@ public abstract class AbstractWithAuthSecurityConfig {
     return manager;
   }
 
-
+  @Bean
+  public AuthenticationSettings authSettings() {
+    return new AuthenticationSettings(true);
+  }
 }
