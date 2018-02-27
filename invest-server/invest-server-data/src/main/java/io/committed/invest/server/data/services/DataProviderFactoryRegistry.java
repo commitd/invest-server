@@ -44,14 +44,15 @@ public class DataProviderFactoryRegistry {
 
     final String factoryId = spec.getFactory();
 
-    return findFactories(factoryId).flatMap(f -> {
-      try {
-        return f.build(dataset, spec.getDatasource(), safeSettings);
-      } catch (final Exception e) {
-        log.warn("Unable to create data provider due to error", e);
-        return Mono.empty();
-      }
-    })
+    return findFactories(factoryId)
+        .flatMap(f -> {
+          try {
+            return f.build(dataset, spec.getDatasource(), safeSettings);
+          } catch (final Exception e) {
+            log.warn("Unable to create data provider due to error", e);
+            return Mono.empty();
+          }
+        })
         // Grab the first non empty
         .next()
         .map(DataProvider.class::cast);
