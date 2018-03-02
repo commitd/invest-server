@@ -113,7 +113,42 @@
         <version>${project.version}</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-graphql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-graphql-ui</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-app</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-graphiql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-libs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-livedev</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-host</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <!-- TODO Messy exclude jackson-module-kotlin If we have this then 
         Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
