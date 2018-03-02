@@ -81,9 +81,6 @@ public class UiFinder {
         log.warn("Unable to process {} as UI plugin", f.getAbsolutePath(), e);
       }
     } else if (name.endsWith(".zip")) {
-      // TODO: Deal with zip..
-      // Open up the zip file, look for a invest.json
-      // if has it then read that, and see if the FilesystemResource will work.
       return processZip(f);
     }
 
@@ -111,12 +108,9 @@ public class UiFinder {
   }
 
   private Optional<PluginJson> processPluginJson(final PluginJson json, final File f) {
-    // TODO: Validity checks / fix issues
-
     // Check a resource to mount provide access
     final PathResource r = new PathResource(f.getAbsoluteFile().getParentFile().toPath());
     json.setResource(r);
-
 
     mergeSettings(json);
 
