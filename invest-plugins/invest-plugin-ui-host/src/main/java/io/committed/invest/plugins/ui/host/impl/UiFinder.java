@@ -66,7 +66,7 @@ public class UiFinder {
           .filter(Optional::isPresent)
           .map(Optional::get);
     } catch (final IOException e) {
-      log.error("Failed to read directory {}", root.getAbsolutePath(), e);
+      log.error("Failed to read directory {}: {}", root.getAbsolutePath(), e.getMessage());
       return Stream.empty();
     }
   }
