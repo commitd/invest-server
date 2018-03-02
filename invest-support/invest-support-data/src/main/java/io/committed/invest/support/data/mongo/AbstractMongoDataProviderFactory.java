@@ -11,11 +11,11 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
-  private static final String SETTING_URI = "uri";
-  private static final String SETTING_DB = "db";
-  private static final String SETTING_COLLECTION = "collection";
+  public static final String SETTING_URI = "uri";
+  public static final String SETTING_DB = "db";
+  public static final String SETTING_COLLECTION = "collection";
 
-  private static final String DEFAULT_URI = "mongodb://localhost:27017/";
+  public static final String DEFAULT_URI = "mongodb://localhost:27017/";
 
   private final String defaultDatabaseName;
   private final String defaultCollectionName;

@@ -24,8 +24,10 @@ public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataP
 
   protected ReactiveMongoTemplate buildMongoTemplate(final Map<String, Object> settings) {
     final String connectionString =
-        (String) settings.getOrDefault("uri", "mongodb://localhost:27017/");
-    final String databaseName = (String) settings.getOrDefault("db", defaultDatabase);
+        (String) settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_URI,
+            AbstractMongoDataProviderFactory.DEFAULT_URI);
+    final String databaseName =
+        (String) settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_DB, defaultDatabase);
 
 
     final MongoClient mongoClient = MongoClients.create(connectionString);
