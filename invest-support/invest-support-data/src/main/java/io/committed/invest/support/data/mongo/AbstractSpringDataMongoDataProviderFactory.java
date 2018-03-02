@@ -14,14 +14,18 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
-  protected AbstractSpringDataMongoDataProviderFactory(final String id, final Class<P> clazz) {
+  private final String defaultDatabase;
+
+  protected AbstractSpringDataMongoDataProviderFactory(final String id, final Class<P> clazz,
+      final String defaultDatabase) {
     super(id, clazz, DatabaseConstants.MONGO);
+    this.defaultDatabase = defaultDatabase;
   }
 
   protected ReactiveMongoTemplate buildMongoTemplate(final Map<String, Object> settings) {
     final String connectionString =
         (String) settings.getOrDefault("uri", "mongodb://localhost:27017/");
-    final String databaseName = (String) settings.getOrDefault("db", "baleen");
+    final String databaseName = (String) settings.getOrDefault("db", defaultDatabase);
 
 
     final MongoClient mongoClient = MongoClients.create(connectionString);
