@@ -22,7 +22,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
 
     <!-- Majority of versions are defined by Spring -->
-    <spring-boot.version>2.0.0.RC2</spring-boot.version>
+    <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
 
     <!-- Additional versions -->
     <graphql-java.version>7.0</graphql-java.version>
