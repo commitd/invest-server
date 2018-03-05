@@ -9,6 +9,9 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
+import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -172,6 +175,23 @@ public class ElasticsearchSupportService<E> {
         .flatMap(r -> SourceUtils.convertSource(getMapper(), r.getSourceAsString(), entityClazz));
   }
 
+  public boolean delete(final QueryBuilder query) {
+    final BulkByScrollResponse response =
+        DeleteByQueryAction.INSTANCE.newRequestBuilder(client)
+            .filter(QueryBuilders.boolQuery()
+                .must(QueryBuilders.typeQuery(type))
+                .must(query))
+            .source(index)
+            .get();
+    return response.getDeleted() > 0;
+  }
+
+
+  public boolean deleteById(final String id) {
+    return getClient()
+        .prepareDelete(index, type, id).get()
+        .status().equals(RestStatus.OK);
+  }
 
 
 }
