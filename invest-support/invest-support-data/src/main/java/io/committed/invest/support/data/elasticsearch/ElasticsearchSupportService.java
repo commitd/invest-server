@@ -1,6 +1,7 @@
 package io.committed.invest.support.data.elasticsearch;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Optional;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.action.get.GetResponse;
@@ -84,13 +85,15 @@ public class ElasticsearchSupportService<E> {
         .flatMapMany(r -> SourceUtils.convertHits(getMapper(), r, entityClazz));
   }
 
-  public <A> Mono<Aggregations> aggregation(final Optional<QueryBuilder> query, final AggregationBuilder aggregation) {
+  public <A> Mono<Aggregations> aggregation(final Optional<QueryBuilder> query,
+      final AggregationBuilder... aggregations) {
     final SearchRequestBuilder requestBuilder = getClient().prepareSearch()
         .setIndices(index)
         .setTypes(type)
         .setFrom(0)
-        .setSize(0)
-        .addAggregation(aggregation);
+        .setSize(0);
+
+    Arrays.stream(aggregations).forEach(requestBuilder::addAggregation);
 
     query.ifPresent(requestBuilder::setQuery);
 
