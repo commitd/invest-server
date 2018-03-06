@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  * the posts. If you have any cascading, the it's unlikely you have a simple isolated collection and
  * as such this class might not help you.
  *
- * 
+ *
  * @param <R>
  * @param <T>
  * @param <S>
@@ -29,20 +29,22 @@ public abstract class AbstractMongoCrudCollectionDataProvider<R, T, S> extends A
   }
 
   @Override
-  public Mono<Boolean> delete(final R r) {
+  public boolean delete(final R r) {
     final Optional<Bson> f = filter(r);
     return Mono.justOrEmpty(f)
         .flatMapMany(getCollection()::deleteOne)
-        .any(d -> d.getDeletedCount() > 0);
+        .any(d -> d.getDeletedCount() > 0)
+        .block();
   }
 
 
   @Override
-  public Mono<Boolean> save(final T t) {
+  public boolean save(final T t) {
     final Optional<S> s = convert(t);
     return Mono.justOrEmpty(s)
         .flatMapMany(getCollection()::insertOne)
-        .any(Success.SUCCESS::equals);
+        .any(Success.SUCCESS::equals)
+        .block();
   }
 
   protected abstract Optional<Bson> filter(final R r);
