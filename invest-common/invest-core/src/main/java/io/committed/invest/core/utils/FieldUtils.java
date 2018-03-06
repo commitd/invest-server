@@ -22,4 +22,8 @@ public class FieldUtils {
     return FIELD_SPLITTER.splitToList(field);
   }
 
+  public static String joinField(final String... path) {
+    return FIELD_JOINER.join(path);
+  }
+
 }
