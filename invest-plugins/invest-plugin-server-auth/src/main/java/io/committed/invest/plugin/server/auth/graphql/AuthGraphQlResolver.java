@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.server.WebSession;
 import io.committed.invest.core.auth.InvestRoles;
-import io.committed.invest.core.graphql.Context;
+import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.plugin.server.auth.dto.User;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
@@ -38,7 +38,7 @@ public class AuthGraphQlResolver {
   }
 
   @GraphQLMutation(name = "login", description = "Perform user log in")
-  public Mono<User> login(@GraphQLRootContext final Context context,
+  public Mono<User> login(@GraphQLRootContext final InvestRootContext context,
       @GraphQLNonNull @GraphQLArgument(name = "username") final String username,
       @GraphQLNonNull @GraphQLArgument(name = "password") final String password) {
 
@@ -59,18 +59,18 @@ public class AuthGraphQlResolver {
 
   @GraphQLQuery(name = "session", description = "Get the user's session id")
   public Mono<String> userSession(@GraphQLContext final User user,
-      @GraphQLRootContext final Context context) {
+      @GraphQLRootContext final InvestRootContext context) {
     return context.getSession().map(WebSession::getId);
   }
 
   @GraphQLQuery(name = "user", description = "Get user details")
-  public Mono<User> user(@GraphQLRootContext final Context context) {
+  public Mono<User> user(@GraphQLRootContext final InvestRootContext context) {
     return context.getAuthentication().map(AuthUtils::fromAuthentication);
   }
 
 
   @GraphQLMutation(name = "logout", description = "Log out the current session")
-  public Mono<Boolean> logout(@GraphQLRootContext final Context context) {
+  public Mono<Boolean> logout(@GraphQLRootContext final InvestRootContext context) {
     return context.getSession().doOnNext(s -> {
       s.getAttributes().remove("USER");
       s.invalidate();
@@ -79,7 +79,7 @@ public class AuthGraphQlResolver {
 
 
   @GraphQLMutation(name = "changePassword")
-  public void changePassword(@GraphQLRootContext final Context context,
+  public void changePassword(@GraphQLRootContext final InvestRootContext context,
       @GraphQLArgument(name = "username") final String username,
       @GraphQLArgument(name = "password") final String password) {
 

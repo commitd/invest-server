@@ -15,7 +15,7 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
-import io.committed.invest.core.graphql.Context;
+import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.server.graphql.data.GraphQlQuery;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -74,15 +74,15 @@ public class GraphQlHandler {
     }
 
 
-    final Context context = buildContext(request);
+    final InvestRootContext context = buildContext(request);
     input = input.context(context);
 
     final ExecutionResult result = performQuery(input.build());
     return ServerResponse.ok().syncBody(result.toSpecification());
   }
 
-  private Context buildContext(final ServerRequest request) {
-    return Context.builder()
+  private InvestRootContext buildContext(final ServerRequest request) {
+    return InvestRootContext.builder()
         // TODO: We should be able to use request.principal here, but it doesn't seem to have any
         // data in (which it did do in spring boot M5).
         // It seems like the WebSessionServerSecurityContextRepository.load function is never
