@@ -22,16 +22,6 @@ public final class FieldUtils {
   }
 
   /**
-   * Combine path segments into a single path.
-   *
-   * @param path
-   * @return
-   */
-  public static String joinField(final List<String> path) {
-    return FIELD_JOINER.join(path);
-  }
-
-  /**
    * Divider a path into segemnts.
    *
    * @param path
@@ -51,6 +41,17 @@ public final class FieldUtils {
    * @return
    */
   public static String joinField(final String... path) {
+    return FIELD_JOINER.join(path);
+  }
+
+
+  /**
+   * Combine path segments into a single path.
+   *
+   * @param path
+   * @return
+   */
+  public static String joinField(final List<String> path) {
     return FIELD_JOINER.join(path);
   }
 
