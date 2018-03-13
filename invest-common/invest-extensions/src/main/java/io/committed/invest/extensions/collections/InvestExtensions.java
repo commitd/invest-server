@@ -6,9 +6,9 @@ import io.committed.invest.extensions.InvestExtension;
 import lombok.Data;
 
 /**
- * A generic collection for invest extension.
+ * A generic collection for Invest Extension.
  *
- * Anyone can create this to hold any type of extension.
+ * This holds hold any type of extension and can be used for any purpose.
  *
  */
 @Data

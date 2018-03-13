@@ -1,5 +1,10 @@
 package io.committed.invest.extensions.data.providers;
 
+/**
+ * A base implementation of DataProviderFactory
+ *
+ * @param <P> the provider type.
+ */
 public abstract class AbstractDataProviderFactory<P extends DataProvider>
     implements DataProviderFactory<P> {
 

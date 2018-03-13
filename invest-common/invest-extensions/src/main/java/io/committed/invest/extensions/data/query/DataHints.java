@@ -1,12 +1,23 @@
 package io.committed.invest.extensions.data.query;
 
-import java.util.Collection;
 import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProviders;
 import lombok.Data;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.GroupedFlux;
 
 
+/**
+ * Hints at which {@link DataProvider} should be used in a query/mutation.
+ *
+ * Invest largely treats any two DataProvider's which implement the same DataProvider interface as
+ * the same. However there are likely to be some differences. For example, one database type might
+ * be fast to execute a query. Alternatively the user might want to limit to a specific source of
+ * data.
+ *
+ * This hints object acts as a generic filter for the {@link DataProviders} registry.
+ *
+ */
 @Data
 public class DataHints {
 
@@ -32,6 +43,12 @@ public class DataHints {
    */
   private final boolean duplicate;
 
+  /**
+   * Filters a flux of data providers based on these hints.
+   *
+   * @param input
+   * @return
+   */
   public <T extends DataProvider> Flux<T> filter(final Flux<T> input) {
 
     Flux<T> flux = input;
@@ -51,10 +68,6 @@ public class DataHints {
 
     return flux;
 
-  }
-
-  public Flux<DataProvider> filter(final Collection<DataProvider> input) {
-    return this.filter(Flux.fromIterable(input));
   }
 
 

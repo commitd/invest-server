@@ -73,7 +73,7 @@ public class DefaultDatasetProviders implements DataProviders {
   public Flux<DataProvider> findForDataset(final String datasetId, final DataHints hints) {
     final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
     final DataHints dh = getHints(hints);
-    return dh.filter(datasetProviders);
+    return dh.filter(Flux.fromIterable(datasetProviders));
   }
 
   /*
