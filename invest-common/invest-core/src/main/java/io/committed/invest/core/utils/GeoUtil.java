@@ -2,6 +2,10 @@ package io.committed.invest.core.utils;
 
 import io.committed.invest.core.dto.analytic.GeoBox;
 
+/**
+ * Helper utilitiy functions for working with Geo
+ *
+ */
 public final class GeoUtil {
 
   // Semi-axes of WGS-84 geoidal reference
@@ -11,6 +15,17 @@ public final class GeoUtil {
   // Minor semiaxis [m]
   private static final double WGS84_B = 6356752.3;
 
+  /**
+   * Converts a middle point and side distance to a lat/lon bounding box.
+   *
+   * See
+   * http://stackoverflow.com/questions/238260/how-to-calculate-the-bounding-box-for-a-given-lat-lng-location
+   *
+   * @param latitudeInDegrees
+   * @param longitudeInDegrees
+   * @param halfSideInMeters
+   * @return
+   */
   public static GeoBox createBoundingBox(final double latitudeInDegrees,
       final double longitudeInDegrees, final double halfSideInMeters) {
     final double lat = Math.toRadians(latitudeInDegrees);
@@ -30,17 +45,21 @@ public final class GeoUtil {
     return new GeoBox(latMax, lonMax, latMin, lonMin);
   }
 
+  /**
+   * Calculate the radius of the latitude (slice).
+   *
+   * See http://en.wikipedia.org/wiki/Earth_radius
+   *
+   * @param lat
+   * @return
+   */
   private static double calculateWGS84EarthRadius(final double lat) {
-    // http://en.wikipedia.org/wiki/Earth_radius
     final double An = WGS84_A * WGS84_A * Math.cos(lat);
     final double Bn = WGS84_B * WGS84_B * Math.sin(lat);
     final double Ad = WGS84_A * Math.cos(lat);
     final double Bd = WGS84_B * Math.sin(lat);
     return Math.sqrt((An * An + Bn * Bn) / (Ad * Ad + Bd * Bd));
   }
-
-  // From
-  // http://stackoverflow.com/questions/238260/how-to-calculate-the-bounding-box-for-a-given-lat-lng-location
 
   private GeoUtil() {
     // Singleton

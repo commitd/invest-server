@@ -18,7 +18,7 @@ import reactor.core.publisher.Mono;
  *
  * As such the Spring session and authentication information is not available as method annotations
  * within GraphQL functions. Thus the most pragmatic approach is to use the root context to hold
- * this information. It is setup at the start of hte GraphQL call.
+ * this information. It is setup at the start of the GraphQL execution.
  *
  */
 @Value
