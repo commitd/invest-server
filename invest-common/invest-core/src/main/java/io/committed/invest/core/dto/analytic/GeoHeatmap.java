@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A geohash grid of counts for heatmap.
+ *
+ * Precision is the provided geohash length;
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

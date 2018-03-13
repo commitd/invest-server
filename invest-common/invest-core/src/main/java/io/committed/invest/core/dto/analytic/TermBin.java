@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A term count.
+ *
+ * Used for aggregations (top term in document, etc).
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

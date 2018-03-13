@@ -6,6 +6,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Collection of geolocations
+ *
+ * @param <T> subtype of location
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

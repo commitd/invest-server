@@ -2,6 +2,9 @@ package io.committed.invest.core.dto.system;
 
 import lombok.Value;
 
+/**
+ * A message, usually for display to the user.
+ */
 @Value
 public class Message {
 

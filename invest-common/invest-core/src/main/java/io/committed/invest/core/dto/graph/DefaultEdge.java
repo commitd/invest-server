@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * An edge of a graph.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

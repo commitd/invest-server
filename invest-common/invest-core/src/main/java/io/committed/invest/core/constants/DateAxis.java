@@ -1,4 +1,4 @@
-package io.committed.invest.core.dto.constants;
+package io.committed.invest.core.constants;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import io.committed.invest.core.auth.InvestRoles;
+import io.committed.invest.core.auth.InvestAuthorities;
 import io.committed.invest.extensions.InvestUiExtension;
 
 @Configuration
@@ -29,7 +29,7 @@ public class LiveDevelopmentUIExtension implements InvestUiExtension {
 
   @Override
   public Collection<String> getRoles() {
-    return Collections.singleton(InvestRoles.DEV);
+    return Collections.singleton(InvestAuthorities.DEV);
   }
 
   @Override

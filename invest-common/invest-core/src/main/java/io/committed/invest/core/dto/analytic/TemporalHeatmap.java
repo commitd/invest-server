@@ -5,6 +5,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
 
+/**
+ * Output of a time histogram/heatmap
+ *
+ * Useful for pattern of life - where one access might be hour and the other day of week.
+ *
+ */
 @Value
 public class TemporalHeatmap {
 
@@ -14,8 +20,6 @@ public class TemporalHeatmap {
   @JsonProperty("y")
   private String[] yAxis;
 
-  // TODO: Might be neater to make this general 2d heatmap, provide axis info and use a Map rather
-  // than List<List> (though axis info would resolve that)
   private final List<List<Long>> bins = new ArrayList<>();
 
   public TemporalHeatmap(final String[] xAxis, final String[] yAxis) {

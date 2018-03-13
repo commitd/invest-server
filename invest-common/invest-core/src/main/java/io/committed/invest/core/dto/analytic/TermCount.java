@@ -6,6 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A collection of term bins.
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

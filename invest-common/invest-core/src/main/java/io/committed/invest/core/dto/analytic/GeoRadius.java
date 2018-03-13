@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A radius around a centre point.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +38,9 @@ public class GeoRadius {
 
   @JsonIgnore
   public boolean isValid() {
-    return Double.isFinite(lat) && Double.isFinite(lon) && -180 <= lon && lon <= 180 && -90 <= lat
-        && lat <= 90 && 0 <= radius;
+    return Double.isFinite(lat) && Double.isFinite(lon) &&
+        -180 <= lon && lon <= 180 &&
+        -90 <= lat && lat <= 90 &&
+        0 <= radius;
   }
 }

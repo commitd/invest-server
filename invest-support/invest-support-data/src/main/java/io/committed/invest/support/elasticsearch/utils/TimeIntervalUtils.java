@@ -6,9 +6,9 @@ import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInter
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
+import io.committed.invest.core.constants.TimeInterval;
 import io.committed.invest.core.dto.analytic.TimeBin;
 import io.committed.invest.core.dto.analytic.Timeline;
-import io.committed.invest.core.dto.constants.TimeInterval;
 
 public class TimeIntervalUtils {
 

@@ -1,5 +1,10 @@
 package io.committed.invest.core.exceptions;
 
+/**
+ * Specific exception around configuration of Invest components.
+ *
+ * These will usually be due to missing configuration or conflicting configuration.
+ */
 public class InvestConfigurationException extends InvestException {
 
   private static final long serialVersionUID = 1L;

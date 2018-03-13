@@ -4,6 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * Geo box with time bounds
+ *
+ * Useful for geo-temporal search queries
+ *
+ */
 @Data
 @AllArgsConstructor
 public class GeoTimeBounds {

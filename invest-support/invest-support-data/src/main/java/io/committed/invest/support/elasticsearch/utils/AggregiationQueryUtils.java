@@ -11,7 +11,7 @@ import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggre
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-import io.committed.invest.core.dto.constants.TimeInterval;
+import io.committed.invest.core.constants.TimeInterval;
 
 public class AggregiationQueryUtils {
 

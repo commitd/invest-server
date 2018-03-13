@@ -6,12 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A geolocation
+ *
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeoLocation {
-
-  public static final GeoLocation INVALID = new GeoLocation(Double.NaN, Double.NaN);
 
   @JsonProperty("lat")
   private double lat;
@@ -22,9 +24,9 @@ public class GeoLocation {
   @JsonProperty("acc")
   private double acc;
 
-  public GeoLocation(final double lat2, final double lon2) {
-    lat = lat2;
-    lon = lon2;
+  public GeoLocation(final double lat, final double lon) {
+    this.lat = lat;
+    this.lon = lon;
   }
 
   @JsonIgnore
