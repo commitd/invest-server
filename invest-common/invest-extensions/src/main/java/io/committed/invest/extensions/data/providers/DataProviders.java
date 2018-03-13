@@ -34,6 +34,8 @@ import reactor.core.publisher.Flux;
  */
 public interface DataProviders {
 
+  // TODO: We could default a lot of these (see DefaultDataProviders for the implementation)
+
   /**
    * Get all data providers
    *

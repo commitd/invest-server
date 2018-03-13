@@ -4,7 +4,6 @@ import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DataProviders;
 import lombok.Data;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.GroupedFlux;
 
 
 /**
@@ -54,16 +53,27 @@ public class DataHints {
     Flux<T> flux = input;
 
     if (datasource != null) {
+      System.out.println("ds");
+
       flux = flux.filter(p -> datasource.equals(p.getDatasource()));
     }
 
     if (database != null) {
-
-      flux = flux.filter(p -> database.equals(p.getDatabase()));
+      flux = flux.filter(p -> {
+        return database.equals(p.getDatabase());
+      });
     }
 
     if (!duplicate) {
-      flux = flux.groupBy(DataProvider::getDatasource).flatMap(GroupedFlux::next);
+
+
+      // I have only managed to make this work with reduce, I guess because we need to consume the flux
+      // for the groupBy to work?
+      flux = flux.groupBy(DataProvider::getDatasource).flatMap(f -> {
+        return f.reduce((a, b) -> a);
+      });
+
+
     }
 
     return flux;

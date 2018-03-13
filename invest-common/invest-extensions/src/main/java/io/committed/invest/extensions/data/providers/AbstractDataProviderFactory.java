@@ -21,7 +21,6 @@ public abstract class AbstractDataProviderFactory<P extends DataProvider>
     this.database = database;
   }
 
-
   @Override
   public String getId() {
     return id;
