@@ -8,6 +8,10 @@ import io.leangen.graphql.annotations.GraphQLIgnore;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import lombok.Data;
 
+/**
+ * Settings which relate (are provided to and used by) the application UI JS code.
+ *
+ */
 @Data
 @ConfigurationProperties("invest.config")
 public class UiApplicationSettings {

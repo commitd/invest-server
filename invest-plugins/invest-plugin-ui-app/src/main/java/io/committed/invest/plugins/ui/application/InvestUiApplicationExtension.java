@@ -8,8 +8,8 @@ import io.committed.invest.extensions.InvestExtension;
 /**
  * Plugin hosting the main application.
  *
- * This is NOT UI plugin as we don't want it displayed or mounted in the same way a UI plugin would
- * be.
+ * This is NOT a UI plugin as we don't want it displayed or mounted in the same way a UI plugin
+ * would be.
  */
 @Configuration
 @EnableConfigurationProperties({UiApplicationSettings.class, ApplicationSettings.class})

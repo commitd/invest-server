@@ -5,6 +5,10 @@ import io.committed.invest.extensions.graphql.InvestServerNode;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
+/**
+ * GraphQL resolver to provide access to the UI application settings
+ *
+ */
 @GraphQLService
 public class UiApplicationSettingGraphQlResolver {
 

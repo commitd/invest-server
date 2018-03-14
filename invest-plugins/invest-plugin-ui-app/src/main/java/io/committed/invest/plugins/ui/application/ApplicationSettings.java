@@ -3,6 +3,9 @@ package io.committed.invest.plugins.ui.application;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import lombok.Data;
 
+/**
+ * Settings which related to the hosting of the main UI.
+ */
 @Data
 @ConfigurationProperties("invest.app")
 public class ApplicationSettings {

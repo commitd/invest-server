@@ -16,6 +16,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.WebFilter;
 import io.committed.invest.core.auth.AuthenticationSettings;
 
+/**
+ * Spring configuration for the main application.
+ */
 @Configuration
 public class ApplicationConfig {
 

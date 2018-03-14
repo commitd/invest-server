@@ -8,7 +8,7 @@ import io.committed.invest.core.auth.AuthenticationSettings;
 /**
  * Disables authentication.
  */
-@Profile({"auth-none"})
+@Profile("auth-none")
 @Configuration
 public class NoAuthSecurityConfig {
 
