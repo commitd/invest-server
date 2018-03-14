@@ -18,12 +18,16 @@ import io.leangen.graphql.generator.mapping.common.CachingMapper;
 import io.leangen.graphql.util.Scalars;
 
 /**
- * From ObjectScalarMapper
+ * A dedicated mapper to convert {@link PropertiesList} from/to a scalar.
+ *
+ * This is necessary because of the Object values in the Properties. Allowing SPQR to 'ignore' the
+ * content of the PropertiesList and pass it through verbatim as JSON matches the intend of
+ * PropertiesList/Map which is a catch all for 'stuff' we don't.
+ *
+ * Based on SPQR's from ObjectScalarMapper
  */
 public class PropertiesListScalarAdapter extends CachingMapper<GraphQLScalarType, GraphQLScalarType>
-    implements OutputConverter<PropertiesList, List<Property>>
-// , InputConverter<PropertiesList, List<Property>>
-{
+    implements OutputConverter<PropertiesList, List<Property>> {
 
   private static final AnnotatedType LIST = GenericTypeReflector.annotate(LinkedList.class);
 
@@ -59,16 +63,4 @@ public class PropertiesListScalarAdapter extends CachingMapper<GraphQLScalarType
     return actualType.equals(PropertiesList.class);
   }
 
-  // @Override
-  // public PropertiesList convertInput(final List<Property> substitute, final AnnotatedType type,
-  // final GlobalEnvironment environment,
-  // final ValueMapper valueMapper) {
-  // return new PropertiesList(substitute);
-  // }
-  //
-  // @Override
-  // public AnnotatedType getSubstituteType(final AnnotatedType original) {
-  // return TypeFactory.parameterizedAnnotatedClass(List.class, original.getAnnotations(),
-  // GenericTypeReflector.annotate(Property.class));
-  // }
 }

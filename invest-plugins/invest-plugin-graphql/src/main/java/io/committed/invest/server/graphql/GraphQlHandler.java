@@ -21,7 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 
-// See http://graphql.org/learn/serving-over-http/
+
+/**
+ * Executes GraphQL queries and mutations.
+ *
+ * See http://graphql.org/learn/serving-over-http/ for more details of conventions etc.
+ */
 @Component
 @Slf4j
 public class GraphQlHandler {
@@ -50,24 +55,25 @@ public class GraphQlHandler {
   }
 
   public Mono<ServerResponse> getQuery(final ServerRequest request) {
-    final Optional<Object> query = request.attribute("query");
-    final Optional<Object> operationName = request.attribute("operationName");
-    final Optional<Object> variablesString = request.attribute("variables");
+
+    final Optional<String> query = request.queryParam("query");
+    final Optional<String> operationName = request.queryParam("operationName");
+    final Optional<String> variablesString = request.queryParam("variables");
 
     Builder input = ExecutionInput.newExecutionInput();
 
     if (query.isPresent()) {
-      input = input.query(query.get().toString());
+      input = input.query(query.get());
     }
 
     if (operationName.isPresent()) {
-      input = input.operationName(operationName.get().toString());
+      input = input.operationName(operationName.get());
     }
 
     if (variablesString.isPresent()) {
       try {
         input =
-            input.variables(mapper.readValue(variablesString.get().toString(), mapStringObject));
+            input.variables(mapper.readValue(variablesString.get(), mapStringObject));
       } catch (final Exception e) {
         log.warn("Dropping variables unable to deserialise", e);
       }

@@ -25,13 +25,24 @@ import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Spring Configuration for GraphQL.
+ *
+ * This acts to:
+ *
+ * <li>Find all beans which have {@link GraphQLService} annotations and expose a
+ * {@link GraphQlServices} bean with them
+ * <li>Based on the GraphQlServices beans create a schema
+ * <li>Expose a graphQLHandler for the schema which can be used to execute graphQLqueries
+ * <li>Export a RouterFunction for /graphql which passes GraphQL to the handler
+ *
+ */
 @Configuration
 @Slf4j
 public class GraphQlConfig {
 
   @Autowired
   private ApplicationContext context;
-
 
   @Bean
   public RouterFunction<ServerResponse> graphQlRouterFunction(final GraphQlHandler handler) {
@@ -55,10 +66,8 @@ public class GraphQlConfig {
     return new GraphQlServices(Collections.unmodifiableCollection(beansWithAnnotation.values()));
   }
 
-
   @Bean
   public GraphQLSchema schema(final GraphQlServices services) {
-
 
     GraphQLSchemaGenerator factory = new GraphQLSchemaGenerator()
         .withValueMapperFactory(new JacksonValueMapperFactory())

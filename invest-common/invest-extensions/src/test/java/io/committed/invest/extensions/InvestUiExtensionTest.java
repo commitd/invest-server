@@ -3,7 +3,7 @@ package io.committed.invest.extensions;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 
-class InvestUiExtensionTest {
+public class InvestUiExtensionTest {
 
   @Test
   public void testDefaults() {

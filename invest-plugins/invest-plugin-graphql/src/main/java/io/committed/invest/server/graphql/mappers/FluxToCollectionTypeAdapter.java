@@ -13,7 +13,12 @@ import io.leangen.graphql.metadata.strategy.value.ValueMapper;
 import reactor.core.publisher.Flux;
 
 /**
- * Based on StreamToCollectionType
+ * GraphQL Type Convertor for Flux.
+ *
+ * As of 0.9.6 SPRQ does have support for Publisher, though Flux and Mono are more powerful and
+ * intuitive.
+ *
+ * Based on Stream To Collection convertors in SPQR.
  */
 public class FluxToCollectionTypeAdapter<T> extends AbstractTypeAdapter<Flux<T>, List<T>> {
 

@@ -17,7 +17,13 @@ import io.leangen.graphql.generator.mapping.common.CachingMapper;
 import io.leangen.graphql.util.Scalars;
 
 /**
- * From ObjectScalarMapper
+ * A dedicated mapper to convert {@link PropertiesMap} from/to a scalar.
+ *
+ * This is necessary because of the Object values in the Properties. Allowing SPQR to 'ignore' the
+ * content of the PropertiesList and pass it through verbatim as JSON matches the intend of
+ * PropertiesList/Map which is a catch all for 'stuff' we don't.
+ *
+ * Based on SPQR's from ObjectScalarMapper
  */
 public class PropertiesMapScalarAdapter extends CachingMapper<GraphQLScalarType, GraphQLScalarType>
     implements OutputConverter<PropertiesMap, Map<String, ?>> {

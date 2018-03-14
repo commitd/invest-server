@@ -3,6 +3,10 @@ package io.committed.invest.server.graphql.data;
 import java.util.Map;
 import lombok.Data;
 
+/**
+ * Representation of a GraphQL query
+ *
+ */
 @Data
 public class GraphQlQuery {
 

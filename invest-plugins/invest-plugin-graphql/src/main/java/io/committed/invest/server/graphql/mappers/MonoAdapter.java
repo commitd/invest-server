@@ -10,8 +10,12 @@ import io.leangen.graphql.util.ClassUtils;
 import reactor.core.publisher.Mono;
 
 /**
- * * Based on OptionalAdapter
+ * GraphQL Type Convertor for Mono.
  *
+ * As of 0.9.6 SPRQ does have support for Publisher, though Flux and Mono are more powerful and
+ * intuitive.
+ *
+ * Based on Optional adaptor in SPQR.
  */
 public class MonoAdapter<T> extends AbstractTypeAdapter<Mono<T>, T> {
 
