@@ -1,4 +1,4 @@
-package io.committed.invest.plugin.server.services;
+package io.committed.invest.plugin.server.repo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +15,10 @@ import java.util.stream.StreamSupport;
 import org.springframework.util.StringUtils;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 
+/**
+ * User account repository which is an in memory map.
+ *
+ */
 public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepository {
 
   private final Map<String, UserAccount> db = new ConcurrentHashMap<>();

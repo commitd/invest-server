@@ -12,6 +12,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * POJO for Invest Usr accounts
+ *
+ * Virtually identical to Spring's user concept.
+ *
+ */
 @Data
 @Entity
 @NoArgsConstructor

@@ -6,6 +6,16 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Converts a non reactive repository to a reactive repository.
+ *
+ * This does the wrap in a blocking way, in that that at the point of return the action has been
+ * executed.
+ *
+ * @param <T>
+ * @param <I>
+ * @param <R> the repository
+ */
 public class ReactiveRepositoryWrapper<T, I, R extends CrudRepository<T, I>>
     implements ReactiveCrudRepository<T, I> {
 

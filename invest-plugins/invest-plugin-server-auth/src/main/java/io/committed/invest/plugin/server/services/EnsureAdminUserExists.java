@@ -7,9 +7,18 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
+import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+/**
+ * Ensures that an admin user is available on the dataset.
+ *
+ * This prevent users from add .
+ *
+ * WARNING: Logs the password to the console on startup (when run).
+ *
+ */
 @Component
 @Slf4j
 public class EnsureAdminUserExists implements ApplicationListener<ContextRefreshedEvent> {
@@ -29,26 +38,30 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
 
 
   public void ensureUser() {
-    final Mono<Boolean> adminUser =
-        userAccounts.findAll().any(u -> u.hasAuthority(InvestRoles.ROLE_ADMINISTRATOR));
+    userAccounts.findAll()
+        .any(u -> u.hasAuthority(InvestRoles.ROLE_ADMINISTRATOR))
+        .flatMap(exists -> {
+          if (exists) {
+            log.info("Admin user exists in the database, not creating a default admin");
+            return Mono.just(true);
+          }
 
-    if (adminUser.block()) {
-      log.info("Admin user exists in the database, not creating a default admin");
-      return;
-    }
+          final String password = securityService.generateRandomPassword();
+          final Mono<UserAccount> account =
+              securityService.findOrAddAccount(DEFAULT_ADMIN_USERNAME, password, "admin",
+                  "", securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
+          log.info("Creating user {} with password {}", DEFAULT_ADMIN_USERNAME, password);
 
-    final String password = securityService.generateRandomPassword();
-    final Mono<UserAccount> account = securityService.findOrAddAccount(DEFAULT_ADMIN_USERNAME, password, "admin",
-        "", securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
+          return account.hasElement();
 
-    if (account.hasElement().block()) {
-      log.info("Created user {} with password {}", DEFAULT_ADMIN_USERNAME, password);
+        })
+        .subscribe(exists -> {
+          if (!exists) {
+            log.error("Unable to create admin user {}, no admin users are present in the database",
+                DEFAULT_ADMIN_USERNAME);
+          }
+        });
 
-    } else {
-      log.error("Unable to create admin user {}, no admin users are present in the database",
-          DEFAULT_ADMIN_USERNAME);
-
-    }
   }
 
   @Override

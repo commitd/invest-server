@@ -20,13 +20,18 @@ import io.leangen.graphql.annotations.GraphQLRootContext;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
+/**
+ * GraphQL mutations and queries for authentication actions.
+ *
+ * Though we could use Flux and non-blocking code here, it feels more sensible to be confident that
+ * everything has full executed in inside the functions.
+ *
+ */
 @GraphQLService
 @Slf4j
 public class AuthGraphQlResolver {
 
 
-  // THought we could use Flux and non-blocking code here, it feels more sensible to be
-  // confident that everything has full executed in inside the functions.
 
   private final UserService securityService;
   private final ReactiveAuthenticationManager authenticationManager;

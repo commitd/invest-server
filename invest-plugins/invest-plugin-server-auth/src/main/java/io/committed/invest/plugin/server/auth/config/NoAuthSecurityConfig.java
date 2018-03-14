@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import io.committed.invest.core.auth.AuthenticationSettings;
 
+/**
+ * Disables authentication.
+ */
 @Profile({"auth-none"})
 @Configuration
 public class NoAuthSecurityConfig {
@@ -12,6 +15,6 @@ public class NoAuthSecurityConfig {
 
   @Bean
   public AuthenticationSettings authSettings() {
-    return new AuthenticationSettings(true);
+    return new AuthenticationSettings(false);
   }
 }

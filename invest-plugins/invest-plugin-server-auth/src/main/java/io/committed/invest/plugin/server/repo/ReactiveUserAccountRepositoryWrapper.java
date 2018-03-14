@@ -1,10 +1,13 @@
-package io.committed.invest.plugin.server.services;
+package io.committed.invest.plugin.server.repo;
 
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.spring.reactive.repositories.ReactiveRepositoryWrapper;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Wraps an non-reactive user account repository into a reactive repository.
+ */
 public class ReactiveUserAccountRepositoryWrapper
     extends ReactiveRepositoryWrapper<UserAccount, String, UnreactiveUserAccountRepository>
     implements UserAccountRepository {
@@ -16,7 +19,6 @@ public class ReactiveUserAccountRepositoryWrapper
   @Override
   public void deleteByUsername(final String username) {
     repo.deleteByUsername(username);
-
   }
 
   @Override
@@ -28,7 +30,5 @@ public class ReactiveUserAccountRepositoryWrapper
   public Mono<UserAccount> findByUsername(final String username) {
     return Mono.justOrEmpty(repo.findByUsername(username));
   }
-
-
 
 }

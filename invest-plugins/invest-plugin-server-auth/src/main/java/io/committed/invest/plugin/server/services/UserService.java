@@ -11,12 +11,17 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
+import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
-
+/**
+ * Service to manage specific business functions for user accounts.
+ *
+ */
 @Slf4j
 public class UserService {
+
   private final UserAccountRepository userAccounts;
   private final PasswordEncoder passwordEncoder;
 

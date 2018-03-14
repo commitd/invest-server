@@ -11,17 +11,33 @@ import org.springframework.security.core.userdetails.UserDetails;
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dto.User;
 
+/**
+ * Utilities for authentication
+ *
+ */
 public final class AuthUtils {
 
   private AuthUtils() {
     // Singleton
   }
 
+  /**
+   * Convert from a Spring Authentication to a User dto.
+   *
+   * @param auth
+   * @return
+   */
   public static User fromAuthentication(final Authentication auth) {
     final UserDetails ud = (UserDetails) auth.getPrincipal();
     return new User(ud.getUsername(), ud.getUsername(), getRolesFromAuthorities(ud.getAuthorities()));
   }
 
+  /**
+   * Convert roles to authoritories
+   *
+   * @param authorities
+   * @return
+   */
   public static Set<String> getRolesFromAuthorities(
       final Collection<? extends GrantedAuthority> authorities) {
     return authorities == null ? Collections.emptySet()
@@ -31,6 +47,12 @@ public final class AuthUtils {
             .collect(Collectors.toSet());
   }
 
+  /**
+   * Convert from string authorities to Spring GrantedAuthorities.
+   * 
+   * @param authorities
+   * @return
+   */
   public static Collection<GrantedAuthority> toGrantAuthorities(final Set<String> authorities) {
     return authorities.stream()
         .map(SimpleGrantedAuthority::new)

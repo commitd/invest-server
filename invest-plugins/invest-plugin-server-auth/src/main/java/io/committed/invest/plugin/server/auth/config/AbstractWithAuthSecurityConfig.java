@@ -17,12 +17,16 @@ import io.committed.invest.core.auth.AuthenticationSettings;
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.plugin.server.auth.graphql.AuthGraphQlResolver;
+import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import io.committed.invest.plugin.server.services.EnsureAdminUserExists;
 import io.committed.invest.plugin.server.services.UserAccountDetailsRepositoryService;
-import io.committed.invest.plugin.server.services.UserAccountRepository;
 import io.committed.invest.plugin.server.services.UserService;
 
 
+/**
+ * Base class for configuration of Authentication
+ *
+ */
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public abstract class AbstractWithAuthSecurityConfig {

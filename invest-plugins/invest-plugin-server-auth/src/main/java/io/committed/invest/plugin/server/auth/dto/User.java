@@ -5,6 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A user suitable for dto (transfer to client).
+ *
+ * Does not provide any sensitive data.
+ *
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
