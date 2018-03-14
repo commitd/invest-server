@@ -13,6 +13,10 @@ import org.springframework.web.server.WebFilterChain;
 import io.committed.invest.plugin.server.audit.services.AuditService;
 import reactor.core.publisher.Mono;
 
+/**
+ * React web filter which captures api requests and redirect them to the audit logging service.
+ *
+ */
 public class ApiActivityLoggingFilter implements WebFilter {
 
   private final AuditService auditService;

@@ -1,6 +1,9 @@
 package io.committed.invest.plugin.server.audit.services;
 
 
+/**
+ * An audit implementation which does nothing.
+ */
 public class NoAuditService implements AuditService {
 
   @Override
