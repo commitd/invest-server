@@ -23,15 +23,19 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Resolver to list or find plugins for the UI.
+ *
+ */
 @GraphQLService
-public class ServerGraphQlResolver {
+public class AvailablePluginsGraphQlResolver {
 
   private final Collection<InvestUiExtension> uiExtensions;
   private final UiUrlService urlService;
 
 
   @Autowired
-  public ServerGraphQlResolver(final UiUrlService urlService,
+  public AvailablePluginsGraphQlResolver(final UiUrlService urlService,
       @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry,
       final ApplicationContext applicationcontext, final UiPluginsSettings uiPluginSettings,
       final ObjectMapper mapper) {
@@ -49,8 +53,10 @@ public class ServerGraphQlResolver {
   @GraphQLQuery(name = "uiPlugin", description = "Access details for a specific UI plugin")
   public Mono<UiPlugin> uiPlugin(@GraphQLContext final InvestServerNode serverNode,
       @GraphQLArgument(name = "pluginId", description = "The plugin id to get") final String id) {
-    return Flux.fromIterable(uiExtensions).filter(p -> p.getId().equalsIgnoreCase(id))
-        .map(e -> new UiPlugin(e, urlService.getFullPath(e))).next();
+    return Flux.fromIterable(uiExtensions)
+        .filter(p -> p.getId().equalsIgnoreCase(id))
+        .map(e -> new UiPlugin(e, urlService.getFullPath(e)))
+        .next();
   }
 
   private Collection<InvestUiExtension> sort(final InvestUiExtensionRegistry uiRegistry,

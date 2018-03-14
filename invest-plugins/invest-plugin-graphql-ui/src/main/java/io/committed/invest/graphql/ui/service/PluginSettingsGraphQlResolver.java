@@ -11,14 +11,18 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Resolver which returns the configuration settings for a plugin.
+ *
+ */
 @GraphQLService
-public class UiSettingGraphQlResolver {
+public class PluginSettingsGraphQlResolver {
 
   private final ObjectMapper mapper;
   private InvestUiExtensionRegistry uiRegistry;
 
   @Autowired
-  public UiSettingGraphQlResolver(
+  public PluginSettingsGraphQlResolver(
       @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry,
       final ApplicationContext applicationcontext, final ObjectMapper mapper) {
     this.uiRegistry = uiRegistry;

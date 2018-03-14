@@ -6,11 +6,15 @@ import io.committed.invest.extensions.graphql.InvestServerNode;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
+/**
+ * GraphQL resolver to provider authentication settings to the UI
+ *
+ */
 @GraphQLService
-public class AuthenticationGraphQlResolver {
+public class ServerAuthenticationGraphQlResolver {
   private final AuthenticationSettings settings;
 
-  public AuthenticationGraphQlResolver(final AuthenticationSettings settings) {
+  public ServerAuthenticationGraphQlResolver(final AuthenticationSettings settings) {
     this.settings = settings;
   }
 

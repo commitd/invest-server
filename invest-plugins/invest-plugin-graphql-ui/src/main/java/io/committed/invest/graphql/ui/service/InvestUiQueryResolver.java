@@ -14,17 +14,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import reactor.core.publisher.Flux;
 
+/**
+ * Server side implementation of the InvestUI's local query.
+ *
+ * These provide a mirror of the Invest UI which can be called if the. They don't necessarily match
+ * the exact functionality of the client side, but the implementations are correct in terms of
+ * response. An aspect where the UI is superiour might be use of authentication state to filter the
+ * results.
+ *
+ * All functions sit under the {@link InvestUiNode}.
+ *
+ *
+ */
 @GraphQLService
 public class InvestUiQueryResolver {
-  private final ServerGraphQlResolver serverResolver;
+  private final AvailablePluginsGraphQlResolver serverResolver;
 
   @Autowired
-  public InvestUiQueryResolver(final ServerGraphQlResolver serverResolver) {
+  public InvestUiQueryResolver(final AvailablePluginsGraphQlResolver serverResolver) {
     this.serverResolver = serverResolver;
 
   }
-
-  // Queries
 
   @GraphQLQuery(name = "status")
   public String status(@GraphQLContext final InvestUiNode node) {
@@ -56,7 +66,6 @@ public class InvestUiQueryResolver {
   @NoArgsConstructor
   public static final class QueryActionOutput {
     private Flux<PluginActionDefinition> definitions = Flux.empty();
-
   }
 
   @Data
@@ -73,7 +82,5 @@ public class InvestUiQueryResolver {
       this.action = a.getAction();
     }
   }
-
-
 
 }

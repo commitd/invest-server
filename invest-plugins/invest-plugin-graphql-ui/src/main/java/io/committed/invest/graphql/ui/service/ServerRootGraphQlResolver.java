@@ -6,6 +6,10 @@ import io.committed.invest.extensions.graphql.InvestServerNode;
 import io.committed.invest.extensions.graphql.InvestUiNode;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
+/**
+ * Mount the {@link InvestServerNode} and {@link InvestUiNode} into the GraphQL schema so other can
+ * use them as Context.
+ */
 @GraphQLService
 public class ServerRootGraphQlResolver {
 
@@ -16,7 +20,6 @@ public class ServerRootGraphQlResolver {
   public ServerRootGraphQlResolver() {
     this.serverNode = new InvestServerNode();
     this.uiNode = new InvestUiNode();
-
   }
 
   @GraphQLQuery(name = "investServer",

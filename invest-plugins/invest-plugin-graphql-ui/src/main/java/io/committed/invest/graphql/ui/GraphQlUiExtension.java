@@ -5,10 +5,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import io.committed.invest.extensions.InvestGraphQlExtension;
 
+/**
+ * Extension which offers GraphQl resolvers to support the UI.
+ */
 @Configuration
-@ComponentScan(basePackageClasses = GraphQlExtension.class)
+@ComponentScan(basePackageClasses = GraphQlUiExtension.class)
 @EnableConfigurationProperties(UiPluginsSettings.class)
-public class GraphQlExtension implements InvestGraphQlExtension {
+public class GraphQlUiExtension implements InvestGraphQlExtension {
 
 
 }
