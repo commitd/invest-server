@@ -15,9 +15,16 @@
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-extensions</artifactId>
     </dependency>
-        <dependency>
+    <dependency>
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-core</artifactId>
+    </dependency>
+
+    <!-- Testing -->
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

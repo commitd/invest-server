@@ -33,5 +33,12 @@
       <optional>true</optional>
       <scope>provided</scope>
     </dependency>
+    
+    <!-- Testing -->
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-test</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
