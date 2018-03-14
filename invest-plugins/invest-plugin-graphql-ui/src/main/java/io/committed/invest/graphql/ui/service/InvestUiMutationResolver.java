@@ -36,7 +36,6 @@ public class InvestUiMutationResolver {
 
 
   @Data
-  @AllArgsConstructor
   @NoArgsConstructor
   public static final class Navigate {
 
@@ -50,7 +49,6 @@ public class InvestUiMutationResolver {
 
   @Data
   @AllArgsConstructor
-  @NoArgsConstructor
   public static final class NavigateOutput {
     private boolean success;
   }

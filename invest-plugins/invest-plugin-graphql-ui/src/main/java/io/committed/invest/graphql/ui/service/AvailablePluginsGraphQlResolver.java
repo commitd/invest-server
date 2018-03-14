@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.annotations.GraphQLService;
@@ -37,8 +35,7 @@ public class AvailablePluginsGraphQlResolver {
   @Autowired
   public AvailablePluginsGraphQlResolver(final UiUrlService urlService,
       @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry,
-      final ApplicationContext applicationcontext, final UiPluginsSettings uiPluginSettings,
-      final ObjectMapper mapper) {
+      final UiPluginsSettings uiPluginSettings) {
     this.urlService = urlService;
     this.uiExtensions = sort(uiRegistry, uiPluginSettings);
   }

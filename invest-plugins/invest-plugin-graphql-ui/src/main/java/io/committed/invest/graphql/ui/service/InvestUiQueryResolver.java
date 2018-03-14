@@ -50,9 +50,11 @@ public class InvestUiQueryResolver {
     }
 
     final Flux<PluginActionDefinition> stream = serverResolver.uiPlugins(null)
-        .flatMap(p -> Flux.fromStream(p.getActions())
-            .filter(a -> a.getAction().equalsIgnoreCase(input.getAction()))
-            .map(a -> new PluginActionDefinition(p, a)));
+        .flatMap(p -> p.getActions() == null ? Flux.empty()
+            : Flux.fromIterable(p.getActions())
+                .doOnNext(a -> System.out.print("a"))
+                .filter(a -> a.getAction().equalsIgnoreCase(input.getAction()))
+                .map(a -> new PluginActionDefinition(p, a)));
     return new QueryActionOutput(stream);
   }
 

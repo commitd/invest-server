@@ -1,7 +1,6 @@
 package io.committed.invest.graphql.ui.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
@@ -19,12 +18,11 @@ import reactor.core.publisher.Mono;
 public class PluginSettingsGraphQlResolver {
 
   private final ObjectMapper mapper;
-  private InvestUiExtensionRegistry uiRegistry;
+  private final InvestUiExtensionRegistry uiRegistry;
 
   @Autowired
   public PluginSettingsGraphQlResolver(
-      @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry,
-      final ApplicationContext applicationcontext, final ObjectMapper mapper) {
+      @Autowired(required = false) final InvestUiExtensionRegistry uiRegistry, final ObjectMapper mapper) {
     this.uiRegistry = uiRegistry;
     this.mapper = mapper;
 
