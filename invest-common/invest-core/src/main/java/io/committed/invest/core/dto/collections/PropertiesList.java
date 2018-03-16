@@ -82,7 +82,12 @@ public final class PropertiesList {
     if (getClass() != obj.getClass())
       return false;
     final PropertiesList other = (PropertiesList) obj;
-    return list.equals(other.list);
+    if (list == null) {
+      if (other.list != null)
+        return false;
+    } else if (!list.equals(other.list))
+      return false;
+    return true;
   }
 
 
