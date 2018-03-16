@@ -11,7 +11,7 @@ public class InvestRuntimeException extends RuntimeException {
     super(msg);
   }
 
-  public InvestRuntimeException(final String msg, final String... args) {
+  public InvestRuntimeException(final String msg, final Object... args) {
     super(String.format(msg, args));
   }
 
