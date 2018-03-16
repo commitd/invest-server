@@ -43,7 +43,8 @@ public class PluginJson implements InvestUiExtension {
 
   @Override
   public Collection<ActionDefinition> getActions() {
-    return actions.stream().map(ActionDefinition.class::cast).collect(Collectors.toList());
+    return actions == null ? Collections.emptyList()
+        : actions.stream().map(ActionDefinition.class::cast).collect(Collectors.toList());
   }
 
   @Override
