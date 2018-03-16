@@ -18,6 +18,10 @@ public class BeanTestSupport {
   private static final BeanTester beanTester = new BeanTester();
 
   static {
+
+    // Since we are using this basically for automated generated stuff from Lombok fewer runs are ok
+    beanTester.setIterations(2);
+
     final RandomValueGenerator rvg = getRandomValueGenerator();
 
     addFactory(Instant.class,
