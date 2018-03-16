@@ -84,12 +84,8 @@ public final class PropertiesMap {
     if (getClass() != obj.getClass())
       return false;
     final PropertiesMap other = (PropertiesMap) obj;
-    if (map == null) {
-      if (other.map != null)
-        return false;
-    } else if (!map.equals(other.map))
-      return false;
-    return true;
+    return map.equals(other.map);
+
   }
 
 
