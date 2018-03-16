@@ -3,7 +3,8 @@ package io.committed.invest.core.dto.analytic;
 import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Output of a time histogram/heatmap
@@ -11,7 +12,8 @@ import lombok.Value;
  * Useful for pattern of life - where one access might be hour and the other day of week.
  *
  */
-@Value
+@Data
+@NoArgsConstructor
 public class TemporalHeatmap {
 
   @JsonProperty("x")

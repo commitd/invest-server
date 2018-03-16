@@ -1,11 +1,11 @@
 package io.committed.invest.core.dto.system;
 
-import lombok.Value;
+import lombok.Data;
 
 /**
  * A message, usually for display to the user.
  */
-@Value
+@Data
 public class Message {
 
   public enum Type {

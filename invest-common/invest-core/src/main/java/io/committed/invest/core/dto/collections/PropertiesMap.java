@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import reactor.core.publisher.Flux;
@@ -24,7 +25,7 @@ import reactor.core.publisher.Flux;
  * Map<String,Object>.
  *
  */
-public class PropertiesMap {
+public final class PropertiesMap {
 
   private final Map<String, Object> map = new LinkedHashMap<>();
 
@@ -68,5 +69,29 @@ public class PropertiesMap {
   public Map<String, Object> asMap() {
     return Collections.unmodifiableMap(map);
   }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(map);
+  }
+
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    final PropertiesMap other = (PropertiesMap) obj;
+    if (map == null) {
+      if (other.map != null)
+        return false;
+    } else if (!map.equals(other.map))
+      return false;
+    return true;
+  }
+
+
 
 }
