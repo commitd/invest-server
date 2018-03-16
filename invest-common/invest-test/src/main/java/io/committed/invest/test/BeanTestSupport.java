@@ -1,9 +1,14 @@
 package io.committed.invest.test;
 
 import java.time.Instant;
+import java.util.Optional;
+import java.util.stream.Stream;
 import org.meanbean.lang.Factory;
 import org.meanbean.test.BeanTester;
 import org.meanbean.util.RandomValueGenerator;
+import org.reactivestreams.Publisher;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class BeanTestSupport {
 
@@ -17,6 +22,24 @@ public class BeanTestSupport {
 
     addFactory(Instant.class,
         () -> Instant.ofEpochMilli(Math.abs(rvg.nextLong()) % MAX_TIME));
+
+    addFactory(Class.class,
+        () -> Object.class);
+
+    addFactory(Flux.class,
+        () -> Flux.empty());
+
+    addFactory(Optional.class,
+        () -> Optional.empty());
+
+    addFactory(Mono.class,
+        () -> Mono.empty());
+
+    addFactory(Publisher.class,
+        () -> Mono.empty());
+
+    addFactory(Stream.class,
+        () -> Stream.empty());
 
     addFactory(String[].class, () -> {
       final int size = Math.abs(rvg.nextInt()) % MAX_ARRAY_SIZE;
