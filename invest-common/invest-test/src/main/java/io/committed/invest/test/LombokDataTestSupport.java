@@ -3,6 +3,7 @@ package io.committed.invest.test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Test;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
@@ -20,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
-// Based on
 @Slf4j
 public class LombokDataTestSupport {
 
@@ -28,7 +28,7 @@ public class LombokDataTestSupport {
 
     final String packageName = clazz.getPackage().getName();
     final ScanResult scanResult = new FastClasspathScanner(packageName)
-        .ignoreParentClassLoaders()
+        .disableRecursiveScanning()
         .scan();
 
     scanResult.getClassNameToClassInfo().values().stream()
@@ -42,8 +42,12 @@ public class LombokDataTestSupport {
       final Class<?> loadedClass = getClass().getClassLoader().loadClass(info.getClassName());
       testClass(loadedClass);
     } catch (final Exception e) {
-      e.printStackTrace();
+      log.error("Unable to create class to test", e);
     }
+  }
+
+  public void testClasses(final Class<?>... classess) {
+    Arrays.stream(classess).forEach(this::testClass);
   }
 
   public void testClass(final Class<?> clazz) {
@@ -55,6 +59,7 @@ public class LombokDataTestSupport {
     if (Modifier.isInterface(modifiers)) {
       return;
     }
+
 
     try {
       if (Modifier.isAbstract(modifiers)) {

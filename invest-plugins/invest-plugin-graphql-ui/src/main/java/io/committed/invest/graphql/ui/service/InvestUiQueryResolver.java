@@ -71,6 +71,7 @@ public class InvestUiQueryResolver {
   }
 
   @Data
+  @NoArgsConstructor
   public static final class PluginActionDefinition {
     private String pluginId;
     private String title;
