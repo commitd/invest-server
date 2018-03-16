@@ -25,7 +25,7 @@ import lombok.Data;
 @ContextConfiguration(classes = {InvestTestContext.class})
 @Import({ApiAuditConfig.class})
 @DirtiesContext
-public class ApiAuditTests {
+public class ApiAuditTest {
 
   @Autowired
   private WebTestClient webClient;

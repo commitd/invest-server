@@ -5,7 +5,7 @@ import io.committed.invest.plugins.ui.application.ApplicationSettings;
 import io.committed.invest.plugins.ui.application.UiApplicationSettings;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

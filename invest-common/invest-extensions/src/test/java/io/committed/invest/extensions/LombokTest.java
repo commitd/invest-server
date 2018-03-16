@@ -8,7 +8,7 @@ import io.committed.invest.extensions.data.dataset.Dataset;
 import io.committed.invest.extensions.data.query.DataHints;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

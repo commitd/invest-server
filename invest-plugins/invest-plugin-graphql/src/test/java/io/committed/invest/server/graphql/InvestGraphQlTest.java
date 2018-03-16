@@ -1,21 +1,18 @@
 package io.committed.invest.server.graphql;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.server.graphql.data.GraphQlQuery;
 import io.committed.invest.test.InvestTestContext;
-import io.leangen.graphql.annotations.GraphQLArgument;
-import io.leangen.graphql.annotations.GraphQLQuery;
 
 
 @RunWith(SpringRunner.class)
@@ -23,18 +20,16 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 @ContextConfiguration(classes = {InvestTestContext.class})
 @Import({GraphQlConfig.class})
 @DirtiesContext
-public class InvestGraphQlTestsWithService {
+public class InvestGraphQlTest {
 
 
   @Autowired
   private WebTestClient webClient;
 
-
-
   @Test
   public void examplePostGraphQlWhenNoServices() {
     final GraphQlQuery query = new GraphQlQuery();
-    query.setQuery("query { test(message:\"world\") }");
+    query.setQuery("query { empty }");
 
     this.webClient.post()
         .uri("/graphql")
@@ -42,26 +37,29 @@ public class InvestGraphQlTestsWithService {
         .exchange()
         .expectStatus().isOk()
         .expectBody()
-        .json("{\"data\":{\"test\":\"Hello world\"}}");
+        .json("{\"data\":{\"empty\":\"Add some GraphQL service plugins\"}}");
   }
 
-  @TestConfiguration
-  static class StubServiceConfiguration {
+  @Test
+  public void exampleGetGraphQlWhenNoServices() {
 
-    @Bean
-    public StubResolver stubResolver() {
-      return new StubResolver();
-    }
+
+    this.webClient.get()
+        .uri("/graphql?query={query}", "query { empty }")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody()
+        .json("{\"data\":{\"empty\":\"Add some GraphQL service plugins\"}}");
   }
 
-  @GraphQLService
-  public static class StubResolver {
+  @Test
+  public void exampleGraphQlSchemaJson() {
+    final EntityExchangeResult<String> result = this.webClient.get()
+        .uri("/schema.json")
+        .exchange()
+        .expectStatus().isOk()
+        .expectBody(String.class).returnResult();
 
-    @GraphQLQuery(name = "test")
-    public String test(@GraphQLArgument(name = "message") final String msg) {
-      return String.format("Hello %s", msg);
-    }
+    assertThat(result.getResponseBody()).isNotBlank();
   }
-
-
 }

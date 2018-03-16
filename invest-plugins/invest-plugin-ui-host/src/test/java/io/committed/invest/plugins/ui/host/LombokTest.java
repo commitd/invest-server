@@ -5,7 +5,7 @@ import io.committed.invest.plugins.ui.host.data.PluginJson;
 import io.committed.invest.plugins.ui.host.data.PluginOverride;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

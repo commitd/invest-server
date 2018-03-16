@@ -7,7 +7,7 @@ import io.committed.invest.graphql.ui.service.InvestUiMutationResolver;
 import io.committed.invest.graphql.ui.service.InvestUiQueryResolver;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

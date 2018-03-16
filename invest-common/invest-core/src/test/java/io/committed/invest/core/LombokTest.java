@@ -10,7 +10,7 @@ import io.committed.invest.core.dto.system.Message;
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

@@ -5,7 +5,7 @@ import io.committed.invest.server.graphql.data.GraphQlQuery;
 import io.committed.invest.server.graphql.data.GraphQlServices;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {

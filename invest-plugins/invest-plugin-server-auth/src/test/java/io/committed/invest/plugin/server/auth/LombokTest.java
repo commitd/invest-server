@@ -5,7 +5,7 @@ import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.dto.User;
 import io.committed.invest.test.LombokDataTestSupport;
 
-public class LombokTests {
+public class LombokTest {
 
   @Test
   public void testLombok() {
