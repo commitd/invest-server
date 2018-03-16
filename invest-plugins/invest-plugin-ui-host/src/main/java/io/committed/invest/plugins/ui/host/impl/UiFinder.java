@@ -21,6 +21,8 @@ import org.springframework.core.io.UrlResource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.plugins.ui.host.UiHostSettings;
+import io.committed.invest.plugins.ui.host.data.InvestHostedUiExtensions;
+import io.committed.invest.plugins.ui.host.data.PluginJson;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration

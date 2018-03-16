@@ -1,4 +1,4 @@
-package io.committed.invest.plugins.ui.host.impl;
+package io.committed.invest.plugins.ui.host.data;
 
 import java.util.Collection;
 

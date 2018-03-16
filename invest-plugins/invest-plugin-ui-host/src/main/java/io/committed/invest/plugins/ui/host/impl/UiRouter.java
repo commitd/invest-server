@@ -9,6 +9,8 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import io.committed.invest.core.services.UiUrlService;
+import io.committed.invest.plugins.ui.host.data.InvestHostedUiExtensions;
+import io.committed.invest.plugins.ui.host.data.PluginJson;
 import lombok.extern.slf4j.Slf4j;
 
 @Configuration

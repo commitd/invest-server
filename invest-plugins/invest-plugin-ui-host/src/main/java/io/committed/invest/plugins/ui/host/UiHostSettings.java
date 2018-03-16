@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import io.committed.invest.plugins.ui.host.impl.PluginOverride;
+import io.committed.invest.plugins.ui.host.data.PluginOverride;
 import lombok.Data;
 
 @ConfigurationProperties("invest.ui.host")
