@@ -10,6 +10,6 @@ dependency-reduced-pom.xml
 build
 *.versionsBackup
 invest-plugins/invest-plugin-ui-actiondev/src/main/resources/ui/dev-action
-invest-common/invest-core/.sts4-cache
 classpath-data.json
 .sts4-cache/
+*.log
