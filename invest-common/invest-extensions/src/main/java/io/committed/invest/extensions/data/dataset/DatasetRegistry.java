@@ -11,17 +11,17 @@ import reactor.core.publisher.Mono;
 public interface DatasetRegistry {
 
   /**
-   * Get all datasets
+   * Get all datasets.
    *
-   * @return
+   * @return the datasets
    */
   Flux<Dataset> getDatasets();
 
   /**
-   * FInd a specific dataset by its id
-   * 
-   * @param id
-   * @return
+   * FInd a specific dataset by its id.
+   *
+   * @param id the id
+   * @return the mono
    */
   Mono<Dataset> findById(String id);
 

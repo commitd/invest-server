@@ -160,6 +160,8 @@ public class GeoBox {
    * The entire globe.
    *
    * Use for search everywhere.
+   *
+   * @return the geobox representing the globe
    */
   public static final GeoBox globe() {
     return new GeoBox(90.0, -180.0, -90.0, 180.0);

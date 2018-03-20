@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package io.committed.invest.extensions.actions;
 
 /**
@@ -12,16 +15,16 @@ package io.committed.invest.extensions.actions;
 public interface ActionDefinition {
 
   /**
-   * The action supported
+   * The action supported.
    *
-   * @return
+   * @return the action
    */
   String getAction();
 
   /**
    * Optionally (and uncurrently unused) java class which represents the payload shape.
    *
-   * @return
+   * @return the payload
    */
   default Class<?> getPayload() {
     return null;
@@ -34,7 +37,7 @@ public interface ActionDefinition {
    * count the title might be 'Count data'. Another plugin might also support also 'data.view' but
    * provide a simple summary of the information so its title may be 'Summary" or "Overview".
    *
-   * @return
+   * @return the title
    */
   String getTitle();
 

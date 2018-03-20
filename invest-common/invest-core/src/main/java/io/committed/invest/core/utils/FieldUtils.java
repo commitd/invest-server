@@ -24,8 +24,8 @@ public final class FieldUtils {
   /**
    * Divider a path into segemnts.
    *
-   * @param path
-   * @return
+   * @param field the field
+   * @return path segments
    */
   public static List<String> fieldSplitter(final String field) {
     if (field == null) {
@@ -37,8 +37,8 @@ public final class FieldUtils {
   /**
    * Combine path segments into a single path.
    *
-   * @param path
-   * @return
+   * @param path the path
+   * @return combined path
    */
   public static String joinField(final String... path) {
     return FIELD_JOINER.join(path);
@@ -48,8 +48,8 @@ public final class FieldUtils {
   /**
    * Combine path segments into a single path.
    *
-   * @param path
-   * @return
+   * @param path the path
+   * @return combined path
    */
   public static String joinField(final List<String> path) {
     return FIELD_JOINER.join(path);

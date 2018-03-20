@@ -3,7 +3,7 @@ package io.committed.invest.core.utils;
 import io.committed.invest.core.dto.analytic.GeoBox;
 
 /**
- * Helper utilitiy functions for working with Geo
+ * Helper utility functions for working with Geo
  *
  */
 public final class GeoUtil {
@@ -21,10 +21,10 @@ public final class GeoUtil {
    * See
    * http://stackoverflow.com/questions/238260/how-to-calculate-the-bounding-box-for-a-given-lat-lng-location
    *
-   * @param latitudeInDegrees
-   * @param longitudeInDegrees
-   * @param halfSideInMeters
-   * @return
+   * @param latitudeInDegrees the latitude in degrees
+   * @param longitudeInDegrees the longitude in degrees
+   * @param halfSideInMeters the half side of box (like radius) in meters
+   * @return the geo box
    */
   public static GeoBox createBoundingBox(final double latitudeInDegrees,
       final double longitudeInDegrees, final double halfSideInMeters) {
@@ -50,8 +50,8 @@ public final class GeoUtil {
    *
    * See http://en.wikipedia.org/wiki/Earth_radius
    *
-   * @param lat
-   * @return
+   * @param lat the latitude
+   * @return the double
    */
   private static double calculateWGS84EarthRadius(final double lat) {
     final double An = WGS84_A * WGS84_A * Math.cos(lat);

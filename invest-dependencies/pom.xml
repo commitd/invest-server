@@ -175,6 +175,26 @@
     </dependencies>
   </dependencyManagement>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <!-- Silence error javax.interceptor.InterceptorBinding not found -->
+            <additionalDependencies>
+              <additionalDependency>
+                <groupId>javax.interceptor</groupId>
+                <artifactId>javax.interceptor-api</artifactId>
+                <version>1.2</version>
+              </additionalDependency>
+            </additionalDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
   <!-- This appears to be correct as per web, but it doesn't work: See https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
   <!-- <build> <pluginManagement> <plugins> Support Java9 and sub Java9 <plugin> 
     <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 

@@ -45,16 +45,15 @@ public class DataHints {
   /**
    * Filters a flux of data providers based on these hints.
    *
-   * @param input
-   * @return
+   * @param <T> the generic type
+   * @param input the input
+   * @return the flux
    */
   public <T extends DataProvider> Flux<T> filter(final Flux<T> input) {
 
     Flux<T> flux = input;
 
     if (datasource != null) {
-      System.out.println("ds");
-
       flux = flux.filter(p -> datasource.equals(p.getDatasource()));
     }
 

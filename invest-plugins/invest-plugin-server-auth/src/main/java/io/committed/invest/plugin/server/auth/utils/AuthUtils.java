@@ -24,8 +24,8 @@ public final class AuthUtils {
   /**
    * Convert from a Spring Authentication to a User dto.
    *
-   * @param auth
-   * @return
+   * @param auth the auth
+   * @return the user
    */
   public static User fromAuthentication(final Authentication auth) {
     final UserDetails ud = (UserDetails) auth.getPrincipal();
@@ -33,10 +33,10 @@ public final class AuthUtils {
   }
 
   /**
-   * Convert roles to authoritories
+   * Convert roles to authoritories.
    *
-   * @param authorities
-   * @return
+   * @param authorities the authorities
+   * @return the roles from authorities
    */
   public static Set<String> getRolesFromAuthorities(
       final Collection<? extends GrantedAuthority> authorities) {
@@ -49,9 +49,9 @@ public final class AuthUtils {
 
   /**
    * Convert from string authorities to Spring GrantedAuthorities.
-   * 
-   * @param authorities
-   * @return
+   *
+   * @param authorities the authorities
+   * @return the collection
    */
   public static Collection<GrantedAuthority> toGrantAuthorities(final Set<String> authorities) {
     return authorities.stream()

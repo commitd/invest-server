@@ -12,13 +12,14 @@ import lombok.NoArgsConstructor;
  *
  * It compromises of several components:
  *
+ * <ul>
  * <li>factory - The id of the Data Provider Factory which should be used to create the data
  * provider
  * <li>datasource - a name/id uniquely specifies the source of the data. This allows us to
  * distinguish where different data providers offer the access to the same underlying data.
  * <li>setings - a map which contains free form setttings. This are passed directly to the factory
  * so should provide the information need by the factory requested.
- *
+ * </ul>
  */
 @Data
 @Builder

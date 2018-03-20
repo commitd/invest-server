@@ -13,14 +13,14 @@ import reactor.core.publisher.Flux;
 /**
  * A list of properties.
  *
- * In GraphQL is have some issues managing properties (String => Object) maps. Having created
+ * In GraphQL is have some issues managing properties (String =&gt; Object) maps. Having created
  * {@link PropertiesMap} is seemed obvious to create a list equivalent. Whilst a regular list will
  * work we define our own list here which allows control of serialisations etc. It also provides a
  * single type for GraphQL extensions.
  *
- * Developers should use this in GraphQL 'dtos' wherever they'd normally wish to use a List<
- * Pair<String,Object> > type of construct. Or more likely where they'd really want an GraphQL to
- * offer an ordered map as an array.
+ * Developers should use this in GraphQL 'dtos' wherever they'd normally wish to use a List%lt;
+ * Pair&lt;String,Object&gt; &gt; type of construct. Or more likely where they'd really want an
+ * GraphQL to offer an ordered map as an array.
  */
 public final class PropertiesList {
 

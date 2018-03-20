@@ -21,25 +21,41 @@ public abstract class AbstractInvestExtensionRegistry<T extends InvestExtension>
     this.extensions = Collections.unmodifiableCollection(extensions);
   }
 
+  /**
+   * Gets the extensions.
+   *
+   * @return the extensions
+   */
   public Collection<T> getExtensions() {
     return extensions;
   }
 
+  /**
+   * Stream the extensions
+   *
+   * @return the stream
+   */
   public Stream<T> stream() {
     return extensions.stream();
   }
 
+  /**
+   * Checks if is empty.
+   *
+   * @return true, if is empty
+   */
   public boolean isEmpty() {
     return extensions.isEmpty();
   }
 
   /**
-   * Combined all the extension of the provided class into a single collection
-   * 
-   * @param extensions
-   * @param collections
-   * @param clazz
-   * @return
+   * Combined all the extension of the provided class into a single collection.
+   *
+   * @param <T> the generic type
+   * @param extensions the extensions
+   * @param collections the collections
+   * @param clazz the clazz
+   * @return the collection
    */
   protected static <T extends InvestExtension> Collection<T> combine(final Collection<T> extensions,
       final Collection<InvestExtensions> collections, final Class<T> clazz) {

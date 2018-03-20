@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
  * GraphQL representations.
  *
  * Developers should use this in GraphQL 'dtos' wherever they'd normally wish to use a
- * Map<String,Object>.
+ * Map&lt;String,Object&gt;.
  *
  */
 public final class PropertiesMap {

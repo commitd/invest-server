@@ -40,7 +40,7 @@ public interface InvestExtension {
    *
    * The default implementation uses the class name which is sufficient in most cases.
    *
-   * @return
+   * @return the id
    */
   default String getId() {
     // Use getUserClass so that we don't need to worry about if Spring has proxied the class (eg its
@@ -55,7 +55,7 @@ public interface InvestExtension {
    * The default name is the class name which is usually sufficient initially. You may want to add
    * spacing etc.
    *
-   * @return
+   * @return the name
    */
   default String getName() {
     return ClassUtils.getUserClass(this.getClass()).getSimpleName();
@@ -66,8 +66,8 @@ public interface InvestExtension {
    *
    *
    * The default is an empty string
-   * 
-   * @return non-null
+   *
+   * @return the descrirtion non-null
    */
   default String getDescription() {
     return "";

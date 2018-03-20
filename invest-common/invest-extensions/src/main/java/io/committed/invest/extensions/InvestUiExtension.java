@@ -1,3 +1,6 @@
+/*
+ *
+ */
 package io.committed.invest.extensions;
 
 import java.util.Collection;
@@ -18,6 +21,11 @@ import io.committed.invest.extensions.actions.SimpleActionDefinition;
 public interface InvestUiExtension extends InvestExtension {
 
 
+  /**
+   * Gets the static resource path on the classpath
+   *
+   * @return the static resource path
+   */
   default String getStaticResourcePath() {
     return String.format("/ui/%s/", getId());
   }
@@ -25,7 +33,7 @@ public interface InvestUiExtension extends InvestExtension {
   /**
    * A React Semantic UI font icon to use in menu bars etc.
    *
-   * @return string (non null)
+   * @return icon (non null)
    */
   default String getIcon() {
     return "browser";
@@ -38,7 +46,7 @@ public interface InvestUiExtension extends InvestExtension {
    *
    * Level black is anyone can use.
    *
-   * @return
+   * @return the roles
    */
   default Collection<String> getRoles() {
     return Collections.emptyList();
@@ -65,8 +73,7 @@ public interface InvestUiExtension extends InvestExtension {
    * Note that the class provided will need to be serialisable to the UI in JSON, thus use Jackson
    * annotations as appropriate to ensure the mapping is correct.
    *
-   * 
-   * @return
+   * @return the settings
    */
   default Optional<? extends Object> getSettings() {
     return Optional.empty();
