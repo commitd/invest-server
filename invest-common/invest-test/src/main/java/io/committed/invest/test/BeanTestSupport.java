@@ -75,8 +75,11 @@ public class BeanTestSupport {
   }
 
   public static <T> T generateValue(final Class<T> clazz, final T defaultValue) {
-    final T t = generateValue(clazz);
-    return t != null ? t : defaultValue;
+    try {
+      return generateValue(clazz);
+    } catch (final Exception e) {
+      return defaultValue;
+    }
   }
 
   public static void test(final Class<?> clazz) {
