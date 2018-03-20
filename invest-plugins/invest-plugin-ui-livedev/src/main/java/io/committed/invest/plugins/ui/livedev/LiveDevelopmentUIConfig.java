@@ -30,11 +30,8 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
   @Autowired
   UiUrlService urlService;
 
-
-
-  // TODO: I want to inject this but it not defined of this type... rather VesselUiExtension (need
-  // to sort that out)
-  LiveDevelopmentUIExtension plugin = new LiveDevelopmentUIExtension();
+  @Autowired
+  LiveDevelopmentUIExtension plugin;
 
   private String getFullPath() {
     return urlService.getFullPath(plugin);
@@ -71,7 +68,6 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
 
     // Modify the URI to go to our proxy
     final UriBuilder info = request.uriBuilder()
-        // TODO: Configurable settings
         .host("localhost").port(3001).scheme("http").userInfo(null);
 
     final String path = request.path();
@@ -95,8 +91,6 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
         return ServerResponse.badRequest().build();
     }
 
-    // TODO: Pass through headers, cookies, etc
-    // TODO: Pass through body and params
 
     final URI uri = info.build();
 

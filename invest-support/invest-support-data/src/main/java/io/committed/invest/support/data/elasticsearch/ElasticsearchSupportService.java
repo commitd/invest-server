@@ -33,6 +33,10 @@ import reactor.core.publisher.Mono;
 
 public class ElasticsearchSupportService<E> {
 
+  private static final String AGG = "agg";
+
+  private static final String FILTERED_AGG = "filtered";
+
   private final Client client;
   private final ObjectMapper mapper;
   private final String index;
@@ -85,7 +89,7 @@ public class ElasticsearchSupportService<E> {
         .flatMapMany(r -> SourceUtils.convertHits(getMapper(), r, entityClazz));
   }
 
-  public <A> Mono<Aggregations> aggregation(final Optional<QueryBuilder> query,
+  public Mono<Aggregations> aggregation(final Optional<QueryBuilder> query,
       final AggregationBuilder... aggregations) {
     final SearchRequestBuilder requestBuilder = getClient().prepareSearch()
         .setIndices(index)
@@ -100,7 +104,7 @@ public class ElasticsearchSupportService<E> {
     final ListenableActionFuture<SearchResponse> future = requestBuilder.execute();
 
     return ReactiveElasticsearchUtils.toMono(future)
-        .map(r -> r.getAggregations());
+        .map(SearchResponse::getAggregations);
   }
 
 
@@ -108,15 +112,15 @@ public class ElasticsearchSupportService<E> {
   public Flux<TimeBin> timelineAggregation(final Optional<QueryBuilder> q, final String field,
       final TimeInterval interval) {
     final AggregationBuilder ab = AggregationBuilders
-        .filter("filtered", q.orElse(QueryBuilders.matchAllQuery()))
-        .subAggregation(AggregationBuilders.dateHistogram("agg")
+        .filter(FILTERED_AGG, q.orElse(QueryBuilders.matchAllQuery()))
+        .subAggregation(AggregationBuilders.dateHistogram(AGG)
             .field(field)
             .dateHistogramInterval(TimeIntervalUtils.toDateHistogram(interval)));
 
     return aggregation(Optional.empty(), ab)
         .flatMapMany(r -> {
-          final Filter filtered = r.get("filtered");
-          final Histogram terms = filtered.getAggregations().get("agg");
+          final Filter filtered = r.get(FILTERED_AGG);
+          final Histogram terms = filtered.getAggregations().get(AGG);
           return Flux.fromIterable(terms.getBuckets()).map(b -> {
             final Instant i = Instant.ofEpochMilli(((DateTime) b.getKey()).toInstant().getMillis());
             return new TimeBin(i, b.getDocCount());
@@ -129,16 +133,16 @@ public class ElasticsearchSupportService<E> {
 
   public Flux<TermBin> termAggregation(final Optional<QueryBuilder> q, final String field, final int size) {
     final AggregationBuilder ab = AggregationBuilders
-        .filter("filtered", q.orElse(QueryBuilders.matchAllQuery()))
-        .subAggregation(AggregationBuilders.terms("agg")
+        .filter(FILTERED_AGG, q.orElse(QueryBuilders.matchAllQuery()))
+        .subAggregation(AggregationBuilders.terms(AGG)
             .valueType(ValueType.STRING)
             .field(field)
             .size(size));
 
     return aggregation(Optional.empty(), ab)
         .flatMapMany(r -> {
-          final Filter filtered = r.get("filtered");
-          final Terms terms = filtered.getAggregations().get("agg");
+          final Filter filtered = r.get(FILTERED_AGG);
+          final Terms terms = filtered.getAggregations().get(AGG);
           return Flux.fromIterable(terms.getBuckets())
               .map(b -> new TermBin(b.getKeyAsString(), b.getDocCount()));
         });

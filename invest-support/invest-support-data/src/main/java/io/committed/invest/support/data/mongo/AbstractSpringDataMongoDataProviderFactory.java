@@ -35,26 +35,7 @@ public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataP
         new SimpleReactiveMongoDatabaseFactory(mongoClient, databaseName);
 
     // If we need to control how the database collections are mapped, so we override the default
-    // type mapping.
-
-    // This is largely based off the SimpleReactiveMongoDatabaseFactory.getDefaultMongoConverter
-    //
-    // final MongoCustomConversions conversions = new
-    // MongoCustomConversions(Collections.emptyList());
-    //
-    // final MongoMappingContext context = new MongoMappingContext();
-    // TODO: Here I think we'd have to override createPersistanceEntity to return our own
-    // BasicMongoPersistentEntity which woudl override the getCollectionName()
-    // to be whatever we want it to be for a specific entity type...
-    // context.setSimpleTypeHolder(conversions.getSimpleTypeHolder());
-    // context.afterPropertiesSet();
-    //
-    // final MappingMongoConverter converter =
-    // new MappingMongoConverter(new NoOpDbRefResolver(), context);
-    // converter.setCustomConversions(conversions);
-    // converter.afterPropertiesSet();
-
-    // Then use = new ReactiveMongoTemplate(mongoDatabaseFactory, converter) below
+    // type mapping, which looks painful..
 
 
     // Finally create the factory support

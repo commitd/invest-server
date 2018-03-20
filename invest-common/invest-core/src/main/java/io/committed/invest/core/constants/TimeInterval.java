@@ -67,8 +67,5 @@ public enum TimeInterval {
 
   }
 
-  public int mapTime(final ZonedDateTime time) {
-    // TODO: What is this for!!
-    return 0;
-  }
+  public abstract int mapTime(final ZonedDateTime time);
 }

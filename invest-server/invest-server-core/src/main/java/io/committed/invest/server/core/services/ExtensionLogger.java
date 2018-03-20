@@ -28,9 +28,7 @@ public class ExtensionLogger {
     }
 
     if (multiExtensions != null && !multiExtensions.isEmpty()) {
-      multiExtensions.forEach(m -> {
-        m.stream().forEach(this::logExtension);
-      });
+      multiExtensions.forEach(m -> m.stream().forEach(this::logExtension));
 
       total += multiExtensions.stream().reduce(0, (a, e) -> a + e.getExtensions().size(), Integer::sum);
     }

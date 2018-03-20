@@ -58,20 +58,14 @@ public class DataHints {
     }
 
     if (database != null) {
-      flux = flux.filter(p -> {
-        return database.equals(p.getDatabase());
-      });
+      flux = flux.filter(p -> database.equals(p.getDatabase()));
     }
 
     if (!duplicate) {
 
-
       // I have only managed to make this work with reduce, I guess because we need to consume the flux
       // for the groupBy to work?
-      flux = flux.groupBy(DataProvider::getDatasource).flatMap(f -> {
-        return f.reduce((a, b) -> a);
-      });
-
+      flux = flux.groupBy(DataProvider::getDatasource).flatMap(f -> f.reduce((a, b) -> a));
 
     }
 

@@ -58,11 +58,10 @@ public class ApiActivityLoggingFilter implements WebFilter {
   }
 
   private void logError(final ServerWebExchange exchange, final Throwable reason) {
-    // TODO: Currently as per logSuccess but with a different action
     final ServerHttpResponse response = exchange.getResponse();
     final Map<String, Object> params = new HashMap<>(2);
     params.put("status", response.getStatusCode());
-    auditService.audit(getUser(exchange), getAction("ApiError", exchange.getRequest()), "", params);
+    auditService.audit(getUser(exchange), getAction("ApiError", exchange.getRequest()), reason.getMessage(), params);
   }
 
 

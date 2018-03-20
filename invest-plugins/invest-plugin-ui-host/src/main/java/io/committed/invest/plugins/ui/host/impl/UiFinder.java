@@ -48,7 +48,7 @@ public class UiFinder {
     return new InvestExtensions(pluginJsonUiHostedExtensions().getExtensions());
   }
 
-  private InvestHostedUiExtensions findUiHostedExtensions() throws IOException {
+  private InvestHostedUiExtensions findUiHostedExtensions() {
     final List<PluginJson> extensions = settings.getRoots().stream()
         .flatMap(this::readPluginsFromDirectory)
         .collect(Collectors.toList());
@@ -57,7 +57,7 @@ public class UiFinder {
   }
 
   private Stream<PluginJson> readPluginsFromDirectory(final File root) {
-    // TODO: This will look through every dir and every file to see its its a plugin...
+    // This will look through every dir and every file to see its its a plugin...
     // we could be more efficient and just filter on stuff which might match
     // but then that's what processPlugin does
     try {

@@ -1,5 +1,6 @@
 package io.committed.invest.support.data.mongo;
 
+import java.util.Objects;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.reactivestreams.Publisher;
@@ -46,7 +47,7 @@ public abstract class AbstractMongoCrudDataProvider<R, T> extends AbstractMongoD
 
   private <X> boolean blockForBoolean(final Publisher<X> publisher) {
     try {
-      return Flux.from(publisher).next().map(s -> s != null).block();
+      return Flux.from(publisher).next().map(Objects::nonNull).block();
     } catch (final NullPointerException e) {
       // Mongo uses null to say no match...
       return false;

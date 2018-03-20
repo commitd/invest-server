@@ -31,19 +31,19 @@ public class BeanTestSupport {
         () -> Object.class);
 
     addFactory(Flux.class,
-        () -> Flux.empty());
+        Flux::empty);
 
     addFactory(Optional.class,
-        () -> Optional.empty());
+        Optional::empty);
 
     addFactory(Mono.class,
-        () -> Mono.empty());
+        Mono::empty);
 
     addFactory(Publisher.class,
-        () -> Mono.empty());
+        Mono::empty);
 
     addFactory(Stream.class,
-        () -> Stream.empty());
+        Stream::empty);
 
     addFactory(String[].class, () -> {
       final int size = Math.abs(rvg.nextInt()) % MAX_ARRAY_SIZE;

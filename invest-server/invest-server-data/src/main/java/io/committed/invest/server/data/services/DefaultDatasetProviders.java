@@ -102,9 +102,9 @@ public class DefaultDatasetProviders implements DataProviders {
   public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
       final DataHints hints) {
     final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
-    final Flux<DataProvider> providers = Flux.fromIterable(datasetProviders).filter(providerClass::isInstance);
+    final Flux<DataProvider> flux = Flux.fromIterable(datasetProviders).filter(providerClass::isInstance);
     final DataHints dh = getHints(hints);
-    return (Flux<T>) dh.filter(providers);
+    return (Flux<T>) dh.filter(flux);
   }
 
   private DataHints getHints(final DataHints hints) {

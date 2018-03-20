@@ -57,7 +57,6 @@ public abstract class AbstractWithAuthSecurityConfig {
     return http.build();
   }
 
-  // TODO: Blocks forever with MongoReactive.. probably me (CF) not understanding the flux/mono
   @Bean
   public EnsureAdminUserExists ensureAdminUserExists(final UserService userService,
       final UserAccountRepository userAccounts) {

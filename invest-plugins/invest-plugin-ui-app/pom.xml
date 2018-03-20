@@ -10,7 +10,7 @@
   <name>Invest Plugin UI App</name>
   <description>UI for the main application </description>
   <dependencies>
-      <dependency>
+    <dependency>
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-core</artifactId>
     </dependency>
@@ -23,7 +23,7 @@
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
-    
+
     <!-- Testing -->
     <dependency>
       <groupId>io.committed.invest</groupId>

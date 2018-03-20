@@ -60,22 +60,22 @@ public class AvailablePluginsGraphQlResolver {
       final UiPluginsSettings uiPluginSettings) {
 
 
-    Collection<InvestUiExtension> uiExtensions;
+    Collection<InvestUiExtension> collection;
     if (uiRegistry != null) {
-      uiExtensions = uiRegistry.getExtensions();
+      collection = uiRegistry.getExtensions();
     } else {
-      uiExtensions = Collections.emptyList();
+      collection = Collections.emptyList();
     }
 
     final List<String> order = uiPluginSettings.getPlugins();
     if (order == null || order.isEmpty()) {
-      return uiExtensions;
+      return collection;
     }
 
 
     final Map<String, InvestUiExtension> idToExtension =
-        uiExtensions.stream().collect(Collectors.toMap(InvestUiExtension::getId, v -> v));
-    final List<InvestUiExtension> ordered = new ArrayList<>(uiExtensions.size());
+        collection.stream().collect(Collectors.toMap(InvestUiExtension::getId, v -> v));
+    final List<InvestUiExtension> ordered = new ArrayList<>(collection.size());
 
     // Add the ones in the order list, remove any from the map so we have just wantever has not been
     // used (in case they've added it twice etc)

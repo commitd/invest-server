@@ -23,10 +23,11 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class EnsureAdminUserExists implements ApplicationListener<ContextRefreshedEvent> {
 
+  private static final String DEFAULT_ADMIN_USERNAME = "admin";
+
   private final UserService securityService;
   private final UserAccountRepository userAccounts;
 
-  private final static String DEFAULT_ADMIN_USERNAME = "admin";
 
 
   @Autowired
