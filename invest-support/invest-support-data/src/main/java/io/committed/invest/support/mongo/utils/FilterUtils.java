@@ -12,9 +12,13 @@ public final class FilterUtils {
   }
 
   public static Optional<Bson> combine(final List<Bson> filters) {
-    if (filters.isEmpty()) {
+    if (filters == null || filters.isEmpty()) {
       return Optional.empty();
+    } else if (filters.size() == 1) {
+
+      return Optional.ofNullable(filters.get(0));
     } else {
+
       return Optional.of(Filters.and(filters));
     }
   }
