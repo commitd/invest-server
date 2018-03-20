@@ -2,10 +2,13 @@ package io.committed.invest.server.data.services;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimaps;
+
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DataProviders;
 import io.committed.invest.extensions.data.query.DataHints;
@@ -98,8 +101,10 @@ public class DefaultDatasetProviders implements DataProviders {
   @SuppressWarnings("unchecked")
   public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
       final DataHints hints) {
-
-    return (Flux<T>) findForDataset(datasetId, hints).filter(providerClass::isInstance);
+    final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
+    final Flux<DataProvider> providers = Flux.fromIterable(datasetProviders).filter(providerClass::isInstance);
+    final DataHints dh = getHints(hints);
+    return (Flux<T>) dh.filter(providers);
   }
 
   private DataHints getHints(final DataHints hints) {
