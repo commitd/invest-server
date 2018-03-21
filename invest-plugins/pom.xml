@@ -34,7 +34,6 @@
 
   <modules>
     <module>invest-plugin-graphql</module>
-    <module>invest-plugin-examples</module>
     <module>invest-plugin-ui-graphiql</module>
     <module>invest-plugin-server-audit</module>
     <module>invest-plugin-server-auth</module>
