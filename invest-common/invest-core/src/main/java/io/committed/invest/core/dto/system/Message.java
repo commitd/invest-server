@@ -12,7 +12,7 @@ public class Message {
     SUCCESS, INFO, WARNING, ERROR
   }
 
-  private final Type type;
-  private final String message;
+  private Type type;
+  private String message;
 
 }
