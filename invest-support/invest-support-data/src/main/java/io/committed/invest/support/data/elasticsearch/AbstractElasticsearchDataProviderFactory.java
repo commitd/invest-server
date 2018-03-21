@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
 import org.elasticsearch.client.Client;
+import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
@@ -15,11 +16,11 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractElasticsearchDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
-  private static final String SETTING_HOST = "host";
-  private static final String SETTING_PORT = "port";
-  private static final String SETTING_CLUSTER = "cluster";
-  private static final String SETTING_TYPE = "type";
-  private static final String SETTING_INDEX = "index";
+  protected static final String SETTING_HOST = "host";
+  protected static final String SETTING_PORT = "port";
+  protected static final String SETTING_CLUSTER = "cluster";
+  protected static final String SETTING_TYPE = "type";
+  protected static final String SETTING_INDEX = "index";
 
   private static final String DEFAULT_HOST = "localhost";
   private static final int DEFAULT_PORT = 9300;
@@ -48,11 +49,18 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
     final Settings esSettings = Settings.builder()
         .put("cluster.name", cluster).build();
 
+    return createClient(host, port, esSettings);
+  }
+
+
+  @SuppressWarnings("resource")
+  protected TransportClient createClient(final String host, final int port, final Settings esSettings)
+      throws UnknownHostException {
     return new PreBuiltTransportClient(esSettings)
         .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
   }
 
-  protected ElasticsearchTemplate buildElasticTemplate(final Map<String, Object> settings)
+  protected ElasticsearchTemplate createElasticTemplate(final Map<String, Object> settings)
       throws UnknownHostException {
     final Client client = buildElasticClient(settings);
     return new ElasticsearchTemplate(client);

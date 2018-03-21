@@ -196,7 +196,11 @@ public class ElasticsearchSupportService<E> {
 
   public boolean deleteById(final String id) {
     return getClient()
-        .prepareDelete(index, type, id).get()
+        .prepareDelete()
+        .setId(id)
+        .setType(type)
+        .setIndex(index)
+        .get()
         .status().equals(RestStatus.OK);
   }
 

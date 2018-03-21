@@ -3,7 +3,6 @@ package io.committed.invest.support.data.elasticsearch;
 import java.util.Map;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ResultsExtractor;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.support.elasticsearch.utils.SourceUtils;
@@ -30,16 +29,9 @@ public class SpringDataElasticsearchSupportService<E> extends ElasticsearchSuppo
         .withTypes(getType());
   }
 
-  public Flux<E> search(final NativeSearchQuery query, final int offset, final int limit) {
-    return getElastic().query(query, resultsToDocumentExtractor())
-        .skip(offset)
-        .take(limit);
-  }
-
   public <T> T query(final NativeSearchQueryBuilder qb, final ResultsExtractor<T> extractor) {
     return getElastic().query(qb.build(), extractor);
   }
-
 
   public Mono<Long> count(final NativeSearchQueryBuilder query) {
     return Mono

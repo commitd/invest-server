@@ -15,6 +15,11 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
+  public static final String PASSWORD = "password";
+  public static final String USERNAME = "username";
+  public static final String URL = "url";
+  public static final String DRIVER_CLASS_NAME = "driverClassName";
+
   private final EntityManagerFactoryBuilder emfBuilder;
 
   private final Class<?> entityPackageClass;
@@ -28,10 +33,10 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
 
   protected JpaRepositoryFactory buildRepositoryFactory(final Map<String, Object> settings) {
 
-    final String driverClassName = (String) settings.get("driverClassName");
-    final String url = (String) settings.get("url");
-    final String username = (String) settings.get("username");
-    final String password = (String) settings.get("password");
+    final String driverClassName = (String) settings.get(DRIVER_CLASS_NAME);
+    final String url = (String) settings.get(URL);
+    final String username = (String) settings.get(USERNAME);
+    final String password = (String) settings.get(PASSWORD);
 
     final DataSourceBuilder<?> dataSourceBuilder =
         DataSourceBuilder.create().driverClassName(driverClassName).url(url);
@@ -43,6 +48,10 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
       dataSourceBuilder.password(password);
     }
 
+    return createFromBuilder(dataSourceBuilder);
+  }
+
+  protected JpaRepositoryFactory createFromBuilder(final DataSourceBuilder<?> dataSourceBuilder) {
     final DataSource dataSource = dataSourceBuilder.build();
 
 
