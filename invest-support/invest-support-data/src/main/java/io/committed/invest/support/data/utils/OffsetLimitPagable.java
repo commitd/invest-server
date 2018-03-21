@@ -3,6 +3,9 @@ package io.committed.invest.support.data.utils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+/**
+ * Spring Pageable based on Offset-limit rather than Pages..
+ */
 public class OffsetLimitPagable implements Pageable {
 
   private final long offset;
@@ -54,6 +57,28 @@ public class OffsetLimitPagable implements Pageable {
     return offset > 0;
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + limit;
+    result = prime * result + (int) (offset ^ (offset >>> 32));
+    return result;
+  }
 
+  @Override
+  public boolean equals(final Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    final OffsetLimitPagable other = (OffsetLimitPagable) obj;
+    if (limit != other.limit || offset != other.offset)
+      return false;
+
+    return true;
+  }
 
 }

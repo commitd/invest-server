@@ -24,7 +24,5 @@ public abstract class AbstractSpringDataMongoRepositoryDataProvider<T, I, R exte
     return repository.count();
   }
 
-  // TODO: We could replicate the functions here... indeed implement the ReactiveCrudRepository with
-  // NoBean...
 
 }
