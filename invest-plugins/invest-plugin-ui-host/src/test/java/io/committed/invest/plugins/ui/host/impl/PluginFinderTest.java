@@ -33,7 +33,7 @@ public class PluginFinderTest {
         .collect(Collectors.toList());
 
     assertThat(list).hasSize(3);
-    assertThat(list.stream().map(PluginJson::getId)).containsExactly("pluginA", "pluginB", "pluginC");
+    assertThat(list.stream().map(PluginJson::getId)).contains("pluginA", "pluginB", "pluginC");
     assertThat(list.stream().filter(p -> p.getId().equalsIgnoreCase("pluginB")).findFirst().get().getSettings().get())
         .containsEntry("key", "value");
 
