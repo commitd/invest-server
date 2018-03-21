@@ -33,8 +33,8 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
 
   protected JpaRepositoryFactory buildRepositoryFactory(final Map<String, Object> settings) {
 
-    final String driverClassName = (String) settings.get(DRIVER_CLASS_NAME);
-    final String url = (String) settings.get(URL);
+    final String driverClassName = (String) settings.getOrDefault(DRIVER_CLASS_NAME, "org.h2.Driver");
+    final String url = (String) settings.getOrDefault(URL, "dbc:h2:mem:invest");
     final String username = (String) settings.get(USERNAME);
     final String password = (String) settings.get(PASSWORD);
 
