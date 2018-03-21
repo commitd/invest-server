@@ -10,14 +10,27 @@ import io.committed.invest.core.constants.TimeInterval;
 import io.committed.invest.core.dto.analytic.TimeBin;
 import io.committed.invest.core.dto.analytic.Timeline;
 
-public class TimeIntervalUtils {
+/**
+ * Helper functions for converting from {@link TimeInterval} to database intervals.
+ */
+public final class TimeIntervalUtils {
 
   private TimeIntervalUtils() {
     // Singleton
   }
 
 
+  /**
+   * Convert a time intervale to an ES date histogram (approximately)
+   *
+   * @param interval the interval
+   * @return the date histogram interval
+   */
   public static DateHistogramInterval toDateHistogram(final TimeInterval interval) {
+    if (interval == null) {
+      return DateHistogramInterval.MONTH;
+    }
+
     if (interval.equals(TimeInterval.YEAR)) {
       return DateHistogramInterval.YEAR;
     } else if (interval.equals(TimeInterval.MONTH)) {
@@ -32,12 +45,22 @@ public class TimeIntervalUtils {
       return DateHistogramInterval.SECOND;
     } else {
       // TODO: We could parse the string value of DateHistogramInterval
-      return DateHistogramInterval.HOUR;
+      return DateHistogramInterval.MONTH;
     }
 
   }
 
+  /**
+   * Convert a ES date histogram to a time interval (approximately).
+   *
+   * @param interval the interval
+   * @return the time interval
+   */
   public static TimeInterval fromDateHistogram(final DateHistogramInterval interval) {
+    if (interval == null) {
+      return TimeInterval.MONTH;
+    }
+
     if (interval.equals(DateHistogramInterval.YEAR)) {
       return TimeInterval.YEAR;
     } else if (interval.equals(DateHistogramInterval.QUARTER)) {
@@ -55,7 +78,7 @@ public class TimeIntervalUtils {
     } else if (interval.equals(DateHistogramInterval.SECOND)) {
       return TimeInterval.SECOND;
     } else {
-      return TimeInterval.HOUR;
+      return TimeInterval.MONTH;
     }
 
 

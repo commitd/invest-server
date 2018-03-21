@@ -5,12 +5,21 @@ import java.util.Optional;
 import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
+/**
+ * Utiltity classes for Mongo Filters.
+ */
 public final class FilterUtils {
 
   private FilterUtils() {
     // Singleton
   }
 
+  /**
+   * Combine multiple filter into and query
+   *
+   * @param filters the filters
+   * @return the optional
+   */
   public static Optional<Bson> combine(final List<Bson> filters) {
     if (filters == null || filters.isEmpty()) {
       return Optional.empty();
