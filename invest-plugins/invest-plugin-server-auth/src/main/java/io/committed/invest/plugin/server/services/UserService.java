@@ -1,12 +1,7 @@
 package io.committed.invest.plugin.server.services;
 
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
@@ -92,17 +87,5 @@ public class UserService {
     return KeyGenerators.string().generateKey();
   }
 
-  public boolean hasAuthority(final Authentication authentication, final String... authority) {
-    final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-    if (authorities == null || authorities.isEmpty()) {
-      return false;
-    }
 
-    return Arrays.stream(authority).anyMatch(
-        auth -> authorities.stream().anyMatch(a -> a.getAuthority().equalsIgnoreCase(auth)));
-  }
-
-  public Set<String> toSet(final String... roles) {
-    return new HashSet<>(Arrays.asList(roles));
-  }
 }

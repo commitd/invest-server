@@ -90,7 +90,7 @@ public class AuthGraphQlResolver {
 
     final Authentication authentication = context.getAuthentication().block();
 
-    if (securityService.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)
+    if (AuthUtils.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)
         || authentication.getName().equals(username)) {
       securityService.changePassword(username, password);
     } else {

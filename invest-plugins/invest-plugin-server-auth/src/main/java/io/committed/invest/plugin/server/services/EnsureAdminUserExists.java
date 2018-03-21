@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
+import io.committed.invest.plugin.server.auth.utils.AuthUtils;
 import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -50,7 +51,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
           final String password = securityService.generateRandomPassword();
           final Mono<UserAccount> account =
               securityService.findOrAddAccount(DEFAULT_ADMIN_USERNAME, password, "admin",
-                  "", securityService.toSet(InvestRoles.ROLE_ADMINISTRATOR));
+                  "", AuthUtils.toSet(InvestRoles.ROLE_ADMINISTRATOR));
           log.info("Creating user {} with password {}", DEFAULT_ADMIN_USERNAME, password);
 
           return account.hasElement();

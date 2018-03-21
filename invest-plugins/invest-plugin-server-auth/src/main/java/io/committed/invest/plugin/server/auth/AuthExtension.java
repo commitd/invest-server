@@ -20,5 +20,15 @@ import io.committed.invest.extensions.InvestExtension;
 @Import(AuthConfiguration.class)
 public class AuthExtension implements InvestExtension {
 
+  @Override
+  public String getName() {
+    return "Invest Authentication";
+  }
+
+
+  @Override
+  public String getDescription() {
+    return "Authentication and authorisation for Invest";
+  }
 
 }

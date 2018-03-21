@@ -1,7 +1,9 @@
 package io.committed.invest.plugin.server.auth.utils;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
@@ -55,7 +57,22 @@ public final class AuthUtils {
    */
   public static Collection<GrantedAuthority> toGrantAuthorities(final Set<String> authorities) {
     return authorities.stream()
+        .map(s -> InvestRoles.AUTHORITY_PREFIX + s)
         .map(SimpleGrantedAuthority::new)
         .collect(Collectors.toList());
+  }
+
+  public static boolean hasAuthority(final Authentication authentication, final String... authority) {
+    final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+    if (authorities == null || authorities.isEmpty()) {
+      return false;
+    }
+
+    return Arrays.stream(authority).anyMatch(
+        auth -> authorities.stream().anyMatch(a -> a.getAuthority().equalsIgnoreCase(auth)));
+  }
+
+  public static Set<String> toSet(final String... roles) {
+    return new HashSet<>(Arrays.asList(roles));
   }
 }
