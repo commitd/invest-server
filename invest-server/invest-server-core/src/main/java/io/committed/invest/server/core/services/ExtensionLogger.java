@@ -12,11 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ExtensionLogger {
 
-  @Autowired(required = false)
-  private List<InvestExtension> extensions;
+  private final List<InvestExtension> extensions;
 
-  @Autowired(required = false)
-  private List<InvestExtensions> multiExtensions;
+  private final List<InvestExtensions> multiExtensions;
+
+  public ExtensionLogger(@Autowired(required = false) final List<InvestExtension> extensions,
+      @Autowired(required = false) final List<InvestExtensions> multiExtensions) {
+    this.extensions = extensions;
+    this.multiExtensions = multiExtensions;
+
+  }
 
   @PostConstruct
   public void postConstruct() {

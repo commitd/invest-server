@@ -14,7 +14,6 @@ public class ExtensionRegistries {
   @Autowired(required = false)
   private List<InvestUiExtension> uiExtensions;
 
-
   @Autowired(required = false)
   private List<InvestExtensions> multipleExtensions;
 
