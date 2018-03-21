@@ -37,10 +37,16 @@ public abstract class AbstractMongoDataProvider extends AbstractDataProvider {
   }
 
   protected <S> Mono<S> toMono(final Publisher<S> publisher) {
+    if (publisher == null) {
+      return Mono.empty();
+    }
     return Mono.from(publisher);
   }
 
   protected <S> Flux<S> toFlux(final Publisher<S> publisher) {
+    if (publisher == null) {
+      return Flux.empty();
+    }
     return Flux.from(publisher);
   }
 }

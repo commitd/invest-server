@@ -33,9 +33,12 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
         (String) settings.getOrDefault(SETTING_URI, DEFAULT_URI);
     final String databaseName = (String) settings.getOrDefault(SETTING_DB, defaultDatabaseName);
 
+    return createDatabaseClient(connectionString, databaseName);
+  }
+
+  protected MongoDatabase createDatabaseClient(final String connectionString, final String databaseName) {
     // TODO: SHould I hold onto this client?
     final MongoClient mongoClient = MongoClients.create(connectionString);
-
     return mongoClient.getDatabase(databaseName);
   }
 

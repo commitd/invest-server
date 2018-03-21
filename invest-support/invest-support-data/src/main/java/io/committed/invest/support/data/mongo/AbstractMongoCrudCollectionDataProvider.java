@@ -32,7 +32,7 @@ public abstract class AbstractMongoCrudCollectionDataProvider<R, T, S> extends A
   public boolean delete(final R r) {
     final Optional<Bson> f = filter(r);
     return Mono.justOrEmpty(f)
-        .flatMapMany(getCollection()::deleteOne)
+        .flatMapMany(getCollection()::deleteMany)
         .any(d -> d.getDeletedCount() > 0)
         .block();
   }

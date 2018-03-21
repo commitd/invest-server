@@ -29,14 +29,16 @@ public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataP
     final String databaseName =
         (String) settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_DB, defaultDatabase);
 
+    return createMongoTemplate(connectionString, databaseName);
+  }
 
+  protected ReactiveMongoTemplate createMongoTemplate(final String connectionString, final String databaseName) {
     final MongoClient mongoClient = MongoClients.create(connectionString);
     final SimpleReactiveMongoDatabaseFactory mongoDatabaseFactory =
         new SimpleReactiveMongoDatabaseFactory(mongoClient, databaseName);
 
     // If we need to control how the database collections are mapped, so we override the default
     // type mapping, which looks painful..
-
 
     // Finally create the factory support
     return new ReactiveMongoTemplate(mongoDatabaseFactory);
