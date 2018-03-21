@@ -16,6 +16,9 @@ public class InvestUiExtensionRegistryTest {
 
     assertThat(extensions.stream()).isEmpty();
     assertThat(extensions.getExtensions()).hasSize(0);
+
+    assertThat(extensions.isEmpty()).isTrue();
+
   }
 
   @Test
@@ -28,6 +31,8 @@ public class InvestUiExtensionRegistryTest {
     final InvestUiExtensionRegistry extensions = new InvestUiExtensionRegistry(Arrays.asList(ie1, ie2, ie3));
 
     assertThat(extensions.stream()).contains(ie1, ie2, ie3);
+
+    assertThat(extensions.isEmpty()).isFalse();
 
   }
 
