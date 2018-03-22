@@ -2,6 +2,7 @@ package io.committed.invest.plugins.ui.host;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.plugins.ui.host.impl.PluginFinder;
 import io.committed.invest.plugins.ui.host.impl.PluginJsonReader;
@@ -11,6 +12,7 @@ import io.committed.invest.plugins.ui.host.impl.UiFinder;
 import io.committed.invest.plugins.ui.host.impl.UiRouter;
 
 @Configuration
+@Import({UiRouter.class, UiFinder.class})
 public class UiHostConfig {
 
   @Bean
@@ -34,13 +36,13 @@ public class UiHostConfig {
     return new PluginSettingsMerger(settings);
   }
 
-  @Bean
-  public UiFinder uiHostUiFinder(final UiHostSettings settings, final PluginFinder pluginFinder) {
-    return new UiFinder(settings, pluginFinder);
-  }
-
-  @Bean
-  public UiRouter uiHostUiRouter() {
-    return new UiRouter();
-  }
+  // @Bean
+  // public UiFinder uiHostUiFinder(final UiHostSettings settings, final PluginFinder pluginFinder) {
+  // return new UiFinder(settings, pluginFinder);
+  // }
+  //
+  // @Bean
+  // public UiRouter uiHostUiRouter() {
+  // return new UiRouter();
+  // }
 }
