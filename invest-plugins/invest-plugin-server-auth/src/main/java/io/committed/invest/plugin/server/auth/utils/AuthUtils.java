@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.security.core.Authentication;
@@ -44,8 +45,10 @@ public final class AuthUtils {
       final Collection<? extends GrantedAuthority> authorities) {
     return authorities == null ? Collections.emptySet()
         : authorities.stream().map(GrantedAuthority::getAuthority)
-            .filter(a -> a.startsWith(InvestRoles.AUTHORITY_PREFIX))
-            .map(a -> a.substring(InvestRoles.AUTHORITY_PREFIX.length()))
+            .filter(InvestRoles::isAuthorityARole)
+            .map(InvestRoles::fromAuthorityToRole)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .collect(Collectors.toSet());
   }
 
@@ -57,7 +60,6 @@ public final class AuthUtils {
    */
   public static Collection<GrantedAuthority> toGrantAuthorities(final Set<String> authorities) {
     return authorities.stream()
-        .map(s -> InvestRoles.AUTHORITY_PREFIX + s)
         .map(SimpleGrantedAuthority::new)
         .collect(Collectors.toList());
   }

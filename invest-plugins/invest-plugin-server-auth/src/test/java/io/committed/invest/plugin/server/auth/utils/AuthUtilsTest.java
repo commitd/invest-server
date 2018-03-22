@@ -33,16 +33,17 @@ public class AuthUtilsTest {
   @Test
   public void testRolesFromAuthorities() {
     final Set<String> rolesFromAuthorities = AuthUtils.getRolesFromAuthorities(
-        Arrays.asList(new SimpleGrantedAuthority("ROLE_role1"), new SimpleGrantedAuthority("ROLE_role2")));
+        Arrays.asList(new SimpleGrantedAuthority("ROLE_role1"), new SimpleGrantedAuthority("ROLE_role2"),
+            new SimpleGrantedAuthority("role3")));
 
     assertThat(rolesFromAuthorities).containsExactly("role1", "role2");
   }
 
   @Test
-  public void test() {
+  public void testToGrantAuthorities() {
     final Collection<GrantedAuthority> authorities =
         AuthUtils.toGrantAuthorities(new HashSet<>(Arrays.asList("role1", "role2")));
-    assertThat(authorities.stream().map(GrantedAuthority::getAuthority)).containsExactly("ROLE_role1", "ROLE_role2");
+    assertThat(authorities.stream().map(GrantedAuthority::getAuthority)).containsExactly("role1", "role2");
   }
 
 
