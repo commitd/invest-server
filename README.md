@@ -2,6 +2,10 @@
 
 Modular, plugin based framework for Spring servers
 
+## Building
+
+`./build-with-ui ../invest-js` assuming `../invest-js` has invest-js repo, with built ui
+
 ## Running
 
 Functionality is added by plugins in Invest. If you run the `invest-server-app.jar` on its own you'll have a very empty application.

@@ -14,9 +14,9 @@ A module is a code project (application or library) within the Invest UI.
 
 We make the distinction between a core module and a plugin module:
 
-* A application modules which form the application, running in the same Javascript enviroment of as the other core modules.
-* A plugin runs in a separate iframe, thus is isolated from the core modules and othe plugins. A plugin contributes a view. Each plugin is a self contained web app in its' own right.
-* A common library being a lower level library which could be used by either or both application or plugin
+* An application module, which forms the application, runs in the same Javascript enviroment as the other core modules.
+* A plugin runs in a separate iframe, thus is isolated from the core modules and other plugins. A plugin contributes a view. Each plugin is a self contained web app in its' own right.
+* A common library being a lower level library which could be used by either or both applications or plugins
 
 The invest-ui project is a [Yarn workspace](http://yarn.io/workspaces), collecting the modules into a single repository. This has the benefit of sharing a single node modules directory (thus saving disk space) and also allowing automaticing linking between each module and its module dependencies.
 

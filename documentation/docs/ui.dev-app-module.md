@@ -7,11 +7,11 @@ hide: false
 draft: false
 ---
 
-The `invest-app` is the main 'outer' application, but its functionality it really held in the common and core modules. Thus you can think of the `invest-app` as an example of using these modules to build a front end.
+The `invest-app` is the main 'outer' application, but its functionality in really is held in the common and core modules. Thus you can think of the `invest-app` as an example of using these modules to build a front end.
 
-If you don't like the `invest-app` user experience, for example you prefer to have plugin navigation at the top, you can create your own `invest-myapp` and creating a new layout.
+If you don't like the `invest-app` user experience, for example you prefer to have plugin navigation at the top, you can create your own `invest-myapp` and create a new layout.
 
-Building your own application is a good way of introducing very specific functionality, such social authentication. 
+Building your own application is a good way of introducing very specific functionality, such as social authentication. 
 
 You can start a new app module either by copying the existing invest-app and modifying, or by running a new `create-react-app` and then reintroducting the invest specific dependencies and functionality. Note if you do the later you may end up with different versions of React, or other dependencies. You should standardise on one set (either by upgrading invest modules or more simplify by downgrading the create-react-app versions). 
 

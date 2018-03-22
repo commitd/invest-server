@@ -1,22 +1,22 @@
 ---
 id: server.dev-service-extension
-title: "Developing Service extension"
+title: "Developing Service extensions"
 date: "2017-10-20"
 order: 3500
 hide: false
 draft: false
 ---
 
-A service extension is the most generic in Invest. It is effectively a one or more Spring @Service / @Component which provide reusable functionality to the other plugins.
+A service extension is the most generic in Invest. It is effectively one or more Spring @Service / @Component which provide reusable functionality to the other plugins.
 
 It is probably unusual to implement a service plugin, as most plugins will be either to add data, ui or graphql. In particular most services are likely offered to the UI via a GraphQL endpoint. 
 
-Thus if you are implementing a service it is likely because you want to offer multiple implementation of that service. As such we recommend you create two Maven projects.
+Thus if you are implementing a service it is likely because you want to offer multiple implementations of that service. As such we recommend you create two Maven projects.
 
-* A Service interface (as a Java interface) which other projects can dependend upon.
-* THe default service implementation and invest plugin which implements the Service.
+* A Service interface (as a Java interface) which other projects can depend upon.
+* The default service implementation and invest plugin which implements your Service interface.
 
-We'll use a typically `toUpperCase` example in the below. Obviously this functionality would not be sufficiently complex to warrant building a service around. The types of functionality might be offered as a service are would be algorithims (data transformation, data clustering), or access to a third party API such as translation.
+We'll use a typically `toUpperCase` example in the below. Obviously this functionality would not be sufficiently complex to warrant building a service around. The types of functionality that might be offered as a service would be algorithims (data transformation, data clustering), or access to a third party API such as for translation.
 
 ## The Service Interface
 
@@ -79,7 +79,7 @@ This will now build into a Invest JAR plugin to be used in other applications.
 
 ## Accessing the Service API in another plugin
 
-In another plugin (eg a GraphQL plugin) you will want to access this `CaseChanger` functionality. In that plugin, you should include the `invest-service-myserviceinterface` as a Maven dependency. Then, as in standard Speing, you cshould autowire this interface.
+In another plugin (eg a GraphQL plugin) you will want to access this `CaseChanger` functionality. In that plugin, you should include the `invest-service-myserviceinterface` as a Maven dependency. Then, as in standard Speing, you should autowire this interface.
 
 ```java
 @InvestGraphQlService 
@@ -104,12 +104,12 @@ public class ExampleGraphQL {
 
 Though this is as you would normally write a Spring Boot application, it worth noting some additional consideration due to the plugin nature of Invest. 
 
-* What happens if no implementaiton is provided? Spring will currently exit, saying that an implementaiton is required.
-* What happens if multiple implemntation are provided? Spring will exist say it is not sure which to CaseChanger to auto wire.
+* What happens if no implementation is provided? Spring will currently exit, saying that an implementaiton is required.
+* What happens if multiple implementations are provided? Spring will error saying it is not sure which to CaseChanger to auto wire.
 
 The correct solution to this behaviour will depend on your service. For example, it may be correct that one and only one implementaiton is available - thus it is up to the person running Invest to correctly specify a single plugin which offers the `CaseChanger`.
 
-If not then you have serveral options, depending on where you'd like to fix this problem. Spring's traditional approaches to this are the `@Primary` to a specify a specific implementaiton, `@Qualifier` to name a bean specifically, or use `@ConditionalOnMissingBean` to ensure there is a single bean of a single type. In some sense these work well when you have a fixed set of known plugins.
+If not then you have several options, depending on where you'd like to fix this problem. Spring's traditional approaches to this are the `@Primary` to a specify a specific implementation, `@Qualifier` to name a bean specifically, or use `@ConditionalOnMissingBean` to ensure there is a single bean of a single type. In some sense these work well when you have a fixed set of known plugins.
 
 
 As such as we'd recommend an approach of either using a non-required autowired list which you can pick the best from:
@@ -162,7 +162,7 @@ public class CaseChangerHelperConfig {
 }
 ```
 
-Though additonal classes to manage, the nice aspect of the `CaseChangerHelperConfig` is that is allows a specific resolution logic for your plugin, as awell as a sensible default implementation.
+Though additonal classes to manage, the nice aspect of the `CaseChangerHelperConfig` is that is allows a specific resolution logic for your plugin, as well as a sensible default implementation.
 
 
 

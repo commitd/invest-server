@@ -7,11 +7,9 @@ hide: false
 draft: false
 ---
 
-# Invest development environment
-
 We'll first setup a development environment for Invest. 
 
-Note that you don't need this is you just want to develop plugins or build an application from Invest. You only require this set if you want to develop the Invest codebase itself.
+Note that you don't need this is you just want to develop plugins or build an application from Invest. You only require this setup if you want to develop the Invest codebase itself.
 
 ## Dependencies
 
@@ -36,7 +34,7 @@ cd invest-js
 lerna bootstrap
 ```
 
-## Building a complete Invest application and plugins on the command line
+## Building a complete Invest application with plugins on the command line
 
 We'd recommend that you test your build evnironment from the commandline first. This will also download all the maven dependencies and some other files from the Internet (thus you need to be online).
 
@@ -78,7 +76,7 @@ Once imported, you can run the project from the IDE by running the `invest-serve
 This should run sucessfully, but it'll be a empty server. In fact it'll contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
 
 
-* Stop the application (if running)
+* Stopping the application (if running)
 * Goto Debug Configurations (or Run Configuration equivalently) located under the Run menu (or as a drop down on the Debug/Run buttons on the toolbar).
 * Select the `invest-server-app` run, then the ClassPath tab.
 * Click on `User Entries` and then `Add Projects..`
@@ -93,13 +91,13 @@ As with Java, start by opening the `invest-js` directory as a project. We will u
 
 You can think of the Invest JS code as being three separate areas. One is a set of libraries, another the application and then a set of UI plugins. The application and the plugins depend on the libraries.
 
-When do any development on the UI you'll probably want to run the application:
+When you do any development on the UI you'll probably want to run the application:
 
 ```
 yarn dev:app
 ```
 
-Visiting http://localhost:3000 will present you with a live  version of your indevelopment Invest. 
+Visiting http://localhost:3000 will present you with a live version of your in-development Invest. 
 
 You may also want to have any changes in the libraries reflected in the application and any plugins you are developing.
 
@@ -107,9 +105,9 @@ You may also want to have any changes in the libraries reflected in the applicat
 yarn dev:libs
 ```
 
-Making (and saving) changes the libs or the main app will cause an update / refresh in the browser. 
+Making (and saving) changes to the libs or the main app will cause an update / refresh in the browser. 
 
-*Gotcha: If you change the types, eg classes, intefaces, exports, of a project you might find that this is not reflected properly. That is you encounter errors where the new changes are not seen. If this is the case stop and restart the above commands. This seems to be a limitation in the type processing in the build system.*
+*Gotcha: If you change the types, eg classes, interfaces, exports, of a project you might find that this is not reflected properly. That is, you encounter errors in cases where the new changes are not seen. If this is the case stop and restart the above commands. This seems to be a limitation in the type processing in the build system.*
 
 The above commands will not run any UI plugins in development mode, see [UI development](invest/ui) for more information. In short, to develop the Invest UI plugins in `invest-js/plugins` you should first run the above commands then:
 
@@ -149,13 +147,13 @@ yarn link
 
 Yarn will report that it is using `invest-plugin` locally. In your `node_modules` you'll see that the `invest-plugin` is not a symlink to your development `invest-js/invest-plugin` directory.
 
-Finally run ``yarn dev:libs` from the `invest-js` as below 
+Finally run `yarn dev:libs` from the `invest-js` as below 
 
 
 
 ## Next steps
 
-You are now ready to build either a UI or Server plugin....
+You are now ready to build either a UI or Server plugin...
 
 
 

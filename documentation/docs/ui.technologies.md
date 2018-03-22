@@ -11,7 +11,7 @@ draft: false
 
 We have selected a set of technologies to build the core of the application, but you can use any technology to build new plugins. 
 
-The core of Invest is written in [Typescript](http://typescript.io). We prefered Typesscript over Javascript+Flow since 
+The core of Invest is written in [Typescript](http://typescript.io).
 
 The main UI and the components library is [React](http://react.io).
 
@@ -23,4 +23,4 @@ We use [Create React App](https://github.com/facebookincubator/create-react-app)
 
 We use the [Semantic UI](https://react.semantic-ui.com/introduction) framework throughout for components and styling.
 
-**As a plugin developers, you are free to pick a completely different set of technologies to the above.**
+**As a plugin developer, you are free to pick a completely different set of technologies to the above.**

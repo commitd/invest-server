@@ -1,6 +1,6 @@
 ---
 id: dev.reading-list
-title: "Reading list"
+title: "Reading List"
 date: "2017-10-20"
 order: 20
 hide: false
@@ -14,7 +14,7 @@ Invest uses a lot of standard technologies and practises. We recommend you famil
 If you want to work on the server side:
 
 * [Java 8](https://www.oracle.com/uk/java/index.html) is the language used on the server side.
-* [Spring Boot](https://projects.spring.io/spring-boot/), is the underling framework and specifically we use Webflux and Spring Data.
+* [Spring Boot](https://projects.spring.io/spring-boot/), is the underlying framework and specifically we use Webflux and Spring Data.
 * [GraphQL SQPR](https://github.com/leangen/graphql-spqr) which is an annotation based approach to creation of GraphQL services in Java.
 * [Project Reactor](https://projectreactor.io/) and in particular the use of `Flux` and `Mono`.
 * [Maven](https://maven.apache.org/) for server side dependency management and building plugins.
@@ -50,7 +50,7 @@ Of course you can use whatever deployment approach you want such as local instal
 
 *TODO: Include mini tutorial on this?*
 
-You'll propably want to use an IDE, we recoommend:
+You'll propably want to use an IDE, we recommend:
 
 * [Visual Studio Code](https://code.visualstudio.com/) or [Atom](https://atom.io/) for the UI (with appropriate Typescript, etc plugins)
 * [Intellij IDEA](https://www.jetbrains.com/idea/) or [Eclipse](https://www.eclipse.org/) for server development. We'd recommend the Eclipse based [Spring Tool Suite](https://spring.io/tools) instead of plain Eclipse since it has the additional components needed.

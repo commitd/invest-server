@@ -41,6 +41,11 @@
       "ui.system-plugin",
       "ui.system-url"
     ],
+    "Developing UIs": [
+      "ui.dev-ui-extension",
+      "ui.dev-app-module",
+      "ui.dev-core-module"
+    ],
     "Support": [
       "ui.live-development-plugin",
       "ui.action-development-plugin"

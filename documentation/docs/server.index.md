@@ -16,7 +16,7 @@ The Invest Server builds produces an executable JAR which is the Invest Server A
 
 ## Plugins
 
-The Invest concept centred around a modular system, where the majority of functionality is a plugin. A small core of functionality, under `invest-server`, exists as an application runner which loads other plugins.
+The Invest concept centered around a modular system, where the majority of functionality is a plugin. A small core of functionality, under `invest-server`, exists as an application runner which loads other plugins.
 
 Plugins can be included in one of two ways:
 
@@ -27,8 +27,8 @@ Invest is not a generic plugin system, like say OSGI. It's supports the purpose 
 
 # Spring
 
-In reality the extension system of Invest is thin layer over Spring Boot's existing systems, and Invest Server is a Spring Boot application.
+In reality the extension system of Invest is a thin layer over Spring Boot's existing systems, and Invest Server is a Spring Boot application.
 
-We don't hide or abstract this from the developer, and teh developer is free (and has to) to use Spring constructs.
+We don't hide or abstract this from the developer, and the developer is free (and has to) to use Spring constructs.
 
 

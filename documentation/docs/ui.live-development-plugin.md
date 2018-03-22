@@ -9,7 +9,7 @@ draft: false
 
 The Live Development Plugin is a pair of Invest plugins which helps developers develop and test their UI plugins.
 
-The Live Development Plugin works in a very simple manner. It UI Plugin provides an empty entry with no actions. It points the Outer Frame to display a specific URl. That URL is managed by the Live Development API plugin. It redirects requests from that URL (and certain others) to Port 3001.
+The Live Development Plugin works in a very simple manner. Its UI Plugin provides an empty entry with no actions. It points the Outer Frame to display a specific URL. That URL is managed by the Live Development API plugin. It redirects requests from that URL (and certain others) to Port 3001.
 
 ## Setup
 
@@ -29,7 +29,7 @@ On a more basic note the Live Development Plugin allows the developer to see the
 
 ## Limitations
 
-There are of course limitations to this. The most specific issue is that the UI Plugin does not offer any actions. Thus the actions of th plugin will not be seen in other plugins.
+There are of course limitations to this. The most specific issue is that the UI Plugin does not offer any actions. Thus the actions of the plugin will not be seen in other plugins.
 
 Another issue is that that Live Development Plugin proxies only certain paths and HTTP mechanisms, etc to port 3001. It does not support WebSockets for example. Some plugins or some development environments (eg WebPack) use this to gather data or for notification of live reloading / hot deployment.
 
