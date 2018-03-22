@@ -92,4 +92,18 @@ public class PropertiesMapTest {
 
     assertThat(map.asMap()).containsEntry("a", "d");
   }
+
+  @Test
+  public void testGet() {
+    final Map<String, Object> m = new HashMap<>();
+    m.put("a", "d");
+    final PropertiesMap map = new PropertiesMap(m);
+
+
+    assertThat(map.get("a", "e")).isEqualTo("d");
+    assertThat(map.get("b", "e")).isEqualTo("e");
+    assertThat(map.get("a", 123)).isEqualTo(123);
+
+
+  }
 }

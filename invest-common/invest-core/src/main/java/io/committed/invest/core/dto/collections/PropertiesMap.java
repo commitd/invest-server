@@ -92,6 +92,25 @@ public final class PropertiesMap {
     return true;
   }
 
+  /**
+   * Gets value of key if present and it the same right as default
+   *
+   * @param <T> the generic type
+   * @param key the key
+   * @param defaultValue (do not use null!_
+   * @return the t
+   */
+  @SuppressWarnings("unchecked")
+  public <T> T get(final String key, final T defaultValue) {
+    final Class<T> clazz = (Class<T>) defaultValue.getClass();
+
+    final Object value = map.get(key);
+    if (value == null || !clazz.isInstance(value)) {
+      return defaultValue;
+    } else {
+      return (T) value;
+    }
+  }
 
 
 }
