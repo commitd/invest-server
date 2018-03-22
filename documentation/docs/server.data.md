@@ -8,26 +8,26 @@ draft: false
 heading: false
 ---
 
-Access to data in Invest is a departure from the standard Spring Data approach. The reason for this is because we want to support dynamic, configuration driven dataset taht are not known at compile time. 
+Access to data in Invest is a departure from the standard Spring Data approach. The reason for this is because we want to support dynamic, configuration driven datasets that are not known at compile time. 
 
 We want to support the following:
 
-* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not any of the settings
-* At runtime (via configuration) a user can configure one or more instance of that connector.
+* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not for any of the settings
+* At runtime (via configuration) a user can configure one or more instances of that connector.
 * Another developer building a service or API can request all the connectors which provide specific data access.
 
-As we see it current Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
+As we see it, currentky Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
 
 Note: you can still use pure Spring Data but you will be limited in whatever you code.
 
 ## Data access in Invest
 
-In order to explain data in Invest we will use an example. Let us suppose are building an application to view tweets. The UI would be very simple:
+In order to explain data in Invest we will use an example. Let us suppose we are building an application to view tweets. The UI would be very simple:
 
 * View all the tweets for a user, ordered by time
 * View all tweets containing a hashtag
 
-Working from the API back to the data, we want to provide an interface which defines how we can interact with database.
+Working from the API back to the data, we want to provide an interface which defines how we can interact with the database.
 
 
 In Invest data items are POJOs (Plain Old Java Objects).  

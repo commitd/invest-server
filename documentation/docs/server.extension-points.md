@@ -23,7 +23,7 @@ Spring does not know where to look for plugins. One way to find extensions would
 
 ## Implementing a plugin
 
-In order to implement a plugin you should create a class which implements on of the above. 
+In order to implement a plugin you should create a class which implements one of the above. 
 
 The interfaces have default implementation for many of their methods, leaving the developer able to postpone some aspects of customisations until later if they follow the conventions. We recommend that plugin developers override methods which provide support to the user (eg the description of what the plugin does). 
 
@@ -56,7 +56,7 @@ Including this project in your classpath should now enable the plugin.
 
 ## Typical plugin implementation
 
-Whilst the above produces a plugin, it does very little. The way to implement funcitonality in a plugin is dependent on the type of extension, but we just note a few simple examples here.
+Whilst the above produces a plugin, it does very little. The way to implement functionality in a plugin is dependent on the type of extension, but we just note a few simple examples here.
 
 If your plugin is very simple (which is good), then you can expose a Spring bean directly
 
@@ -74,7 +74,7 @@ public class MyPlugin implements InvestServiceExtension {
 
 ```
 
-If you have multiple component you need to hook up, or you want some more complex profile/configuration decisions, you could put them in their own configuration class and `@Import` it:
+If you have multiple components you need to hook up, or you want some more complex profile/configuration decisions, you could put them in their own configuration class and `@Import` it:
 ```
 @Configuration
 @Import(MyPluginConfig.class)
@@ -109,7 +109,7 @@ public class MyPlugin implements InvestServiceExtension {
 }
 ```
 
-Finally you probably want to offer settings (ConfigurationPropertoes) with suer can set via the YAML or properties files, and the plugin will pick up:
+Finally you probably want to offer settings (ConfigurationPropertoes) which a user can set via the YAML or properties files, and the plugin will pick up:
 
 ```
 @Configuration

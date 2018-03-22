@@ -15,9 +15,9 @@ At the time of starting the project Java 9 was only just released. We evaluated 
 
 Secondly we are aware it may take some time for users and organisations to ugrade to Java 9. We didn't want this to be a hurdle to actually using the software. 
 
-Finally, Java 9 is scheduled to end of support is before the end of our intiail development period. Thus we wanted to see what Java 18.03 holds. 
+Finally, Java 9 is scheduled to end of support is before the end of our intiail development period. Thus we wanted to see what Java 10 holds. 
 
 ## Why not use X (another plugin system / modularity system)
 
-It appears that Java 9 modularity offers all the functionality we would require, and we assume we'll become the standard modularity approach. As such, though we evaluated other options, it didn not seems appropraite to adopt a non Java 9 approach at this stage.  
+It appears that Java 9 modularity offers all the functionality we would require, and we assume we'll become the standard modularity approach. As such, though we evaluated other options, it did not seem appropriate to adopt a non Java 9 approach at this stage.  
 
