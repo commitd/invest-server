@@ -72,11 +72,11 @@ public class ElasticsearchSupportService<E> {
     return entityClazz;
   }
 
-  public Flux<E> searchByQuery(final String search, final int offset, final int limit) {
+  public Mono<SearchHits<E>> searchByQuery(final String search, final int offset, final int limit) {
     return search(QueryBuilders.queryStringQuery(search), offset, limit);
   }
 
-  public Flux<E> search(final QueryBuilder query, final int offset, final int limit) {
+  public Mono<SearchHits<E>> search(final QueryBuilder query, final int offset, final int limit) {
     final ListenableActionFuture<SearchResponse> future = getClient().prepareSearch()
         .setIndices(index)
         .setTypes(type)
@@ -86,7 +86,11 @@ public class ElasticsearchSupportService<E> {
         .execute();
 
     return ReactiveElasticsearchUtils.toMono(future)
-        .flatMapMany(r -> SourceUtils.convertHits(getMapper(), r, entityClazz));
+        .map(r -> {
+          final long total = r.getHits().getTotalHits();
+          final Flux<E> results = SourceUtils.convertHits(getMapper(), r, entityClazz);
+          return new SearchHits<>(total, results);
+        });
   }
 
   public Mono<Aggregations> aggregation(final Optional<QueryBuilder> query,
@@ -167,7 +171,8 @@ public class ElasticsearchSupportService<E> {
   }
 
   public Flux<E> getAll(final int offset, final int limit) {
-    return search(QueryBuilders.matchAllQuery(), offset, limit);
+    return search(QueryBuilders.matchAllQuery(), offset, limit)
+        .flatMapMany(SearchHits::getResults);
   }
 
   public Mono<E> getById(final String id) {
