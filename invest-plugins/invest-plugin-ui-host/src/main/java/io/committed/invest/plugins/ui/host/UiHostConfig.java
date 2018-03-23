@@ -36,13 +36,4 @@ public class UiHostConfig {
     return new PluginSettingsMerger(settings);
   }
 
-  // @Bean
-  // public UiFinder uiHostUiFinder(final UiHostSettings settings, final PluginFinder pluginFinder) {
-  // return new UiFinder(settings, pluginFinder);
-  // }
-  //
-  // @Bean
-  // public UiRouter uiHostUiRouter() {
-  // return new UiRouter();
-  // }
 }

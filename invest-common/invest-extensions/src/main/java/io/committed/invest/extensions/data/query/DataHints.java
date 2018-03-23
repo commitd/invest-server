@@ -65,7 +65,8 @@ public class DataHints {
 
       // I have only managed to make this work with reduce, I guess because we need to consume the flux
       // for the groupBy to work?
-      flux = flux.groupBy(DataProvider::getDatasource).flatMap(f -> f.reduce((a, b) -> a));
+      flux = flux.groupBy(dp -> String.format("%s#%s", dp.getDatasource(), dp.getProviderType()))
+          .flatMap(f -> f.reduce((a, b) -> a));
 
     }
 
