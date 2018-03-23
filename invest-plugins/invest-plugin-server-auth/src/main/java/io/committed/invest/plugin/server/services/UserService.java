@@ -1,13 +1,17 @@
 package io.committed.invest.plugin.server.services;
 
 import java.security.Principal;
+import java.util.Optional;
 import java.util.Set;
+
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
+
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -62,6 +66,10 @@ public class UserService {
     }
   }
 
+  public Flux<UserAccount> findAccounts() {
+    return userAccounts.findAll();
+  }
+
   public Mono<UserAccount> updateAccount(final String username, final String name,
       final String organisation, final Set<String> roles) {
 
@@ -73,6 +81,11 @@ public class UserService {
     }).flatMap(userAccounts::save).block();
 
     return Mono.justOrEmpty(saved);
+  }
+
+  public Mono<Void> deleteAccount(final String username) {
+    Optional<UserAccount> account = userAccounts.findByUsername(username).blockOptional();
+    return account.map(userAccounts::delete).orElse(Mono.empty());
   }
 
   public Mono<UserAccount> getAccount(final Principal principal) {
