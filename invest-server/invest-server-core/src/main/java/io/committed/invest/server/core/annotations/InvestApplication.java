@@ -20,6 +20,7 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveRepositoriesAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
@@ -52,6 +53,7 @@ import io.committed.invest.server.core.ServerCoreConfiguration;
         MongoDataAutoConfiguration.class, MongoRepositoriesAutoConfiguration.class,
         // Prevent Jpa auto config
         JpaRepositoriesAutoConfiguration.class,
+        DataSourceAutoConfiguration.class,
         // Prevent Elasticsearch auto config
         ElasticsearchAutoConfiguration.class, ElasticsearchDataAutoConfiguration.class,
         ElasticsearchRepositoriesAutoConfiguration.class})
