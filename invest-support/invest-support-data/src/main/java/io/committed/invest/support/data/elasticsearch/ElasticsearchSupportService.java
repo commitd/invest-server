@@ -64,7 +64,7 @@ public class ElasticsearchSupportService<E> {
     return index;
   }
 
-  protected String getType() {
+  public String getType() {
     return type;
   }
 
