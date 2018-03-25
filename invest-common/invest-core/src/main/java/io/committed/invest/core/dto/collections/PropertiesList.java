@@ -74,6 +74,7 @@ public final class PropertiesList {
   }
 
   @Override
+  @SuppressWarnings("squid:S2583")
   public boolean equals(final Object obj) {
     if (this == obj)
       return true;
@@ -82,6 +83,9 @@ public final class PropertiesList {
     if (getClass() != obj.getClass())
       return false;
     final PropertiesList other = (PropertiesList) obj;
+    // DONT NOT REMOVE, suppresswarning
+    // Sonar complains about this (the field IS final) but EqualsVerifier will actuall change it to null
+    // so if you remove this, you'll then have
     if (list == null) {
       if (other.list != null)
         return false;

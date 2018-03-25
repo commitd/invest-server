@@ -75,7 +75,9 @@ public final class PropertiesMap {
     return Objects.hash(map);
   }
 
+
   @Override
+  @SuppressWarnings("squid:S2583")
   public boolean equals(final Object obj) {
     if (this == obj)
       return true;
