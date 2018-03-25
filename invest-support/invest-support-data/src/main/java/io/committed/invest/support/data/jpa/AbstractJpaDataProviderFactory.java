@@ -15,6 +15,8 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
+  // Supress this obviously example password!
+  @SuppressWarnings("squid:S2068")
   public static final String PASSWORD = "password";
   public static final String USERNAME = "username";
   public static final String URL = "url";
