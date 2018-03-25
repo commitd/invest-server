@@ -7,6 +7,7 @@ import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
 import io.leangen.graphql.metadata.strategy.value.ValueMapper;
 import io.leangen.graphql.util.ClassUtils;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -17,13 +18,21 @@ import reactor.core.publisher.Mono;
  *
  * Based on Optional adaptor in SPQR.
  */
+@Slf4j
 public class MonoAdapter<T> extends AbstractTypeAdapter<Mono<T>, T> {
 
   @Override
   public T convertOutput(final Mono<T> original, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
-    return (T) original
-        .map(inner -> resolutionEnvironment.convertOutput(inner, getSubstituteType(type))).block();
+    try {
+      return (T) original
+          .map(inner -> resolutionEnvironment.convertOutput(inner, getSubstituteType(type)))
+          .block();
+    } catch (final Exception e) {
+      log.error("Unable to convert mono {}, returning null", e.getMessage());
+      log.debug("Exception was:", e);
+      return null;
+    }
   }
 
   @Override

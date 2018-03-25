@@ -2,6 +2,7 @@ package io.committed.invest.server.graphql.mappers;
 
 
 import java.lang.reflect.AnnotatedType;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import io.leangen.geantyref.GenericTypeReflector;
@@ -10,6 +11,7 @@ import io.leangen.graphql.execution.GlobalEnvironment;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
 import io.leangen.graphql.metadata.strategy.value.ValueMapper;
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
 /**
@@ -20,15 +22,22 @@ import reactor.core.publisher.Flux;
  *
  * Based on Stream To Collection convertors in SPQR.
  */
+@Slf4j
 public class FluxToCollectionTypeAdapter<T> extends AbstractTypeAdapter<Flux<T>, List<T>> {
 
   @Override
   public List<T> convertOutput(final Flux<T> original, final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
-    return original
-        .map(item -> resolutionEnvironment.<T, T>convertOutput(item, getElementType(type)))
-        .collect(Collectors.toList())
-        .block();
+    try {
+      return original
+          .map(item -> resolutionEnvironment.<T, T>convertOutput(item, getElementType(type)))
+          .collect(Collectors.toList())
+          .block();
+    } catch (final Exception e) {
+      log.error("Unable to convert flux {}, returning empty", e.getMessage());
+      log.debug("Exception was:", e);
+      return Collections.emptyList();
+    }
   }
 
   @Override
