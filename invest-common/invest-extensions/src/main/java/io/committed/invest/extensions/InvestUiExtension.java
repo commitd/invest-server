@@ -75,7 +75,8 @@ public interface InvestUiExtension extends InvestExtension {
    *
    * @return the settings
    */
-  default Optional<? extends Object> getSettings() {
+  @SuppressWarnings("squid:S1452")
+  default Optional<?> getSettings() {
     return Optional.empty();
   }
 

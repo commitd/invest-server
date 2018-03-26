@@ -102,6 +102,9 @@ public class GraphQlHandler {
         })).session(request.session()).build();
   }
 
+  // Surppressed warning because this is used a a WebFlux hander which needs to have the functional
+  // interface.
+  @SuppressWarnings("squid:S1172")
   public Mono<ServerResponse> getSchema(final ServerRequest request) {
     final ExecutionInput input =
         ExecutionInput.newExecutionInput().query(IntrospectionQuery.INTROSPECTION_QUERY).build();

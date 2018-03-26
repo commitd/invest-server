@@ -3,14 +3,12 @@ package io.committed.invest.support.data.elasticsearch;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map;
-
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-
 import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
@@ -39,7 +37,6 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   }
 
 
-  @SuppressWarnings({"resource", "squid:S00112"})
   protected Client buildElasticClient(final Map<String, Object> settings)
       throws UnknownHostException {
 
@@ -55,9 +52,11 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   }
 
 
-  @SuppressWarnings("resource")
+  @SuppressWarnings({"resource", "squid:S2095"})
   protected TransportClient createClient(final String host, final int port, final Settings esSettings)
       throws UnknownHostException {
+    // TODO: Perhaps ES clients should be held and reused by a ES Factory Service? (which could also
+    // close them)
     return new PreBuiltTransportClient(esSettings)
         .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
   }

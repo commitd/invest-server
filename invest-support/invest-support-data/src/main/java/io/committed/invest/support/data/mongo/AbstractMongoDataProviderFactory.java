@@ -27,7 +27,6 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     this.defaultCollectionName = defaultCollectionName;
   }
 
-  @SuppressWarnings({"squid:S00112"})
   protected MongoDatabase buildMongoDatabase(final Map<String, Object> settings) {
     final String connectionString =
         (String) settings.getOrDefault(SETTING_URI, DEFAULT_URI);
@@ -36,8 +35,9 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     return createDatabaseClient(connectionString, databaseName);
   }
 
+  @SuppressWarnings({"squid:S00112"})
   protected MongoDatabase createDatabaseClient(final String connectionString, final String databaseName) {
-    // TODO: SHould I hold onto this client?
+    // TODO: Should I hold onto this client. Should MongoClient be Spring Service Factory?
     final MongoClient mongoClient = MongoClients.create(connectionString);
     return mongoClient.getDatabase(databaseName);
   }

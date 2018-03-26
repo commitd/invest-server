@@ -14,6 +14,8 @@ package io.committed.invest.extensions.graphql;
  * possible (eg navigation). These should not fail, but simple do nothing.
  *
  */
+// Suppressed because this is an empty GraphQL context placeholder
+@SuppressWarnings("squid:S2094")
 public final class InvestUiNode {
 
 }

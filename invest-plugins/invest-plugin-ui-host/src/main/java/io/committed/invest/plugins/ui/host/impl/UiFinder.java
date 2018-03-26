@@ -1,6 +1,5 @@
 package io.committed.invest.plugins.ui.host.impl;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +23,12 @@ public class UiFinder {
   }
 
   @Bean
-  public InvestHostedUiExtensions pluginJsonUiHostedExtensions() throws IOException {
+  public InvestHostedUiExtensions pluginJsonUiHostedExtensions() {
     return findUiHostedExtensions();
   }
 
   @Bean
-  public InvestExtensions uiHostedExtensions() throws IOException {
+  public InvestExtensions uiHostedExtensions() {
     return new InvestExtensions(pluginJsonUiHostedExtensions().getExtensions());
   }
 

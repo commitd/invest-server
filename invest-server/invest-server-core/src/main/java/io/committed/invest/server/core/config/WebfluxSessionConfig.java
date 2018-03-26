@@ -22,9 +22,4 @@ public class WebfluxSessionConfig {
     return new HeaderWebSessionIdResolver();
   }
 
-  // Support Session in header in cookie
-  // @Bean
-  // public CookieWebSessionIdResolver webSessionIdResolver() {
-  // return new CookieWebSessionIdResolver();
-  // }
 }
