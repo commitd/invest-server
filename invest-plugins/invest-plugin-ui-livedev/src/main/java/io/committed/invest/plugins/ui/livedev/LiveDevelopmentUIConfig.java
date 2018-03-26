@@ -42,7 +42,7 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
   public RouterFunction<ServerResponse> routerFunction() {
     // We push out any requests here to another proxy
     RouterFunction<ServerResponse> routes =
-        RouterFunctions.route(RequestPredicates.path(getFullPath() + "/**"), this::handle);
+        RouterFunctions.route(RequestPredicates.path(getFullPath() + "**"), this::handle);
 
     for (final String path : PATHS) {
       routes = routes.andRoute(RequestPredicates.path(path), this::handle);
