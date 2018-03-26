@@ -28,7 +28,6 @@ public class PluginJson implements InvestUiExtension {
 
   private Collection<SimpleActionDefinition> actions = Collections.emptyList();
 
-  // TODO; Seperate PluginJson definition from the extension implementation
   @JsonIgnore
   private Resource resource;
 
@@ -36,8 +35,6 @@ public class PluginJson implements InvestUiExtension {
 
   @Override
   public String getStaticResourcePath() {
-    // TODO: We could abstract this to a resource (in InvestUiExtension) rather than a classpath string
-    // Not a static classpath, managed internally
     return null;
   }
 
