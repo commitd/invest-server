@@ -1,5 +1,6 @@
 package io.committed.invest.support.data.utils;
 
+import java.util.Objects;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -59,11 +60,7 @@ public class OffsetLimitPagable implements Pageable {
 
   @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + limit;
-    result = prime * result + (int) (offset ^ (offset >>> 32));
-    return result;
+    return Objects.hash(offset, limit);
   }
 
   @Override
@@ -75,10 +72,7 @@ public class OffsetLimitPagable implements Pageable {
     if (getClass() != obj.getClass())
       return false;
     final OffsetLimitPagable other = (OffsetLimitPagable) obj;
-    if (limit != other.limit || offset != other.offset)
-      return false;
-
-    return true;
+    return limit == other.limit && offset == other.offset;
   }
 
 }
