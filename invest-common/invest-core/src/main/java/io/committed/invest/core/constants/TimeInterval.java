@@ -26,13 +26,13 @@ public enum TimeInterval {
   DAY() {
     @Override
     public int mapTime(final ZonedDateTime time) {
-      return time.getDayOfWeek().ordinal();
+      return time.getDayOfMonth();
     }
   },
   MONTH() {
     @Override
     public int mapTime(final ZonedDateTime time) {
-      return time.getMonth().ordinal();
+      return time.getMonthValue();
     }
   },
   YEAR() {
@@ -53,6 +53,8 @@ public enum TimeInterval {
         return DateAxis.HOURS_OF_DAY;
       case MINUTE:
         return DateAxis.MINUTES_OF_HOUR;
+      case SECOND:
+        return DateAxis.SECONDS_OF_MINUTE;
       default:
         return Collections.emptyList();
     }
