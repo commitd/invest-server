@@ -30,10 +30,11 @@ public class InvestUiApplicationExtensionTest {
   }
 
 
-  // TODO: Ideally we'd check this works, but there's no data there (its gitignored)
   @Test
   @Ignore
   public void getIndex() {
+    // Ideally we'd check this works, but there's no data there (the files within are gitignored), hence
+    // this test is ignored
     this.webClient.get()
         .uri("/ui/app/index.html")
         .exchange()

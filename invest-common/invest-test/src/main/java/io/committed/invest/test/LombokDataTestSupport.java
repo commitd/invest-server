@@ -1,6 +1,5 @@
 package io.committed.invest.test;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -99,7 +98,7 @@ public class LombokDataTestSupport {
     }
 
     try {
-      final Constructor<?> constructor = clazz.getConstructor();
+      clazz.getConstructor();
     } catch (final NoSuchMethodException e) {
       log.warn("Unable to test {} as no default constructor", clazz.getSimpleName());
       return;
@@ -134,7 +133,7 @@ public class LombokDataTestSupport {
     subClass.setSuperclass(superClass);
     subClass.setModifiers(Modifier.PUBLIC);
 
-    // Add a constructor which will call super( ... );
+    // Add a constructor which will call super
     final CtClass[] params = new CtClass[] {};
     final CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS,
         null, null, subClass);

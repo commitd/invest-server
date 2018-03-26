@@ -55,8 +55,6 @@ public abstract class AbstractElasticsearchDataProviderFactory<P extends DataPro
   @SuppressWarnings({"resource", "squid:S2095"})
   protected TransportClient createClient(final String host, final int port, final Settings esSettings)
       throws UnknownHostException {
-    // TODO: Perhaps ES clients should be held and reused by a ES Factory Service? (which could also
-    // close them)
     return new PreBuiltTransportClient(esSettings)
         .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
   }

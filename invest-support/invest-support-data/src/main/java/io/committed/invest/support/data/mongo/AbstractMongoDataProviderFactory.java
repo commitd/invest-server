@@ -37,7 +37,6 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
 
   @SuppressWarnings({"squid:S00112"})
   protected MongoDatabase createDatabaseClient(final String connectionString, final String databaseName) {
-    // TODO: Should I hold onto this client. Should MongoClient be Spring Service Factory?
     final MongoClient mongoClient = MongoClients.create(connectionString);
     return mongoClient.getDatabase(databaseName);
   }

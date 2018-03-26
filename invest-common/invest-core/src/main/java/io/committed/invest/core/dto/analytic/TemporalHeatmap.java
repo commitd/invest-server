@@ -24,6 +24,7 @@ public class TemporalHeatmap {
 
   private final List<List<Long>> bins = new ArrayList<>();
 
+  @SuppressWarnings({"squid:S1481", "unused"})
   public TemporalHeatmap(final String[] xAxis, final String[] yAxis) {
     this.xAxis = xAxis;
     this.yAxis = yAxis;

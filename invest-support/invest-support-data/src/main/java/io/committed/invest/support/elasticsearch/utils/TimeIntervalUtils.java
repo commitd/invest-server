@@ -44,7 +44,7 @@ public final class TimeIntervalUtils {
     } else if (interval.equals(TimeInterval.SECOND)) {
       return DateHistogramInterval.SECOND;
     } else {
-      // TODO: We could parse the string value of DateHistogramInterval
+      // Default to something safe
       return DateHistogramInterval.MONTH;
     }
 
