@@ -35,7 +35,7 @@ public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     return createDatabaseClient(connectionString, databaseName);
   }
 
-  @SuppressWarnings({"squid:S00112"})
+  @SuppressWarnings({"squid:S2095"})
   protected MongoDatabase createDatabaseClient(final String connectionString, final String databaseName) {
     final MongoClient mongoClient = MongoClients.create(connectionString);
     return mongoClient.getDatabase(databaseName);
