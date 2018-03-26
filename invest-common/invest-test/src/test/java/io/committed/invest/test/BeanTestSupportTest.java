@@ -2,9 +2,14 @@ package io.committed.invest.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
+import java.time.Instant;
+import java.util.stream.Stream;
 import org.junit.Test;
 import org.meanbean.factories.NoSuchFactoryException;
+import org.reactivestreams.Publisher;
 import io.committed.invest.test.data.BrokenGetterExample;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class BeanTestSupportTest {
 
@@ -50,6 +55,22 @@ public class BeanTestSupportTest {
   @Test(expected = AssertionError.class)
   public void testTest() {
     BeanTestSupport.test(BrokenGetterExample.class);
+  }
+
+  @Test
+  public void testFactories() {
+    assertThat(BeanTestSupport.generateValue(Instant.class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(Stream.class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(String[].class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(Flux.class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(Mono.class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(Publisher.class)).isNotNull();
+    assertThat(BeanTestSupport.generateValue(Class.class)).isNotNull();
+
+    final String[] strings = BeanTestSupport.generateValue(String[].class);
+    assertThat(strings).hasAtLeastOneElementOfType(String.class);
+    assertThat(strings).doesNotContainNull();
+
   }
 
 

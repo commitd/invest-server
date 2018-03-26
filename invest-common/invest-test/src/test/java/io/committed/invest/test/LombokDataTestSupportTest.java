@@ -1,6 +1,8 @@
 package io.committed.invest.test;
 
 import org.junit.Test;
+import io.committed.invest.test.data.AbstractBrokenClass;
+import io.committed.invest.test.data.AbstractClass;
 import io.committed.invest.test.data.BrokenEqualsExample;
 import io.committed.invest.test.data.BrokenGetterExample;
 import io.committed.invest.test.data.BrokenHashcodeExample;
@@ -44,4 +46,25 @@ public class LombokDataTestSupportTest {
 
     ldts.testClass(BrokenGetterExample.class);
   }
+
+  @Test
+  public void testOkAbstract() {
+    final LombokDataTestSupport ldts = new LombokDataTestSupport();
+
+    ldts.testClass(AbstractClass.class);
+  }
+
+
+  @Test(expected = AssertionError.class)
+  public void testBrokenAbstract() {
+    final LombokDataTestSupport ldts = new LombokDataTestSupport();
+    ldts.testClass(AbstractBrokenClass.class);
+  }
+
+  @Test(expected = AssertionError.class)
+  public void testPackage() {
+    final LombokDataTestSupport ldts = new LombokDataTestSupport();
+    ldts.testPackage(AbstractBrokenClass.class);
+  }
+
 }
