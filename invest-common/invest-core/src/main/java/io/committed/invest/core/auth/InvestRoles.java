@@ -13,9 +13,9 @@ public class InvestRoles {
 
   private static final String AUTHORITY_PREFIX = "ROLE_";
 
-  public static final String ROLE_ADMINISTRATOR = AUTHORITY_PREFIX + InvestAuthorities.ADMINISTRATOR;
-  public static final String ROLE_USER = AUTHORITY_PREFIX + InvestAuthorities.USER;
-  public static final String ROLE_DEV = AUTHORITY_PREFIX + InvestAuthorities.DEV;
+  public static final String ROLE_ADMINISTRATOR = fromRoleToAuthority(InvestAuthorities.ADMINISTRATOR);
+  public static final String ROLE_USER = fromRoleToAuthority(InvestAuthorities.USER);
+  public static final String ROLE_DEV = fromRoleToAuthority(InvestAuthorities.DEV);
 
 
   public static boolean isAuthorityARole(final String authority) {
@@ -28,5 +28,9 @@ public class InvestRoles {
     } else {
       return Optional.empty();
     }
+  }
+
+  public static String fromRoleToAuthority(final String role) {
+    return AUTHORITY_PREFIX + role;
   }
 }

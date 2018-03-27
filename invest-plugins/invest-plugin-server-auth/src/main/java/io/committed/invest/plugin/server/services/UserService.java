@@ -1,5 +1,7 @@
 package io.committed.invest.plugin.server.services;
 
+import static java.util.stream.Collectors.toSet;
+
 import java.security.Principal;
 import java.util.Optional;
 import java.util.Set;
@@ -8,6 +10,7 @@ import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.repo.UserAccountRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +27,7 @@ public class UserService {
   private final UserAccountRepository userAccounts;
   private final PasswordEncoder passwordEncoder;
 
-  public UserService(final UserAccountRepository userAccounts,
-      final PasswordEncoder passwordEncoder) {
+  public UserService(final UserAccountRepository userAccounts, final PasswordEncoder passwordEncoder) {
     this.userAccounts = userAccounts;
     this.passwordEncoder = passwordEncoder;
   }
@@ -53,15 +55,16 @@ public class UserService {
     return passwordEncoder.encode(password);
   }
 
-  public Mono<UserAccount> findOrAddAccount(final String username, final String password,
-      final String name, final String organisation, final Set<String> roles) {
+  public Mono<UserAccount> findOrAddAccount(final String username, final String password, final String name,
+      final String organisation, final Set<String> roles) {
 
     final Mono<UserAccount> mono = userAccounts.findByUsername(username);
     if (mono.hasElement().block()) {
       return mono;
     } else {
       final String encoded = encodePassword(password);
-      final UserAccount account = new UserAccount(username, encoded, name, organisation, roles);
+      Set<String> authorities = roles.stream().map(InvestRoles::fromRoleToAuthority).collect(toSet());
+      final UserAccount account = new UserAccount(username, encoded, name, organisation, authorities);
       return userAccounts.save(account);
     }
   }
@@ -70,13 +73,13 @@ public class UserService {
     return userAccounts.findAll();
   }
 
-  public Mono<UserAccount> updateAccount(final String username, final String name,
-      final String organisation, final Set<String> roles) {
+  public Mono<UserAccount> updateAccount(final String username, final String name, final String organisation,
+      final Set<String> roles) {
 
     final UserAccount saved = userAccounts.findByUsername(username).map(userAccount -> {
       userAccount.setName(name);
       userAccount.setOrganisation(organisation);
-      userAccount.setAuthorities(roles);
+      userAccount.setAuthorities(roles.stream().map(InvestRoles::fromRoleToAuthority).collect(toSet()));
       return userAccount;
     }).flatMap(userAccounts::save).block();
 
