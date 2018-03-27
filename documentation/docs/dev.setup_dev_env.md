@@ -7,13 +7,13 @@ hide: false
 draft: false
 ---
 
-We'll first setup a development environment for Invest. 
+We'll first setup a development environment for Invest.
 
 Note that you don't need this is you just want to develop plugins or build an application from Invest. You only require this setup if you want to develop the Invest codebase itself.
 
 ## Dependencies
 
-``` 
+```
 mkdir invest
 cd invest
 ```
@@ -32,20 +32,23 @@ Install the UI dependencies, create the inter dependencies between the projects 
 ```
 cd invest-js
 lerna bootstrap
+yarn build
 ```
 
 ## Building a complete Invest application with plugins on the command line
 
-We'd recommend that you test your build evnironment from the commandline first. This will also download all the maven dependencies and some other files from the Internet (thus you need to be online).
+We'd recommend that you test your build environment from the commandline first. This will also download all the maven dependencies and some other files from the Internet (thus you need to be online).
 
 To compile the complete Invest code, the invest-java repository has scripts to help:
 
 ```
+cd invest-js
+yarn build
 cd invest-java
-./build-with-ui ../invest-js
+./build-with-ui.sh ../invest-js
 ```
 
-*The ../invest-js is the path to the JS elements. So if you have these in a different directory then amend this command appropriately.*
+_The ../invest-js is the path to the JS elements. So if you have these in a different directory then amend this command appropriately._
 
 This will build the UI, copy it into the Java UI plugins, then build the Java plugins and applications, finally placing all the resulting artifacts into the `build/` directory.
 
@@ -63,18 +66,17 @@ cd invest-java
 mvn clean package install
 ```
 
-*TODO: Perhaps having single repo is better, as it means we can use the maven copy to do everything which is neater than having this build scripts. It would avoid non-obvious side effects such as the mvn clean deleting the UI output*
+_TODO: Perhaps having single repo is better, as it means we can use the maven copy to do everything which is neater than having this build scripts. It would avoid non-obvious side effects such as the mvn clean deleting the UI output_
 
 ## Developing the Java server with an IDE
 
 When developing you will want to use an IDE. We'll use Eclipse as an example of the intended process.
 
-First import all the Maven projects by File > Import > Existing Maven Projects and selecting the `invest-java` directory as the Root Directory. We'd suggest adding all these projects to a Eclipse Working Set (called `Invest`). 
+First import all the Maven projects by File > Import > Existing Maven Projects and selecting the `invest-java` directory as the Root Directory. We'd suggest adding all these projects to a Eclipse Working Set (called `Invest`).
 
 Once imported, you can run the project from the IDE by running the `invest-server-app` project, specifically the `io.committed.invest.server.app.Invest` main class.
 
 This should run sucessfully, but it'll be a empty server. In fact it'll contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
-
 
 * Stopping the application (if running)
 * Goto Debug Configurations (or Run Configuration equivalently) located under the Run menu (or as a drop down on the Debug/Run buttons on the toolbar).
@@ -97,7 +99,7 @@ When you do any development on the UI you'll probably want to run the applicatio
 yarn dev:app
 ```
 
-Visiting http://localhost:3000 will present you with a live version of your in-development Invest. 
+Visiting http://localhost:3000 will present you with a live version of your in-development Invest.
 
 You may also want to have any changes in the libraries reflected in the application and any plugins you are developing.
 
@@ -105,9 +107,9 @@ You may also want to have any changes in the libraries reflected in the applicat
 yarn dev:libs
 ```
 
-Making (and saving) changes to the libs or the main app will cause an update / refresh in the browser. 
+Making (and saving) changes to the libs or the main app will cause an update / refresh in the browser.
 
-*Gotcha: If you change the types, eg classes, interfaces, exports, of a project you might find that this is not reflected properly. That is, you encounter errors in cases where the new changes are not seen. If this is the case stop and restart the above commands. This seems to be a limitation in the type processing in the build system.*
+_Gotcha: If you change the types, eg classes, interfaces, exports, of a project you might find that this is not reflected properly. That is, you encounter errors in cases where the new changes are not seen. If this is the case stop and restart the above commands. This seems to be a limitation in the type processing in the build system._
 
 The above commands will not run any UI plugins in development mode, see [UI development](invest/ui) for more information. In short, to develop the Invest UI plugins in `invest-js/plugins` you should first run the above commands then:
 
@@ -117,13 +119,12 @@ yarn develop
 ```
 
 This will run a plugin which you can access from http://localhost:3001 or via the [Live Development Plugin](invest/ui/live-development-plugin). Note that you can only develop one plugin at once (unless you start modifying the port on which the development versions are published).
- 
 
 ## Developing UI plugins without running Invest in development mode
 
-You can develop UI plugins without running the live development version of Invest (as detailed above). When you run the `bulid-with-ui.sh` command above the UI components are build and copied into the various Java plugins. For example, the `invest-plugin-ui-app` Java project contains the build Invest application, and the `invest-plugin-ui-devaction` Java project will contain the `invest-js/plugin/invest-ui-devaction` UI plugin. 
+You can develop UI plugins without running the live development version of Invest (as detailed above). When you run the `bulid-with-ui.sh` command above the UI components are build and copied into the various Java plugins. For example, the `invest-plugin-ui-app` Java project contains the build Invest application, and the `invest-plugin-ui-devaction` Java project will contain the `invest-js/plugin/invest-ui-devaction` UI plugin.
 
-By running `build-with-ui` and then adding these plugins to the classpath when you run `invest-server-app` as above you will have a complete Invest application, with the UI modules already built inside your IDE. You don't then need to run `yarn dev:app`. 
+By running `build-with-ui` and then adding these plugins to the classpath when you run `invest-server-app` as above you will have a complete Invest application, with the UI modules already built inside your IDE. You don't then need to run `yarn dev:app`.
 
 You can run just the `invest-server-app` form your java IDE and then develop your UI plugin, visit http://localhost:8080 to see the Invest UI.
 
@@ -147,13 +148,8 @@ yarn link
 
 Yarn will report that it is using `invest-plugin` locally. In your `node_modules` you'll see that the `invest-plugin` is not a symlink to your development `invest-js/invest-plugin` directory.
 
-Finally run `yarn dev:libs` from the `invest-js` as below 
-
-
+Finally run `yarn dev:libs` from the `invest-js` as below
 
 ## Next steps
 
 You are now ready to build either a UI or Server plugin...
-
-
-
