@@ -27,26 +27,28 @@ public class EnsureAdminUserExistsTest {
   @Test
   public void testEnsureUserWhenNone() {
     assertThat(repository.findByUsername("admin")).isEmpty();
-    assertThat(repository.findByAuthorities(InvestRoles.ROLE_ADMINISTRATOR)).hasSize(0);
+    assertThat(repository.findByAuthorities(InvestRoles.ADMINISTRATOR_AUTHORITY)).hasSize(0);
 
     ensureAdminUserExists.ensureUser();
 
     assertThat(repository.findByUsername("admin")).isPresent();
-    assertThat(repository.findByAuthorities(InvestRoles.ROLE_ADMINISTRATOR)).hasSize(1);
+    assertThat(repository.findByAuthorities(InvestRoles.ADMINISTRATOR_AUTHORITY)).hasSize(1);
 
   }
 
   @Test
   public void testEnsureUserWhenExists() {
     repository.save(
-        UserAccount.builder().username("bob").authorities(AuthUtils.toSet(InvestRoles.ROLE_ADMINISTRATOR))
+        UserAccount.builder()
+            .username("bob")
+            .authorities(AuthUtils.toSet(InvestRoles.ADMINISTRATOR_AUTHORITY))
             .build());
 
     ensureAdminUserExists.ensureUser();
 
     assertThat(repository.findByUsername("admin")).isEmpty();
     assertThat(repository.findByUsername("bob")).isPresent();
-    assertThat(repository.findByAuthorities(InvestRoles.ROLE_ADMINISTRATOR)).hasSize(1);
+    assertThat(repository.findByAuthorities(InvestRoles.ADMINISTRATOR_AUTHORITY)).hasSize(1);
 
 
   }

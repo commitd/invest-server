@@ -50,7 +50,9 @@ public abstract class AbstractWithAuthSecurityConfig {
     http.authorizeExchange()
         // Allow access to static files inside the UI
         .pathMatchers(urlService.getContextPath() + "/**").permitAll().pathMatchers("/actuator/**")
-        .hasRole(InvestRoles.ROLE_ADMINISTRATOR).anyExchange().permitAll();
+        .hasRole(InvestRoles.ADMINISTRATOR)
+        .anyExchange()
+        .permitAll();
 
 
     return http.build();

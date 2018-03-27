@@ -8,12 +8,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.dto.User;
@@ -61,7 +59,7 @@ public final class AuthUtils {
         : getRolesFromAuthorities(authorities.stream().map(GrantedAuthority::getAuthority));
   }
 
-  private static Set<String> getRolesFromAuthorities(Stream<String> authorities) {
+  private static Set<String> getRolesFromAuthorities(final Stream<String> authorities) {
     return authorities.filter(InvestRoles::isAuthorityARole).map(InvestRoles::fromAuthorityToRole)
         .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
   }
@@ -83,7 +81,7 @@ public final class AuthUtils {
     }
 
     return Arrays.stream(authority)
-        .anyMatch(auth -> authorities.stream().anyMatch(a -> a.getAuthority().equalsIgnoreCase(auth)));
+        .anyMatch(auth -> authorities.stream().anyMatch(a -> a.getAuthority().equals(auth)));
   }
 
   public static Set<String> toSet(final String... roles) {

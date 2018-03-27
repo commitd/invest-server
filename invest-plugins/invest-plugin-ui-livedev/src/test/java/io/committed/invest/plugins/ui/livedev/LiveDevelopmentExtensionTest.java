@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import io.committed.invest.core.auth.InvestAuthorities;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.test.InvestTestContext;
 
@@ -28,7 +28,7 @@ public class LiveDevelopmentExtensionTest {
     assertThat(extension.getName()).isNotBlank();
     assertThat(extension.getDescription()).isNotBlank();
     assertThat(extension.getId()).isNotBlank();
-    assertThat(extension.getRoles()).containsExactly(InvestAuthorities.DEV);
+    assertThat(extension.getRoles()).containsExactly(InvestRoles.DEV);
     assertThat(extension.getIcon()).isNotBlank();
 
   }

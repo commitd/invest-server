@@ -41,7 +41,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
 
   public void ensureUser() {
     userAccounts.findAll()
-        .any(u -> u.hasAuthority(InvestRoles.ROLE_ADMINISTRATOR))
+        .any(u -> u.hasAuthority(InvestRoles.ADMINISTRATOR_AUTHORITY))
         .flatMap(exists -> {
           if (exists) {
             log.info("Admin user exists in the database, not creating a default admin");
@@ -51,7 +51,7 @@ public class EnsureAdminUserExists implements ApplicationListener<ContextRefresh
           final String password = securityService.generateRandomPassword();
           final Mono<UserAccount> account =
               securityService.findOrAddAccount(DEFAULT_ADMIN_USERNAME, password, "admin",
-                  "", AuthUtils.toSet(InvestRoles.ROLE_ADMINISTRATOR));
+                  "", AuthUtils.toSet(InvestRoles.ADMINISTRATOR));
           log.info("Creating user {} with password {}", DEFAULT_ADMIN_USERNAME, password);
 
           return account.hasElement();

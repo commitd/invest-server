@@ -5,12 +5,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -19,9 +17,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.server.WebSession;
-
 import com.google.common.collect.ImmutableSet;
-
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.plugin.server.auth.config.MemAuthConfig;
@@ -38,7 +34,7 @@ public class AuthGraphQlResolverTest {
 
   @Before
   public void setup() {
-    PasswordEncoder pE = NoOpPasswordEncoder.getInstance();
+    final PasswordEncoder pE = NoOpPasswordEncoder.getInstance();
     resolver = new AuthGraphQlResolver(null, new UserService(new MemAuthConfig().userDetailsRepository(pE), pE));
     final Mono<WebSession> session = Mono.just(mock(WebSession.class));
     auth = mock(AbstractAuthenticationToken.class);
@@ -47,73 +43,76 @@ public class AuthGraphQlResolverTest {
 
   @Test
   public void testAdminDeleteExistingUser() {
-    withRoles(InvestRoles.ROLE_ADMINISTRATOR);
+    withRoles(InvestRoles.ADMINISTRATOR);
 
-    String username = "user";
+    final String username = "user";
     resolver.deleteUser(investRootContext, username);
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
     assertTrue(after.stream().noneMatch(u -> u.getUsername().equals(username)));
   }
 
   @Test
   public void testNonAdminCantDeleteUser() {
-    withRoles(InvestRoles.ROLE_USER);
+    withRoles(InvestRoles.USER);
 
-    String username = "user";
+    final String username = "user";
     resolver.deleteUser(investRootContext, username);
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
     assertTrue(after.stream().anyMatch(u -> u.getUsername().equals(username)));
   }
 
   @Test
   public void testAdminDeleteNonExistingUser() {
-    withRoles(InvestRoles.ROLE_ADMINISTRATOR);
+    withRoles(InvestRoles.ADMINISTRATOR);
 
-    List<User> before = resolver.allUsers(investRootContext).collect(toList()).block();
-    String username = "non-existing-user";
+    final List<User> before = resolver.allUsers(investRootContext).collect(toList()).block();
+    final String username = "non-existing-user";
     resolver.deleteUser(investRootContext, username);
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
     assertEquals(before.size(), after.size());
   }
 
   @Test
   public void testAdminAddNewUser() {
-    withRoles(InvestRoles.ROLE_ADMINISTRATOR);
+    withRoles(InvestRoles.ADMINISTRATOR);
 
-    String username = "newUser";
-    resolver.saveUser(investRootContext, new User(username, username, ImmutableSet.of(InvestRoles.ROLE_USER)), "123");
+    final String username = "newUser";
+    resolver.saveUser(investRootContext, new User(username, username, ImmutableSet.of(InvestRoles.USER)), "123");
 
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
     assertTrue(after.stream().anyMatch(u -> u.getUsername().equals(username)));
   }
 
   @Test
   public void testNonAdminCantAddNewUser() {
-    withRoles(InvestRoles.ROLE_USER);
+    withRoles(InvestRoles.USER);
 
-    String username = "newUser";
-    resolver.saveUser(investRootContext, new User(username, username, ImmutableSet.of(InvestRoles.ROLE_USER)), "123");
+    final String username = "newUser";
+    resolver.saveUser(investRootContext, new User(username, username, ImmutableSet.of(InvestRoles.USER)), "123");
 
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
     assertTrue(after.stream().noneMatch(u -> u.getUsername().equals(username)));
   }
 
   @Test
   public void testAdminEditExistingUser() {
-    withRoles(InvestRoles.ROLE_ADMINISTRATOR);
+    withRoles(InvestRoles.ADMINISTRATOR);
 
-    String username = "user";
-    String newRole = InvestRoles.ROLE_DEV;
+    final String username = "user";
+    final String newRole = InvestRoles.DEV;
     resolver.saveUser(investRootContext, new User(username, username, ImmutableSet.of(newRole)), "123").block();
-    List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
-    Optional<User> findFirst = after.stream().filter(u -> u.getUsername().equals(username)).findFirst();
+    final List<User> after = resolver.allUsers(investRootContext).collect(toList()).block();
+    final Optional<User> findFirst = after.stream().filter(u -> u.getUsername().equals(username)).findFirst();
     assertTrue(findFirst.isPresent());
     // why has the dev role become an authority? Probable bug
-    assertTrue(findFirst.get().getRoles().contains(InvestRoles.fromAuthorityToRole(newRole).get()));
+    assertTrue(findFirst.get().getRoles().contains(newRole));
   }
 
-  private void withRoles(String... roles) {
-    Collection<GrantedAuthority> authoritites = Stream.of(roles).map(SimpleGrantedAuthority::new).collect(toList());
+  private void withRoles(final String... roles) {
+    final Collection<GrantedAuthority> authoritites = Stream.of(roles)
+        .map(InvestRoles::fromRoleToAuthority)
+        .map(SimpleGrantedAuthority::new)
+        .collect(toList());
     when(auth.getAuthorities()).thenReturn(authoritites);
   }
 

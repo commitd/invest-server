@@ -8,6 +8,7 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
 import io.committed.invest.plugin.server.repo.MapBackedUserAccountRepository;
@@ -102,7 +103,8 @@ public class UserServiceTest {
     userService.updateAccount("username", "name1", "organisation1", AuthUtils.toSet("r1", "r2"));
 
     final UserAccount ua = repo.findByUsername("username").get();
-    assertThat(ua.getAuthorities()).contains("r1", "r2");
+    assertThat(ua.getAuthorities()).contains(InvestRoles.fromRoleToAuthority("r1"),
+        InvestRoles.fromRoleToAuthority("r2"));
     assertThat(ua.getOrganisation()).isEqualTo("organisation1");
     assertThat(ua.getName()).isEqualTo("name1");
     assertThat(ua.getPassword()).isEqualTo("different");

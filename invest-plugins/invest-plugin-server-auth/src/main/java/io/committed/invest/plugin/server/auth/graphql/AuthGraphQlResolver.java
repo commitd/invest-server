@@ -1,13 +1,11 @@
 package io.committed.invest.plugin.server.auth.graphql;
 
 import java.util.Optional;
-
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.web.server.WebSession;
-
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.extensions.annotations.GraphQLService;
@@ -94,12 +92,12 @@ public class AuthGraphQlResolver {
       @GraphQLArgument(name = "user") final User user, @GraphQLArgument(name = "password") final String password) {
 
     final Authentication authentication = context.getAuthentication().block();
-    if (!AuthUtils.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)) {
+    if (!AuthUtils.hasAuthority(authentication, InvestRoles.ADMINISTRATOR_AUTHORITY)) {
       log.warn("Attempt by user {} to create or edit user {}", authentication.getName(), user.getUsername());
       return Mono.empty();
     }
 
-    Optional<UserAccount> existingAccount = securityService.getAccount(user.getUsername()).blockOptional();
+    final Optional<UserAccount> existingAccount = securityService.getAccount(user.getUsername()).blockOptional();
     Mono<UserAccount> newUser;
     if (existingAccount.isPresent()) {
       newUser = securityService.updateAccount(user.getUsername(), user.getName(), null, user.getRoles());
@@ -120,7 +118,7 @@ public class AuthGraphQlResolver {
 
     final Authentication authentication = context.getAuthentication().block();
 
-    if (AuthUtils.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)
+    if (AuthUtils.hasAuthority(authentication, InvestRoles.ADMINISTRATOR_AUTHORITY)
         || authentication.getName().equals(username)) {
       securityService.changePassword(username, password);
     } else {
@@ -134,7 +132,7 @@ public class AuthGraphQlResolver {
 
     final Authentication authentication = context.getAuthentication().block();
 
-    if (AuthUtils.hasAuthority(authentication, InvestRoles.ROLE_ADMINISTRATOR)) {
+    if (AuthUtils.hasAuthority(authentication, InvestRoles.ADMINISTRATOR_AUTHORITY)) {
       securityService.deleteAccount(username);
       log.info("Deleted user {}", username);
     } else {
