@@ -103,12 +103,14 @@ public class AuthGraphQlResolver {
     Mono<UserAccount> newUser;
     if (existingAccount.isPresent()) {
       newUser = securityService.updateAccount(user.getUsername(), user.getName(), null, user.getRoles());
+      if (password != null && !password.isEmpty()) {
+        securityService.changePassword(user.getUsername(), password);
+      }
     } else {
       newUser = securityService.findOrAddAccount(user.getUsername(), password, user.getName(), null, user.getRoles());
     }
 
     return newUser.map(AuthUtils::fromAccount);
-
   }
 
   @GraphQLMutation(name = "changePassword")
