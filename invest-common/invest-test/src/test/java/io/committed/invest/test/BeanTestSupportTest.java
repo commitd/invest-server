@@ -68,7 +68,6 @@ public class BeanTestSupportTest {
     assertThat(BeanTestSupport.generateValue(Class.class)).isNotNull();
 
     final String[] strings = BeanTestSupport.generateValue(String[].class);
-    assertThat(strings).hasAtLeastOneElementOfType(String.class);
     assertThat(strings).doesNotContainNull();
 
   }
