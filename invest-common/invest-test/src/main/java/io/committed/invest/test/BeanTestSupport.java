@@ -10,6 +10,12 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Helper for testing Jave Beans.
+ *
+ * Wraps and extends {@link BeanTester} which some additional factories for newer concepts such as
+ * Stream, Flux, etc.
+ */
 public class BeanTestSupport {
 
   private static final long MAX_TIME = 2 * System.currentTimeMillis();

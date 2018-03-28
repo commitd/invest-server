@@ -16,10 +16,29 @@ import javassist.CtMethod;
 import javassist.CtNewConstructor;
 import javassist.CtNewMethod;
 import javassist.NotFoundException;
+import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
+
+/**
+ * Testing of Lombon Data annotated classes.
+ *
+ * Lombok annotations generate a lot of hidden code, around 40% of the code in Invest is Lombok
+ * generated. In theory we shouldn't need to test these, but in reality they drag down our code
+ * coverage in Sonar, which does not offer a way to ignore generated code yet.
+ *
+ * This class performs a set of tests the Java POJO classes passed to it, for their adherence to the
+ * JavaBean standards. You can use it for non Lombok methods (which is useful) or for Lombok
+ * generated classes just to negate some code coverage issues.
+ *
+ * Ideally Sonar / Jacoco would be able to ignore generated methods, in which case this could be
+ * removed. Not that it doesn't produce 100% coverage, and if you have additional constructors / or
+ * other Lombok annotators such as {@link Builder} you will need to manually tests those (or accept
+ * the lack of code coverage in those areas).
+ *
+ */
 @Slf4j
 public class LombokDataTestSupport {
 
