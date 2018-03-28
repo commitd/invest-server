@@ -8,6 +8,11 @@ import org.springframework.stereotype.Service;
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 
+/**
+ * Service which combines a plugins settings with the overrides to create the final settings for
+ * that plugin.
+ *
+ */
 @Service
 public class PluginSettingsMerger {
 

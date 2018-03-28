@@ -13,6 +13,9 @@ import io.committed.invest.plugins.ui.host.data.InvestHostedUiExtensions;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Mount the hosted UI extension into the HTTP server.
+ */
 @Configuration
 @Slf4j
 public class UiRouter {

@@ -13,6 +13,10 @@ import io.committed.invest.extensions.actions.ActionDefinition;
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
 import lombok.Data;
 
+/**
+ * An InvestUiExtenion which is on the filesystem and defined by a JSON file.
+ *
+ */
 @Data
 public class PluginJson implements InvestUiExtension {
 

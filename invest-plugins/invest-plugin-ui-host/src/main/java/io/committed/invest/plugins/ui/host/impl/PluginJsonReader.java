@@ -10,6 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Service which reads plugin json from the filesystem
+ *
+ */
 @Service
 @Slf4j
 public class PluginJsonReader {

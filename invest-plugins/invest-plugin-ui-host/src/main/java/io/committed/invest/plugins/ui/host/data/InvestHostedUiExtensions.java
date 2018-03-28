@@ -4,6 +4,10 @@ import java.util.Collection;
 import java.util.Collections;
 import lombok.Data;
 
+/**
+ * Collection of extensions to be hosted.
+ *
+ */
 @Data
 public class InvestHostedUiExtensions {
 

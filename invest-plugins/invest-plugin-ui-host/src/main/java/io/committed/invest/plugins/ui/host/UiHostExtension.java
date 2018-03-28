@@ -5,6 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import io.committed.invest.extensions.InvestExtension;
 
+/**
+ * Extension which searchs for non-Java UI plugins (invest.json with index.html) on the filesystem
+ * and mounts them into the UI.
+ *
+ */
 @Configuration
 @EnableConfigurationProperties(UiHostSettings.class)
 @Import(value = {UiHostConfig.class})

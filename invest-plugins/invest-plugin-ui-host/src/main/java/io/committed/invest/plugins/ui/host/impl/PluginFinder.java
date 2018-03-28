@@ -12,6 +12,12 @@ import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Services which will walk the root directories to find candidates locations of plugins.
+ *
+ * This will find invest.sjon files in ZIP and as plain files.
+ *
+ */
 @Service
 @Slf4j
 public class PluginFinder {
