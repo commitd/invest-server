@@ -15,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Throwables;
 
 import graphql.ExecutionInput;
 import graphql.ExecutionInput.Builder;
@@ -129,6 +130,12 @@ public class GraphQlHandler {
   }
 
   private ExecutionResult performQuery(final ExecutionInput input) {
-    return graphQL.execute(input);
+    try {
+      return graphQL.execute(input);
+    } catch (final Exception e) {
+      log.warn("Failed to execute GraphQL: {}", Throwables.getRootCause(e).getMessage());
+      log.debug("Exception was: ", e);
+      throw e;
+    }
   }
 }
