@@ -8,6 +8,10 @@ import io.committed.invest.extensions.InvestExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * On boot log the extensions found.
+ *
+ */
 @Component
 @Slf4j
 public class ExtensionLogger {

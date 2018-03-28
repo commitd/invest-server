@@ -5,6 +5,12 @@ import org.springframework.stereotype.Service;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 
+/**
+ * Basic implementation of {@link UiUrlService}.
+ *
+ * UI plugins are hosted on /ui/{extension.getId()}.
+ *
+ */
 @Service
 public class SimpleUiUrlService implements UiUrlService {
 

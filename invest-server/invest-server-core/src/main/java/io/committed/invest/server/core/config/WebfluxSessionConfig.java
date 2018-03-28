@@ -7,6 +7,13 @@ import org.springframework.session.ReactiveMapSessionRepository;
 import org.springframework.session.config.annotation.web.server.EnableSpringWebSession;
 import org.springframework.web.server.session.HeaderWebSessionIdResolver;
 
+/**
+ * Configuration for Web Flux sessions.
+ *
+ * This will use inmemory session management (see {@link ReactiveMapSessionRepository}) and session
+ * in HTTP header {@link HeaderWebSessionIdResolver}.
+ *
+ */
 @Configuration
 @EnableSpringWebSession
 public class WebfluxSessionConfig {

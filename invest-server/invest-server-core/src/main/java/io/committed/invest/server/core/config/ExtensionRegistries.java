@@ -8,6 +8,11 @@ import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 
+/**
+ * Configuration bean generating a {@link InvestUiExtensionRegistry} of the UI extensions within the
+ * application.
+ *
+ */
 @Configuration
 public class ExtensionRegistries {
 

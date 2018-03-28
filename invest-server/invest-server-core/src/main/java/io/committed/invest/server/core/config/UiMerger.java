@@ -16,6 +16,14 @@ import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Mounts all the InvestUiExtensions to be served on the UI path.
+ *
+ * Location of the UI is configured through the {@link UiUrlService} implementation.
+ *
+ * This class simple configures WebFlux to host the resources.
+ *
+ */
 @Configuration
 @Slf4j
 public class UiMerger implements WebFluxConfigurer {

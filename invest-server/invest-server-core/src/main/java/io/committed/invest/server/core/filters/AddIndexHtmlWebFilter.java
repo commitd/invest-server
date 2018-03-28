@@ -7,6 +7,10 @@ import org.springframework.web.server.WebFilterChain;
 import io.committed.invest.core.services.UiUrlService;
 import reactor.core.publisher.Mono;
 
+/**
+ * Redirect from the '/' to the outer application index.html (which is not hosted on /)
+ *
+ */
 @Component
 public class AddIndexHtmlWebFilter implements WebFilter {
 

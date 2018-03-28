@@ -19,6 +19,10 @@ import io.committed.invest.server.data.services.DefaultDatasetRegistry;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.Exceptions;
 
+/**
+ * Configuration bean which will collate and create DataProviders, DataProviderFactories and
+ * registries for use in the rest of the application .
+ */
 @Configuration
 @Slf4j
 public class DataCreationConfig {

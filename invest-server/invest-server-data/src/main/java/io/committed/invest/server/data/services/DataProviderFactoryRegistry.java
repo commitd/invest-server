@@ -12,6 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Registry of DataProviderFactories which allows building on dataProvider from datasets.
+ *
+ */
 @Service
 @Slf4j
 public class DataProviderFactoryRegistry {

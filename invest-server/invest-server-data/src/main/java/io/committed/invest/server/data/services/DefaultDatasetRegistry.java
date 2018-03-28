@@ -6,6 +6,10 @@ import io.committed.invest.extensions.data.dataset.DatasetRegistry;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Implementation of {@link DatasetRegistry}.
+ *
+ */
 public class DefaultDatasetRegistry implements DatasetRegistry {
 
   private final List<Dataset> datasets;
