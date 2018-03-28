@@ -60,7 +60,7 @@ Points to note are:
 
 The final operation to enable Invest, or more correctly Spring, to find this plugin is to add a `spring.factories` file under `src/main/resources/META-INF`:
 
-```
+```ini
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.myplugin.MyPluginUiExtension
 ```
 
@@ -117,7 +117,7 @@ Creating a `@ConfigurationProperties` bean is covered in the [Extension points](
 
 If we create a new configuration class `MyPluginSettings` as below, and add `@EnableConfigurationProperties(MyPluginSettings.class)` to our `MyPluginUiExtension` class above:
 
-```
+```java
 
 @Configuration
 @ConfigurationProperties("invest.plugins.ui.myplugins")

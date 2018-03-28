@@ -60,7 +60,7 @@ public class UpperCaseChangerExtension implements InvestServiceExtension {
 
 As with all plugins we create the `spring.factories` file under `src/main/reources/META-INF/` so that Spring can find out extension:
 
-```
+```ini
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.casechanger.UpperCaseChangerExtension
 ```
 

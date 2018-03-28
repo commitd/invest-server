@@ -13,14 +13,14 @@ Note that you don't need this is you just want to develop plugins or build an ap
 
 ## Dependencies
 
-```
+```bash
 mkdir invest
 cd invest
 ```
 
 Clone the Git repositories. One contains the server side Java code and the other is for the UI elements:
 
-```
+```bash
 git clone git@bitbucket.org:committed/invest-java.git
 git clone git@bitbucket.org:committed/invest-js.git
 ```
@@ -29,7 +29,7 @@ This will create two sub directories, `invest-java` and `invest-js`.
 
 Install the UI dependencies, create the inter dependencies between the projects using Lerna:
 
-```
+```bash
 cd invest-js
 lerna bootstrap
 yarn build
@@ -41,7 +41,7 @@ We'd recommend that you test your build environment from the commandline first. 
 
 To compile the complete Invest code, the invest-java repository has scripts to help:
 
-```
+```bash
 cd invest-js
 yarn build
 cd invest-java
@@ -54,19 +54,17 @@ This will build the UI, copy it into the Java UI plugins, then build the Java pl
 
 You can build the UI alone with:
 
-```
+```bash
 cd invest-js
 yarn build
 ```
 
 To build the Java component alone run:
 
-```
+```bash
 cd invest-java
 mvn clean package install
 ```
-
-_TODO: Perhaps having single repo is better, as it means we can use the maven copy to do everything which is neater than having this build scripts. It would avoid non-obvious side effects such as the mvn clean deleting the UI output_
 
 ## Developing the Java server with an IDE
 
@@ -76,7 +74,7 @@ First import all the Maven projects by File > Import > Existing Maven Projects a
 
 Once imported, you can run the project from the IDE by running the `invest-server-app` project, specifically the `io.committed.invest.server.app.Invest` main class.
 
-This should run sucessfully, but it'll be a empty server. In fact it'll contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
+This should run successfully, but it'll be a empty server. In fact it'll contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
 
 * Stopping the application (if running)
 * Goto Debug Configurations (or Run Configuration equivalently) located under the Run menu (or as a drop down on the Debug/Run buttons on the toolbar).
@@ -95,7 +93,7 @@ You can think of the Invest JS code as being three separate areas. One is a set 
 
 When you do any development on the UI you'll probably want to run the application:
 
-```
+```bash
 yarn dev:app
 ```
 
@@ -103,7 +101,7 @@ Visiting http://localhost:3000 will present you with a live version of your in-d
 
 You may also want to have any changes in the libraries reflected in the application and any plugins you are developing.
 
-```
+```bash
 yarn dev:libs
 ```
 
@@ -113,7 +111,7 @@ _Gotcha: If you change the types, eg classes, interfaces, exports, of a project 
 
 The above commands will not run any UI plugins in development mode, see [UI development](invest/ui) for more information. In short, to develop the Invest UI plugins in `invest-js/plugins` you should first run the above commands then:
 
-```
+```bash
 cd invest-js/plugins/[plugin-name]
 yarn develop
 ```
@@ -134,14 +132,14 @@ If you are developing a third party Invest UI plugin you likely will not be plac
 
 Yarn can link your plugin directly to the development version of `invest-js` on your system. First we tell yarn about our projects:
 
-```
+```bash
 cd invest-js
 yarn link:libs
 ```
 
 Now goto you plugin directory, where your `package.json` will declare a dependency on say `invest-plugin`.
 
-```
+```bash
 cd my-new-plugin
 yarn link
 ```

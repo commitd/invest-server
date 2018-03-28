@@ -29,7 +29,7 @@ The interfaces have default implementation for many of their methods, leaving th
 
 The plugin class inmplementation should be annotated with @Configuration, as it is a configuration bean via auto configuration.
 
-```
+```java
 package com.example.myplugin;
 
 @Configuration
@@ -40,13 +40,13 @@ public class MyPlugin implements InvestServiceExtension {
 
 In order to make use of autoconfiguration the Spring needs to know where to look for this bean. It does this via the `spring.factories` resource. Create a text files in `src/main/resources/META-INF/spring.factories` which containst he following:
 
-```
+```ini
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.myplugin.MyPlugin
 ```
 
 If you have multiple plugins, one UI and one GraphQL) in the same JAR they can be included in as follows:
 
-```
+```ini
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.example.myplugin.MyPlugin,\
 com.example.another.MyOtherPlugin
@@ -60,7 +60,7 @@ Whilst the above produces a plugin, it does very little. The way to implement fu
 
 If your plugin is very simple (which is good), then you can expose a Spring bean directly
 
-```
+```java
 @Configuration
 public class MyPlugin implements InvestServiceExtension {
 
@@ -75,7 +75,8 @@ public class MyPlugin implements InvestServiceExtension {
 ```
 
 If you have multiple components you need to hook up, or you want some more complex profile/configuration decisions, you could put them in their own configuration class and `@Import` it:
-```
+
+```java
 @Configuration
 @Import(MyPluginConfig.class)
 public class MyPlugin implements InvestServiceExtension {
@@ -98,7 +99,7 @@ public class MyPluginConfig() {
 
 Or, more likely, you can also use `@ComponentScan` in order to pull in services:
 
-```
+```java
 @Configuration
 // Use ourselves as the base package...
 @ComponentScan(MyPlugin.class)
@@ -111,7 +112,7 @@ public class MyPlugin implements InvestServiceExtension {
 
 Finally you probably want to offer settings (ConfigurationPropertoes) which a user can set via the YAML or properties files, and the plugin will pick up:
 
-```
+```java
 @Configuration
 @EnableConfigurationProperties(MyPluginSettings.class)
 public class MyPlugin implements InvestServiceExtension {
@@ -136,5 +137,5 @@ public class MyPluginSettings {
 
 * You can have as many plugins in a single JAR as you like. 
 * You can have plugins within say the `invest-server-app.jar` (if you want to create a single JAR file)
-* There is no isolation between extensions, thus any extension can `@Autowire` any other extension. In future this might change, for example such that Service Extensions can access Data Extensions but not Api Extensions, however this feels like an unnecessary constraint.
+* There is no isolation between extensions, thus any extension can `@Autowired` any other extension. In future this might change, for example such that Service Extensions can access Data Extensions but not Api Extensions, however this feels like an unnecessary constraint.
  

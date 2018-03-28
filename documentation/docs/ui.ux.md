@@ -72,7 +72,6 @@ The outer frame is unaware of the function of the application or the details of 
 
 From a user experience perspective the important roles of the are the URL handling (to enable users to bookmark and refresh the page) and the overall application layout. The remaining aspects are framework engineering functions.
 
-
 ### The 'outer application' implementation
 
 The outer application, `invest-app`, is an instantiation of the Invest system. There is not reason that a developer or organisation couldn't replace it's UI to offer a different experience. For example, replacing Semantic UI to Material UI, changing the colour theme, or removing the side menu in preference for a top bar navigation.

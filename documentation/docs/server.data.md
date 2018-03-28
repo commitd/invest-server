@@ -68,14 +68,14 @@ In order to create the `TweetDataProvider` instance we create one or more `DataP
 
 Lets say we have a list of tweets in memory (hardcoded):
 
-public class MemoryDataProviderFactory extends DataProviderFactory<TweetDataProvider> {
+public class MemoryDataProviderFactory implements DataProviderFactory<TweetDataProvider> {
 
     public build(String dataset, String datasource, Map<String,Object> settings) {
         return new MemoryDataProvider();
     }
 }
 
-public class MemoryDataProvider extends TweetDataProvider {
+public class MemoryDataProvider implements TweetDataProvider {
 
     private static final List<Tweet> tweets = Arrays.asList(
         new Tweet(1L, 'User1', 'The first tweet', new Date()),
@@ -98,7 +98,7 @@ You might also have a Mongo implementation:
 
 ```
 
-public class MongoDataProviderFactory extends DataProviderFactory<TweetDataProvider> {
+public class MongoDataProviderFactory implements DataProviderFactory<TweetDataProvider> {
 
     public build(String dataset, String datasource, Map<String,Object> settings) {
         String mongoServerHost = settings.gettOrDefault("host", "localhost")
@@ -108,7 +108,7 @@ public class MongoDataProviderFactory extends DataProviderFactory<TweetDataProvi
     }
 }
 
-public class MongoTweetDataProvider extends TweetDataProvider {
+public class MongoTweetDataProvider implements TweetDataProvider {
 
     public MongoTweetDataProvider(String host, String databaseName) {
         // create mongo client etc

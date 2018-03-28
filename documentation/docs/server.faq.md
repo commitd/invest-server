@@ -9,13 +9,13 @@ draft: false
 
 ## Why Java 8? Java 9 has some interesting modularity support that Invest could benefit from.
 
-We intended to support Java 9 over time
+We intended to support Java 9 over time.
 
 At the time of starting the project Java 9 was only just released. We evaluated Java 9 and found it to be workable. However at that point the ecosystem was immature. The IDE's would not run on Java 9 and even building Java 9 in Maven was a rough experience. 
 
 Secondly we are aware it may take some time for users and organisations to ugrade to Java 9. We didn't want this to be a hurdle to actually using the software. 
 
-Finally, Java 9 is scheduled to end of support is before the end of our intiail development period. Thus we wanted to see what Java 10 holds. 
+Finally, Java 9 is scheduled to end of support is before the end of our install development period. Thus we wanted to see what Java 10 holds. 
 
 ## Why not use X (another plugin system / modularity system)
 

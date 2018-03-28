@@ -39,16 +39,12 @@ In order to develop you require the following pre-requisites to be installed:
 * [Lerna](https://lernajs.io/)
 * [Git](https://git-scm.com/) 
 
-*TODO: Add a long install guide?*
-
 You are likely to want to access existing data in a supported database, as such you should also install and setup the appropriate database for example:
 
 * [Mongo 3.4.4 or above](https://www.mongodb.com/)
 * [Elasticsearch 5](https://www.elastic.co)
 
 Of course you can use whatever deployment approach you want such as local installation, Docker constainers, or cloud services.
-
-*TODO: Include mini tutorial on this?*
 
 You'll propably want to use an IDE, we recommend:
 

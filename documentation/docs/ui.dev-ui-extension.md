@@ -23,20 +23,20 @@ Whilst there is no reason that Angular or others could not be used in Invest we'
 
 Ensure you have create-react-app installed:
 
-```
+```bash
 npm install -g create-react-app
 ```
 
 then create a new project (we've called it invest-ui-myplugin but you should pick something different):
 
-```
+```bash
 create-react-app invest-ui-myplugin --scripts-version=react-scripts-ts
 cd invest-ui-myplugin
 ```
 
 In order to use the live Development Plugin later, in `package.json` add `PORT=3001` to the front of the `start` script.
 
-```json
+```bash
    ...
 "scripts": {
    "start": "PORT=3001 react-scripts-ts start",
@@ -49,11 +49,9 @@ Add the `invest-plugin` project as a dependency, and we'll use `semantic-ui-reac
 yarn add invest-plugin semantic-ui-react semantic-ui-css
 ```
 
-**TODO: Proxy mirror...**
-
 You should now have a working web app, which you can test running visiting:
 
-```
+```bash
 yarn start
 ```
 
@@ -61,7 +59,7 @@ which should start the application in development mode and open a browser at htt
 
 You might see an error:
 
-```
+```bash
 ...invest-ui-myplugin/node_modules/@types/graphql/subscription/subscribe.d.ts
 (17,4): error TS2304: Cannot find name 'AsyncIterator'.
 ```
@@ -89,7 +87,7 @@ As convention dictates, we'll create a HelloWorld plugin. We can start clearing 
 * Delete App.tsx.test
 * Amend App.tsx to read:
 
-```typescript
+```ts
 import * as React from 'react';
 
 class App extends React.Component {
@@ -107,13 +105,13 @@ export default App;
 
 Now in `index.tsx` we'll add our CSS for `semantic-ui`, add near the top:
 
-```typescript
+```ts
 import 'semantic-ui-css/semantic.min.css'
 ```
 
 Then you can drop in a replacement `ReactDOM.render()`, at the bottom of the file:
 
-```typescript
+```ts
 import { InvestUiPlugin } from 'invest-plugin'
 
 ReactDOM.render(
@@ -136,7 +134,7 @@ Let's request some data form the server. However as the Invest Server may have n
 
 Our query will be:
 
-```
+```graphql
 query {
  applicationSettings {
    title
@@ -240,9 +238,6 @@ If you look at the browser now (http://localhost:3001 or the live development pl
 If you really want to see it say that in the http://localhost:3001 tab, use the debug view to place a breakpoint in the render function of Hello.tsx.
 
 
-## Interacting with others
-
-**TODO**
 
 ## Adding an action
 
@@ -309,22 +304,20 @@ If we view this in the Live development plugin we'll just see the extra line but
 
 You can use the Action Development Plugin to send an action to a Plugin. Select this, then select the Live Development Plugin. In the action textfield enter 'hello' and in the payload enter
 
-```
+```json
 {
-   name: 'John Smith'
+   "name": "John Smith"
 }
 ```
 
 Click Send to test the action, and the Live Development Plugin should reappear, with 'John Smith' now the name.
-
-**TODO: Write this dev UI plugin!**
 
 
 ## Build the UI plugin
 
 So far we've been running the plugin live, but let's build a production version. Stop the development version (Ctrl+C) and then run
 
-```
+```bash
 yarn build
 ```
 
@@ -334,13 +327,11 @@ We have developed and tested out application as far as we can, but its not packa
 
 Rather than repeat the instructions here, we refer to the [Server Java UI extension](server.dev-ui-extension.html) page. There we create a plugin of the same name, but with an index.html as a static Java resource (in src/main/resources).
 
-**TODO: Are we doing the action in that??? I think it makes more sense here**
-
 When using create-react-app or similar the `yarn build` process creates the index.html (and associated files). Therefore we can omit that stage of the Java UI extension guide and replace it with something that copies over the relevant files from the `yarn build` output. The `maven-resources-plugin` does that.
 
 We'll assume that you have created a directory structure file:
 
-```
+```bash
 js/
  invest-ui-myplugin/ <- package.json here    
 java/
@@ -350,7 +341,7 @@ java/
 
 To the Maven pom add:
 
-``` xml
+```xml
 
 <build>
    <plugins>
@@ -387,7 +378,7 @@ To the Maven pom add:
 
 Running the following will do a complete build:
 
-```
+```bash
 cd js/invest-ui-myplugin
 yarn build
 cd ../..

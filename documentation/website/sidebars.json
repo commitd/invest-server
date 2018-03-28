@@ -27,8 +27,7 @@
   "UI": {
     "Introduction": [
       "ui.index",
-      "ui.faq",
-      "ui.gotchas"
+      "ui.faq"
     ],
     "Concepts": [
       "ui.ux",
