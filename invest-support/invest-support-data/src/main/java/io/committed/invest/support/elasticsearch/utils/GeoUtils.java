@@ -12,6 +12,10 @@ import io.committed.invest.core.dto.analytic.GeoBox;
 import io.committed.invest.core.dto.analytic.GeoRadius;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Helper functions for dealing with ES geo queries.
+ *
+ */
 @Slf4j
 public final class GeoUtils {
 

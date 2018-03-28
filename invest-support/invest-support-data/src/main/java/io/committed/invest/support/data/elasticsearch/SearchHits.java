@@ -5,6 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import reactor.core.publisher.Flux;
 
+/**
+ * Represents SearchHits from ES.
+ *
+ * Required as it carries the results and total.
+ *
+ * @param <E> the result type
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -11,8 +11,33 @@ import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.extensions.data.providers.DataProvider;
+import io.committed.invest.extensions.data.providers.DataProviderFactory;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
+/**
+ * A base factory for creating Elasticsearch backed DataProviders.
+ *
+ * This class handles common settings, configuration of a ES client, etc for your Elasticsearch
+ * {@link DataProviderFactory}. This implementation si really for the case where you have an index
+ * and a type already and you want to configure that combination for your data provider.
+ *
+ *
+ * Implementations will still need to provide a build() function which will generally look like:
+ *
+ * <pre>
+ * ElasticsearchTemplate es = createElasticTemplate(settings);
+ * String index = getIndexName(settings);
+ * String type = getTypeName(settings);
+ * MyElasticserachDataProvider dp = new MyElasticserachDataProvider(es, index, type);
+ * return Mono.just(dp);
+ * </pre>
+ *
+ * If you want more help (not to use ElasticsearchTemplate directly), you could create an
+ * {@link ElasticsearchSupportService} in build and pass that to your data provider (instead of the
+ * template), see {@link AbstractElasticsearchServiceDataProvider}.
+ *
+ * @param <P> the type of DataProvider
+ */
 public abstract class AbstractElasticsearchDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 

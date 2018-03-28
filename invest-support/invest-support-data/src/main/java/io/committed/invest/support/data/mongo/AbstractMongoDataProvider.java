@@ -5,10 +5,18 @@ import org.reactivestreams.Publisher;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import io.committed.invest.extensions.data.providers.AbstractDataProvider;
+import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Base class for implementation generic Mongo {@link DataProvider}s.
+ *
+ * Implementors will generally use {@link AbstractMongoCollectionDataProvider} rather than this
+ * class.
+ *
+ */
 public abstract class AbstractMongoDataProvider extends AbstractDataProvider {
 
   private final MongoDatabase mongoDatabase;

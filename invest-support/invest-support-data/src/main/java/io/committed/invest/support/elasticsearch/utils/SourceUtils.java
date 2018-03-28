@@ -7,6 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Helpers to convert ES's JSON source results to POJO
+ *
+ */
 @Slf4j
 public class SourceUtils {
 

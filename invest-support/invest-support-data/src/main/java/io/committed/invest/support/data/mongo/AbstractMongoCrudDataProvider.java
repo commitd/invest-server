@@ -9,6 +9,15 @@ import com.mongodb.reactivestreams.client.MongoDatabase;
 import io.committed.invest.extensions.data.providers.CrudDataProvider;
 import reactor.core.publisher.Flux;
 
+/**
+ * A base class for implementing crud data providing utilites to help implementation of save/delete.
+ *
+ * Most users will have a Mongo collection which stores a POJO class in a collection, if so see
+ * {@link AbstractMongoCollectionDataProvider}.
+ *
+ * @param <R> the reference
+ * @param <T> the type to save
+ */
 public abstract class AbstractMongoCrudDataProvider<R, T> extends AbstractMongoDataProvider
     implements CrudDataProvider<R, T> {
 

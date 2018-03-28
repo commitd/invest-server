@@ -8,6 +8,24 @@ import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
+/**
+ * Base class for factories create Mongo DataProviders.
+ *
+ * This helps map common settings values and creates MongoDatabase from them.
+ *
+ *
+ * Implementations, which will typically create data provides based on
+ * {@link AbstractMongoCollectionDataProvider} need to provide build:
+ *
+ * <pre>
+ * final MongoDatabase database = buildMongoDatabase(settings);
+ * final String collectionName = getCollectionName(settings);
+ * return Mono.just(new MyMongoDataProviderProvider(dataset, datasource, database, collectionName));
+ * </pre>
+ *
+ *
+ * @param <P> the DataProvider type
+ */
 public abstract class AbstractMongoDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 

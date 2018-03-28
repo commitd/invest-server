@@ -6,16 +6,49 @@ import javax.sql.DataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
+import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.util.StringUtils;
 import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
 
+/**
+ * A factory for creating JPA DataProvider, with common settings.
+ *
+ * This will set up a Spring Data JPA Repository for the provided entityClass.
+ *
+ * An implement o
+ *
+ * <pre>
+ *
+ * MyJpaRepository repo = buildRepositoryFactory(settings).getRepository(MyJpaRepository.class)
+ * return Mono.just(new MyJpaDataProvider(myJpaRepository));
+ *
+ *
+ * </pre>
+ *
+ * where MyJpaRepository is type Spring Data JPA repository ANNOTED WITH NoRepository:
+ *
+ * <pre>
+ * &#64;NoRespoitoryBean
+ * public interface MyJpaRepository extends JpaRepository&gt;...$lt: {
+ *   ... additional mentions here
+ * }
+ * </pre>
+ *
+ * Note that {@link NoRepositoryBean} is required because we want this factory to create the bean,
+ * not Spring.
+ *
+ * In the above the MyJpaDataProvider is an implementation of your DataProvider interface, but it
+ * likely to be a pass through simply converting between your DB entity and your DTO.
+ *
+ * @param <P> the generic type
+ */
 public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
     extends AbstractDataProviderFactory<P> {
 
-  // Supress this obviously example password!
+  // Suppress this obviously password setting key (its not a password)!
   @SuppressWarnings("squid:S2068")
   public static final String PASSWORD = "password";
   public static final String USERNAME = "username";

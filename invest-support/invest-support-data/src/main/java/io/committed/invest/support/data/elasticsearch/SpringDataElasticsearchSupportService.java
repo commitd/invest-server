@@ -9,6 +9,16 @@ import io.committed.invest.support.elasticsearch.utils.SourceUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * An extension of {@link ElasticsearchSupportService} which add helpers for Spring Data
+ * Elasticsearch.
+ *
+ * This largely exists to support wrapping Spring Data {@link ElasticsearchSupportService} with
+ * reactive types. Though it also reduces some boilerplate around index/type specification when
+ * using {@link NativeSearchQueryBuilder}.
+ *
+ * @param <E> the element type backing the Spring Data {@link ElasticsearchSupportService}
+ */
 public class SpringDataElasticsearchSupportService<E> extends ElasticsearchSupportService<E> {
 
   private final ElasticsearchTemplate elastic;

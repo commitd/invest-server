@@ -16,9 +16,9 @@ import reactor.core.publisher.Mono;
  * as such this class might not help you.
  *
  *
- * @param <R>
- * @param <T>
- * @param <S>
+ * @param <R> the reference
+ * @param <T> the type of the data we will be passed to save
+ * @param <S> the POJO of the document in the collection
  */
 public abstract class AbstractMongoCrudCollectionDataProvider<R, T, S> extends AbstractMongoCollectionDataProvider<S>
     implements CrudDataProvider<R, T> {

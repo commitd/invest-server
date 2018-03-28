@@ -4,6 +4,13 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 
+/**
+ * Base class for Spring Data Mongo Repository backed DataProvider.
+ *
+ * @param <T> the type in the mongo collection
+ * @param <I> the id type
+ * @param <R> the the repository
+ */
 public abstract class AbstractSpringDataMongoRepositoryDataProvider<T, I, R extends ReactiveCrudRepository<T, I>>
     extends AbstractSpringDataMongoDataProvider {
 

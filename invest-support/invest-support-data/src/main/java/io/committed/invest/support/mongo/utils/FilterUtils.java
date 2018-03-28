@@ -6,7 +6,7 @@ import org.bson.conversions.Bson;
 import com.mongodb.client.model.Filters;
 
 /**
- * Utiltity classes for Mongo Filters.
+ * Utility classes for Mongo Filters.
  */
 public final class FilterUtils {
 

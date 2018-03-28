@@ -31,6 +31,21 @@ import io.committed.invest.support.elasticsearch.utils.TimeIntervalUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * A supporting class helping common functions in Elasticsearch.
+ *
+ * This is has helper implementation to bridge between Java and Elasticsearch implementations, and
+ * offers some standard implementation for aggegrations etc.
+ *
+ * It's a utility class which you can extend or use directly to provide 'Spring Data Elasticsearch'
+ * functions, but using plainer Java classes and with configuration for index-type.
+ *
+ * Whilst Spring Data Elasticsearch is good as a POJO mapper, we have found that treating ES in this
+ * was looses a lot of functionality and control from the ES queries. For example the ability to
+ * aggregate with results etc.
+ *
+ * @param <E> the POJO representation of the document in the index-type.
+ */
 public class ElasticsearchSupportService<E> {
 
   private static final String AGG = "agg";

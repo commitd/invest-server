@@ -8,6 +8,11 @@ import com.mongodb.reactivestreams.client.MongoDatabase;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * A base for DataProvider which access a single Mongo Collection .
+ *
+ * @param <T> the POJO representation of the documents in the collection
+ */
 public abstract class AbstractMongoCollectionDataProvider<T> extends AbstractMongoDataProvider {
 
   private final String collectionName;
