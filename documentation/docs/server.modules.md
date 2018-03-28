@@ -9,7 +9,7 @@ draft: false
 
 The Invest Java Server is a Maven project, which compromises multiple modules:
 
-* `invest-depenencies` is a BOM (Bill of Materials) which specifies the depenendencies for the rest of the project, and for all plugins. Where possible you should use this in your plugins to avoid including dependencies with different versions, thereby creating conflicts.
+* `invest-dependencies` is a BOM (Bill of Materials) which specifies the depenendencies for the rest of the project, and for all plugins. Where possible you should use this in your plugins to avoid including dependencies with different versions, thereby creating conflicts.
 * `invest-common` is a library of code which is common to both the server and plugins.
 * `invest-server` is a multi-module project, described below, which contains the Invest applications server.
 * `invest-plugin` is a library on which all plugins should depend.
