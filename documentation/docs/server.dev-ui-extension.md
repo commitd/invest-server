@@ -7,7 +7,7 @@ hide: false
 draft: false
 ---
 
-This section discusses the UI from the perspective of it being a Invest Server plugin. The UI compromises a Web UI (JavaScript/TypeScrupt, HTML, etc) plus the Java code around that as a plugin. This section looks from the perspective of the Java plugin, with the web development angle covered in [UI development](ui.dev-ui-extension.html). We will use a simple `index.html` example here together with the `invest.js` script library. Typically plugins will have more complex UI development behind them, but this guide shows that need not be the case.
+This section discusses the UI from the perspective of it being a Invest Server plugin. The UI compromises a Web UI (JavaScript/TypeScript, HTML, etc) plus the Java code around that as a plugin. This section looks from the perspective of the Java plugin, with the web development angle covered in [UI development](ui.dev-ui-extension.html). We will use a simple `index.html` example here together with the `invest.js` script library. Typically plugins will have more complex UI development behind them, but this guide shows that need not be the case.
 
 First create a maven project called `invest-ui-myplugin` as per the [Maven extension development guide](server.dev-maven.html).
 

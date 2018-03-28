@@ -12,11 +12,11 @@ Access to data in Invest is a departure from the standard Spring Data approach. 
 
 We want to support the following:
 
-* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not for any of the settings
+* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not for any of the settings.
 * At runtime (via configuration) a user can configure one or more instances of that connector.
 * Another developer building a service or API can request all the connectors which provide specific data access.
 
-As we see it, currentky Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
+As we see it, currently Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
 
 Note: you can still use pure Spring Data but you will be limited in whatever you code.
 
@@ -44,7 +44,7 @@ public class Tweet {
 ```
 
 
-In Invest this interface is called a **DataProvider** and inherits from the interface `DataProvider`.  For those familiar with Spring Data, a DataProvider looks a bit like a SPring Data `Repository` but it doesn't have any default methods (like `findAll()`)
+In Invest this interface is called a **DataProvider** and inherits from the interface `DataProvider`.  For those familiar with Spring Data, a DataProvider looks a bit like a Spring Data `Repository` but it doesn't have any default methods (like `findAll()`)
 
 ```
 public interface TweetDataProvider extends DataProvider {
@@ -59,10 +59,10 @@ public interface TweetDataProvider extends DataProvider {
 } 
 ```
 
-At this stage we've not specified how the data is retrieved or from where. A DataProvider has two methods `getDatabase` and `getDatasource`. These return a unique idnetifier for the database type (something like "mongo", "file", "mysql") and the original source of the data ("twitter", "mastadon"). These values can be anything, but they allow Invest to pick the best providers to use:
+At this stage we've not specified how the data is retrieved or from where. A DataProvider has two methods `getDatabase` and `getDatasource`. These return a unique identifier for the database type (something like "mongo", "file", "mysql") and the original source of the data ("twitter", "mastadon"). These values can be anything, but they allow Invest to pick the best providers to use:
 
 * It may be that for a particular query we want to use a specific database as we know its optimal.
-* If we have two database for the same source (hence containing the same information), we only want to use one as otherwise we'll get duplicate data.
+* If we have two databases for the same source (hence containing the same information), we only want to use one as otherwise we'll get duplicate data.
 
 In order to create the `TweetDataProvider` instance we create one or more `DataProviderFactory`. This will be database specific.
 

@@ -45,7 +45,7 @@ As with all plugins we create the `spring.factories` file under `src/main/reourc
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=io.committed.invest.plugins.hellogql.HelloGraphQlExtension
 ```
 
-This is not a GraphQl plugin but it does not offer any GraphQL endpoints.
+This is a GraphQl plugin but it does not offer any GraphQL endpoints.
 
 ## Creating GraphQL queries and mutations
 
@@ -146,5 +146,5 @@ Here are some pointers for working with GraphQL:
 * Where possible, avoid adding operations at the top (root query) unless they really belong there as `search` does above. For example, we could have created `getDocumentSize` alongside `search` but its far more powerful to have it placed onto a Document.
 * When implementing a operation consider where else it could be used for standardisation. For example should `search` have a `size` like document does?
 * GraphQL supports mandatory and optional arguments, `search` could have pagination (page / size) support here.
-* Often rather than returning something directly (eg `search` directly returns an array of `Documents`) it is better to return an intermediate object such as `SearchResults`. SearchResults can then offer additional mentionds itself, but it can be extended by others. 
-* Create a Maven project which has all you basic results from GraphQL operrations, for example `Document` in above. These can be classes or interfaces. By moving them into a common project others can extend them easily.
+* Often rather than returning something directly (eg `search` directly returns an array of `Documents`) it is better to return an intermediate object such as `SearchResults`. SearchResults can then offer additional functions itself, but it can be extended by others. 
+* Create a Maven project which has all your basic results from GraphQL operations, for example the `Document` class above. These can be classes or interfaces. By moving them into a common project others can extend them easily.

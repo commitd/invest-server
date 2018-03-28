@@ -7,7 +7,7 @@ hide: false
 draft: false
 ---
 
-A service extension is the most generic in Invest. It is effectively one or more Spring @Service / @Component which provide reusable functionality to the other plugins.
+A service extension is the most generic in Invest. It is effectively one or more Spring `@Service` / `@Component` which provide reusable functionality to the other plugins.
 
 It is probably unusual to implement a service plugin, as most plugins will be either to add data, ui or graphql. In particular most services are likely offered to the UI via a GraphQL endpoint. 
 
@@ -37,7 +37,7 @@ That's it.
 
 Create a second Maven project, this time [as a Invest plugin](./dev-maven), called `invest-service-uppercasechanger`. This should include the `invest-service-casechanger-interface`.
 
-We create a class`UpperCaseChangerExtension` which is the extension definition under `io.committed.invest.plugins.casechanger`:
+We create a class `UpperCaseChangerExtension` which is the extension definition under `io.committed.invest.plugins.casechanger`:
 
 ```java
 package io.committed.invest.plugins.casechanger;
@@ -79,7 +79,7 @@ This will now build into a Invest JAR plugin to be used in other applications.
 
 ## Accessing the Service API in another plugin
 
-In another plugin (eg a GraphQL plugin) you will want to access this `CaseChanger` functionality. In that plugin, you should include the `invest-service-myserviceinterface` as a Maven dependency. Then, as in standard Speing, you should autowire this interface.
+In another plugin (eg a GraphQL plugin) you will want to access this `CaseChanger` functionality. In that plugin, you should include the `invest-service-myserviceinterface` as a Maven dependency. Then, as in standard Spring, you should autowire this interface.
 
 ```java
 @InvestGraphQlService 

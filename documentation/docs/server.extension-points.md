@@ -17,17 +17,17 @@ The parent, and most generic, extension interface is `InvestExtension`. From thi
 * `InvestDataExtension` provides data to the system (for example, connecting to a specific database to get specific data out)
 * `InvestServiceExtension` provides a back end service (for example, provides an algorithm which another API or GraphQL extension might utilises)
 
-These specialisation may not contain more methods than the `InvestExtension` however it in important to extend the correct class as the different types are used by Invest server to wire the application and plugins together.
+These specialisations may not contain more methods than the `InvestExtension` however it is important to extend the correct class as the different types are used by Invest server to wire the application and plugins together.
 
-Spring does not know where to look for plugins. One way to find extensions would be through classpath scanning, but this is timeconsuming as the number of dependencies grow. Inside we use Spring autoconfiguration mechanism, much like Spring's starter kits too.
+Spring does not know where to look for plugins. One way to find extensions would be through classpath scanning, but this is time consuming as the number of dependencies grow. Instead we use Spring autoconfiguration mechanism, much like Spring's starter kits too.
 
 ## Implementing a plugin
 
 In order to implement a plugin you should create a class which implements one of the above. 
 
-The interfaces have default implementation for many of their methods, leaving the developer able to postpone some aspects of customisations until later if they follow the conventions. We recommend that plugin developers override methods which provide support to the user (eg the description of what the plugin does). 
+The interfaces have default implementation for many of their methods, leaving the developer able to postpone some aspects of customisation until later if they follow the conventions. We recommend that plugin developers override methods which provide support to the user (eg the description of what the plugin does). 
 
-The plugin class inmplementation should be annotated with @Configuration, as it is a configuration bean via auto configuration.
+The plugin class implementation should be annotated with @Configuration, as it is a configuration bean via auto configuration.
 
 ```java
 package com.example.myplugin;
@@ -38,7 +38,7 @@ public class MyPlugin implements InvestServiceExtension {
 }
 ```
 
-In order to make use of autoconfiguration the Spring needs to know where to look for this bean. It does this via the `spring.factories` resource. Create a text files in `src/main/resources/META-INF/spring.factories` which containst he following:
+In order to make use of auto configuration Spring needs to know where to look for this bean. It does this via the `spring.factories` resource. Create the text file `src/main/resources/META-INF/spring.factories` which contains the following:
 
 ```ini
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.myplugin.MyPlugin

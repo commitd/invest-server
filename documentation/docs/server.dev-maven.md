@@ -1,6 +1,6 @@
 ---
 id: server.dev-maven
-title: "Developing extension with maven"
+title: "Developing extension with Maven"
 date: "2017-10-20"
 order: 3500
 hide: false
@@ -28,7 +28,7 @@ src/
 
 ## Setting up the pom
 
-Firstly for the pom, lets add the version information as a property which takes it easier to manage:
+Firstly for the pom, lets add the version information as a property which makes it easier to manage:
 
 ```xml
   <properties>
@@ -61,7 +61,7 @@ Invest uses Spring Boot under the covers, and in order to help manage dependency
   </dependencyManagement>
 ```
 
-Whilst we don't generally use non-production versions of Spring, you can add these repositories to ensure that you can pick the any version of Invest without worrying about the underlying Spring versions we are using (at least from a dependency resolution perspective).
+Whilst we don't generally use non-production versions of Spring, you can add these repositories to ensure that you can pick any version of Invest without worrying about the underlying Spring versions we are using (at least from a dependency resolution perspective).
 
 ```xml
    <repositories>
