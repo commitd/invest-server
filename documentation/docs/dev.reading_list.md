@@ -11,27 +11,27 @@ Invest uses a lot of standard technologies and practises. We recommend you famil
 
 * [GraphQL](http://graphql.org/) is a query language which provides the API between the UI and the server.
 
-If you want to work on the server side:
+If you want to work on the server-side:
 
-* [Java 8](https://www.oracle.com/uk/java/index.html) is the language used on the server side.
+* [Java 8](https://www.oracle.com/uk/java/index.html) is the language used for the server.
 * [Spring Boot](https://projects.spring.io/spring-boot/), is the underlying framework and specifically we use Webflux and Spring Data.
 * [GraphQL SQPR](https://github.com/leangen/graphql-spqr) which is an annotation based approach to creation of GraphQL services in Java.
 * [Project Reactor](https://projectreactor.io/) and in particular the use of `Flux` and `Mono`.
-* [Maven](https://maven.apache.org/) for server side dependency management and building plugins.
+* [Maven](https://maven.apache.org/) for server-side dependency management and building plugins.
 
 If you want to work on the UI, we'd suggest reading about:
 
-* [Yarn](https://yarnpkg.com/lang/en/) is used for dependency packaging our UI 
+* [Yarn](https://yarnpkg.com/lang/en/) is used for dependency packaging our UI.
 * [React](https://reactjs.org/) is a library for building user interfaces for the Web.
 * [Typescript](https://www.typescriptlang.org/) is an Javascript like language adding classes and interfaces.
 * [React Semantic UI](https://react.semantic-ui.com) is a library of a styled UI components for React.
 * [Apollo and React-Apollo](https://www.apollographql.com) is a Javascript client for working with GraphQL.
 
-On the UI side you don't have to use these, but we do! Note that UI plugins also have a small Java and Maven component.
+On the UI side you don't have to use these but we do! 
 
 ## Developing
 
-In order to develop you require the following pre-requisites to be installed:
+In order to develop, you require the following pre-requisites to be installed:
 
 * [Java 8](https://www.oracle.com/uk/java/index.html)
 * [Maven](https://maven.apache.org/)
