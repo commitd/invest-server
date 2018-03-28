@@ -7,11 +7,49 @@ hide: false
 draft: false
 ---
 
-Invest plugins are packaged as JAR files and deployed through the Invest Server. Invest UI Plugins are not different. As such they have `two project`, the first is the web project (written for example in Javascript or Typescript, HTML, CSS) and the second is a Java module which defines the plugin.
 
-Here we will discuss the process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. The Java side is covered [elsewhere](server.dev-ui-extension.html), which uses a very simple file based `index.html` with `script` tags to illustrate the process.
 
-If you are developing UI component you should read both, but perhaps start with the one that corresponds to your web development approach.
+This section discusses the UI from the perspective of it being hosted served directly from the file system by Invest, specifically the Invest Ui Host plugin.  Here we will discuss the process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. 
+
+In its simplest form here an UI extension need only meet two conditions. It must have:
+
+* An `index.html` which will be the initial file displayed when the plugin is viewed
+* An `invest.json` which defines some metadata about the plugin.
+
+You may also host the UI through its own Java module which is covered [elsewhere](server.dev-ui-extension.html). That uses a very simple file based `index.html` with `script` tags to illustrate the process. If you are developing UI component you should read both, but perhaps start with the one that corresponds to your web development approach.
+
+## Options for create a plugin
+
+You can create the `index.html` in any way. It has no prescribed format or content. 
+
+We'd recommend using `create-react-app` and specifically the Typescript variant [create-react-ts](https://github.com/Microsoft/TypeScript-React-Starter). Using this approach you can take advantages of modern Javascript/Typescript approach such as yarn package management, typing, etc. You can use variant `invest-*` libraries in your applications. Typically you wish to include `invest-components`, `invest-types` and `invest-plugins`.  We'd recommend you read the Ketos documentation for more example of building plugins in this manner.
+
+Alternatively you can craft the `index.html` as a traditional web page. In this case you will want to to include the `invest.js` file which is hosted on the server and gives you access to some of the functions that the various `invest-*` libraries have. You can include these in your index.html via the `script`/`link` tags:
+
+```html
+<html>
+    <head>
+        <!-- ALl of these are automatically hosted for you by the server -->
+        <link rel="stylesheet" type="text/css" href="/ui/libs/semantic-2.2.css">
+        <script src="/ui/libs/react-16.0.js"></script>
+        <script src="/ui/libs/react-dom-16.0.js"></script>
+        <script src="/ui/libs/semantic-2.2.js"></script>
+        <script src="/ui/libs/jquery-3.2.js"></script>
+        <script src="/ui/libs/invest.js"></script>
+
+        <!-- You have have other scripts/css you can just place them alongside your index.html -->
+    </head>
+    <body>
+
+        <h1>My plugin</h1>
+
+        <script>
+            // Your javascript code could go here... 
+        </script>
+
+    </body>
+</html>
+```
 
 ## Which web development approach?
 
@@ -319,94 +357,55 @@ So far we've been running the plugin live, but let's build a production version.
 yarn build
 ```
 
-## Wrapping in a Java module
+## Invest.json
 
-We have developed and tested out application as far as we can, but its not packaged as a Invest JAR plugin. Therefore we can only access it inside the application through the Live Development Plugin.
+The invest.json has a standard layout of fields:
 
-Rather than repeat the instructions here, we refer to the [Server Java UI extension](server.dev-ui-extension.html) page. There we create a plugin of the same name, but with an index.html as a static Java resource (in src/main/resources).
-
-When using create-react-app or similar the `yarn build` process creates the index.html (and associated files). Therefore we can omit that stage of the Java UI extension guide and replace it with something that copies over the relevant files from the `yarn build` output. The `maven-resources-plugin` does that.
-
-We'll assume that you have created a directory structure file:
-
-```bash
-js/
- invest-ui-myplugin/ <- package.json here    
-java/
- invest-ui-myplugin/ <- pom.xml here 
+```json
+{
+    "id": "unique_plugin_id",
+    "name": "Friendly name",
+    "description": "Short description",
+    "icon": "user",
+    "roles": ["USER", "DEV", "ADMIN"],
+    "actions": [
+                {
+            "title": "Short name",
+            "description": "What is does",
+            "action": "the.action.name"
+        }
+    ]
+}
 ```
 
+Here `"id"` should uniquely reference you plugin. It should be URL safe and 
 
-To the Maven pom add:
+The `"name"` and `"description"` are displayed in the menu sidebar. The name alone should be very clear to the user, but the description allows a little more information to help the user understand what the view will display.
 
-```xml
+The `"icon"` is a [Semantic UI icon](https://react.semantic-ui.com/elements/icon) which will be displayed next to the name in the side bar. 
 
-<build>
-   <plugins>
-     <!-- Copy the UI build output to the resources area on the classpath -->
-     <plugin>
-       <artifactId>maven-resources-plugin</artifactId>
-       <version>3.0.2</version>
-       <executions>
-         <execution>
-           <id>copy-resources</id>
-           <!-- Run the copy After the compilation, but before we package
-             the JAR up -->
-           <phase>process-classes</phase>
-           <goals>
-             <goal>copy-resources</goal>
-           </goals>
-           <configuration>
-             <outputDirectory>${project.basedir}/target/classes/ui/invest-ui-myplugin</outputDirectory>
-             <resources>
-               <resource>
-                 <directory>../../js/invest-ui-myplugin/build/dist</directory>
-                 <filtering>false</filtering>
-               </resource>
-             </resources>
-           </configuration>
-         </execution>
-       </executions>
-     </plugin>
+The roles specify which user roles should be plugin be displayed to. Typically this will be left empty, meaning everyone. Certain plugins will be for DEVelopers or ADMINistrators only.
 
-   </plugins>
- </build>
+The "actions" section declare which actions can be sent to this plugin. An action in an indication that the plugin should so something in response to input. An action as a payload which carries information about tha action, for example the document to display or the user id to edit. The `"title"` and `"description"` of the action can display to users before the click the action (in another plugin), so should be clear. They might say "Edit user" for example. See the action is the string constant. It is freeform, definied by your applicaiton and your plugins. Obviously the calling plugin and the receiveing plugin need to use the same string. Typically the actions are of the form 'datatype.method' such as 'document.view' or 'user.edit'`.  Ketos documentation for some illustration of actions.
 
- ```
+In the above example we had an action called `hello`. Our invest.json might look like:
 
-Running the following will do a complete build:
-
-```bash
-cd js/invest-ui-myplugin
-yarn build
-cd ../..
-cd java/invest-ui-myplugin
-mvn clean package
+```json
+{
+    "id": "hello",
+    "name": "Hello",
+    "description": "Displays hello",
+    "icon": "comments",
+    "roles": [],
+    "actions": [
+                {
+            "title": "Hi",
+            "description": "Hi to you",
+            "action": "hello"
+        }
+    ]
+}
 ```
 
-The result will be a JAR file in the `ava/invest-ui-myplugin/target` folder which contains the complete application.
-
-## A note on different directory structures
-
-If you are developing a UI plugin and have to Javascript and Java projects, how is it best to organise your code? It depends a little on how you view your plugins.
-
-If you consider each plugin to be standalone, then likely you have it within a separate source code repository. This has the benefit that each plugin is separate and contained, independently versioned, and it is easier to trigger deployment or testing against commits. However it can lead to a lot of small repositories.
-
-In this case there are several way to consider organising your code:
-
-* Consider maven as the super project, as it wraps the javascript. In this case place the web project under src/main/web (alongside src/main/java). The build process can be fully automated through maven to first build the src/main/java, then copy the result from src/main/web/build into the src/main/resources/ui/invest-ui-myplugin (or into target/classes/ui/invest-ui-myplugin directly).
-* Spilt the root folder into java and js subdirectories. Create a build script to first build JS, copy the resources, and then build Maven.
-
-If you have many plugins you might place them in the same repository. If you do you might either:
-* Have a folder for each plugin; or
-* Separate the java from the javascript projects, that is have a top level java directory and another web directory. Each will have a 'invest-ui-myplugin' folder one will be a maven module for the java aspect and the other yarn/npm module for the web/js aspect.
-
-If you adopt the former approach then this really is no different to the 'repo per plugin' method as above. If you adopt the latter, then you have the benefits of being able to use yarn workspaces/lerna, plus Maven parents to orchestrate and link all your plugin builds - which better dependency and interdependency control.
-
-They are no right or wrong answers here, however we have found:
-
-* It is tedious to work with many repositories, especially for very small plugins when they form part of a larger application.
-* Using maven/gradle as a build process for Javascript seems attractive but requires more thought and configuration than a simple build shell script.
-* It is nice to have the javascript separate (and obvious) so that 'yarn start' can be run (rather than hiding this within a maven wrapper)
-
+Your build system will determine where you place your `invest.json`. It needs to be configured such that it is output to the same directory as your `index.html`. For `create-react-app` type projects place it in the `public/` directory.
 

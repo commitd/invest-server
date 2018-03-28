@@ -15,8 +15,6 @@ The Invest Java Server is a Maven project, which compromises multiple modules:
 * `invest-plugin` is a library on which all plugins should depend.
 * `invest-plugins` contains a set of Invest Plugins which are largely core plugins required to offer standard functionality.
 
-In addition the `invest-archetypes` directory contains Maven archetypes which help developers get started within plugin creation.
-
 The `invest-server` module compromises:
 
 * `invest-server-core` a set of code which which is shared by server modules, but not with plugins.

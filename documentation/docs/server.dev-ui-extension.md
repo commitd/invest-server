@@ -1,6 +1,6 @@
 ---
 id: server.dev-ui-extension
-title: "Developing UI extensions"
+title: "Developing UI extensions with Java"
 date: "2017-10-20"
 order: 3500
 hide: false
