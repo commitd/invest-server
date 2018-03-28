@@ -23,7 +23,7 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
-
+import io.committed.invest.core.exceptions.InvestRuntimeException;
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.server.graphql.data.GraphQlQuery;
 
@@ -133,9 +133,9 @@ public class GraphQlHandler {
     try {
       return graphQL.execute(input);
     } catch (final Exception e) {
-      log.warn("Failed to execute GraphQL: {}", Throwables.getRootCause(e).getMessage());
+      final Throwable rootCause = Throwables.getRootCause(e);
       log.debug("Exception was: ", e);
-      throw e;
+      throw new InvestRuntimeException(rootCause.getMessage());
     }
   }
 }
