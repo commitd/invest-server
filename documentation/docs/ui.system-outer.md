@@ -11,17 +11,17 @@ This section discusses the application and Outer Frame loading process.
 
 ## Loading and bootstrapping the application
 
-The application, and specifically the Outer Frame, is served by the Invest Server, as a HTTP web server. The Invest Server is configured to serve the outer frame application from the root (http://server/) context.
+The application, and specifically the Outer Frame, is served by the Invest Server (a HTTP web server). The Invest Server is configured to serve the outer frame application from the root (http://server/) context.
 
-On load, the Outer Frame application has no data itself. Therefore its initial task is to download some configuration information from the server via the API. This initial request includes settings, a list of plugins, etc. The application settings provide branding information (eg the application name to display). 
+On load, the Outer Frame application has no data itself. Therefore its initial task is to download some configuration information from the server via the API. This initial request includes settings, a list of plugins, etc. The application settings provide branding information (e.g. the application name to display). 
 
 All access is performed by the GraphQL endpoint on the server. Each component in the application makes GraphQL requests the for information they need (or indeed for information they believe that other plugins, etc will need).
 
 ![Outer Frame bootstrap process](assets/images/ui-sysdesign-outerframe-bootstrap.png)
 
-GraphQL requests are made using the React Apollo GraphQL framework. When the response is returned, the data is pushed into the Redux store via a Redux action. We adopt this approach so that we have certain information always available, without needing to make repeated requests to the server. As each GraphQL request is a HTTP request, there is HTTP middleware (link in Apollo) which is used to add session information (for authentication purposes).
+GraphQL requests are made using the React Apollo GraphQL framework. When the response is returned, the data is pushed into the Redux store via a Redux action. We adopt this approach so that certain information always available, without needing to make repeated requests to the server. As each GraphQL request is a HTTP request, there is HTTP middleware (link in Apollo) which is used to add session information (for authentication purposes).
 
-When the data responses are returned, the application can be displayed. The application renders a list of available plugins and authentication options. If the URL that a plugin should be displayed, that is we are loading from a bookmark or shared link, the application will load and display that plugin.
+When the data responses are returned, the application can be displayed. The application renders a list of available plugins and authentication options. If the URL states that a plugin should be displayed the application will load and display that plugin. This allows the use of bookmarks or shared links to specific application pages.
 
 ## Hosting the plugins
 
@@ -39,11 +39,11 @@ In fact only the following is permitted:
 
 * Allow Javascript execution as this is fundamental to most plugins.
 * Allow form submission in order to allow the plugin developer to present forms to the user.
-* Displaying alert notification, as although these is not a user friendly way to display information or a warning, is is simple for the developer and is a sensible way of telling the user that the operation they are about to perform may have dangerous side effects.
+* Displaying alert notification, as although these is not a user friendly way to display information or a warning, it is simple for the developer and is a sensible way of telling the user that the operation they are about to perform may have dangerous side effects.
 
 ## Communication between the Outer Frame and a plugin
 
-Once the `iframe` has loaded, the Outer Frame creates a two way connection between it and the plugin frame. 
+Once the `iframe` has loaded, the Outer Frame creates a two-way connection between it and the plugin frame. 
 
 ![Outer Frame notifications](assets/images/ui-sysdesign-outerframe-notify.png)
 
@@ -57,9 +57,9 @@ When a plugins wishes to make an API request to the server, it is actioned by a 
 
 There are three ways the handler may action a request:
 
-* If the request is a GraphQL operation then it is passed to the Outer Frame's GraphQL service. This service is in effect a proxy to the Invest Server's GraphQL endpoint, but which is enhanced with a number of additional operations which the Outer Frame can action directly, for example getting a list of plugins. Having a local GraphQL service does add complexity but it reduces the need for a server round trip and it allows for specialised, state aware responses. For example the Outer Frame will only list the UI Plugins for which the user has access.
-* We provide a `fetch` operation as part of the plugin API. This replaces the native `fetch` which is available in the brwoser. The reason for this replacement is due to the effect of sandboxing and also because we wish to add authentication information to each HTTP request (when it is directed to the Invest Server).
-* Some requests are wholly for the Outer Frame, for example navigation. Within the Outer Frame we map requests to Redux Actions. For each request, as actions are dispatched to the Redux store, which is it picked up by a Redux Saga to be actioned. The Saga has full access to the application state.
+* If the request is a GraphQL operation then it is passed to the Outer Frame's GraphQL service. This service is, in effect, a proxy to the Invest Server's GraphQL endpoint, but which is enhanced with a number of additional operations which the Outer Frame can action directly. For example, getting a list of plugins. Having a local GraphQL service does add complexity but it reduces the need for a server round trip and it allows for specialised, state aware responses. For example, the Outer Frame will only list the UI Plugins for which the user has access.
+* We provide a `fetch` operation as part of the plugin API. This replaces the native `fetch` which is available in the browser. The reason for this replacement is due to the effect of sandboxing and also because we wish to add authentication information to each HTTP request (when it is directed to the Invest Server).
+* Some requests are wholly for the Outer Frame, for example navigation. Within the Outer Frame we map requests to Redux Actions. For each request, an actions is dispatched to the Redux store, which is  picked up by a Redux Saga to be actioned. The Saga has full access to the application state.
 
 ![Outer Frame request](assets/images/ui-sysdesign-outerframe-request.png)
 
