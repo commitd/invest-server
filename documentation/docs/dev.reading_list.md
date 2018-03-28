@@ -46,7 +46,7 @@ You are likely to want to access existing data in a supported database, as such 
 
 Of course you can use whatever deployment approach you want such as local installation, Docker constainers, or cloud services.
 
-You'll propably want to use an IDE, we recommend:
+You'll probably want to use an IDE, we recommend:
 
 * [Visual Studio Code](https://code.visualstudio.com/) or [Atom](https://atom.io/) for the UI (with appropriate Typescript, etc plugins)
 * [Intellij IDEA](https://www.jetbrains.com/idea/) or [Eclipse](https://www.eclipse.org/) for server development. We'd recommend the Eclipse based [Spring Tool Suite](https://spring.io/tools) instead of plain Eclipse since it has the additional components needed.
