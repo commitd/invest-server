@@ -122,8 +122,6 @@ ReactDOM.render(
 )
 ```
 
-**TODO : Check type dfn on published files...**
-
 Check back in the browser to see that 'Hello World' is displayed.
 
 Run Invest Server with the live development plugin. Clicking on the Live Development plugin will show the same Hello World.

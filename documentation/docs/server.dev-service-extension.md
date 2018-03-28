@@ -139,8 +139,6 @@ public class ExampleGraphQLWithList {
 Or we can use another configuration bean to help simplify the configuration. This can be used with the previous `ExampleGraphQL` unchanged:
 
 ```java
-    // TODO: Does this work??? So its there another Spring way of doing this...
-
 @Configuration
 public class CaseChangerHelperConfig {
 

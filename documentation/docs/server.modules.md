@@ -21,5 +21,5 @@ The `invest-server` module compromises:
 
 * `invest-server-core` a set of code which which is shared by server modules, but not with plugins.
 * `invest-server-app` the runnable application and its configuration.
-* `invest-server-data` a plugin which provides the data services to the application. TODO: Move to an actual plugin!
+* `invest-server-data` a plugin which provides the data services to the application. 
 * `invest-server-libs` bundles a set of third party library dependencies (so that other plugins don't have too, thus keeping size of individual plugins down)
