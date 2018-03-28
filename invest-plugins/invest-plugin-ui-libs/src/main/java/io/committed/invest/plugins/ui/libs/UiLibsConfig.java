@@ -7,6 +7,9 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+/**
+ * Configuration to host the src/main/resources/ui/libs classpath on the /ui/libs URL.
+ */
 @Configuration
 public class UiLibsConfig {
 

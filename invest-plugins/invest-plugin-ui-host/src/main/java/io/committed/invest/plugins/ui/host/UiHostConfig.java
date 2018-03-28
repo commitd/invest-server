@@ -11,6 +11,10 @@ import io.committed.invest.plugins.ui.host.impl.PluginZipReader;
 import io.committed.invest.plugins.ui.host.impl.UiFinder;
 import io.committed.invest.plugins.ui.host.impl.UiRouter;
 
+/**
+ * Configuration bean to wired up services in this extension
+ *
+ */
 @Configuration
 @Import({UiRouter.class, UiFinder.class})
 public class UiHostConfig {

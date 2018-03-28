@@ -21,6 +21,9 @@ import io.committed.invest.core.services.UiUrlService;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Configuration for the Live UI which performs forwarding.
+ */
 @Configuration
 public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
 

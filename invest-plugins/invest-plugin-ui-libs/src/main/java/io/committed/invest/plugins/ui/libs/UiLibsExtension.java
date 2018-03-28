@@ -13,7 +13,7 @@ import io.committed.invest.extensions.InvestExtension;
  */
 @Configuration
 @Import(UiLibsConfig.class)
-public class VesselUiLibsExtension implements InvestExtension {
+public class UiLibsExtension implements InvestExtension {
 
 
 
