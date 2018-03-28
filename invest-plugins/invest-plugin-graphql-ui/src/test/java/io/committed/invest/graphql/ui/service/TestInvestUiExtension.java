@@ -2,12 +2,14 @@ package io.committed.invest.graphql.ui.service;
 
 import java.util.Collection;
 import java.util.Optional;
-import io.committed.invest.extensions.InvestUiExtension;
-import io.committed.invest.extensions.actions.ActionDefinition;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import io.committed.invest.extensions.InvestUiExtension;
+import io.committed.invest.extensions.actions.ActionDefinition;
 
 @Data
 @AllArgsConstructor

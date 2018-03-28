@@ -10,5 +10,4 @@ public class ActionDevelopmentUIExtensionTest {
     // but the files are not in source control so any real testing is impossible
     new ActionDevelopmentUIExtension();
   }
-
 }

@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * A key-value class.
- */
+/** A key-value class. */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

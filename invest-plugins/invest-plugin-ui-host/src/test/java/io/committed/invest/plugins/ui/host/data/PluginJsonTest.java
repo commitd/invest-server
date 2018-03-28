@@ -1,8 +1,11 @@
 package io.committed.invest.plugins.ui.host.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
+
 import org.junit.Test;
+
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
 
 public class PluginJsonTest {
@@ -20,12 +23,8 @@ public class PluginJsonTest {
   public void testSingle() {
     final PluginJson p = new PluginJson();
 
-    p.setActions(Arrays.asList(
-        SimpleActionDefinition.builder()
-            .action("test")
-            .build()));
+    p.setActions(Arrays.asList(SimpleActionDefinition.builder().action("test").build()));
 
     assertThat(p.getActions()).hasSize(1);
   }
-
 }

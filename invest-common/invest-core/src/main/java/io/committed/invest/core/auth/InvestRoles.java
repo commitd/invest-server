@@ -2,9 +2,7 @@ package io.committed.invest.core.auth;
 
 import java.util.Optional;
 
-/**
- * Invest Security Roles for Spring and UI
- */
+/** Invest Security Roles for Spring and UI */
 public class InvestRoles {
 
   private InvestRoles() {
@@ -12,7 +10,6 @@ public class InvestRoles {
   }
 
   private static final String AUTHORITY_PREFIX = "ROLE_";
-
 
   public static final String ADMINISTRATOR = "ADMIN";
   public static final String USER = "USER";
@@ -26,7 +23,6 @@ public class InvestRoles {
   public static final String ADMINISTRATOR_AUTHORITY = fromRoleToAuthority(ADMINISTRATOR);
   public static final String USER_AUTHORITY = fromRoleToAuthority(USER);
   public static final String DEV_AUTHORITY = fromRoleToAuthority(DEV);
-
 
   public static boolean isAuthorityARole(final String authority) {
     return authority.startsWith(AUTHORITY_PREFIX);

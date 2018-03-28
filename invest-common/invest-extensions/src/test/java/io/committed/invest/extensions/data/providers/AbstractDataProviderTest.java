@@ -1,6 +1,7 @@
 package io.committed.invest.extensions.data.providers;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class AbstractDataProviderTest {
@@ -28,7 +29,5 @@ public class AbstractDataProviderTest {
     public String getDatabase() {
       return "db";
     }
-
   }
-
 }

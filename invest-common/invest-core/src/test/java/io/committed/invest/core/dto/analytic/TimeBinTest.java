@@ -1,7 +1,9 @@
 package io.committed.invest.core.dto.analytic;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.Instant;
+
 import org.junit.Test;
 
 public class TimeBinTest {
@@ -13,7 +15,5 @@ public class TimeBinTest {
     final TimeBin b = new TimeBin(Instant.ofEpochMilli(20), 1);
 
     assertThat(a.compareTo(b)).isLessThan(0);
-
   }
-
 }

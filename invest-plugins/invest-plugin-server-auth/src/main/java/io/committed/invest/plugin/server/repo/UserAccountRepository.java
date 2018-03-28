@@ -1,14 +1,13 @@
 package io.committed.invest.plugin.server.repo;
 
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import io.committed.invest.plugin.server.auth.dao.UserAccount;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * Spring Data repository for User accounts.
- *
- */
+import io.committed.invest.plugin.server.auth.dao.UserAccount;
+
+/** Spring Data repository for User accounts. */
 public interface UserAccountRepository extends ReactiveCrudRepository<UserAccount, String> {
 
   void deleteByUsername(String username);
@@ -16,5 +15,4 @@ public interface UserAccountRepository extends ReactiveCrudRepository<UserAccoun
   Flux<UserAccount> findByAuthorities(String authority);
 
   Mono<UserAccount> findByUsername(String username);
-
 }

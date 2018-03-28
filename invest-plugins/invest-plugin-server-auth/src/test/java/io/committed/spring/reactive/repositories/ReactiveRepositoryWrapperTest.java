@@ -3,12 +3,15 @@ package io.committed.spring.reactive.repositories;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 import java.util.Arrays;
 import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.data.repository.CrudRepository;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -137,5 +140,4 @@ public class ReactiveRepositoryWrapperTest {
     wrapper.deleteAll();
     verify(repo).deleteAll();
   }
-
 }

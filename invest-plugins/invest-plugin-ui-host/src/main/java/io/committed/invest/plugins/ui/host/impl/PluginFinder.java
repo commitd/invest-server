@@ -6,17 +6,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Services which will walk the root directories to find candidates locations of plugins.
  *
- * This will find invest.sjon files in ZIP and as plain files.
- *
+ * <p>This will find invest.sjon files in ZIP and as plain files.
  */
 @Service
 @Slf4j
@@ -28,7 +30,10 @@ public class PluginFinder {
   private final UiHostSettings settings;
 
   @Autowired
-  public PluginFinder(final UiHostSettings settings, final PluginZipReader zipReader, final PluginJsonReader jsonReader,
+  public PluginFinder(
+      final UiHostSettings settings,
+      final PluginZipReader zipReader,
+      final PluginJsonReader jsonReader,
       final PluginSettingsMerger settingsMerger) {
     this.settings = settings;
     this.zipReader = zipReader;
@@ -53,7 +58,6 @@ public class PluginFinder {
       return Stream.empty();
     }
   }
-
 
   private Optional<PluginJson> processPlugin(final File f) {
     final String name = f.getName().toLowerCase();

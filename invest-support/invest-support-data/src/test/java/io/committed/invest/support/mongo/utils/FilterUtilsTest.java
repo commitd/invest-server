@@ -1,11 +1,14 @@
 package io.committed.invest.support.mongo.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Optional;
+
 import org.bson.conversions.Bson;
 import org.junit.Test;
+
 import com.mongodb.client.model.Filters;
 
 public class FilterUtilsTest {
@@ -19,7 +22,6 @@ public class FilterUtilsTest {
   public void testEmpty() {
     assertThat(FilterUtils.combine(Collections.emptyList())).isEmpty();
   }
-
 
   @Test
   public void testSingleton() {
@@ -41,7 +43,5 @@ public class FilterUtilsTest {
     assertThat(string).contains("And Filter");
     assertThat(string).contains("fieldName='a', value=1");
     assertThat(string).contains("fieldName='b', value=2");
-
-
   }
 }

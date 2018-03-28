@@ -1,16 +1,18 @@
 package io.committed.invest.extensions.data.providers;
 
 import java.util.Map;
-import io.committed.invest.extensions.data.dataset.DataProviderSpecification;
+
 import reactor.core.publisher.Mono;
+
+import io.committed.invest.extensions.data.dataset.DataProviderSpecification;
 
 /**
  * A factory for creating DataProviders.
  *
- * The id of the factory (getId) is referenced in the {@link DataProviderSpecification}.
+ * <p>The id of the factory (getId) is referenced in the {@link DataProviderSpecification}.
  *
- * The various fields of the DataProviderSpecification and the DataProviderFactory normally define
- * exactly the fields of the DataProvider.
+ * <p>The various fields of the DataProviderSpecification and the DataProviderFactory normally
+ * define exactly the fields of the DataProvider.
  *
  * @param <T> the generic type
  */
@@ -33,7 +35,7 @@ public interface DataProviderFactory<T extends DataProvider> {
   /**
    * The database which this dataproviderfactory connects to.
    *
-   * See {@link DatabaseConstants} for a non-exhaustive list
+   * <p>See {@link DatabaseConstants} for a non-exhaustive list
    *
    * @return the database
    */
@@ -48,5 +50,4 @@ public interface DataProviderFactory<T extends DataProvider> {
    * @return the mono, return empty / error on failure (typically due to poor configuration)
    */
   Mono<T> build(String dataset, String datasource, Map<String, Object> settings);
-
 }

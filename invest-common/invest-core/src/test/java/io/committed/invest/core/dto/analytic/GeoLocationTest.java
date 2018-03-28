@@ -1,6 +1,7 @@
 package io.committed.invest.core.dto.analytic;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 public class GeoLocationTest {
@@ -34,7 +35,4 @@ public class GeoLocationTest {
     final GeoLocation l = new GeoLocation(lat, lon);
     assertEquals(valid, l.isValidLocation());
   }
-
-
-
 }

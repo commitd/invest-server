@@ -9,8 +9,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import io.committed.invest.test.InvestTestContext;
 
+import io.committed.invest.test.InvestTestContext;
 
 @RunWith(SpringRunner.class)
 @WebFluxTest
@@ -18,27 +18,19 @@ import io.committed.invest.test.InvestTestContext;
 @DirtiesContext
 public class InvestUiApplicationExtensionTest {
 
-  @Autowired
-  private WebTestClient webClient;
+  @Autowired private WebTestClient webClient;
 
   @Test
   public void redirectFromRoot() {
-    this.webClient.get()
-        .uri("/")
-        .exchange()
-        .expectStatus().is3xxRedirection();
+    this.webClient.get().uri("/").exchange().expectStatus().is3xxRedirection();
   }
-
 
   @Test
   @Ignore
   public void getIndex() {
-    // Ideally we'd check this works, but there's no data there (the files within are gitignored), hence
+    // Ideally we'd check this works, but there's no data there (the files within are gitignored),
+    // hence
     // this test is ignored
-    this.webClient.get()
-        .uri("/ui/app/index.html")
-        .exchange()
-        .expectStatus().is2xxSuccessful();
+    this.webClient.get().uri("/ui/app/index.html").exchange().expectStatus().is2xxSuccessful();
   }
-
 }

@@ -6,7 +6,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import java.util.Optional;
+
+import lombok.Data;
+
 import org.elasticsearch.action.delete.DeleteAction;
 import org.elasticsearch.action.delete.DeleteRequestBuilder;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -28,9 +32,10 @@ import org.elasticsearch.search.aggregations.metrics.min.MinAggregationBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.committed.invest.support.elasticsearch.utils.StubListenableActionFuture;
-import lombok.Data;
 
 public class ElasticsearchSupportServiceTest {
 
@@ -50,8 +55,7 @@ public class ElasticsearchSupportServiceTest {
   public void before() {
     client = mock(Client.class);
     mapper = new ObjectMapper();
-    ess =
-        new ElasticsearchSupportService<>(client, mapper, INDEX, TYPE, Entity.class);
+    ess = new ElasticsearchSupportService<>(client, mapper, INDEX, TYPE, Entity.class);
   }
 
   @Test
@@ -81,9 +85,12 @@ public class ElasticsearchSupportServiceTest {
 
   @Test
   public void testSearchByQuery() {
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     ess.searchByQuery("query string", 5, 18);
 
@@ -98,15 +105,17 @@ public class ElasticsearchSupportServiceTest {
     final QueryStringQueryBuilder qb = (QueryStringQueryBuilder) queryCaptor.getValue();
     assertThat(qb.queryString()).isEqualTo("query string");
 
-
     verify(searchRequestBuilder).execute();
   }
 
   @Test
   public void testSearch() {
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     final BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
     ess.search(boolQuery, 5, 18);
@@ -125,9 +134,12 @@ public class ElasticsearchSupportServiceTest {
 
   @Test
   public void testCount() {
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     ess.count();
 
@@ -137,16 +149,18 @@ public class ElasticsearchSupportServiceTest {
     verify(searchRequestBuilder).setFrom(0);
 
     verify(searchRequestBuilder).execute();
-
   }
 
   @Test
   public void testCountQueryBuilder() {
     final BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
 
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     ess.count(boolQuery);
 
@@ -159,15 +173,17 @@ public class ElasticsearchSupportServiceTest {
     verify(searchRequestBuilder).setQuery(queryCaptor.capture());
     assertThat(queryCaptor.getValue()).isSameAs(boolQuery);
 
-
     verify(searchRequestBuilder).execute();
   }
 
   @Test
   public void testGetAll() {
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     ess.getAll(5, 18);
 
@@ -197,7 +213,6 @@ public class ElasticsearchSupportServiceTest {
     verify(rb).execute();
   }
 
-
   @Test
   public void testDeleteById() {
 
@@ -219,9 +234,12 @@ public class ElasticsearchSupportServiceTest {
     final AvgAggregationBuilder avg = AggregationBuilders.avg("avg");
     final MinAggregationBuilder min = AggregationBuilders.min("min");
 
-    final SearchRequestBuilder searchRequestBuilder = spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
+    final SearchRequestBuilder searchRequestBuilder =
+        spy(new SearchRequestBuilder(client, SearchAction.INSTANCE));
     when(client.prepareSearch()).thenReturn(searchRequestBuilder);
-    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse())).when(searchRequestBuilder).execute();
+    doReturn(new StubListenableActionFuture<SearchResponse>(new SearchResponse()))
+        .when(searchRequestBuilder)
+        .execute();
 
     ess.aggregation(Optional.empty(), min, avg);
 
@@ -233,6 +251,4 @@ public class ElasticsearchSupportServiceTest {
     verify(searchRequestBuilder).addAggregation(min);
     verify(searchRequestBuilder).addAggregation(avg);
   }
-
-
 }

@@ -1,19 +1,23 @@
 package io.committed.invest.support.data.elasticsearch;
 
 import java.util.Map;
+
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ResultsExtractor;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.committed.invest.support.elasticsearch.utils.SourceUtils;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.committed.invest.support.elasticsearch.utils.SourceUtils;
 
 /**
  * An extension of {@link ElasticsearchSupportService} which add helpers for Spring Data
  * Elasticsearch.
  *
- * This largely exists to support wrapping Spring Data {@link ElasticsearchSupportService} with
+ * <p>This largely exists to support wrapping Spring Data {@link ElasticsearchSupportService} with
  * reactive types. Though it also reduces some boilerplate around index/type specification when
  * using {@link NativeSearchQueryBuilder}.
  *
@@ -23,8 +27,12 @@ public class SpringDataElasticsearchSupportService<E> extends ElasticsearchSuppo
 
   private final ElasticsearchTemplate elastic;
 
-  public SpringDataElasticsearchSupportService(final ObjectMapper mapper, final ElasticsearchTemplate elastic,
-      final String index, final String type, final Class<E> entityClazz) {
+  public SpringDataElasticsearchSupportService(
+      final ObjectMapper mapper,
+      final ElasticsearchTemplate elastic,
+      final String index,
+      final String type,
+      final Class<E> entityClazz) {
     super(elastic.getClient(), mapper, index, type, entityClazz);
     this.elastic = elastic;
   }
@@ -34,9 +42,7 @@ public class SpringDataElasticsearchSupportService<E> extends ElasticsearchSuppo
   }
 
   public NativeSearchQueryBuilder queryBuilder() {
-    return new NativeSearchQueryBuilder()
-        .withIndices(getIndex())
-        .withTypes(getType());
+    return new NativeSearchQueryBuilder().withIndices(getIndex()).withTypes(getType());
   }
 
   public <T> T query(final NativeSearchQueryBuilder qb, final ResultsExtractor<T> extractor) {
@@ -44,8 +50,7 @@ public class SpringDataElasticsearchSupportService<E> extends ElasticsearchSuppo
   }
 
   public Mono<Long> count(final NativeSearchQueryBuilder query) {
-    return Mono
-        .just(getElastic().count(query.build()));
+    return Mono.just(getElastic().count(query.build()));
   }
 
   protected ResultsExtractor<Flux<E>> resultsToDocumentExtractor() {

@@ -1,6 +1,7 @@
 package io.committed.invest.plugin.server.auth.dto;
 
 import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  * A user suitable for dto (transfer to client).
  *
- * Does not provide any sensitive data.
- *
+ * <p>Does not provide any sensitive data.
  */
 @Data
 @NoArgsConstructor
@@ -18,5 +18,4 @@ public class User {
   private String username;
   private String name;
   private Set<String> roles;
-
 }

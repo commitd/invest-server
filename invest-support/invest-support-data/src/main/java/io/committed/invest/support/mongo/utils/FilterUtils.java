@@ -2,12 +2,12 @@ package io.committed.invest.support.mongo.utils;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.bson.conversions.Bson;
+
 import com.mongodb.client.model.Filters;
 
-/**
- * Utility classes for Mongo Filters.
- */
+/** Utility classes for Mongo Filters. */
 public final class FilterUtils {
 
   private FilterUtils() {

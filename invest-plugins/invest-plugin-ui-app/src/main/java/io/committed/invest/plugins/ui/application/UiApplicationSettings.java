@@ -2,16 +2,17 @@ package io.committed.invest.plugins.ui.application;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import io.committed.invest.core.dto.collections.PropertiesMap;
-import io.leangen.graphql.annotations.GraphQLIgnore;
-import io.leangen.graphql.annotations.GraphQLQuery;
+
 import lombok.Data;
 
-/**
- * Settings which relate (are provided to and used by) the application UI JS code.
- *
- */
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import io.committed.invest.core.dto.collections.PropertiesMap;
+
+import io.leangen.graphql.annotations.GraphQLIgnore;
+import io.leangen.graphql.annotations.GraphQLQuery;
+
+/** Settings which relate (are provided to and used by) the application UI JS code. */
 @Data
 @ConfigurationProperties("invest.config")
 public class UiApplicationSettings {
@@ -31,5 +32,4 @@ public class UiApplicationSettings {
   public PropertiesMap getProperties() {
     return new PropertiesMap(settings);
   }
-
 }

@@ -3,13 +3,16 @@ package io.committed.invest.core.dto.collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
+
 import reactor.core.publisher.Mono;
 
 public class PropertiesListTest {
@@ -38,7 +41,6 @@ public class PropertiesListTest {
 
     pl.add(p1);
     pl.add(p2);
-
 
     final List<Property> javaMap = pl.asList();
 
@@ -96,5 +98,4 @@ public class PropertiesListTest {
 
     assertThat(pl.asList()).containsExactly(new Property("a", "d"));
   }
-
 }

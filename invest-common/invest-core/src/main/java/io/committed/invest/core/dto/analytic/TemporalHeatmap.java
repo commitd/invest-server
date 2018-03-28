@@ -2,15 +2,16 @@ package io.committed.invest.core.dto.analytic;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Output of a time histogram/heatmap
  *
- * Useful for pattern of life - where one access might be hour and the other day of week.
- *
+ * <p>Useful for pattern of life - where one access might be hour and the other day of week.
  */
 @Data
 @NoArgsConstructor

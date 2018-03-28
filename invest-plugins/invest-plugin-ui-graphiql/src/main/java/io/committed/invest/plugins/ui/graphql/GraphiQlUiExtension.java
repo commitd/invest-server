@@ -2,10 +2,7 @@ package io.committed.invest.plugins.ui.graphql;
 
 import io.committed.invest.extensions.InvestUiExtension;
 
-/**
- * Extension which provides a hosted version of the GraphiQL user interface
- *
- */
+/** Extension which provides a hosted version of the GraphiQL user interface */
 public class GraphiQlUiExtension implements InvestUiExtension {
 
   @Override

@@ -2,18 +2,18 @@ package io.committed.invest.plugins.ui.host.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.InvestHostedUiExtensions;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
-import lombok.extern.slf4j.Slf4j;
 
-/**
- * Configuration bean to publish Hosted UI extensions as InvestUiExtension.
- *
- */
+/** Configuration bean to publish Hosted UI extensions as InvestUiExtension. */
 @Configuration
 @Slf4j
 public class UiFinder {
@@ -37,13 +37,13 @@ public class UiFinder {
   }
 
   private InvestHostedUiExtensions findUiHostedExtensions() {
-    final List<PluginJson> extensions = settings.getRoots().stream()
-        .flatMap(pluginFinder::readPluginsFromDirectory)
-        .collect(Collectors.toList());
+    final List<PluginJson> extensions =
+        settings
+            .getRoots()
+            .stream()
+            .flatMap(pluginFinder::readPluginsFromDirectory)
+            .collect(Collectors.toList());
 
     return new InvestHostedUiExtensions(extensions);
   }
-
-
-
 }

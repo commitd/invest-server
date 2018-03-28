@@ -1,6 +1,7 @@
 package io.committed.invest.plugins.ui.application;
 
 import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -14,16 +15,14 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.WebFilter;
+
 import io.committed.invest.core.auth.AuthenticationSettings;
 
-/**
- * Spring configuration for the main application.
- */
+/** Spring configuration for the main application. */
 @Configuration
 public class ApplicationConfig {
 
-  @Autowired
-  private ApplicationSettings settings;
+  @Autowired private ApplicationSettings settings;
 
   @Bean
   @Order(value = Ordered.LOWEST_PRECEDENCE)
@@ -36,8 +35,7 @@ public class ApplicationConfig {
       resource = new ClassPathResource("/ui/app/", this.getClass().getClassLoader());
     }
 
-    return RouterFunctions.resources("/ui/app/**",
-        resource);
+    return RouterFunctions.resources("/ui/app/**", resource);
   }
 
   @Bean

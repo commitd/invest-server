@@ -1,8 +1,11 @@
 package io.committed.invest.extensions.data.providers;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.Map;
+
 import org.junit.Test;
+
 import reactor.core.publisher.Mono;
 
 public class AbstractDataProviderFactoryTest {
@@ -14,7 +17,6 @@ public class AbstractDataProviderFactoryTest {
     assertEquals("id", dpf.getId());
     assertEquals(DataProvider.class, dpf.getDataProvider());
     assertEquals("database", dpf.getDatabase());
-
   }
 
   public class StubDPF extends AbstractDataProviderFactory<DataProvider> {
@@ -24,9 +26,9 @@ public class AbstractDataProviderFactoryTest {
     }
 
     @Override
-    public Mono<DataProvider> build(final String dataset, final String datasource, final Map<String, Object> settings) {
+    public Mono<DataProvider> build(
+        final String dataset, final String datasource, final Map<String, Object> settings) {
       return null;
     }
-
   }
 }

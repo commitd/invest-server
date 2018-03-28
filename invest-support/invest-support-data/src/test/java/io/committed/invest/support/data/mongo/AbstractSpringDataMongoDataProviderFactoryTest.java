@@ -2,12 +2,16 @@ package io.committed.invest.support.data.mongo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
-import io.committed.invest.extensions.data.providers.DataProvider;
+
 import reactor.core.publisher.Mono;
+
+import io.committed.invest.extensions.data.providers.DataProvider;
 
 public class AbstractSpringDataMongoDataProviderFactoryTest {
 
@@ -36,7 +40,6 @@ public class AbstractSpringDataMongoDataProviderFactoryTest {
     assertThat(dpf.databaseName).isEqualTo("other");
   }
 
-
   public static class StubSpringDataMongoDataProviderFactory
       extends AbstractSpringDataMongoDataProviderFactory<DataProvider> {
 
@@ -48,13 +51,15 @@ public class AbstractSpringDataMongoDataProviderFactoryTest {
     }
 
     @Override
-    public Mono<DataProvider> build(final String dataset, final String datasource, final Map<String, Object> settings) {
+    public Mono<DataProvider> build(
+        final String dataset, final String datasource, final Map<String, Object> settings) {
       buildMongoTemplate(settings);
       return null;
     }
 
     @Override
-    protected ReactiveMongoTemplate createMongoTemplate(final String connectionString, final String databaseName) {
+    protected ReactiveMongoTemplate createMongoTemplate(
+        final String connectionString, final String databaseName) {
       this.connectionString = connectionString;
       this.databaseName = databaseName;
       return mock(ReactiveMongoTemplate.class);

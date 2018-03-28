@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A graph of nodes and edges.
  *
- * There are no constraints as to number of edges between nodes, directionality etc.
+ * <p>There are no constraints as to number of edges between nodes, directionality etc.
  */
 @Data
 public class Graph {

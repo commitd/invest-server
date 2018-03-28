@@ -1,10 +1,10 @@
 package io.committed.invest.support.data.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 public class OffsetLimitPagableTest {
-
 
   @Test
   public void testStartPage() {
@@ -22,7 +22,6 @@ public class OffsetLimitPagableTest {
 
     assertThat(p.next().next().getOffset()).isEqualTo(200);
     assertThat(p.next().next().getPageSize()).isEqualTo(100);
-
 
     assertThat(p.hasPrevious()).isFalse();
 
@@ -47,9 +46,7 @@ public class OffsetLimitPagableTest {
     assertThat(p.next().next().getOffset()).isEqualTo(250);
     assertThat(p.next().next().getPageSize()).isEqualTo(100);
 
-
     assertThat(p.hasPrevious()).isTrue();
-
   }
 
   @Test
@@ -59,7 +56,6 @@ public class OffsetLimitPagableTest {
     assertThat(p.getOffset()).isEqualTo(500);
     assertThat(p.getPageSize()).isEqualTo(100);
     assertThat(p.getPageNumber()).isEqualTo(5);
-
 
     assertThat(p.hasPrevious()).isTrue();
 
@@ -71,6 +67,5 @@ public class OffsetLimitPagableTest {
 
     assertThat(p.next().next().getOffset()).isEqualTo(700);
     assertThat(p.next().next().getPageSize()).isEqualTo(100);
-
   }
 }

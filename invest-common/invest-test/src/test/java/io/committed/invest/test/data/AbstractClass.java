@@ -8,6 +8,4 @@ public abstract class AbstractClass {
   private String test;
 
   public abstract void doSomething();
-
-
 }

@@ -1,9 +1,11 @@
 package io.committed.invest.plugin.server.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
@@ -21,7 +23,8 @@ public class EnsureAdminUserExistsTest {
     repository = new MapBackedUserAccountRepository();
     final UserAccountRepository userAccounts = new ReactiveUserAccountRepositoryWrapper(repository);
     ensureAdminUserExists =
-        new EnsureAdminUserExists(new UserService(userAccounts, NoOpPasswordEncoder.getInstance()), userAccounts);
+        new EnsureAdminUserExists(
+            new UserService(userAccounts, NoOpPasswordEncoder.getInstance()), userAccounts);
   }
 
   @Test
@@ -33,7 +36,6 @@ public class EnsureAdminUserExistsTest {
 
     assertThat(repository.findByUsername("admin")).isPresent();
     assertThat(repository.findByAuthorities(InvestRoles.ADMINISTRATOR_AUTHORITY)).hasSize(1);
-
   }
 
   @Test
@@ -49,8 +51,5 @@ public class EnsureAdminUserExistsTest {
     assertThat(repository.findByUsername("admin")).isEmpty();
     assertThat(repository.findByUsername("bob")).isPresent();
     assertThat(repository.findByAuthorities(InvestRoles.ADMINISTRATOR_AUTHORITY)).hasSize(1);
-
-
   }
-
 }

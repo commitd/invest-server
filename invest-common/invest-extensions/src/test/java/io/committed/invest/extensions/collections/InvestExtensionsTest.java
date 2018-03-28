@@ -2,9 +2,12 @@ package io.committed.invest.extensions.collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
 import java.util.Arrays;
 import java.util.Collections;
+
 import org.junit.Test;
+
 import io.committed.invest.extensions.InvestExtension;
 import io.committed.invest.extensions.InvestUiExtension;
 
@@ -15,7 +18,8 @@ public class InvestExtensionsTest {
     final InvestExtensions extensions = new InvestExtensions(Collections.emptyList());
 
     assertThat(extensions.stream()).isEmpty();
-    assertThat(extensions.stream(InvestExtension.class)).isEmpty();;
+    assertThat(extensions.stream(InvestExtension.class)).isEmpty();
+    ;
     assertThat(extensions.getExtensions()).hasSize(0);
   }
 
@@ -31,7 +35,5 @@ public class InvestExtensionsTest {
     assertThat(extensions.stream()).contains(ie1, ie2, ie3);
     assertThat(extensions.stream(InvestExtension.class)).contains(ie1, ie2, ie3);
     assertThat(extensions.stream(InvestUiExtension.class)).contains(ie3);
-
   }
-
 }

@@ -3,15 +3,16 @@ package io.committed.invest.plugins.ui.host.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 
 /**
  * Service which combines a plugins settings with the overrides to create the final settings for
  * that plugin.
- *
  */
 @Service
 public class PluginSettingsMerger {
@@ -24,7 +25,8 @@ public class PluginSettingsMerger {
   }
 
   public PluginJson merge(final PluginJson json) {
-    final Optional<Map<String, Object>> overriddenSettings = settings.getSettingsForPluginId(json.getId());
+    final Optional<Map<String, Object>> overriddenSettings =
+        settings.getSettingsForPluginId(json.getId());
 
     if (!overriddenSettings.isPresent()) {
       return json;

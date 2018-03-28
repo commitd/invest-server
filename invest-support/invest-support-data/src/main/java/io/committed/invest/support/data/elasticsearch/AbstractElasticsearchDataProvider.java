@@ -6,7 +6,7 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 /**
  * Base for DataProvider using Elasticsearch.
  *
- * This merely sets the database to ES.
+ * <p>This merely sets the database to ES.
  */
 public abstract class AbstractElasticsearchDataProvider extends AbstractDataProvider {
 
@@ -18,6 +18,4 @@ public abstract class AbstractElasticsearchDataProvider extends AbstractDataProv
   public String getDatabase() {
     return DatabaseConstants.ELASTICSEARCH;
   }
-
-
 }

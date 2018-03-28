@@ -2,30 +2,34 @@ package io.committed.invest.server.graphql;
 
 import java.util.Map;
 import java.util.Optional;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import reactor.core.publisher.Mono;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import graphql.ExecutionInput;
 import graphql.ExecutionInput.Builder;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
+
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.server.graphql.data.GraphQlQuery;
-import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
-
-
 
 /**
  * Executes GraphQL queries and mutations.
  *
- * See http://graphql.org/learn/serving-over-http/ for more details of conventions etc.
+ * <p>See http://graphql.org/learn/serving-over-http/ for more details of conventions etc.
  */
 @Component
 @Slf4j
@@ -46,11 +50,18 @@ public class GraphQlHandler {
   public Mono<ServerResponse> postQuery(final ServerRequest request) {
     return ServerResponse.ok()
         .body(
-            request.bodyToMono(GraphQlQuery.class)
-                .map(q -> ExecutionInput.newExecutionInput().operationName(q.getOperationName())
-                    .query(q.getQuery()).variables(q.getVariables()).context(buildContext(request))
-                    .build())
-                .map(this::performQuery).map(ExecutionResult::toSpecification),
+            request
+                .bodyToMono(GraphQlQuery.class)
+                .map(
+                    q ->
+                        ExecutionInput.newExecutionInput()
+                            .operationName(q.getOperationName())
+                            .query(q.getQuery())
+                            .variables(q.getVariables())
+                            .context(buildContext(request))
+                            .build())
+                .map(this::performQuery)
+                .map(ExecutionResult::toSpecification),
             Map.class);
   }
 
@@ -72,13 +83,11 @@ public class GraphQlHandler {
 
     if (variablesString.isPresent()) {
       try {
-        input =
-            input.variables(mapper.readValue(variablesString.get(), mapStringObject));
+        input = input.variables(mapper.readValue(variablesString.get(), mapStringObject));
       } catch (final Exception e) {
         log.warn("Dropping variables unable to deserialise", e);
       }
     }
-
 
     final InvestRootContext context = buildContext(request);
     input = input.context(context);
@@ -95,11 +104,18 @@ public class GraphQlHandler {
         // called, but I can't see why.
         // Whilst this should work for our purpposes it means that prinicpal isn't available to
         // other users.
-        .authentication(request.session().flatMap(s -> {
-          final SecurityContext sc = s.getAttribute("USER");
-          return sc != null && sc.getAuthentication() != null ? Mono.just(sc.getAuthentication())
-              : Mono.empty();
-        })).session(request.session()).build();
+        .authentication(
+            request
+                .session()
+                .flatMap(
+                    s -> {
+                      final SecurityContext sc = s.getAttribute("USER");
+                      return sc != null && sc.getAuthentication() != null
+                          ? Mono.just(sc.getAuthentication())
+                          : Mono.empty();
+                    }))
+        .session(request.session())
+        .build();
   }
 
   // Surppressed warning because this is used a a WebFlux hander which needs to have the functional

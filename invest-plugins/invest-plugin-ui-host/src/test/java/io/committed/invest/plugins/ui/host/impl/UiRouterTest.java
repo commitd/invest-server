@@ -3,6 +3,7 @@ package io.committed.invest.plugins.ui.host.impl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,33 +17,35 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.server.WebSession;
+
+import reactor.core.publisher.Mono;
+
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.plugins.ui.host.data.InvestHostedUiExtensions;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
-import reactor.core.publisher.Mono;
 
 @RunWith(SpringRunner.class)
 @WebFluxTest
 @ContextConfiguration(classes = {InvestRootContext.class, UiRouter.class})
 public class UiRouterTest {
 
-  @Autowired
-  WebTestClient client;
+  @Autowired WebTestClient client;
 
   @Test
   public void test() {
-    client.get().uri("/test/example/index.html")
+    client
+        .get()
+        .uri("/test/example/index.html")
         .exchange()
-        .expectStatus().isOk()
-        .expectBody(String.class).isEqualTo("example");
-
+        .expectStatus()
+        .isOk()
+        .expectBody(String.class)
+        .isEqualTo("example");
 
     // Just check also missing other plugins!
-    client.get().uri("/test/missing/index.html")
-        .exchange()
-        .expectStatus().is4xxClientError();
+    client.get().uri("/test/missing/index.html").exchange().expectStatus().is4xxClientError();
   }
 
   @TestConfiguration
@@ -65,7 +68,6 @@ public class UiRouterTest {
     public Mono<Authentication> authentication() {
       return Mono.empty();
     }
-
 
     // We return a UriUrlService which would normally we provided by the app
     @Bean
@@ -90,9 +92,7 @@ public class UiRouterTest {
     }
   }
 
-  /**
-   * This is basically a resource wwhich weill return the same things whatever is asked of it!
-   */
+  /** This is basically a resource wwhich weill return the same things whatever is asked of it! */
   public static class SameResource extends InMemoryResource {
 
     public SameResource(final String source) {

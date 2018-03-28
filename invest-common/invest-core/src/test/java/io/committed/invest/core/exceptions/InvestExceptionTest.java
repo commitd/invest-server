@@ -2,6 +2,7 @@ package io.committed.invest.core.exceptions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
 public class InvestExceptionTest {
@@ -16,14 +17,11 @@ public class InvestExceptionTest {
     assertException(msgEx, formattedMsg, msgWithThrowable);
   }
 
-
-
   @Test
   public void testException() {
     final InvestException msgEx = new InvestException("msg");
     final InvestException formattedMsg = new InvestException("msg %d", 1);
-    final InvestException msgWithThrowable =
-        new InvestException("msg", new Exception());
+    final InvestException msgWithThrowable = new InvestException("msg", new Exception());
 
     assertException(msgEx, formattedMsg, msgWithThrowable);
   }
@@ -38,8 +36,8 @@ public class InvestExceptionTest {
     assertRuntimeException(msgEx, formattedMsg, msgWithThrowable);
   }
 
-
-  private void assertException(final InvestException msgEx,
+  private void assertException(
+      final InvestException msgEx,
       final InvestException formattedMsg,
       final InvestException msgWithThrowable) {
 
@@ -51,7 +49,8 @@ public class InvestExceptionTest {
     assertNotNull(msgWithThrowable.getCause());
   }
 
-  private void assertRuntimeException(final InvestRuntimeException msgEx,
+  private void assertRuntimeException(
+      final InvestRuntimeException msgEx,
       final InvestRuntimeException formattedMsg,
       final InvestRuntimeException msgWithThrowable) {
 

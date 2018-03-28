@@ -2,9 +2,11 @@ package io.committed.invest.support.elasticsearch.utils;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+
 import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.ListenableActionFuture;
 import org.elasticsearch.common.unit.TimeValue;
+
 import io.netty.handler.timeout.TimeoutException;
 
 public class StubListenableActionFuture<T> implements ListenableActionFuture<T> {

@@ -2,9 +2,11 @@ package io.committed.invest.core.dto.graph;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import org.junit.Test;
 
 public class GraphBuilderTest {
 
@@ -15,7 +17,6 @@ public class GraphBuilderTest {
     final Graph build = builder.build();
     assertTrue(build.getEdges().isEmpty());
     assertTrue(build.getNodes().isEmpty());
-
   }
 
   @Test
@@ -34,9 +35,7 @@ public class GraphBuilderTest {
     final Graph build = builder.build();
     assertThat(build.getEdges()).containsExactly(e);
     assertThat(build.getNodes()).containsExactly(a, b);
-
   }
-
 
   @Data
   @RequiredArgsConstructor
@@ -48,6 +47,5 @@ public class GraphBuilderTest {
     public String getGroup() {
       return "g";
     }
-
   }
 }

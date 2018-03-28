@@ -12,13 +12,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
+
 import org.springframework.util.StringUtils;
+
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 
-/**
- * User account repository which is an in memory map.
- *
- */
+/** User account repository which is an in memory map. */
 public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepository {
 
   private final Map<String, UserAccount> db = new ConcurrentHashMap<>();
@@ -42,7 +41,8 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   @Override
   public <S extends UserAccount> Iterable<S> saveAll(final Iterable<S> entities) {
-    return StreamSupport.stream(entities.spliterator(), false).map(this::save)
+    return StreamSupport.stream(entities.spliterator(), false)
+        .map(this::save)
         .collect(Collectors.toList());
   }
 
@@ -92,7 +92,6 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
   @Override
   public void deleteAll(final Iterable<? extends UserAccount> entities) {
     StreamSupport.stream(entities.spliterator(), false).forEach(this::delete);
-
   }
 
   @Override
@@ -117,12 +116,13 @@ public class MapBackedUserAccountRepository implements UnreactiveUserAccountRepo
 
   @Override
   public Stream<UserAccount> findByAuthorities(final String authority) {
-    return db.values().stream().filter(p -> p.getAuthorities() != null && p.getAuthorities().contains(authority));
+    return db.values()
+        .stream()
+        .filter(p -> p.getAuthorities() != null && p.getAuthorities().contains(authority));
   }
 
   @Override
   public Optional<UserAccount> findByUsername(final String username) {
     return db.values().stream().filter(p -> p.getUsername().equals(username)).findAny();
   }
-
 }

@@ -1,24 +1,22 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * A geospatial bounding box.
  *
- * Defined by n,s,e,w values lat/lon.
+ * <p>Defined by n,s,e,w values lat/lon.
  *
- * Use the getSafe* methods to ensure that values are in range.
- *
+ * <p>Use the getSafe* methods to ensure that values are in range.
  */
 @Data
 @NoArgsConstructor
 public class GeoBox {
-
 
   @JsonProperty("n")
   private Double n;
@@ -33,8 +31,11 @@ public class GeoBox {
   private Double w;
 
   @JsonCreator
-  public GeoBox(@JsonProperty("n") final Double n, @JsonProperty("e") final Double e,
-      @JsonProperty("s") final Double s, @JsonProperty("w") final Double w) {
+  public GeoBox(
+      @JsonProperty("n") final Double n,
+      @JsonProperty("e") final Double e,
+      @JsonProperty("s") final Double s,
+      @JsonProperty("w") final Double w) {
     // NOTE: in doing this ordering we prevent going over international data line etc
 
     if (n != null && s != null && Double.isFinite(s) && Double.isFinite(n)) {
@@ -108,21 +109,30 @@ public class GeoBox {
   /**
    * Checks if is valid.
    *
-   * This means that the raw (constructor provided) values are valid. Note that the output defined by
-   * getSafe* will always be safe/valid for use.
+   * <p>This means that the raw (constructor provided) values are valid. Note that the output
+   * defined by getSafe* will always be safe/valid for use.
    *
    * @return true, if is valid
    */
   @JsonIgnore
   public boolean isValid() {
-    return n != null && s != null && e != null && w != null &&
-        Double.isFinite(n) && Double.isFinite(s) && Double.isFinite(e) && Double.isFinite(w) &&
-        -180 <= e && e <= 180 &&
-        -180 <= w && w <= 180 &&
-        -90 <= n && n <= 90
-        && -90 <= s && s <= 90;
+    return n != null
+        && s != null
+        && e != null
+        && w != null
+        && Double.isFinite(n)
+        && Double.isFinite(s)
+        && Double.isFinite(e)
+        && Double.isFinite(w)
+        && -180 <= e
+        && e <= 180
+        && -180 <= w
+        && w <= 180
+        && -90 <= n
+        && n <= 90
+        && -90 <= s
+        && s <= 90;
   }
-
 
   /**
    * Calculate the intersection this box with another.
@@ -159,7 +169,7 @@ public class GeoBox {
   /**
    * The entire globe.
    *
-   * Use for search everywhere.
+   * <p>Use for search everywhere.
    *
    * @return the geobox representing the globe
    */

@@ -1,15 +1,15 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Geo box with time bounds
  *
- * Useful for geo-temporal search queries
- *
+ * <p>Useful for geo-temporal search queries
  */
 @Data
 @AllArgsConstructor
@@ -20,5 +20,4 @@ public class GeoTimeBounds {
 
   @JsonProperty("time")
   private TimeRange time;
-
 }

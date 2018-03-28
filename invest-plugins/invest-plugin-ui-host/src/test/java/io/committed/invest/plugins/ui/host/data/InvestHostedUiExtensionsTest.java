@@ -1,9 +1,11 @@
 package io.committed.invest.plugins.ui.host.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import org.junit.Test;
 
 public class InvestHostedUiExtensionsTest {
@@ -14,9 +16,7 @@ public class InvestHostedUiExtensionsTest {
 
     assertThat(e.getExtensions()).isEmpty();
     assertThat(e.isEmpty()).isTrue();
-
   }
-
 
   @Test
   public void testList() {
@@ -25,7 +25,5 @@ public class InvestHostedUiExtensionsTest {
 
     assertThat(e.getExtensions()).containsExactlyElementsOf(list);
     assertThat(e.isEmpty()).isFalse();
-
   }
-
 }

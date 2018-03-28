@@ -7,16 +7,13 @@ import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-/**
- * Configuration to host the src/main/resources/ui/libs classpath on the /ui/libs URL.
- */
+/** Configuration to host the src/main/resources/ui/libs classpath on the /ui/libs URL. */
 @Configuration
 public class UiLibsConfig {
 
   @Bean
   public RouterFunction<ServerResponse> root() {
-    return RouterFunctions.resources("/ui/libs/**",
-        new ClassPathResource("/ui/libs/", this.getClass().getClassLoader()));
+    return RouterFunctions.resources(
+        "/ui/libs/**", new ClassPathResource("/ui/libs/", this.getClass().getClassLoader()));
   }
-
 }

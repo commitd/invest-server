@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-/**
- * Core settings for authentication
- */
+/** Core settings for authentication */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

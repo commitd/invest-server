@@ -2,23 +2,22 @@ package io.committed.invest.support.elasticsearch.utils;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
+
 import io.committed.invest.core.constants.TimeInterval;
 import io.committed.invest.core.dto.analytic.TimeBin;
 import io.committed.invest.core.dto.analytic.Timeline;
 
-/**
- * Helper functions for converting from {@link TimeInterval} to database intervals.
- */
+/** Helper functions for converting from {@link TimeInterval} to database intervals. */
 public final class TimeIntervalUtils {
 
   private TimeIntervalUtils() {
     // Singleton
   }
-
 
   /**
    * Convert a time intervale to an ES date histogram (approximately)
@@ -47,7 +46,6 @@ public final class TimeIntervalUtils {
       // Default to something safe
       return DateHistogramInterval.MONTH;
     }
-
   }
 
   /**
@@ -80,16 +78,21 @@ public final class TimeIntervalUtils {
     } else {
       return TimeInterval.MONTH;
     }
-
-
   }
 
   public static final Timeline create(final Histogram histogram, final TimeInterval interval) {
-    final List<TimeBin> list = histogram.getBuckets().stream().map(h -> {
-      final DateTime key = (DateTime) h.getKey();
-      final Instant jodaInstant = key.toInstant();
-      return new TimeBin(java.time.Instant.ofEpochMilli(jodaInstant.getMillis()), h.getDocCount());
-    }).collect(Collectors.toList());
+    final List<TimeBin> list =
+        histogram
+            .getBuckets()
+            .stream()
+            .map(
+                h -> {
+                  final DateTime key = (DateTime) h.getKey();
+                  final Instant jodaInstant = key.toInstant();
+                  return new TimeBin(
+                      java.time.Instant.ofEpochMilli(jodaInstant.getMillis()), h.getDocCount());
+                })
+            .collect(Collectors.toList());
 
     return new Timeline(interval, list);
   }

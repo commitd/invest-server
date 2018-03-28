@@ -1,12 +1,10 @@
 package io.committed.invest.graphql.ui.data;
 
-import io.committed.invest.extensions.actions.ActionDefinition;
 import lombok.Data;
 
-/**
- * DTO for Ui actions
- *
- */
+import io.committed.invest.extensions.actions.ActionDefinition;
+
+/** DTO for Ui actions */
 @Data
 public class UiActionDefinition {
 
@@ -19,5 +17,4 @@ public class UiActionDefinition {
     this.description = defn.getDescription();
     this.title = defn.getTitle();
   }
-
 }

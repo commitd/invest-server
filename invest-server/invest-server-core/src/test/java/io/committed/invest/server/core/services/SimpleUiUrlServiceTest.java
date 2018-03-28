@@ -3,7 +3,9 @@ package io.committed.invest.server.core.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+
 import org.junit.Test;
+
 import io.committed.invest.extensions.InvestUiExtension;
 
 public class SimpleUiUrlServiceTest {
@@ -51,10 +53,8 @@ public class SimpleUiUrlServiceTest {
 
     final String aPath = service.getFullPath(a);
 
-
     assertThat(service.isPathForExtensionRoot(aPath)).isTrue();
     assertThat(service.isPathForExtensionRoot(aPath + "/index.html")).isFalse();
     assertThat(service.isPathForExtensionRoot(aPath + "/static/example.jpg")).isFalse();
-
   }
 }

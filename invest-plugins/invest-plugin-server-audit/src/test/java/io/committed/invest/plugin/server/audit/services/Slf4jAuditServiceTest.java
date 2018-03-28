@@ -1,12 +1,14 @@
 package io.committed.invest.plugin.server.audit.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
+
 import org.junit.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Slf4jAuditServiceTest {
-
 
   @Test
   public void testAudit() {
@@ -22,4 +24,3 @@ public class Slf4jAuditServiceTest {
     assertThat(service.isLogging()).isTrue();
   }
 }
-

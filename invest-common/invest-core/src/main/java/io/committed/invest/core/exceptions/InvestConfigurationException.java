@@ -3,7 +3,7 @@ package io.committed.invest.core.exceptions;
 /**
  * Specific exception around configuration of Invest components.
  *
- * These will usually be due to missing configuration or conflicting configuration.
+ * <p>These will usually be due to missing configuration or conflicting configuration.
  */
 public class InvestConfigurationException extends InvestException {
 
@@ -20,5 +20,4 @@ public class InvestConfigurationException extends InvestException {
   public InvestConfigurationException(final String msg, final Throwable t) {
     super(msg, t);
   }
-
 }

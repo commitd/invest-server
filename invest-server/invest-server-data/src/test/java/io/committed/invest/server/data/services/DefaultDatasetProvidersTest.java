@@ -1,14 +1,18 @@
 package io.committed.invest.server.data.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+
 import org.junit.Test;
+
+import reactor.core.publisher.Flux;
+
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DataProviders;
 import io.committed.invest.server.data.testing.AnotherFakeDataProvider;
 import io.committed.invest.server.data.testing.FakeDataProvider;
 import io.committed.invest.server.data.testing.Fixtures;
-import reactor.core.publisher.Flux;
 
 public class DefaultDatasetProvidersTest {
 
@@ -54,9 +58,7 @@ public class DefaultDatasetProvidersTest {
         dps.findForDataset(FakeDataProvider.DATASET, AnotherFakeDataProvider.class);
 
     assertThat(dataset.hasElements().block()).isFalse();
-
   }
-
 
   @Test
   public void testFindForDatasetMatchSuperclass() {

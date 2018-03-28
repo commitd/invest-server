@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
+
 import io.committed.invest.extensions.InvestExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
 
@@ -57,8 +58,10 @@ public abstract class AbstractInvestExtensionRegistry<T extends InvestExtension>
    * @param clazz the clazz
    * @return the collection
    */
-  protected static <T extends InvestExtension> Collection<T> combine(final Collection<T> extensions,
-      final Collection<InvestExtensions> collections, final Class<T> clazz) {
+  protected static <T extends InvestExtension> Collection<T> combine(
+      final Collection<T> extensions,
+      final Collection<InvestExtensions> collections,
+      final Class<T> clazz) {
     final List<T> all = new LinkedList<>();
 
     if (extensions != null) {

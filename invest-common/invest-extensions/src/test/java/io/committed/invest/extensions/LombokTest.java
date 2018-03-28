@@ -1,6 +1,7 @@
 package io.committed.invest.extensions;
 
 import org.junit.Test;
+
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import io.committed.invest.extensions.data.dataset.DataProviderSpecification;
@@ -20,6 +21,5 @@ public class LombokTest {
     mt.testClasses(Dataset.class, DataProviderSpecification.class);
 
     mt.testClass(DataHints.class);
-
   }
 }

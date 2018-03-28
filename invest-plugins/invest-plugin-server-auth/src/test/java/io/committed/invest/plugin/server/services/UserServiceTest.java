@@ -3,11 +3,14 @@ package io.committed.invest.plugin.server.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+
 import java.security.Principal;
 import java.util.HashSet;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
@@ -24,19 +27,20 @@ public class UserServiceTest {
 
   @Before
   public void before() {
-    passwordEncoder = new PasswordEncoder() {
+    passwordEncoder =
+        new PasswordEncoder() {
 
-      @Override
-      public boolean matches(final CharSequence rawPassword, final String encodedPassword) {
-        return encode(rawPassword).equals(encodedPassword);
-      }
+          @Override
+          public boolean matches(final CharSequence rawPassword, final String encodedPassword) {
+            return encode(rawPassword).equals(encodedPassword);
+          }
 
-      @Override
-      public String encode(final CharSequence rawPassword) {
-        // Just change the password so they arne't the same!
-        return "!" + rawPassword;
-      }
-    };
+          @Override
+          public String encode(final CharSequence rawPassword) {
+            // Just change the password so they arne't the same!
+            return "!" + rawPassword;
+          }
+        };
     repo = new MapBackedUserAccountRepository();
     userAccounts = new ReactiveUserAccountRepositoryWrapper(repo);
     userService = new UserService(userAccounts, passwordEncoder);
@@ -46,13 +50,14 @@ public class UserServiceTest {
   public void testChangePassword() {
     repo.save(UserAccount.builder().username("username").password("different").build());
     userService.changePassword("username", "password");
-    assertThat(repo.findByUsername("username").get().getPassword()).isEqualTo(passwordEncoder.encode("password"));
-
+    assertThat(repo.findByUsername("username").get().getPassword())
+        .isEqualTo(passwordEncoder.encode("password"));
   }
 
   @Test
   public void testEncodePassword() {
-    assertThat(userService.encodePassword("password")).isEqualTo(passwordEncoder.encode("password"));
+    assertThat(userService.encodePassword("password"))
+        .isEqualTo(passwordEncoder.encode("password"));
   }
 
   @Test
@@ -63,7 +68,6 @@ public class UserServiceTest {
 
     assertThat(repo.findByUsername("username")).isPresent();
     assertThat(repo.findByUsername("username").get().getPassword()).isEqualTo("different");
-
   }
 
   @Test
@@ -79,7 +83,6 @@ public class UserServiceTest {
   public void testGeneratorRandomPassword() {
     assertThat(userService.generateRandomPassword()).isNotBlank();
     assertThat(userService.generateRandomPassword().length()).isGreaterThan(8);
-
   }
 
   @Test
@@ -103,13 +106,10 @@ public class UserServiceTest {
     userService.updateAccount("username", "name1", "organisation1", AuthUtils.toSet("r1", "r2"));
 
     final UserAccount ua = repo.findByUsername("username").get();
-    assertThat(ua.getAuthorities()).contains(InvestRoles.fromRoleToAuthority("r1"),
-        InvestRoles.fromRoleToAuthority("r2"));
+    assertThat(ua.getAuthorities())
+        .contains(InvestRoles.fromRoleToAuthority("r1"), InvestRoles.fromRoleToAuthority("r2"));
     assertThat(ua.getOrganisation()).isEqualTo("organisation1");
     assertThat(ua.getName()).isEqualTo("name1");
     assertThat(ua.getPassword()).isEqualTo("different");
-
-
   }
-
 }

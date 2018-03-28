@@ -1,14 +1,18 @@
 package io.committed.invest.graphql.ui.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
 import io.committed.invest.graphql.ui.data.UiPlugin;
@@ -22,10 +26,8 @@ public class PluginSettingsGraphQlResolverTest {
   public void before() {
 
     final TestInvestUiExtension present = new TestInvestUiExtension("present");
-    final Collection<InvestUiExtension> extensions = Arrays.asList(
-        present,
-        new TestInvestUiExtension("no-settings"));
-
+    final Collection<InvestUiExtension> extensions =
+        Arrays.asList(present, new TestInvestUiExtension("no-settings"));
 
     final Map<String, Object> settings = new HashMap<>();
     settings.put("a", "b");
@@ -34,8 +36,6 @@ public class PluginSettingsGraphQlResolverTest {
     uiRegistry = new InvestUiExtensionRegistry(extensions);
 
     resolver = new PluginSettingsGraphQlResolver(uiRegistry, new ObjectMapper());
-
-
   }
 
   @Test
@@ -54,7 +54,6 @@ public class PluginSettingsGraphQlResolverTest {
     final Optional<String> settings = resolver.settings(plugin).blockOptional();
 
     assertThat(settings.get()).isNotBlank();
-
   }
 
   @Test
@@ -65,5 +64,4 @@ public class PluginSettingsGraphQlResolverTest {
 
     assertThat(settings).isNotPresent();
   }
-
 }

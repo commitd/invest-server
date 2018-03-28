@@ -3,11 +3,7 @@ package io.committed.invest.extensions.data.dataset;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-
-/**
- * A dataset registry holds all configured and available datasets for the application.
- *
- */
+/** A dataset registry holds all configured and available datasets for the application. */
 public interface DatasetRegistry {
 
   /**
@@ -24,5 +20,4 @@ public interface DatasetRegistry {
    * @return the mono
    */
   Mono<Dataset> findById(String id);
-
 }

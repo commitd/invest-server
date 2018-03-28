@@ -1,9 +1,6 @@
 package io.committed.invest.plugin.server.audit.services;
 
-
-/**
- * An interface which all audit services must implement.
- */
+/** An interface which all audit services must implement. */
 public interface AuditService {
 
   /**
@@ -16,14 +13,13 @@ public interface AuditService {
    */
   void audit(String user, String action, String message, Object params);
 
-
   /**
    * Checks if is audit service is logging.
    *
-   * If not then audit() will not be called (and other work will not be done).
+   * <p>If not then audit() will not be called (and other work will not be done).
    *
-   * Most implementation will have this fixed (to true), but it is called each time an audit message
-   * may be generated, so it can change dynamically.
+   * <p>Most implementation will have this fixed (to true), but it is called each time an audit
+   * message may be generated, so it can change dynamically.
    *
    * @return true, if is logging
    */

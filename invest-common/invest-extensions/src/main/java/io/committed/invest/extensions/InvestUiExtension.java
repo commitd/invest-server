@@ -6,20 +6,18 @@ package io.committed.invest.extensions;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+
 import io.committed.invest.extensions.actions.ActionDefinition;
 import io.committed.invest.extensions.actions.SimpleActionDefinition;
 
 /**
  * An Invest Extension which provides a UI to the client.
  *
- * The UI is hosted within the plugin JAR under the /src/main/resources directory. By default
+ * <p>The UI is hosted within the plugin JAR under the /src/main/resources directory. By default
  * (configurable using getStaticResourcePath()) it is actually under src/main/resources/ui/{id}/
  * where id is the plugin id (ie that return by getId()).
- *
- *
  */
 public interface InvestUiExtension extends InvestExtension {
-
 
   /**
    * Gets the static resource path on the classpath
@@ -42,9 +40,9 @@ public interface InvestUiExtension extends InvestExtension {
   /**
    * The list of Invest Authtories the user needs to have in order to access these functions.
    *
-   * See InvestAuthorties for a list.
+   * <p>See InvestAuthorties for a list.
    *
-   * Level black is anyone can use.
+   * <p>Level black is anyone can use.
    *
    * @return the roles
    */
@@ -55,8 +53,8 @@ public interface InvestUiExtension extends InvestExtension {
   /**
    * Gets the actions which this plugin accepts.
    *
-   * To help create the action list use {@link SimpleActionDefinition} which as a builder interface
-   * and Arrays.asList().
+   * <p>To help create the action list use {@link SimpleActionDefinition} which as a builder
+   * interface and Arrays.asList().
    *
    * @return the actions
    */
@@ -67,11 +65,12 @@ public interface InvestUiExtension extends InvestExtension {
   /**
    * Provides an object which supplies settings to the UI
    *
-   * If you wish to read settings from a Yaml configuration, here you might want to Spring's
-   * EnableConfigurationProperties and then Autowired the configuration bean into this to return here.
+   * <p>If you wish to read settings from a Yaml configuration, here you might want to Spring's
+   * EnableConfigurationProperties and then Autowired the configuration bean into this to return
+   * here.
    *
-   * Note that the class provided will need to be serialisable to the UI in JSON, thus use Jackson
-   * annotations as appropriate to ensure the mapping is correct.
+   * <p>Note that the class provided will need to be serialisable to the UI in JSON, thus use
+   * Jackson annotations as appropriate to ensure the mapping is correct.
    *
    * @return the settings
    */
@@ -79,5 +78,4 @@ public interface InvestUiExtension extends InvestExtension {
   default Optional<?> getSettings() {
     return Optional.empty();
   }
-
 }

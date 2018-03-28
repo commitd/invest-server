@@ -1,19 +1,19 @@
 package io.committed.invest.server.core.services;
 
 import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Service;
+
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 
 /**
  * Basic implementation of {@link UiUrlService}.
  *
- * UI plugins are hosted on /ui/{extension.getId()}.
- *
+ * <p>UI plugins are hosted on /ui/{extension.getId()}.
  */
 @Service
 public class SimpleUiUrlService implements UiUrlService {
-
 
   private final Pattern rootPattern =
       Pattern.compile(String.format("%s/[^/]+/?", getContextPath()));
@@ -32,7 +32,4 @@ public class SimpleUiUrlService implements UiUrlService {
   public boolean isPathForExtensionRoot(final String path) {
     return rootPattern.matcher(path).matches();
   }
-
-
-
 }

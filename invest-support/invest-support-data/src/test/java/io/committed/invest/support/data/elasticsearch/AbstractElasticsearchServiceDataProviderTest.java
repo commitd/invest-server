@@ -2,13 +2,13 @@ package io.committed.invest.support.data.elasticsearch;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
 import org.junit.Test;
 
 public class AbstractElasticsearchServiceDataProviderTest {
 
   @Test
   public void testGetService() {
-
 
     final ElasticsearchSupportService ess = mock(ElasticsearchSupportService.class);
     final AbstractElasticsearchServiceDataProvider<Object, ElasticsearchSupportService<Object>> dp =
@@ -21,5 +21,4 @@ public class AbstractElasticsearchServiceDataProviderTest {
 
     assertThat(dp.getService()).isSameAs(ess);
   }
-
 }

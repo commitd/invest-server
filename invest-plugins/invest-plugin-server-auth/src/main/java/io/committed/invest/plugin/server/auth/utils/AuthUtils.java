@@ -8,18 +8,17 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.dto.User;
 
-/**
- * Utilities for authentication
- *
- */
+/** Utilities for authentication */
 public final class AuthUtils {
 
   private AuthUtils() {
@@ -34,7 +33,8 @@ public final class AuthUtils {
    */
   public static User fromAuthentication(final Authentication auth) {
     final UserDetails ud = (UserDetails) auth.getPrincipal();
-    return new User(ud.getUsername(), ud.getUsername(), getRolesFromAuthorities(ud.getAuthorities()));
+    return new User(
+        ud.getUsername(), ud.getUsername(), getRolesFromAuthorities(ud.getAuthorities()));
   }
 
   /**
@@ -44,7 +44,9 @@ public final class AuthUtils {
    * @return the user
    */
   public static User fromAccount(final UserAccount userAccount) {
-    return new User(userAccount.getUsername(), userAccount.getUsername(),
+    return new User(
+        userAccount.getUsername(),
+        userAccount.getUsername(),
         getRolesFromAuthorities(userAccount.getAuthorities().stream()));
   }
 
@@ -54,14 +56,20 @@ public final class AuthUtils {
    * @param authorities the authorities
    * @return the roles from authorities
    */
-  public static Set<String> getRolesFromAuthorities(final Collection<? extends GrantedAuthority> authorities) {
-    return authorities == null ? Collections.emptySet()
+  public static Set<String> getRolesFromAuthorities(
+      final Collection<? extends GrantedAuthority> authorities) {
+    return authorities == null
+        ? Collections.emptySet()
         : getRolesFromAuthorities(authorities.stream().map(GrantedAuthority::getAuthority));
   }
 
   private static Set<String> getRolesFromAuthorities(final Stream<String> authorities) {
-    return authorities.filter(InvestRoles::isAuthorityARole).map(InvestRoles::fromAuthorityToRole)
-        .filter(Optional::isPresent).map(Optional::get).collect(Collectors.toSet());
+    return authorities
+        .filter(InvestRoles::isAuthorityARole)
+        .map(InvestRoles::fromAuthorityToRole)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .collect(Collectors.toSet());
   }
 
   /**
@@ -74,7 +82,8 @@ public final class AuthUtils {
     return authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
   }
 
-  public static boolean hasAuthority(final Authentication authentication, final String... authority) {
+  public static boolean hasAuthority(
+      final Authentication authentication, final String... authority) {
     final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
     if (authorities == null || authorities.isEmpty()) {
       return false;

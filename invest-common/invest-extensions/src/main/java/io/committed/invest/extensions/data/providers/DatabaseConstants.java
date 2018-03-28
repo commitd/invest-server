@@ -1,9 +1,6 @@
 package io.committed.invest.extensions.data.providers;
 
-
-/**
- * Constants for the names of Databases (for use with DataProviderFactory)
- */
+/** Constants for the names of Databases (for use with DataProviderFactory) */
 public final class DatabaseConstants {
 
   private DatabaseConstants() {
@@ -25,5 +22,4 @@ public final class DatabaseConstants {
   public static final String MEMORY = "Memory";
 
   public static final String FILE = "File";
-
 }

@@ -2,11 +2,19 @@ package io.committed.invest.core;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
 import java.util.Arrays;
 import java.util.Collection;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.server.WebSession;
+
+import reactor.core.publisher.Mono;
+
 import io.committed.invest.core.auth.AuthenticationSettings;
 import io.committed.invest.core.dto.analytic.GeoBin;
 import io.committed.invest.core.dto.auth.InvestUser;
@@ -18,9 +26,6 @@ import io.committed.invest.core.dto.graph.Node;
 import io.committed.invest.core.dto.system.Message;
 import io.committed.invest.core.graphql.InvestRootContext;
 import io.committed.invest.test.LombokDataTestSupport;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-import reactor.core.publisher.Mono;
 
 public class LombokTest {
 
@@ -48,20 +53,20 @@ public class LombokTest {
     assertThat(investRootContext.getSession()).isSameAs(session);
     assertThat(investRootContext.toString()).isNotBlank();
 
-
     EqualsVerifier.forClass(InvestRootContext.class)
         .withRedefinedSuperclass()
-        .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS).verify();
+        .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS)
+        .verify();
   }
 
   @Test
   public void testGraph() {
     final Collection<Node> nodes = Arrays.asList(mock(Node.class));
-    final Collection<Edge> edges = Arrays.asList(mock(Edge.class));;
+    final Collection<Edge> edges = Arrays.asList(mock(Edge.class));
+    ;
     final Graph graph = new Graph(nodes, edges);
 
     assertThat(graph.getNodes()).hasSameElementsAs(nodes);
     assertThat(graph.getEdges()).hasSameElementsAs(edges);
-
   }
 }

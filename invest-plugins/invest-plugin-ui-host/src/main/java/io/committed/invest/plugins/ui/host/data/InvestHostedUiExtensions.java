@@ -2,12 +2,10 @@ package io.committed.invest.plugins.ui.host.data;
 
 import java.util.Collection;
 import java.util.Collections;
+
 import lombok.Data;
 
-/**
- * Collection of extensions to be hosted.
- *
- */
+/** Collection of extensions to be hosted. */
 @Data
 public class InvestHostedUiExtensions {
 
@@ -24,5 +22,4 @@ public class InvestHostedUiExtensions {
   public boolean isEmpty() {
     return extensions == null || extensions.isEmpty();
   }
-
 }

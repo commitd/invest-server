@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-/**
- * A simple POJO based implementation of Action defintion, with builder.
- */
+/** A simple POJO based implementation of Action defintion, with builder. */
 @Builder
 @Data
 @NoArgsConstructor
@@ -26,6 +23,4 @@ public class SimpleActionDefinition implements ActionDefinition {
 
   /** The description. */
   private String description;
-
-
 }

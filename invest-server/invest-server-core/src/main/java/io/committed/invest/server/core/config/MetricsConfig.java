@@ -2,6 +2,7 @@ package io.committed.invest.server.core.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics;
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics;
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics;
@@ -11,11 +12,10 @@ import io.micrometer.core.instrument.binder.system.ProcessorMetrics;
 /**
  * Add additional metrics to Micrometer.
  *
- * There are other's available too but they need more specific configuration (eg the obejct which is
- * being monitored).
+ * <p>There are other's available too but they need more specific configuration (eg the obejct which
+ * is being monitored).
  *
- * Other metrics are already installed by MeterBindersConfiguration.
- *
+ * <p>Other metrics are already installed by MeterBindersConfiguration.
  */
 @Configuration
 public class MetricsConfig {
@@ -38,7 +38,6 @@ public class MetricsConfig {
   public FileDescriptorMetrics fileDescriptorMetrics() {
     return new FileDescriptorMetrics();
   }
-
 
   @Bean
   public ProcessorMetrics processorMetrics() {

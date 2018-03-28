@@ -1,6 +1,7 @@
 package io.committed.invest.core.auth;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 public class InvestRolesTest {
@@ -10,7 +11,6 @@ public class InvestRolesTest {
     assertThat(InvestRoles.isAuthorityARole("ROLE_role")).isTrue();
 
     assertThat(InvestRoles.isAuthorityARole("_role")).isFalse();
-
   }
 
   @Test
@@ -19,5 +19,4 @@ public class InvestRolesTest {
 
     assertThat(InvestRoles.fromAuthorityToRole("role")).isEmpty();
   }
-
 }

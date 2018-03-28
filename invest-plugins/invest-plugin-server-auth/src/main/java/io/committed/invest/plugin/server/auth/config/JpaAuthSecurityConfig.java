@@ -1,6 +1,7 @@
 package io.committed.invest.plugin.server.auth.config;
 
 import javax.persistence.EntityManager;
+
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
+
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.repo.ReactiveUserAccountRepositoryWrapper;
 import io.committed.invest.plugin.server.repo.UnreactiveUserAccountRepository;
@@ -17,9 +19,8 @@ import io.committed.invest.plugin.server.repo.UserAccountRepository;
 /**
  * JPA based user database.
  *
- * This will use the Spring JPA Data configuration, see Spring Boot documentation for more
+ * <p>This will use the Spring JPA Data configuration, see Spring Boot documentation for more
  * information for details.
- *
  */
 @Configuration
 @Profile("auth-jpa")
@@ -35,5 +36,4 @@ public class JpaAuthSecurityConfig extends AbstractWithAuthSecurityConfig {
         repositoryFactory.getRepository(UnreactiveUserAccountRepository.class);
     return new ReactiveUserAccountRepositoryWrapper(repo);
   }
-
 }

@@ -3,14 +3,14 @@ package io.committed.invest.extensions.data.providers;
 /**
  * A Data Provider which supports crud operates.
  *
- * The is a simple inteface but worth noting is the two parameters R, T.
+ * <p>The is a simple inteface but worth noting is the two parameters R, T.
  *
- * It is certain that when you need to save an item you will require the full item (the value T).
+ * <p>It is certain that when you need to save an item you will require the full item (the value T).
  *
- * However when you delete an item you typically only require enough information to reference it
+ * <p>However when you delete an item you typically only require enough information to reference it
  * (the value R) uniquely.
  *
- * In many cases R is a subset of T or R might simply be a database id.
+ * <p>In many cases R is a subset of T or R might simply be a database id.
  *
  * @param <R> the type to use to delete
  * @param <T> the type to save
@@ -22,7 +22,7 @@ public interface CrudDataProvider<R, T> extends DataProvider {
    *
    * @param reference the reference
    * @return true, if successful (typically that means that something has been deleted from the
-   *         dataprovider)
+   *     dataprovider)
    */
   boolean delete(R reference);
 
@@ -31,7 +31,7 @@ public interface CrudDataProvider<R, T> extends DataProvider {
    *
    * @param item the item
    * @return true, if successful(typically that means that something has been deleted from the
-   *         dataprovider)
+   *     dataprovider)
    */
   boolean save(T item);
 }

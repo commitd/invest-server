@@ -11,12 +11,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
 import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.server.graphql.data.GraphQlQuery;
 import io.committed.invest.test.InvestTestContext;
+
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
-
 
 @RunWith(SpringRunner.class)
 @WebFluxTest
@@ -25,22 +26,20 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 @DirtiesContext
 public class InvestGraphQlWithServiceTest {
 
-
-  @Autowired
-  private WebTestClient webClient;
-
-
+  @Autowired private WebTestClient webClient;
 
   @Test
   public void examplePostGraphQlWhenNoServices() {
     final GraphQlQuery query = new GraphQlQuery();
     query.setQuery("query { test(message:\"world\") }");
 
-    this.webClient.post()
+    this.webClient
+        .post()
         .uri("/graphql")
         .syncBody(query)
         .exchange()
-        .expectStatus().isOk()
+        .expectStatus()
+        .isOk()
         .expectBody()
         .json("{\"data\":{\"test\":\"Hello world\"}}");
   }
@@ -62,6 +61,4 @@ public class InvestGraphQlWithServiceTest {
       return String.format("Hello %s", msg);
     }
   }
-
-
 }

@@ -1,6 +1,7 @@
 package io.committed.invest.plugins.ui.livedev;
 
 import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,28 +18,26 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.reactive.function.server.ServerResponse.BodyBuilder;
 import org.springframework.web.util.UriBuilder;
-import io.committed.invest.core.services.UiUrlService;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-/**
- * Configuration for the Live UI which performs forwarding.
- */
+import io.committed.invest.core.services.UiUrlService;
+
+/** Configuration for the Live UI which performs forwarding. */
 @Configuration
 public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
 
-  private static final String[] PATHS =
-      {"/static/**", "/sockjs-node/**", "/__webpack_dev_server__/**"};
+  private static final String[] PATHS = {
+    "/static/**", "/sockjs-node/**", "/__webpack_dev_server__/**"
+  };
 
-  @Autowired
-  UiUrlService urlService;
+  @Autowired UiUrlService urlService;
 
-  @Autowired
-  LiveDevelopmentUIExtension plugin;
+  @Autowired LiveDevelopmentUIExtension plugin;
 
   private String getFullPath() {
     return urlService.getFullPath(plugin);
-
   }
 
   @Bean
@@ -61,17 +60,19 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
     // so we need to add the PATHS
 
     for (final String path : PATHS) {
-      registry.addMapping(path).allowedHeaders("*")
-          .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedOrigins("*");
+      registry
+          .addMapping(path)
+          .allowedHeaders("*")
+          .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+          .allowedOrigins("*");
     }
   }
-
 
   Mono<ServerResponse> handle(final ServerRequest request) {
 
     // Modify the URI to go to our proxy
-    final UriBuilder info = request.uriBuilder()
-        .host("localhost").port(3001).scheme("http").userInfo(null);
+    final UriBuilder info =
+        request.uriBuilder().host("localhost").port(3001).scheme("http").userInfo(null);
 
     final String path = request.path();
     final String fullPath = getFullPath();
@@ -94,24 +95,28 @@ public class LiveDevelopmentUIConfig implements WebFluxConfigurer {
         return ServerResponse.badRequest().build();
     }
 
-
     final URI uri = info.build();
 
-    return requestSpec.uri(uri).exchange().flatMap(cr -> {
-      if (cr.statusCode() != HttpStatus.OK) {
-        return ServerResponse.status(cr.statusCode()).build();
-      }
+    return requestSpec
+        .uri(uri)
+        .exchange()
+        .flatMap(
+            cr -> {
+              if (cr.statusCode() != HttpStatus.OK) {
+                return ServerResponse.status(cr.statusCode()).build();
+              }
 
-      BodyBuilder response = ServerResponse.ok();
-      if (cr.headers().contentLength().isPresent()) {
-        response = response.contentLength(cr.headers().contentLength().getAsLong());
-      }
-      if (cr.headers().contentType().isPresent()) {
-        response = response.contentType(cr.headers().contentType().get());
-      }
+              BodyBuilder response = ServerResponse.ok();
+              if (cr.headers().contentLength().isPresent()) {
+                response = response.contentLength(cr.headers().contentLength().getAsLong());
+              }
+              if (cr.headers().contentType().isPresent()) {
+                response = response.contentType(cr.headers().contentType().get());
+              }
 
-      final Flux<DataBuffer> in = cr.body((inputMessage, context) -> inputMessage.getBody());
-      return response.body((outputMessage, context) -> outputMessage.writeWith(in));
-    });
+              final Flux<DataBuffer> in =
+                  cr.body((inputMessage, context) -> inputMessage.getBody());
+              return response.body((outputMessage, context) -> outputMessage.writeWith(in));
+            });
   }
 }

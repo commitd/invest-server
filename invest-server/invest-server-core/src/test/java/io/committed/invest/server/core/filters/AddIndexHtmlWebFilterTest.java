@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.ArgumentMatchers;
@@ -11,6 +12,7 @@ import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilterChain;
+
 import io.committed.invest.core.services.UiUrlService;
 
 public class AddIndexHtmlWebFilterTest {
@@ -40,7 +42,8 @@ public class AddIndexHtmlWebFilterTest {
     final WebFilterChain chain = mock(WebFilterChain.class);
     filter.filter(exchange, chain);
 
-    final ArgumentCaptor<ServerWebExchange> captor = ArgumentCaptor.forClass(ServerWebExchange.class);
+    final ArgumentCaptor<ServerWebExchange> captor =
+        ArgumentCaptor.forClass(ServerWebExchange.class);
     verify(chain).filter(captor.capture());
 
     return captor.getValue().getRequest().getPath().value().toString();

@@ -3,10 +3,12 @@ package io.committed.invest.plugin.server.auth.utils;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Test;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,14 +29,16 @@ public class AuthUtilsTest {
     assertThat(user.getName()).isEqualTo("username");
     assertThat(user.getUsername()).isEqualTo("username");
     assertThat(user.getRoles()).containsExactly("role");
-
   }
 
   @Test
   public void testRolesFromAuthorities() {
-    final Set<String> rolesFromAuthorities = AuthUtils.getRolesFromAuthorities(
-        Arrays.asList(new SimpleGrantedAuthority("ROLE_role1"), new SimpleGrantedAuthority("ROLE_role2"),
-            new SimpleGrantedAuthority("role3")));
+    final Set<String> rolesFromAuthorities =
+        AuthUtils.getRolesFromAuthorities(
+            Arrays.asList(
+                new SimpleGrantedAuthority("ROLE_role1"),
+                new SimpleGrantedAuthority("ROLE_role2"),
+                new SimpleGrantedAuthority("role3")));
 
     assertThat(rolesFromAuthorities).containsExactly("role1", "role2");
   }
@@ -43,9 +47,9 @@ public class AuthUtilsTest {
   public void testToGrantAuthorities() {
     final Collection<GrantedAuthority> authorities =
         AuthUtils.toGrantAuthorities(new HashSet<>(Arrays.asList("role1", "role2")));
-    assertThat(authorities.stream().map(GrantedAuthority::getAuthority)).containsExactly("role1", "role2");
+    assertThat(authorities.stream().map(GrantedAuthority::getAuthority))
+        .containsExactly("role1", "role2");
   }
-
 
   @Test
   public void testHasAuthority() {
@@ -58,7 +62,6 @@ public class AuthUtilsTest {
     assertThat(AuthUtils.hasAuthority(auth, "ROLE_role1")).isTrue();
 
     assertThat(AuthUtils.hasAuthority(auth, "ROLE_role10")).isFalse();
-
   }
 
   @Test
@@ -66,5 +69,4 @@ public class AuthUtilsTest {
     final String[] roles = new String[] {"a", "b", "c"};
     assertThat(AuthUtils.toSet(roles)).hasSameElementsAs(Arrays.asList(roles));
   }
-
 }

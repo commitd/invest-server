@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class GeoBoxTest {
@@ -30,7 +31,6 @@ public class GeoBoxTest {
     assertTrue(geoBox.getE().isNaN());
     assertEquals(180.0, geoBox.getSafeE(), 0.01);
 
-
     assertFalse(geoBox.isValid());
   }
 
@@ -50,7 +50,6 @@ public class GeoBoxTest {
 
     assertFalse(geoBox.isValid());
   }
-
 
   @Test
   public void testTooLarge() {
@@ -90,13 +89,11 @@ public class GeoBoxTest {
     final GeoBox b = new GeoBox(8.0, 15.0, -80.0, -75.0);
     final GeoBox i = a.intersection(b);
 
-
     assertEquals(15, i.getSafeE(), 0.01);
     assertEquals(-20, i.getSafeW(), 0.01);
     assertEquals(-10, i.getSafeS(), 0.01);
     assertEquals(8, i.getSafeN(), 0.01);
 
     assertTrue(i.isValid());
-
   }
 }

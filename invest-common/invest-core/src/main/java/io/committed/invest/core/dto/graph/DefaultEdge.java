@@ -1,13 +1,12 @@
 package io.committed.invest.core.dto.graph;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * An edge of a graph.
- */
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/** An edge of a graph. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

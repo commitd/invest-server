@@ -2,21 +2,24 @@ package io.committed.invest.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
+
 import java.time.Instant;
 import java.util.stream.Stream;
+
 import org.junit.Test;
 import org.meanbean.factories.NoSuchFactoryException;
 import org.reactivestreams.Publisher;
-import io.committed.invest.test.data.BrokenGetterExample;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import io.committed.invest.test.data.BrokenGetterExample;
 
 public class BeanTestSupportTest {
 
   @Test
   public void testGetRandomValueGenerator() {
     assertThat(BeanTestSupport.getRandomValueGenerator()).isNotNull();
-
   }
 
   @Test
@@ -28,8 +31,10 @@ public class BeanTestSupportTest {
       // Ok
     }
 
-    BeanTestSupport.addFactory(CantMakeMeWithoutFactory.class, () -> new CantMakeMeWithoutFactory("test"));
-    final CantMakeMeWithoutFactory value = BeanTestSupport.generateValue(CantMakeMeWithoutFactory.class);
+    BeanTestSupport.addFactory(
+        CantMakeMeWithoutFactory.class, () -> new CantMakeMeWithoutFactory("test"));
+    final CantMakeMeWithoutFactory value =
+        BeanTestSupport.generateValue(CantMakeMeWithoutFactory.class);
     assertThat(value).isNotNull();
   }
 
@@ -69,24 +74,16 @@ public class BeanTestSupportTest {
 
     final String[] strings = BeanTestSupport.generateValue(String[].class);
     assertThat(strings).doesNotContainNull();
-
   }
 
-
   public class CantMakeMe {
-    public CantMakeMe(final CantMakeMe me) {
+    public CantMakeMe(final CantMakeMe me) {}
 
-    }
-
-    public CantMakeMe(final String s) {
-
-    }
+    public CantMakeMe(final String s) {}
   }
 
   public class CantMakeMeWithoutFactory {
 
-    public CantMakeMeWithoutFactory(final String s) {
-
-    }
+    public CantMakeMeWithoutFactory(final String s) {}
   }
 }

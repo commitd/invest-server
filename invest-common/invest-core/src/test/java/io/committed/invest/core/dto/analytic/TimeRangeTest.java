@@ -3,8 +3,11 @@ package io.committed.invest.core.dto.analytic;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
+
 import org.junit.Test;
+
 import io.committed.invest.core.constants.TimeInterval;
 
 public class TimeRangeTest {
@@ -28,7 +31,6 @@ public class TimeRangeTest {
     assertEquals(10l, r.getEnd().getTime());
     assertEquals(0, r.getDuration());
     assertFalse(r.isValid());
-
   }
 
   @Test
@@ -45,5 +47,4 @@ public class TimeRangeTest {
     assertEquals(5l, r.getStart().getTime());
     assertEquals(100l, r.getEnd().getTime());
   }
-
 }

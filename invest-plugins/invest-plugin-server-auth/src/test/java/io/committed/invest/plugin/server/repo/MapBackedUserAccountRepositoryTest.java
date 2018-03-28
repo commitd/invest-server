@@ -1,9 +1,12 @@
 package io.committed.invest.plugin.server.repo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.utils.AuthUtils;
 
@@ -20,7 +23,11 @@ public class MapBackedUserAccountRepositoryTest {
     newUser = UserAccount.builder().username("username").authorities(AuthUtils.toSet("a1")).build();
 
     existingUser =
-        repository.save(UserAccount.builder().username("oldUser").authorities(AuthUtils.toSet("a1", "a2")).build());
+        repository.save(
+            UserAccount.builder()
+                .username("oldUser")
+                .authorities(AuthUtils.toSet("a1", "a2"))
+                .build());
   }
 
   @Test
@@ -30,7 +37,6 @@ public class MapBackedUserAccountRepositoryTest {
     repository.save(newUser);
 
     assertThat(repository.count()).isEqualTo(2);
-
   }
 
   @Test
@@ -45,7 +51,6 @@ public class MapBackedUserAccountRepositoryTest {
     assertThat(repository.findById(existingUser.getId())).isPresent();
 
     assertThat(repository.findById("missing")).isEmpty();
-
   }
 
   @Test
@@ -53,18 +58,17 @@ public class MapBackedUserAccountRepositoryTest {
     assertThat(repository.existsById(existingUser.getId())).isTrue();
 
     assertThat(repository.existsById("missing")).isFalse();
-
   }
 
   @Test
   public void testFindAll() {
     assertThat(repository.findAll()).containsExactly(existingUser);
-
   }
 
   @Test
   public void testFindAllById() {
-    assertThat(repository.findAllById(Arrays.asList(existingUser.getId()))).containsExactly(existingUser);
+    assertThat(repository.findAllById(Arrays.asList(existingUser.getId())))
+        .containsExactly(existingUser);
   }
 
   @Test
@@ -100,7 +104,6 @@ public class MapBackedUserAccountRepositoryTest {
   public void testDeleteByUsername() {
     repository.deleteByUsername(existingUser.getUsername());
     assertThat(repository.count()).isEqualTo(0);
-
   }
 
   @Test
@@ -112,5 +115,4 @@ public class MapBackedUserAccountRepositoryTest {
   public void testFindByUsername() {
     assertThat(repository.findByUsername(existingUser.getUsername())).contains(existingUser);
   }
-
 }

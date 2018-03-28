@@ -51,5 +51,4 @@ public class ZeroPageRequest implements Pageable {
   public Pageable previousOrFirst() {
     return this;
   }
-
 }

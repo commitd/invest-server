@@ -1,6 +1,7 @@
 package io.committed.invest.support.data.mongo;
 
 import java.util.Map;
+
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.SimpleReactiveMongoDatabaseFactory;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,8 +9,10 @@ import org.springframework.data.mongodb.repository.support.ReactiveMongoReposito
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.core.support.ReactiveRepositoryFactorySupport;
 import org.springframework.stereotype.Repository;
+
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
+
 import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
@@ -17,14 +20,13 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 /**
  * Base factory for data providers which will make use of Spring Data Mongo.
  *
- * This will rely on Spring Data Mongo in order to provide the collectionName, set through the
+ * <p>This will rely on Spring Data Mongo in order to provide the collectionName, set through the
  * {@link Document} annotation (or defaults to the entity class name).
  *
- * You can use this to build {@link AbstractSpringDataMongoDataProvider} or
- * {@link AbstractSpringDataMongoRepositoryDataProvider}, depending if have a {@link Repository} or
- * not.
+ * <p>You can use this to build {@link AbstractSpringDataMongoDataProvider} or {@link
+ * AbstractSpringDataMongoRepositoryDataProvider}, depending if have a {@link Repository} or not.
  *
- * Implementation will provide a build() function which will look like (if you have a repository
+ * <p>Implementation will provide a build() function which will look like (if you have a repository
  * called MyMongoRepository):
  *
  * <pre>
@@ -44,23 +46,27 @@ public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataP
 
   private final String defaultDatabase;
 
-  protected AbstractSpringDataMongoDataProviderFactory(final String id, final Class<P> clazz,
-      final String defaultDatabase) {
+  protected AbstractSpringDataMongoDataProviderFactory(
+      final String id, final Class<P> clazz, final String defaultDatabase) {
     super(id, clazz, DatabaseConstants.MONGO);
     this.defaultDatabase = defaultDatabase;
   }
 
   protected ReactiveMongoTemplate buildMongoTemplate(final Map<String, Object> settings) {
     final String connectionString =
-        (String) settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_URI,
-            AbstractMongoDataProviderFactory.DEFAULT_URI);
+        (String)
+            settings.getOrDefault(
+                AbstractMongoDataProviderFactory.SETTING_URI,
+                AbstractMongoDataProviderFactory.DEFAULT_URI);
     final String databaseName =
-        (String) settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_DB, defaultDatabase);
+        (String)
+            settings.getOrDefault(AbstractMongoDataProviderFactory.SETTING_DB, defaultDatabase);
 
     return createMongoTemplate(connectionString, databaseName);
   }
 
-  protected ReactiveMongoTemplate createMongoTemplate(final String connectionString, final String databaseName) {
+  protected ReactiveMongoTemplate createMongoTemplate(
+      final String connectionString, final String databaseName) {
     final MongoClient mongoClient = MongoClients.create(connectionString);
     final SimpleReactiveMongoDatabaseFactory mongoDatabaseFactory =
         new SimpleReactiveMongoDatabaseFactory(mongoClient, databaseName);
@@ -77,7 +83,4 @@ public abstract class AbstractSpringDataMongoDataProviderFactory<P extends DataP
 
     return new ReactiveMongoRepositoryFactory(mongoOperations);
   }
-
-
-
 }

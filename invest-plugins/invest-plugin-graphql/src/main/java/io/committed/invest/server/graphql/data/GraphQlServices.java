@@ -1,15 +1,16 @@
 package io.committed.invest.server.graphql.data;
 
 import java.util.Collection;
-import io.committed.invest.extensions.annotations.GraphQLService;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import io.committed.invest.extensions.annotations.GraphQLService;
 
 /**
  * A 'named' holder for GraphQL services.
  *
- * That is Spring beans which have bene annotated with {@link GraphQLService}.
- *
+ * <p>That is Spring beans which have bene annotated with {@link GraphQLService}.
  */
 @Data
 @RequiredArgsConstructor

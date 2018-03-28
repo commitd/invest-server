@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.ServerSecurityContextRepository;
 import org.springframework.security.web.server.context.WebSessionServerSecurityContextRepository;
+
 import io.committed.invest.core.auth.AuthenticationSettings;
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.core.services.UiUrlService;
@@ -22,20 +23,16 @@ import io.committed.invest.plugin.server.services.EnsureAdminUserExists;
 import io.committed.invest.plugin.server.services.UserAccountDetailsRepositoryService;
 import io.committed.invest.plugin.server.services.UserService;
 
-
-/**
- * Base class for configuration of Authentication
- *
- */
+/** Base class for configuration of Authentication */
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public abstract class AbstractWithAuthSecurityConfig {
 
-  @Autowired
-  UiUrlService urlService;
+  @Autowired UiUrlService urlService;
 
   @Bean
-  public SecurityWebFilterChain springWebFilterChain(final ServerHttpSecurity http,
+  public SecurityWebFilterChain springWebFilterChain(
+      final ServerHttpSecurity http,
       final ServerSecurityContextRepository securityContextRepository,
       final ReactiveAuthenticationManager authenticationManager) {
 
@@ -49,24 +46,25 @@ public abstract class AbstractWithAuthSecurityConfig {
 
     http.authorizeExchange()
         // Allow access to static files inside the UI
-        .pathMatchers(urlService.getContextPath() + "/**").permitAll().pathMatchers("/actuator/**")
+        .pathMatchers(urlService.getContextPath() + "/**")
+        .permitAll()
+        .pathMatchers("/actuator/**")
         .hasRole(InvestRoles.ADMINISTRATOR)
         .anyExchange()
         .permitAll();
-
 
     return http.build();
   }
 
   @Bean
-  public EnsureAdminUserExists ensureAdminUserExists(final UserService userService,
-      final UserAccountRepository userAccounts) {
+  public EnsureAdminUserExists ensureAdminUserExists(
+      final UserService userService, final UserAccountRepository userAccounts) {
     return new EnsureAdminUserExists(userService, userAccounts);
   }
 
   @Bean
-  public UserService userService(final UserAccountRepository userAccounts,
-      final PasswordEncoder passwordEncoder) {
+  public UserService userService(
+      final UserAccountRepository userAccounts, final PasswordEncoder passwordEncoder) {
     return new UserService(userAccounts, passwordEncoder);
   }
 
@@ -82,8 +80,8 @@ public abstract class AbstractWithAuthSecurityConfig {
   }
 
   @Bean
-  public AuthGraphQlResolver authController(final UserService userService,
-      final ReactiveAuthenticationManager authenticationManager) {
+  public AuthGraphQlResolver authController(
+      final UserService userService, final ReactiveAuthenticationManager authenticationManager) {
     return new AuthGraphQlResolver(authenticationManager, userService);
   }
 
@@ -92,7 +90,6 @@ public abstract class AbstractWithAuthSecurityConfig {
   public ServerSecurityContextRepository securityContextRepository() {
     return new WebSessionServerSecurityContextRepository();
   }
-
 
   @Bean
   public UserDetailsRepositoryReactiveAuthenticationManager authenticationManager(

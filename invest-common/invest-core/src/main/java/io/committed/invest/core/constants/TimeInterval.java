@@ -42,7 +42,6 @@ public enum TimeInterval {
     }
   };
 
-
   public static List<String> getAxis(final TimeInterval x) {
     switch (x) {
       case MONTH:
@@ -66,7 +65,6 @@ public enum TimeInterval {
     } else {
       return y;
     }
-
   }
 
   public abstract int mapTime(final ZonedDateTime time);

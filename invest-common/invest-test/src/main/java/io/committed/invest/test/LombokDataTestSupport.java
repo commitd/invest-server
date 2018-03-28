@@ -3,11 +3,6 @@ package io.committed.invest.test;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import org.junit.Assert;
-import org.junit.Test;
-import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
-import io.github.lukehutch.fastclasspathscanner.scanner.ClassInfo;
-import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -16,28 +11,34 @@ import javassist.CtMethod;
 import javassist.CtNewConstructor;
 import javassist.CtNewMethod;
 import javassist.NotFoundException;
+
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
+import io.github.lukehutch.fastclasspathscanner.scanner.ClassInfo;
+import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;
 
 /**
  * Testing of Lombon Data annotated classes.
  *
- * Lombok annotations generate a lot of hidden code, around 40% of the code in Invest is Lombok
+ * <p>Lombok annotations generate a lot of hidden code, around 40% of the code in Invest is Lombok
  * generated. In theory we shouldn't need to test these, but in reality they drag down our code
  * coverage in Sonar, which does not offer a way to ignore generated code yet.
  *
- * This class performs a set of tests the Java POJO classes passed to it, for their adherence to the
- * JavaBean standards. You can use it for non Lombok methods (which is useful) or for Lombok
+ * <p>This class performs a set of tests the Java POJO classes passed to it, for their adherence to
+ * the JavaBean standards. You can use it for non Lombok methods (which is useful) or for Lombok
  * generated classes just to negate some code coverage issues.
  *
- * Ideally Sonar / Jacoco would be able to ignore generated methods, in which case this could be
+ * <p>Ideally Sonar / Jacoco would be able to ignore generated methods, in which case this could be
  * removed. Not that it doesn't produce 100% coverage, and if you have additional constructors / or
  * other Lombok annotators such as {@link Builder} you will need to manually tests those (or accept
  * the lack of code coverage in those areas).
- *
  */
 @Slf4j
 public class LombokDataTestSupport {
@@ -45,11 +46,13 @@ public class LombokDataTestSupport {
   public void testPackage(final Class<?> clazz) {
 
     final String packageName = clazz.getPackage().getName();
-    final ScanResult scanResult = new FastClasspathScanner(packageName)
-        .disableRecursiveScanning()
-        .scan();
+    final ScanResult scanResult =
+        new FastClasspathScanner(packageName).disableRecursiveScanning().scan();
 
-    scanResult.getClassNameToClassInfo().values().stream()
+    scanResult
+        .getClassNameToClassInfo()
+        .values()
+        .stream()
         // Not sure why this is requied, but sometimes come backs with java.lang.Object otherwise
         .filter(i -> i.getClassName().startsWith(packageName))
         .forEach(this::testClassInfo);
@@ -78,7 +81,6 @@ public class LombokDataTestSupport {
       return;
     }
 
-
     try {
       if (Modifier.isAbstract(modifiers)) {
         testAbstractClass(clazz);
@@ -89,7 +91,6 @@ public class LombokDataTestSupport {
       rethrowWithClass(clazz, e);
     }
   }
-
 
   private boolean isTestClass(final Class<?> clazz) {
     for (final Method m : clazz.getMethods()) {
@@ -102,17 +103,18 @@ public class LombokDataTestSupport {
 
   protected void testAbstractClass(final Class<?> clazz) {
     // Test #equals and #hashCode
-    EqualsVerifier.forClass(clazz).suppress(Warning.STRICT_INHERITANCE,
-        Warning.NONFINAL_FIELDS).verify();
+    EqualsVerifier.forClass(clazz)
+        .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS)
+        .verify();
   }
 
   protected void testConcreteClass(final Class<?> clazz)
-      throws InstantiationException, IllegalAccessException, NotFoundException, CannotCompileException {
+      throws InstantiationException, IllegalAccessException, NotFoundException,
+          CannotCompileException {
 
     // Skip abstract classes, interfaces and this class.
     final int modifiers = clazz.getModifiers();
-    if (Modifier.isAbstract(modifiers) ||
-        clazz.equals(this.getClass())) {
+    if (Modifier.isAbstract(modifiers) || clazz.equals(this.getClass())) {
       return;
     }
 
@@ -127,8 +129,10 @@ public class LombokDataTestSupport {
 
     // Test #equals and #hashCode
 
-    EqualsVerifier.forClass(clazz).withRedefinedSuperclass()
-        .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS).verify();
+    EqualsVerifier.forClass(clazz)
+        .withRedefinedSuperclass()
+        .suppress(Warning.STRICT_INHERITANCE, Warning.NONFINAL_FIELDS)
+        .verify();
 
     // Verify not equals with subclass (for code coverage with Lombok)
     if (!Modifier.isFinal(modifiers)) {
@@ -142,7 +146,8 @@ public class LombokDataTestSupport {
 
   // Adapted from http://stackoverflow.com/questions/17259421/java-creating-a-subclass-dynamically
   static Object createSubClassInstance(final String superClassName)
-      throws NotFoundException, CannotCompileException, InstantiationException, IllegalAccessException {
+      throws NotFoundException, CannotCompileException, InstantiationException,
+          IllegalAccessException {
 
     final ClassPool pool = ClassPool.getDefault();
 
@@ -154,16 +159,19 @@ public class LombokDataTestSupport {
 
     // Add a constructor which will call super
     final CtClass[] params = new CtClass[] {};
-    final CtConstructor ctor = CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS,
-        null, null, subClass);
+    final CtConstructor ctor =
+        CtNewConstructor.make(params, null, CtNewConstructor.PASS_PARAMS, null, null, subClass);
     subClass.addConstructor(ctor);
 
     // Add a canEquals method
-    final CtMethod ctmethod = CtNewMethod
-        .make("public boolean canEqual(Object o) { return o instanceof " + superClassName + "Extended; }", subClass);
+    final CtMethod ctmethod =
+        CtNewMethod.make(
+            "public boolean canEqual(Object o) { return o instanceof "
+                + superClassName
+                + "Extended; }",
+            subClass);
     subClass.addMethod(ctmethod);
 
     return subClass.toClass().newInstance();
   }
-
 }

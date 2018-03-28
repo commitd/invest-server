@@ -4,15 +4,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import io.committed.invest.extensions.InvestUiExtension;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * DTO for UI plugins
- *
- */
+import io.committed.invest.extensions.InvestUiExtension;
+
+/** DTO for UI plugins */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,7 +33,11 @@ public class UiPlugin {
     this.icon = extension.getIcon();
     this.actions =
         extension.getActions() != null
-            ? extension.getActions().stream().map(UiActionDefinition::new).collect(Collectors.toList())
+            ? extension
+                .getActions()
+                .stream()
+                .map(UiActionDefinition::new)
+                .collect(Collectors.toList())
             : Collections.emptyList();
     this.roles = extension.getRoles();
     if (roles == null) {

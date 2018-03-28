@@ -1,15 +1,14 @@
 package io.committed.invest.core.dto.analytic;
 
 import java.time.Instant;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * A time bin with count.
- *
- */
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/** A time bin with count. */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

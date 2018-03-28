@@ -3,11 +3,13 @@ package io.committed.invest.support.elasticsearch.utils;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram;
 import org.elasticsearch.search.aggregations.bucket.histogram.Histogram.Bucket;
@@ -15,6 +17,7 @@ import org.elasticsearch.search.aggregations.bucket.histogram.ParsedDateHistogra
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.mockito.Mockito;
+
 import io.committed.invest.core.constants.TimeInterval;
 import io.committed.invest.core.dto.analytic.Timeline;
 
@@ -31,10 +34,10 @@ public class TimeIntervalUtilsTest {
     to.put(TimeInterval.MINUTE, DateHistogramInterval.MINUTE);
     to.put(TimeInterval.SECOND, DateHistogramInterval.SECOND);
 
-
-    to.forEach((ti, dh) -> {
-      assertThat(TimeIntervalUtils.toDateHistogram(ti)).isEqualTo(dh);
-    });
+    to.forEach(
+        (ti, dh) -> {
+          assertThat(TimeIntervalUtils.toDateHistogram(ti)).isEqualTo(dh);
+        });
   }
 
   @Test
@@ -48,9 +51,10 @@ public class TimeIntervalUtilsTest {
     from.put(DateHistogramInterval.MINUTE, TimeInterval.MINUTE);
     from.put(DateHistogramInterval.SECOND, TimeInterval.SECOND);
 
-    from.forEach((dh, ti) -> {
-      assertThat(TimeIntervalUtils.fromDateHistogram(dh)).isEqualTo(ti);
-    });
+    from.forEach(
+        (dh, ti) -> {
+          assertThat(TimeIntervalUtils.fromDateHistogram(dh)).isEqualTo(ti);
+        });
   }
 
   @Test
@@ -71,7 +75,6 @@ public class TimeIntervalUtilsTest {
     final Timeline timeline = TimeIntervalUtils.create(histogram, TimeInterval.HOUR);
     assertThat(timeline.getInterval()).isEqualTo(TimeInterval.HOUR);
     assertThat(timeline.getBins()).isEmpty();
-
   }
 
   @Test

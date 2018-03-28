@@ -1,6 +1,7 @@
 package io.committed.invest.test;
 
 import org.junit.Test;
+
 import io.committed.invest.test.data.AbstractBrokenClass;
 import io.committed.invest.test.data.AbstractClass;
 import io.committed.invest.test.data.BrokenEqualsExample;
@@ -17,7 +18,6 @@ public class LombokDataTestSupportTest {
 
     ldts.testClass(LombokDataExample.class);
   }
-
 
   @Test(expected = AssertionError.class)
   public void testBrokenEquals() {
@@ -54,7 +54,6 @@ public class LombokDataTestSupportTest {
     ldts.testClass(AbstractClass.class);
   }
 
-
   @Test(expected = AssertionError.class)
   public void testBrokenAbstract() {
     final LombokDataTestSupport ldts = new LombokDataTestSupport();
@@ -66,5 +65,4 @@ public class LombokDataTestSupportTest {
     final LombokDataTestSupport ldts = new LombokDataTestSupport();
     ldts.testPackage(AbstractBrokenClass.class);
   }
-
 }

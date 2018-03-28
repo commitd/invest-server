@@ -16,6 +16,7 @@ public class BrokenHashcodeExample {
   public boolean equals(final Object o) {
     return o != null
         && o instanceof BrokenHashcodeExample
-        && (((BrokenHashcodeExample) o).test == test || test != null && test.equals(((BrokenHashcodeExample) o).test));
+        && (((BrokenHashcodeExample) o).test == test
+            || test != null && test.equals(((BrokenHashcodeExample) o).test));
   }
 }

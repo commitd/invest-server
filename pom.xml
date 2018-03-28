@@ -43,6 +43,8 @@
     <java.version>1.8</java.version>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
+    
+    <maven-spotless.version>1.0.0.BETA4</maven-spotless.version>
   </properties>
 
   <!-- These are required for Spring Boot milestones -->
@@ -116,6 +118,22 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+       <plugin>
+        <groupId>com.diffplug.spotless</groupId>
+        <artifactId>spotless-maven-plugin</artifactId>
+        <version>${maven-spotless.version}</version>
+        <configuration>
+          <java>
+            <googleJavaFormat>
+              <style>GOOGLE</style>
+            </googleJavaFormat>
+            <removeUnusedImports />
+            <importOrder>
+              <order>java,javax,org,com,io.committed</order>
+            </importOrder>
+          </java>
+        </configuration>
       </plugin>
     </plugins>
   </build>

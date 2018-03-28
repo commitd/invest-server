@@ -7,17 +7,18 @@ import java.net.URI;
 import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.committed.invest.plugins.ui.host.data.PluginJson;
-import lombok.extern.slf4j.Slf4j;
 
-/**
- * Reads invest.json from the root of a ZIP file.
- *
- */
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.committed.invest.plugins.ui.host.data.PluginJson;
+
+/** Reads invest.json from the root of a ZIP file. */
 @Service
 @Slf4j
 public class PluginZipReader {

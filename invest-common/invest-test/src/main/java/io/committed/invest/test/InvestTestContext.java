@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Import;
  * &#64;ContextConfiguration(classes = {InvestTestContext.class})
  * &#64;Import({GraphQlConfig.class})
  * </pre>
- *
  */
 @Import({JacksonAutoConfiguration.class})
-public class InvestTestContext {
-
-}
+public class InvestTestContext {}

@@ -3,7 +3,7 @@ package io.committed.invest.core.constants;
 /**
  * Constants for time intervals.
  *
- * Convertion is to milliseconds.
+ * <p>Convertion is to milliseconds.
  */
 public final class TimeIntervalConstants {
   public static final int SECOND = 1000;

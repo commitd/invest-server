@@ -3,18 +3,23 @@ package io.committed.invest.support.data.mongo;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 import java.util.Optional;
+
+import lombok.Data;
+
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
+
+import reactor.core.publisher.Mono;
+
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
 import com.mongodb.reactivestreams.client.Success;
-import lombok.Data;
-import reactor.core.publisher.Mono;
 
 public class AbstractMongoCrudCollectionDataProviderTest {
 
@@ -30,7 +35,6 @@ public class AbstractMongoCrudCollectionDataProviderTest {
     doReturn(savedCollection).when(db).getCollection("collectionName", SavedItem.class);
 
     dp = new StubMongoCrudCollectionDataProvider(db);
-
   }
 
   @Test
@@ -41,7 +45,6 @@ public class AbstractMongoCrudCollectionDataProviderTest {
     dp.delete("123");
 
     verify(savedCollection).deleteMany(new Document("id", "123"));
-
   }
 
   @Test
@@ -52,9 +55,7 @@ public class AbstractMongoCrudCollectionDataProviderTest {
     dp.save(i);
 
     verify(savedCollection).insertOne(i);
-
   }
-
 
   public static class StubMongoCrudCollectionDataProvider
       extends AbstractMongoCrudCollectionDataProvider<String, SavedItem, SavedItem> {

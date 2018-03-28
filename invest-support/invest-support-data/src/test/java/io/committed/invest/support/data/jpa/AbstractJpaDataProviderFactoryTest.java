@@ -2,14 +2,18 @@ package io.committed.invest.support.data.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.Test;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-import io.committed.invest.extensions.data.providers.DataProvider;
+
 import reactor.core.publisher.Mono;
+
+import io.committed.invest.extensions.data.providers.DataProvider;
 
 public class AbstractJpaDataProviderFactoryTest {
 
@@ -22,7 +26,6 @@ public class AbstractJpaDataProviderFactoryTest {
 
     // TODO: Not sure hwo to inspec this further?
     assertThat(dpf.dataSourceBuilder).isNotNull();
-
   }
 
   @Test
@@ -38,10 +41,10 @@ public class AbstractJpaDataProviderFactoryTest {
 
     // TODO: Not sure hwo to inspec this further?
     assertThat(dpf.dataSourceBuilder).isNotNull();
-
   }
 
-  public static class StubJpaDataProviderFactory extends AbstractJpaDataProviderFactory<DataProvider> {
+  public static class StubJpaDataProviderFactory
+      extends AbstractJpaDataProviderFactory<DataProvider> {
 
     private DataSourceBuilder<?> dataSourceBuilder;
 
@@ -50,7 +53,8 @@ public class AbstractJpaDataProviderFactoryTest {
     }
 
     @Override
-    public Mono<DataProvider> build(final String dataset, final String datasource, final Map<String, Object> settings) {
+    public Mono<DataProvider> build(
+        final String dataset, final String datasource, final Map<String, Object> settings) {
 
       buildRepositoryFactory(settings);
       return Mono.just(mock(DataProvider.class));
@@ -61,7 +65,5 @@ public class AbstractJpaDataProviderFactoryTest {
       this.dataSourceBuilder = dataSourceBuilder;
       return mock(JpaRepositoryFactory.class);
     }
-
   }
-
 }

@@ -1,6 +1,7 @@
 package io.committed.invest.server.core.config;
 
 import java.util.concurrent.ConcurrentHashMap;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.ReactiveMapSessionRepository;
@@ -10,9 +11,8 @@ import org.springframework.web.server.session.HeaderWebSessionIdResolver;
 /**
  * Configuration for Web Flux sessions.
  *
- * This will use inmemory session management (see {@link ReactiveMapSessionRepository}) and session
- * in HTTP header {@link HeaderWebSessionIdResolver}.
- *
+ * <p>This will use inmemory session management (see {@link ReactiveMapSessionRepository}) and
+ * session in HTTP header {@link HeaderWebSessionIdResolver}.
  */
 @Configuration
 @EnableSpringWebSession
@@ -28,5 +28,4 @@ public class WebfluxSessionConfig {
   public HeaderWebSessionIdResolver webSessionIdResolver() {
     return new HeaderWebSessionIdResolver();
   }
-
 }

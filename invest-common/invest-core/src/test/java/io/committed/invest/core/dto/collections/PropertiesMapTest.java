@@ -3,13 +3,16 @@ package io.committed.invest.core.dto.collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
+
 import reactor.core.publisher.Mono;
 
 public class PropertiesMapTest {
@@ -32,7 +35,6 @@ public class PropertiesMapTest {
   @Test
   public void testReplace() {
     final PropertiesMap map = new PropertiesMap();
-
 
     map.add(new Property("test", "value"));
     map.add(new Property("test", "value2"));
@@ -64,7 +66,8 @@ public class PropertiesMapTest {
     map.add(new Property("test1", "value1"));
     map.add(new Property("test2", "value2"));
 
-    final Map<String, Object> streamMap = map.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+    final Map<String, Object> streamMap =
+        map.stream().collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
     final Map<String, Object> javaMap = map.asMap();
 
@@ -99,11 +102,8 @@ public class PropertiesMapTest {
     m.put("a", "d");
     final PropertiesMap map = new PropertiesMap(m);
 
-
     assertThat(map.get("a", "e")).isEqualTo("d");
     assertThat(map.get("b", "e")).isEqualTo("e");
     assertThat(map.get("a", 123)).isEqualTo(123);
-
-
   }
 }

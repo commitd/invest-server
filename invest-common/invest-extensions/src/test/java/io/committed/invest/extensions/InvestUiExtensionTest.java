@@ -1,6 +1,7 @@
 package io.committed.invest.extensions;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
 
 public class InvestUiExtensionTest {
@@ -13,11 +14,7 @@ public class InvestUiExtensionTest {
     assertThat(e.getRoles()).isNotNull();
     assertThat(e.getSettings()).isNotNull();
     assertThat(e.getActions()).isNotNull();
-
   }
 
-
-  public static class StubInvestUiExtension implements InvestUiExtension {
-
-  }
+  public static class StubInvestUiExtension implements InvestUiExtension {}
 }

@@ -1,32 +1,34 @@
 package io.committed.invest.server.graphql.mappers;
 
-
 import java.lang.reflect.AnnotatedType;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Flux;
 import io.leangen.geantyref.GenericTypeReflector;
 import io.leangen.geantyref.TypeFactory;
 import io.leangen.graphql.execution.GlobalEnvironment;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.mapping.AbstractTypeAdapter;
 import io.leangen.graphql.metadata.strategy.value.ValueMapper;
-import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Flux;
 
 /**
  * GraphQL Type Convertor for Flux.
  *
- * As of 0.9.6 SPRQ does have support for Publisher, though Flux and Mono are more powerful and
+ * <p>As of 0.9.6 SPRQ does have support for Publisher, though Flux and Mono are more powerful and
  * intuitive.
  *
- * Based on Stream To Collection convertors in SPQR.
+ * <p>Based on Stream To Collection convertors in SPQR.
  */
 @Slf4j
 public class FluxToCollectionTypeAdapter<T> extends AbstractTypeAdapter<Flux<T>, List<T>> {
 
   @Override
-  public List<T> convertOutput(final Flux<T> original, final AnnotatedType type,
+  public List<T> convertOutput(
+      final Flux<T> original,
+      final AnnotatedType type,
       final ResolutionEnvironment resolutionEnvironment) {
     try {
       return original
@@ -41,14 +43,19 @@ public class FluxToCollectionTypeAdapter<T> extends AbstractTypeAdapter<Flux<T>,
   }
 
   @Override
-  public Flux<T> convertInput(final List<T> substitute, final AnnotatedType type, final GlobalEnvironment environment,
+  public Flux<T> convertInput(
+      final List<T> substitute,
+      final AnnotatedType type,
+      final GlobalEnvironment environment,
       final ValueMapper valueMapper) {
-    return Flux.fromIterable(substitute).map(item -> environment.convertInput(item, getElementType(type), valueMapper));
+    return Flux.fromIterable(substitute)
+        .map(item -> environment.convertInput(item, getElementType(type), valueMapper));
   }
 
   @Override
   public AnnotatedType getSubstituteType(final AnnotatedType original) {
-    return TypeFactory.parameterizedAnnotatedClass(List.class, original.getAnnotations(), getElementType(original));
+    return TypeFactory.parameterizedAnnotatedClass(
+        List.class, original.getAnnotations(), getElementType(original));
   }
 
   private AnnotatedType getElementType(final AnnotatedType type) {

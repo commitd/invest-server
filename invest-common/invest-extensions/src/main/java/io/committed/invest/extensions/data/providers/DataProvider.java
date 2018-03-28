@@ -3,8 +3,7 @@ package io.committed.invest.extensions.data.providers;
 /**
  * A Data Provider
  *
- * These are created by Invest from Data Provider Specifications using DataProviderFactories.
- *
+ * <p>These are created by Invest from Data Provider Specifications using DataProviderFactories.
  */
 public interface DataProvider {
 
@@ -35,5 +34,4 @@ public interface DataProvider {
    * @return the dataset
    */
   String getDataset();
-
 }

@@ -3,17 +3,18 @@ package io.committed.invest.plugins.ui.host.impl;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.PathResource;
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.committed.invest.plugins.ui.host.data.PluginJson;
-import lombok.extern.slf4j.Slf4j;
 
-/**
- * Service which reads plugin json from the filesystem
- *
- */
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.committed.invest.plugins.ui.host.data.PluginJson;
+
+/** Service which reads plugin json from the filesystem */
 @Service
 @Slf4j
 public class PluginJsonReader {
@@ -41,6 +42,4 @@ public class PluginJsonReader {
 
     return Optional.of(json);
   }
-
-
 }

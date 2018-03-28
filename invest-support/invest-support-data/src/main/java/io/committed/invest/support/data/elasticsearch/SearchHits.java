@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 /**
  * Represents SearchHits from ES.
  *
- * Required as it carries the results and total.
+ * <p>Required as it carries the results and total.
  *
  * @param <E> the result type
  */
@@ -19,5 +19,4 @@ public class SearchHits<E> {
   private long total;
 
   private Flux<E> results;
-
 }

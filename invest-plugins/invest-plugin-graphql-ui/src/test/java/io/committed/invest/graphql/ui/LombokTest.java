@@ -1,6 +1,7 @@
 package io.committed.invest.graphql.ui;
 
 import org.junit.Test;
+
 import io.committed.invest.graphql.ui.data.UiActionDefinition;
 import io.committed.invest.graphql.ui.data.UiPlugin;
 import io.committed.invest.graphql.ui.service.InvestUiMutationResolver;
@@ -15,9 +16,11 @@ public class LombokTest {
     mt.testClass(UiPluginsSettings.class);
     mt.testClasses(UiActionDefinition.class, UiPlugin.class);
 
-    mt.testClasses(InvestUiMutationResolver.Navigate.class, InvestUiMutationResolver.NavigateOutput.class);
-    mt.testClasses(InvestUiQueryResolver.PluginActionDefinition.class, InvestUiQueryResolver.QueryActionInput.class,
+    mt.testClasses(
+        InvestUiMutationResolver.Navigate.class, InvestUiMutationResolver.NavigateOutput.class);
+    mt.testClasses(
+        InvestUiQueryResolver.PluginActionDefinition.class,
+        InvestUiQueryResolver.QueryActionInput.class,
         InvestUiQueryResolver.QueryActionOutput.class);
-
   }
 }

@@ -1,8 +1,10 @@
 package io.committed.invest.core.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.Collections;
+
 import org.junit.Test;
 
 public class FieldUtilsTest {
@@ -18,7 +20,6 @@ public class FieldUtilsTest {
   public void testJoinList() {
     assertThat(FieldUtils.joinField(Collections.emptyList())).isEmpty();
     assertThat(FieldUtils.joinField(Arrays.asList("a", "b", "c"))).isEqualTo("a.b.c");
-
   }
 
   @Test

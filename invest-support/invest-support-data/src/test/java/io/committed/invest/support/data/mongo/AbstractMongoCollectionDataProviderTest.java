@@ -4,25 +4,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 import java.util.Arrays;
 import java.util.List;
+
+import lombok.Data;
+
 import org.bson.conversions.Bson;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
+
+import reactor.core.publisher.Mono;
+
 import com.mongodb.reactivestreams.client.AggregatePublisher;
 import com.mongodb.reactivestreams.client.FindPublisher;
 import com.mongodb.reactivestreams.client.MongoCollection;
 import com.mongodb.reactivestreams.client.MongoDatabase;
-import lombok.Data;
-import reactor.core.publisher.Mono;
 
 public class AbstractMongoCollectionDataProviderTest {
 
   private StubMongoCollectionDataProvider dp;
   private MongoCollection<Item> itemCollection;
   private MongoDatabase db;
-
 
   @Before
   public void before() {
@@ -62,7 +66,6 @@ public class AbstractMongoCollectionDataProviderTest {
 
     // There's no equals on the filters so it dones't match when we pass same filter.eq in.
     verify(itemCollection).find(ArgumentMatchers.any(Bson.class));
-
   }
 
   @Test
@@ -86,9 +89,7 @@ public class AbstractMongoCollectionDataProviderTest {
     dp.aggregate(pipeline, AggOutput.class);
 
     verify(itemCollection).aggregate(pipeline, AggOutput.class);
-
   }
-
 
   @Test
   public void testCount() {

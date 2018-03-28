@@ -1,15 +1,16 @@
 package io.committed.invest.core.dto.auth;
 
 import java.util.Set;
+
 import javax.validation.constraints.NotBlank;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Represents a user within Invest.
- */
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/** Represents a user within Invest. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

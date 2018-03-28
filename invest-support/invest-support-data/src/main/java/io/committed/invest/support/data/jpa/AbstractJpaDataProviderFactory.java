@@ -1,14 +1,17 @@
 package io.committed.invest.support.data.jpa;
 
 import java.util.Map;
+
 import javax.persistence.EntityManager;
 import javax.sql.DataSource;
+
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.util.StringUtils;
+
 import io.committed.invest.extensions.data.providers.AbstractDataProviderFactory;
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
@@ -16,9 +19,9 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
 /**
  * A factory for creating JPA DataProvider, with common settings.
  *
- * This will set up a Spring Data JPA Repository for the provided entityClass.
+ * <p>This will set up a Spring Data JPA Repository for the provided entityClass.
  *
- * An implement o
+ * <p>An implement o
  *
  * <pre>
  *
@@ -40,7 +43,7 @@ import io.committed.invest.extensions.data.providers.DatabaseConstants;
  * Note that {@link NoRepositoryBean} is required because we want this factory to create the bean,
  * not Spring.
  *
- * In the above the MyJpaDataProvider is an implementation of your DataProvider interface, but it
+ * <p>In the above the MyJpaDataProvider is an implementation of your DataProvider interface, but it
  * likely to be a pass through simply converting between your DB entity and your DTO.
  *
  * @param <P> the generic type
@@ -51,6 +54,7 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
   // Suppress this obviously password setting key (its not a password)!
   @SuppressWarnings("squid:S2068")
   public static final String PASSWORD = "password";
+
   public static final String USERNAME = "username";
   public static final String URL = "url";
   public static final String DRIVER_CLASS_NAME = "driverClassName";
@@ -59,8 +63,11 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
 
   private final Class<?> entityPackageClass;
 
-  protected AbstractJpaDataProviderFactory(final EntityManagerFactoryBuilder emfBuilder,
-      final String id, final Class<P> providerClazz, final Class<?> entityPackageClass) {
+  protected AbstractJpaDataProviderFactory(
+      final EntityManagerFactoryBuilder emfBuilder,
+      final String id,
+      final Class<P> providerClazz,
+      final Class<?> entityPackageClass) {
     super(id, providerClazz, DatabaseConstants.SQL);
     this.emfBuilder = emfBuilder;
     this.entityPackageClass = entityPackageClass;
@@ -68,7 +75,8 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
 
   protected JpaRepositoryFactory buildRepositoryFactory(final Map<String, Object> settings) {
 
-    final String driverClassName = (String) settings.getOrDefault(DRIVER_CLASS_NAME, "org.h2.Driver");
+    final String driverClassName =
+        (String) settings.getOrDefault(DRIVER_CLASS_NAME, "org.h2.Driver");
     final String url = (String) settings.getOrDefault(URL, "dbc:h2:mem:invest");
     final String username = (String) settings.get(USERNAME);
     final String password = (String) settings.get(PASSWORD);
@@ -89,17 +97,16 @@ public abstract class AbstractJpaDataProviderFactory<P extends DataProvider>
   protected JpaRepositoryFactory createFromBuilder(final DataSourceBuilder<?> dataSourceBuilder) {
     final DataSource dataSource = dataSourceBuilder.build();
 
-
-    final LocalContainerEntityManagerFactoryBean emf = emfBuilder.dataSource(dataSource)
-        .packages(entityPackageClass).persistenceUnit(getId()).build();
+    final LocalContainerEntityManagerFactoryBean emf =
+        emfBuilder
+            .dataSource(dataSource)
+            .packages(entityPackageClass)
+            .persistenceUnit(getId())
+            .build();
 
     final EntityManager entityManager = emf.getObject().createEntityManager();
     final JpaRepositoryFactory factory = new JpaRepositoryFactory(entityManager);
     factory.setBeanClassLoader(emf.getBeanClassLoader());
     return factory;
   }
-
-
-
 }
-

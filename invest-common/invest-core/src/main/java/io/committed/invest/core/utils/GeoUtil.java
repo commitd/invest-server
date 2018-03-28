@@ -2,10 +2,7 @@ package io.committed.invest.core.utils;
 
 import io.committed.invest.core.dto.analytic.GeoBox;
 
-/**
- * Helper utility functions for working with Geo
- *
- */
+/** Helper utility functions for working with Geo */
 public final class GeoUtil {
 
   // Semi-axes of WGS-84 geoidal reference
@@ -18,7 +15,7 @@ public final class GeoUtil {
   /**
    * Converts a middle point and side distance to a lat/lon bounding box.
    *
-   * See
+   * <p>See
    * http://stackoverflow.com/questions/238260/how-to-calculate-the-bounding-box-for-a-given-lat-lng-location
    *
    * @param latitudeInDegrees the latitude in degrees
@@ -26,8 +23,10 @@ public final class GeoUtil {
    * @param halfSideInMeters the half side of box (like radius) in meters
    * @return the geo box
    */
-  public static GeoBox createBoundingBox(final double latitudeInDegrees,
-      final double longitudeInDegrees, final double halfSideInMeters) {
+  public static GeoBox createBoundingBox(
+      final double latitudeInDegrees,
+      final double longitudeInDegrees,
+      final double halfSideInMeters) {
     final double lat = Math.toRadians(latitudeInDegrees);
     final double lon = Math.toRadians(longitudeInDegrees);
     final double halfSide = halfSideInMeters;
@@ -48,7 +47,7 @@ public final class GeoUtil {
   /**
    * Calculate the radius of the latitude (slice).
    *
-   * See http://en.wikipedia.org/wiki/Earth_radius
+   * <p>See http://en.wikipedia.org/wiki/Earth_radius
    *
    * @param lat the latitude
    * @return the double
@@ -64,6 +63,4 @@ public final class GeoUtil {
   private GeoUtil() {
     // Singleton
   }
-
-
 }

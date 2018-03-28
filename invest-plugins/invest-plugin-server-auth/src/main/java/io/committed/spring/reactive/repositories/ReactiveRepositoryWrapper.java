@@ -3,13 +3,14 @@ package io.committed.spring.reactive.repositories;
 import org.reactivestreams.Publisher;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * Converts a non reactive repository to a reactive repository.
  *
- * This does the wrap in a blocking way, in that that at the point of return the action has been
+ * <p>This does the wrap in a blocking way, in that that at the point of return the action has been
  * executed.
  *
  * @param <T>
@@ -114,6 +115,4 @@ public class ReactiveRepositoryWrapper<T, I, R extends CrudRepository<T, I>>
     repo.deleteAll();
     return Mono.empty();
   }
-
-
 }

@@ -3,18 +3,20 @@ package io.committed.invest.test;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.stream.Stream;
+
 import org.meanbean.lang.Factory;
 import org.meanbean.test.BeanTester;
 import org.meanbean.util.RandomValueGenerator;
 import org.reactivestreams.Publisher;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * Helper for testing Jave Beans.
  *
- * Wraps and extends {@link BeanTester} which some additional factories for newer concepts such as
- * Stream, Flux, etc.
+ * <p>Wraps and extends {@link BeanTester} which some additional factories for newer concepts such
+ * as Stream, Flux, etc.
  */
 public class BeanTestSupport {
 
@@ -30,38 +32,32 @@ public class BeanTestSupport {
 
     final RandomValueGenerator rvg = getRandomValueGenerator();
 
-    addFactory(Instant.class,
-        () -> Instant.ofEpochMilli(Math.abs(rvg.nextLong()) % MAX_TIME));
+    addFactory(Instant.class, () -> Instant.ofEpochMilli(Math.abs(rvg.nextLong()) % MAX_TIME));
 
-    addFactory(Class.class,
-        () -> Object.class);
+    addFactory(Class.class, () -> Object.class);
 
-    addFactory(Flux.class,
-        Flux::empty);
+    addFactory(Flux.class, Flux::empty);
 
-    addFactory(Optional.class,
-        Optional::empty);
+    addFactory(Optional.class, Optional::empty);
 
-    addFactory(Mono.class,
-        Mono::empty);
+    addFactory(Mono.class, Mono::empty);
 
-    addFactory(Publisher.class,
-        Mono::empty);
+    addFactory(Publisher.class, Mono::empty);
 
-    addFactory(Stream.class,
-        Stream::empty);
+    addFactory(Stream.class, Stream::empty);
 
-    addFactory(String[].class, () -> {
-      final int size = Math.abs(rvg.nextInt()) % MAX_ARRAY_SIZE;
-      final String[] a = new String[size];
+    addFactory(
+        String[].class,
+        () -> {
+          final int size = Math.abs(rvg.nextInt()) % MAX_ARRAY_SIZE;
+          final String[] a = new String[size];
 
-      for (int i = 0; i < size; i++) {
-        a[i] = generateValue(String.class, Long.toString(rvg.nextLong()));
-      }
+          for (int i = 0; i < size; i++) {
+            a[i] = generateValue(String.class, Long.toString(rvg.nextLong()));
+          }
 
-      return a;
-    });
-
+          return a;
+        });
   }
 
   private BeanTestSupport() {

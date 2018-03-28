@@ -1,15 +1,17 @@
 package io.committed.invest.core.dto.analytic;
 
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * A geohash grid of counts for heatmap.
  *
- * Precision is the provided geohash length;
+ * <p>Precision is the provided geohash length;
  */
 @Data
 @NoArgsConstructor
@@ -21,5 +23,4 @@ public class GeoHeatmap {
 
   @JsonProperty("bins")
   private List<GeoBin> bins;
-
 }

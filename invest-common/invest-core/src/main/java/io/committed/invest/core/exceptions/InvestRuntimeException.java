@@ -1,8 +1,6 @@
 package io.committed.invest.core.exceptions;
 
-/**
- * Base class for Invest Runtime Exceptions
- */
+/** Base class for Invest Runtime Exceptions */
 public class InvestRuntimeException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;

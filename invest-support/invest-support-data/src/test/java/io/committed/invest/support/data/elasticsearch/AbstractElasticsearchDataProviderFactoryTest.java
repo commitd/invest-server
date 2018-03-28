@@ -3,23 +3,26 @@ package io.committed.invest.support.data.elasticsearch;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+
+import reactor.core.publisher.Mono;
+
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DatabaseConstants;
-import reactor.core.publisher.Mono;
 
 public class AbstractElasticsearchDataProviderFactoryTest {
 
   private StubElasticserchDataProviderFactory dpf;
-
 
   @Before
   public void before() {
@@ -57,7 +60,6 @@ public class AbstractElasticsearchDataProviderFactoryTest {
     settings.put(AbstractElasticsearchDataProviderFactory.SETTING_INDEX, "other_index");
     settings.put(AbstractElasticsearchDataProviderFactory.SETTING_TYPE, "other_type");
 
-
     dpf.build("dataset", "datasource", settings);
 
     assertThat(dpf.host).isEqualTo("other_host");
@@ -66,9 +68,7 @@ public class AbstractElasticsearchDataProviderFactoryTest {
 
     assertThat(dpf.getIndexName(settings)).isEqualTo("other_index");
     assertThat(dpf.getTypeName(settings)).isEqualTo("other_type");
-
   }
-
 
   public static class StubElasticserchDataProviderFactory
       extends AbstractElasticsearchDataProviderFactory<DataProvider> {
@@ -77,13 +77,13 @@ public class AbstractElasticsearchDataProviderFactoryTest {
     private int port;
     private Settings esSettings;
 
-
     public StubElasticserchDataProviderFactory() {
       super("id", DataProvider.class, "index", "type");
     }
 
     @Override
-    public Mono<DataProvider> build(final String dataset, final String datasource, final Map<String, Object> settings) {
+    public Mono<DataProvider> build(
+        final String dataset, final String datasource, final Map<String, Object> settings) {
 
       try {
         createElasticTemplate(settings);
@@ -94,14 +94,13 @@ public class AbstractElasticsearchDataProviderFactoryTest {
     }
 
     @Override
-    protected TransportClient createClient(final String host, final int port, final Settings esSettings)
-        throws UnknownHostException {
+    protected TransportClient createClient(
+        final String host, final int port, final Settings esSettings) throws UnknownHostException {
       this.host = host;
       this.port = port;
       this.esSettings = esSettings;
       return mock(TransportClient.class);
     }
-
 
     @Override
     protected ElasticsearchTemplate createElasticTemplate(final Map<String, Object> settings)

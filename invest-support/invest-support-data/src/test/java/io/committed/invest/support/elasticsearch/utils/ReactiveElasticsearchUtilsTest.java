@@ -1,12 +1,12 @@
 package io.committed.invest.support.elasticsearch.utils;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.Test;
+
 import reactor.core.publisher.Mono;
 
 public class ReactiveElasticsearchUtilsTest {
-
-
 
   @Test
   public void testSuccess() {
@@ -17,7 +17,6 @@ public class ReactiveElasticsearchUtilsTest {
     future.triggerResponse("hello");
 
     assertThat(mono.block()).isEqualTo("hello");
-
   }
 
   @Test
@@ -29,7 +28,5 @@ public class ReactiveElasticsearchUtilsTest {
     future.triggerError(new Exception());
 
     assertThat(mono.blockOptional()).isNotPresent();
-
   }
-
 }

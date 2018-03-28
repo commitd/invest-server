@@ -2,6 +2,7 @@ package io.committed.invest.plugin.server.repo;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +10,6 @@ public class ReactiveUserAccountRepositoryWrapperTest {
 
   private UnreactiveUserAccountRepository repo;
   private ReactiveUserAccountRepositoryWrapper wrapper;
-
 
   @Before
   public void before() {
@@ -34,5 +34,4 @@ public class ReactiveUserAccountRepositoryWrapperTest {
     wrapper.findByUsername("username");
     verify(repo).findByUsername("username");
   }
-
 }
