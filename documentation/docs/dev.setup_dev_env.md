@@ -9,7 +9,7 @@ draft: false
 
 We'll first setup a development environment for Invest.
 
-Note that you don't need this is you just want to develop plugins or build an application from Invest. You only require this setup if you want to develop the Invest codebase itself.
+**Note that you don't need this is you just want to develop plugins or build an application from Invest. You only require this setup if you want to develop the Invest codebase itself.**
 
 ## Dependencies
 
@@ -37,18 +37,18 @@ yarn build
 
 ## Building a complete Invest application with plugins on the command line
 
-We'd recommend that you test your build environment from the commandline first. This will also download all the maven dependencies and some other files from the Internet (thus you need to be online).
+We recommend that you test your build environment from the commandline first. This will also download all the maven dependencies and some other files from the Internet (thus you need to be online).
 
 To compile the complete Invest code, the invest-java repository has scripts to help:
 
 ```bash
 cd invest-js
 yarn build
-cd invest-java
+cd ../invest-java
 ./build-with-ui.sh ../invest-js
 ```
 
-_The ../invest-js is the path to the JS elements. So if you have these in a different directory then amend this command appropriately._
+The `../invest-js` is the path to the JS elements. So if you have these in a different directory then amend this command appropriately.
 
 This will build the UI, copy it into the Java UI plugins, then build the Java plugins and applications, finally placing all the resulting artifacts into the `build/` directory.
 
@@ -68,22 +68,22 @@ mvn clean package install
 
 ## Developing the Java server with an IDE
 
-When developing you will want to use an IDE. We'll use Eclipse as an example of the intended process.
+When developing you will want to use an IDE. We use Eclipse as an example of the intended process.
 
 First import all the Maven projects by File > Import > Existing Maven Projects and selecting the `invest-java` directory as the Root Directory. We'd suggest adding all these projects to a Eclipse Working Set (called `Invest`).
 
 Once imported, you can run the project from the IDE by running the `invest-server-app` project, specifically the `io.committed.invest.server.app.Invest` main class.
 
-This should run successfully, but it'll be a empty server. In fact it'll contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
+This should run successfully but it will be a empty server. In fact it will contain virtually no functionality, as the `invest-server-app` does not contain any of the plugins by default. With Eclipse you can add the additional plugins projects by:
 
 * Stopping the application (if running)
 * Goto Debug Configurations (or Run Configuration equivalently) located under the Run menu (or as a drop down on the Debug/Run buttons on the toolbar).
 * Select the `invest-server-app` run, then the ClassPath tab.
 * Click on `User Entries` and then `Add Projects..`
 * Select all the plugins you want for example all the projects prefixed `invest-plugin-`. If you are developing custom plugins you should add those too. Click `Apply`.
-* If you want to debug these plugins then click on the the `Source` tab, click Add and select the same projects. This tells Eclipse where to find the source code when you hit a breakpoint.
+* If you want to debug these plugins then click on the the `Source` tab, click `Add` and select the same projects. This tells Eclipse where to find the source code when you hit a breakpoint.
 
-Note when developing that changes to the UI will note be reflected unless you do a complete `build-with-ui.sh`. This will copy over the UI code into the Java projects. (Depending on your Eclipse settings you may need to run 'Refresh' against the projects / working set so that changes are found by Eclipse).
+Note that when developing changes to the UI will not be reflected unless you do a complete `build-with-ui.sh`. This will copy over the UI code into the Java projects. (Depending on your Eclipse settings you may need to run 'Refresh' against the projects / working set so that changes are found by Eclipse).
 
 ## Developing the Invest UI (application or core library) with an IDE
 
@@ -105,9 +105,9 @@ You may also want to have any changes in the libraries reflected in the applicat
 yarn dev:libs
 ```
 
-Making (and saving) changes to the libs or the main app will cause an update / refresh in the browser.
+Making (and saving) changes to the libs or the main app will cause an update/refresh in the browser.
 
-_Gotcha: If you change the types, eg classes, interfaces, exports, of a project you might find that this is not reflected properly. That is, you encounter errors in cases where the new changes are not seen. If this is the case stop and restart the above commands. This seems to be a limitation in the type processing in the build system._
+**Gotcha:** If you change the types, e.g. classes, interfaces or exports, of a project you might find that this is not reflected properly. That is, you encounter errors in cases where the new changes are not seen. If this is the case stop (`ctrl+c`) and restart with the above commands. This seems to be a limitation in the type processing in the build system.
 
 The above commands will not run any UI plugins in development mode, see [UI development](invest/ui) for more information. In short, to develop the Invest UI plugins in `invest-js/plugins` you should first run the above commands then:
 
@@ -116,7 +116,7 @@ cd invest-js/plugins/[plugin-name]
 yarn develop
 ```
 
-This will run a plugin which you can access from http://localhost:3001 or via the [Live Development Plugin](invest/ui/live-development-plugin). Note that you can only develop one plugin at once (unless you start modifying the port on which the development versions are published).
+This will run a plugin which you can access from http://localhost:3001 or via the [Live Development Plugin](invest/ui/live-development-plugin). Note that you can only have one live development plugin at once (unless you start modifying the port on which the development versions are published).
 
 ## Developing UI plugins without running Invest in development mode
 
@@ -144,7 +144,7 @@ cd my-new-plugin
 yarn link
 ```
 
-Yarn will report that it is using `invest-plugin` locally. In your `node_modules` you'll see that the `invest-plugin` is not a symlink to your development `invest-js/invest-plugin` directory.
+Yarn will report that it is using `invest-plugin` locally. In your `node_modules` you'll see that the `invest-plugin` is now a symlink to your development `invest-js/invest-plugin` directory.
 
 Finally run `yarn dev:libs` from the `invest-js` as below
 
