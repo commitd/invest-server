@@ -18,14 +18,14 @@ We make the distinction between a core module and a plugin module:
 * A plugin runs in a separate iframe, thus is isolated from the core modules and other plugins. A plugin contributes a view. Each plugin is a self contained web app in its' own right.
 * A common library being a lower level library which could be used by either or both applications or plugins
 
-The invest-ui project is a [Yarn workspace](http://yarn.io/workspaces), collecting the modules into a single repository. This has the benefit of sharing a single node modules directory (thus saving disk space) and also allowing automaticing linking between each module and its module dependencies.
+The invest-ui project is a [Yarn workspace](http://yarn.io/workspaces) collecting the modules into a single repository. This has the benefit of sharing a single node modules directory (thus saving disk space) and also allowing automatic linking between each module and its module dependencies.
 
 ## Organisation
 
 The common modules are:
 
-* `invest-common`: Contains basic shared code between the plugin and core
-* `invest-components`: Contains a set of reusable React components
+* `invest-common`: Contains basic shared code between the plugin and core.
+* `invest-components`: Contains a set of reusable React components.
 * `invest-graphql`: Wraps GraphQL for use within Invest, via the RPC layer.
 * `invest-redux`: Helper functions for working with redux.
 * `invest-rpc`: The remote procedure call framework used to communicate between core and plugin.
@@ -34,7 +34,7 @@ The common modules are:
 
 The application specific modules are:
 
-* `invest-framework`: Contains code which is specific to the application, and is not required by plugins
+* `invest-framework`: Contains code which is specific to the application and is not required by plugins.
 * `invest-app`: Is the embodiment of the outer application.
 
 The plugins specific modules are:
