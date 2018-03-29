@@ -8,12 +8,10 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import io.committed.invest.core.auth.InvestRoles;
 import io.committed.invest.plugin.server.auth.dao.UserAccount;
 import io.committed.invest.plugin.server.auth.dto.User;
@@ -40,7 +38,7 @@ public final class AuthUtils {
   /**
    * Convert from a User Account dao to a User dto.
    *
-   * @param auth the auth
+   * @param userAccount the user
    * @return the user
    */
   public static User fromAccount(final UserAccount userAccount) {
@@ -60,7 +58,7 @@ public final class AuthUtils {
       final Collection<? extends GrantedAuthority> authorities) {
     return authorities == null
         ? Collections.emptySet()
-        : getRolesFromAuthorities(authorities.stream().map(GrantedAuthority::getAuthority));
+            : getRolesFromAuthorities(authorities.stream().map(GrantedAuthority::getAuthority));
   }
 
   private static Set<String> getRolesFromAuthorities(final Stream<String> authorities) {
