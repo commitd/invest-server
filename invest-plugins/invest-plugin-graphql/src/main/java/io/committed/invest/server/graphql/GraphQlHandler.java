@@ -129,7 +129,7 @@ public class GraphQlHandler {
     return ServerResponse.ok().syncBody(result.toSpecification());
   }
 
-  private ExecutionResult performQuery(final ExecutionInput input) {
+  protected ExecutionResult performQuery(final ExecutionInput input) {
     try {
       return graphQL.execute(input);
     } catch (final Exception e) {
