@@ -9,14 +9,14 @@ draft: false
 
 
 
-This section discusses the UI from the perspective of it being hosted served directly from the file system by Invest, specifically the Invest Ui Host plugin.  Here we will discuss the process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. 
+This section discusses the UI as being hosted served directly from the file system by Invest, specifically the Invest Ui Host plugin.  Here we will discuss the process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. 
 
-In its simplest form here an UI extension need only meet two conditions. It must have:
+In its simplest form an UI extension need  meet only two conditions. It must have:
 
 * An `index.html` which will be the initial file displayed when the plugin is viewed
 * An `invest.json` which defines some metadata about the plugin.
 
-You may also host the UI through its own Java module which is covered [elsewhere](server.dev-ui-extension.html). That uses a very simple file based `index.html` with `script` tags to illustrate the process. If you are developing UI component you should read both, but perhaps start with the one that corresponds to your web development approach.
+Rather than use the file system hosting, you may also host the UI through its own Java module which is covered [elsewhere](server.dev-ui-extension.html). That example uses a very simple file based `index.html` with `script` tags to illustrate the process. If you are developing UI component you should read both, but perhaps start with the one that corresponds to your web development approach.
 
 ## Options for create a plugin
 
@@ -359,7 +359,7 @@ yarn build
 
 ## Invest.json
 
-The invest.json has a standard layout of fields:
+The invest.json has a standard layout of fields (defined effectively by `PluginJson` class in `invest-ui-plugin-host`):
 
 ```json
 {
@@ -378,17 +378,17 @@ The invest.json has a standard layout of fields:
 }
 ```
 
-Here `"id"` should uniquely reference you plugin. It should be URL safe and 
+Here `"id"` should uniquely reference your plugin. It should be URL safe so we'd suggest using lower case alphanumerical charactoers together with - (kebab case).  
 
 The `"name"` and `"description"` are displayed in the menu sidebar. The name alone should be very clear to the user, but the description allows a little more information to help the user understand what the view will display.
 
 The `"icon"` is a [Semantic UI icon](https://react.semantic-ui.com/elements/icon) which will be displayed next to the name in the side bar. 
 
-The roles specify which user roles should be plugin be displayed to. Typically this will be left empty, meaning everyone. Certain plugins will be for DEVelopers or ADMINistrators only.
+The `"roles"` specify which user roles should be plugin be displayed to. Typically this will be left empty, meaning everyone. Certain plugins will be for DEVelopers or ADMINistrators only.
 
-The "actions" section declare which actions can be sent to this plugin. An action in an indication that the plugin should so something in response to input. An action as a payload which carries information about tha action, for example the document to display or the user id to edit. The `"title"` and `"description"` of the action can display to users before the click the action (in another plugin), so should be clear. They might say "Edit user" for example. See the action is the string constant. It is freeform, definied by your applicaiton and your plugins. Obviously the calling plugin and the receiveing plugin need to use the same string. Typically the actions are of the form 'datatype.method' such as 'document.view' or 'user.edit'`.  Ketos documentation for some illustration of actions.
+The `"actions"` section declare which actions can be sent to this plugin. An action in an indication that the plugin should so something in response to input. An action has a payload which carries information about tha action, for example the document to display or the user id to edit. The `"title"` and `"description"` of the action will be displayed to users before they click the action (in another plugin), so should be clear on the result of clicking that action. They might say "Edit user" for example. The `"action"` field in `invest.json` is the string constant. It is freeform, defined by your application needs and your plugins. Obviously the calling plugin and the receiving plugin need to use the same string. Typically the actions are of the form `datatype.method` such as `document.view` or `user.edit`. See the Ketos documentation for some illustrative examples of real world actions.
 
-In the above example we had an action called `hello`. Our invest.json might look like:
+In the above example we had an action called `hello`. Our `invest.json` might look like:
 
 ```json
 {
