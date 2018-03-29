@@ -1,19 +1,19 @@
 ---
 id: server.dev-maven
-title: "Developing extension with maven"
+title: "Developing extension with Maven"
 date: "2017-10-20"
 order: 3500
 hide: false
 draft: false
 ---
 
-All Invest plugins are a JAR file. This is easiest to construct with using Maven.
+All Invest plugins are JAR files. The easiest way to construct thes is with Maven.
 
-## Setup the project
+## Setting up the project
 
 We will call our plugin `invest-myplugin`.
 
-Create a new maven project, either using you IDE or manually. You will have at least the structure (at least):
+Create a new maven project, either using yourIDE or manually. You will have at least the structure:
 
 ``` 
 pom.xml
@@ -26,9 +26,9 @@ src/
     resources/
 ```
 
-## Settin up the pom
+## Setting up the pom
 
-Firstly to the pom, lets add the version information as a property which takes it easier to manage:
+Firstly for the pom, lets add the version information as a property which makes it easier to manage:
 
 ```xml
   <properties>
@@ -61,7 +61,7 @@ Invest uses Spring Boot under the covers, and in order to help manage dependency
   </dependencyManagement>
 ```
 
-Spring's milestone and snapshot releases are . Whilst we don't generally use non-production versions, you can add these to ensure that you can pick the any version of Invest without worrying about the underlying Spring versions we are using (at least from a dependency resolution perspective).
+Whilst we don't generally use non-production versions of Spring, you can add these repositories to ensure that you can pick any version of Invest without worrying about the underlying Spring versions we are using (at least from a dependency resolution perspective).
 
 ```xml
    <repositories>

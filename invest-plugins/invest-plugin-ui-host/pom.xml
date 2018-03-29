@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-plugins</artifactId>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
   </parent>
   <artifactId>invest-plugin-ui-host</artifactId>
   <name>Invest Plugin UI Host</name>
@@ -17,6 +17,18 @@
     <dependency>
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-core</artifactId>
+    </dependency>
+    
+    <!-- Testing -->
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 </project>

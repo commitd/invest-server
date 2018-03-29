@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-server</artifactId>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
   </parent>
 
   <artifactId>invest-server-app</artifactId>
@@ -33,8 +33,12 @@
       <artifactId>invest-server-libs</artifactId>
     </dependency>
 
-    <!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
-      <optional>true</optional> </dependency> -->
+    <!-- Testing -->
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-test</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>

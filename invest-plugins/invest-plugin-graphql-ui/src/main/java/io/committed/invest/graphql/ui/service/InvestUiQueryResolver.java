@@ -1,30 +1,41 @@
 package io.committed.invest.graphql.ui.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import reactor.core.publisher.Flux;
+
 import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.extensions.graphql.InvestUiNode;
 import io.committed.invest.graphql.ui.data.UiActionDefinition;
 import io.committed.invest.graphql.ui.data.UiPlugin;
+
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import reactor.core.publisher.Flux;
 
+/**
+ * Server side implementation of the InvestUI's local query.
+ *
+ * <p>These provide a mirror of the Invest UI which can be called if the. They don't necessarily
+ * match the exact functionality of the client side, but the implementations are correct in terms of
+ * response. An aspect where the UI is superiour might be use of authentication state to filter the
+ * results.
+ *
+ * <p>All functions sit under the {@link InvestUiNode}.
+ */
 @GraphQLService
 public class InvestUiQueryResolver {
-  private final ServerGraphQlResolver serverResolver;
+  private final AvailablePluginsGraphQlResolver serverResolver;
 
   @Autowired
-  public InvestUiQueryResolver(final ServerGraphQlResolver serverResolver) {
+  public InvestUiQueryResolver(final AvailablePluginsGraphQlResolver serverResolver) {
     this.serverResolver = serverResolver;
-
   }
-
-  // Queries
 
   @GraphQLQuery(name = "status")
   public String status(@GraphQLContext final InvestUiNode node) {
@@ -32,17 +43,24 @@ public class InvestUiQueryResolver {
   }
 
   @GraphQLQuery(name = "actions")
-  public QueryActionOutput actions(@GraphQLContext final InvestUiNode node,
+  public QueryActionOutput actions(
+      @GraphQLContext final InvestUiNode node,
       @GraphQLArgument(name = "input") final QueryActionInput input) {
     // If we don't have any args, return empty
     if (input == null || Strings.isEmpty(input.getAction())) {
       return new QueryActionOutput();
     }
 
-    final Flux<PluginActionDefinition> stream = serverResolver.uiPlugins(null)
-        .flatMap(p -> Flux.fromStream(p.getActions())
-            .filter(a -> a.getAction().equalsIgnoreCase(input.getAction()))
-            .map(a -> new PluginActionDefinition(p, a)));
+    final Flux<PluginActionDefinition> stream =
+        serverResolver
+            .uiPlugins(null)
+            .flatMap(
+                p ->
+                    p.getActions() == null
+                        ? Flux.empty()
+                        : Flux.fromIterable(p.getActions())
+                            .filter(a -> a.getAction().equalsIgnoreCase(input.getAction()))
+                            .map(a -> new PluginActionDefinition(p, a)));
     return new QueryActionOutput(stream);
   }
 
@@ -56,10 +74,10 @@ public class InvestUiQueryResolver {
   @NoArgsConstructor
   public static final class QueryActionOutput {
     private Flux<PluginActionDefinition> definitions = Flux.empty();
-
   }
 
   @Data
+  @NoArgsConstructor
   public static final class PluginActionDefinition {
     private String pluginId;
     private String title;
@@ -73,7 +91,4 @@ public class InvestUiQueryResolver {
       this.action = a.getAction();
     }
   }
-
-
-
 }

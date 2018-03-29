@@ -1,17 +1,17 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/** A geolocation */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeoLocation {
-
-  public static final GeoLocation INVALID = new GeoLocation(Double.NaN, Double.NaN);
 
   @JsonProperty("lat")
   private double lat;
@@ -22,14 +22,18 @@ public class GeoLocation {
   @JsonProperty("acc")
   private double acc;
 
-  public GeoLocation(final double lat2, final double lon2) {
-    lat = lat2;
-    lon = lon2;
+  public GeoLocation(final double lat, final double lon) {
+    this.lat = lat;
+    this.lon = lon;
   }
 
   @JsonIgnore
   public boolean isValidLocation() {
-    return Double.isFinite(lat) && Double.isFinite(lon) && -180 <= lon && lon <= 180 && -90 <= lat
+    return Double.isFinite(lat)
+        && Double.isFinite(lon)
+        && -180 <= lon
+        && lon <= 180
+        && -90 <= lat
         && lat <= 90;
   }
 }

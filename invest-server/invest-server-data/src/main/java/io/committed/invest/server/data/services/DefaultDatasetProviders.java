@@ -2,15 +2,25 @@ package io.committed.invest.server.data.services;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+
+import reactor.core.publisher.Flux;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.Multimaps;
+
 import io.committed.invest.extensions.data.providers.DataProvider;
 import io.committed.invest.extensions.data.providers.DataProviders;
 import io.committed.invest.extensions.data.query.DataHints;
-import reactor.core.publisher.Flux;
 
+/**
+ * Implementation of DataProviders.
+ *
+ * <p>The current implementation is a static list of DatProviders, but there is not reason this
+ * coulnd't be made dynamic to add/remove data providers during execution.
+ */
 public class DefaultDatasetProviders implements DataProviders {
 
   private static final List<DataProvider> EMPTY_PROVIDER_LIST = Collections.emptyList();
@@ -50,7 +60,6 @@ public class DefaultDatasetProviders implements DataProviders {
   @SuppressWarnings("unchecked")
   public <T extends DataProvider> Flux<T> findAll(final Class<T> providerClass) {
     return (Flux<T>) findAll().filter(providerClass::isInstance);
-
   }
 
   /*
@@ -73,7 +82,7 @@ public class DefaultDatasetProviders implements DataProviders {
   public Flux<DataProvider> findForDataset(final String datasetId, final DataHints hints) {
     final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
     final DataHints dh = getHints(hints);
-    return dh.filter(datasetProviders);
+    return dh.filter(Flux.fromIterable(datasetProviders));
   }
 
   /*
@@ -83,7 +92,8 @@ public class DefaultDatasetProviders implements DataProviders {
    * java.lang.Class)
    */
   @Override
-  public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass) {
+  public <T extends DataProvider> Flux<T> findForDataset(
+      final String datasetId, final Class<T> providerClass) {
     return findForDataset(datasetId, providerClass, null);
   }
 
@@ -96,10 +106,13 @@ public class DefaultDatasetProviders implements DataProviders {
    */
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends DataProvider> Flux<T> findForDataset(final String datasetId, final Class<T> providerClass,
-      final DataHints hints) {
-
-    return (Flux<T>) findForDataset(datasetId, hints).filter(providerClass::isInstance);
+  public <T extends DataProvider> Flux<T> findForDataset(
+      final String datasetId, final Class<T> providerClass, final DataHints hints) {
+    final List<DataProvider> datasetProviders = findAllForDataset(datasetId);
+    final Flux<DataProvider> flux =
+        Flux.fromIterable(datasetProviders).filter(providerClass::isInstance);
+    final DataHints dh = getHints(hints);
+    return (Flux<T>) dh.filter(flux);
   }
 
   private DataHints getHints(final DataHints hints) {
@@ -107,11 +120,10 @@ public class DefaultDatasetProviders implements DataProviders {
   }
 
   @Override
-  public <T extends DataProvider> Flux<T> find(final Class<T> providerClass, final DataHints hints) {
+  public <T extends DataProvider> Flux<T> find(
+      final Class<T> providerClass, final DataHints hints) {
     final Flux<T> datasetProviders = findAll(providerClass);
     final DataHints dh = getHints(hints);
     return dh.filter(datasetProviders);
   }
-
 }
-

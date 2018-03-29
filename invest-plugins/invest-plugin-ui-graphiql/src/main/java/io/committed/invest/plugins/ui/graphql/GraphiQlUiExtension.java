@@ -2,6 +2,7 @@ package io.committed.invest.plugins.ui.graphql;
 
 import io.committed.invest.extensions.InvestUiExtension;
 
+/** Extension which provides a hosted version of the GraphiQL user interface */
 public class GraphiQlUiExtension implements InvestUiExtension {
 
   @Override
@@ -23,11 +24,6 @@ public class GraphiQlUiExtension implements InvestUiExtension {
   public String getIcon() {
     return "database";
   }
-
-  // @Override
-  // public Collection<String> getRoles() {
-  // return Collections.singleton(InvestRoles.DEV);
-  // }
 
   @Override
   public String getStaticResourcePath() {

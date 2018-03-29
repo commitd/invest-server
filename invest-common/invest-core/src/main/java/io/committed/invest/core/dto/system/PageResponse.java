@@ -5,9 +5,12 @@ import lombok.Data;
 @Data
 public class PageResponse {
 
+  /** Offset of first result */
   private int offset;
 
-  private int limit;
+  /** Number of results requested */
+  private int size;
 
+  /** Number of results which match the query */
   private long total;
 }

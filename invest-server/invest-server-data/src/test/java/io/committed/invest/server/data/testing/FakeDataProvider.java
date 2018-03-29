@@ -4,9 +4,9 @@ import io.committed.invest.extensions.data.providers.DataProvider;
 
 public class FakeDataProvider implements DataProvider {
 
-  public final static String DATASET = "test-dataset";
-  public final static String DATASOURCE = "test-datasource";
-  public final static String DATABASE = "test-db";
+  public static final String DATASET = "test-dataset";
+  public static final String DATASOURCE = "test-datasource";
+  public static final String DATABASE = "test-db";
 
   @Override
   public String getProviderType() {

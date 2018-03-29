@@ -4,9 +4,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
-import io.committed.invest.core.services.UiUrlService;
+
 import reactor.core.publisher.Mono;
 
+import io.committed.invest.core.services.UiUrlService;
+
+/** Redirect from the '/' to the outer application index.html (which is not hosted on /) */
 @Component
 public class AddIndexHtmlWebFilter implements WebFilter {
 
@@ -21,8 +24,11 @@ public class AddIndexHtmlWebFilter implements WebFilter {
     final String path = exchange.getRequest().getURI().getPath();
 
     if (service.isPathForExtensionRoot(path)) {
-      return chain.filter(exchange.mutate()
-          .request(exchange.getRequest().mutate().path(path + "/index.html").build()).build());
+      return chain.filter(
+          exchange
+              .mutate()
+              .request(exchange.getRequest().mutate().path(path + "/index.html").build())
+              .build());
     }
 
     return chain.filter(exchange);

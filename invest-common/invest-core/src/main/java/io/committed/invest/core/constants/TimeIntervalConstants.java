@@ -1,5 +1,10 @@
 package io.committed.invest.core.constants;
 
+/**
+ * Constants for time intervals.
+ *
+ * <p>Convertion is to milliseconds.
+ */
 public final class TimeIntervalConstants {
   public static final int SECOND = 1000;
   public static final int MINUTE = 60 * SECOND;

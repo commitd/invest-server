@@ -1,5 +1,4 @@
 package io.committed.invest.extensions;
 
-public interface InvestGraphQlExtension extends InvestExtension {
-
-}
+/** An Invest extension which offers GraphQL Resolvers (using @GraphQLService) */
+public interface InvestGraphQlExtension extends InvestExtension {}

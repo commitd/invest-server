@@ -1,10 +1,37 @@
 package io.committed.invest.extensions.data.providers;
 
-import reactor.core.publisher.Mono;
-
+/**
+ * A Data Provider which supports crud operates.
+ *
+ * <p>The is a simple inteface but worth noting is the two parameters R, T.
+ *
+ * <p>It is certain that when you need to save an item you will require the full item (the value T).
+ *
+ * <p>However when you delete an item you typically only require enough information to reference it
+ * (the value R) uniquely.
+ *
+ * <p>In many cases R is a subset of T or R might simply be a database id.
+ *
+ * @param <R> the type to use to delete
+ * @param <T> the type to save
+ */
 public interface CrudDataProvider<R, T> extends DataProvider {
 
-  Mono<Boolean> delete(R reference);
+  /**
+   * Delete the reference.
+   *
+   * @param reference the reference
+   * @return true, if successful (typically that means that something has been deleted from the
+   *     dataprovider)
+   */
+  boolean delete(R reference);
 
-  Mono<Boolean> save(T item);
+  /**
+   * Create, save or update an item.
+   *
+   * @param item the item
+   * @return true, if successful(typically that means that something has been deleted from the
+   *     dataprovider)
+   */
+  boolean save(T item);
 }

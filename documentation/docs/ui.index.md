@@ -8,4 +8,4 @@ draft: false
 heading: true
 ---
 
-THis section discusses the Invest UI, its design and how to develop UI plugins.
+This section discusses the Invest UI, its design and how to develop UI plugins.

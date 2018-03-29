@@ -1,17 +1,25 @@
 package io.committed.invest.plugin.server.auth.dao;
 
 import java.util.Set;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import org.hibernate.annotations.GenericGenerator;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.GenericGenerator;
+
+/**
+ * POJO for Invest Usr accounts
+ *
+ * <p>Virtually identical to Spring's user concept.
+ */
 @Data
 @Entity
 @NoArgsConstructor
@@ -39,8 +47,12 @@ public class UserAccount {
   @ElementCollection(fetch = FetchType.EAGER)
   private Set<String> authorities;
 
-  public UserAccount(final String username, final String password, final String name,
-      final String organisation, final Set<String> authorities) {
+  public UserAccount(
+      final String username,
+      final String password,
+      final String name,
+      final String organisation,
+      final Set<String> authorities) {
     this.username = username;
     this.password = password;
     this.name = name;

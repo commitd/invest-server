@@ -1,11 +1,14 @@
 package io.committed.invest.plugin.server.audit.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/** An audit service which pushed audit messages to the log. */
 @Slf4j
 public class Slf4jAuditService implements AuditService {
 
@@ -18,8 +21,8 @@ public class Slf4jAuditService implements AuditService {
   }
 
   @Override
-  public void audit(final String user, final String action, final String message,
-      final Object params) {
+  public void audit(
+      final String user, final String action, final String message, final Object params) {
     String paramsString = "";
     if (params != null) {
       try {

@@ -1,5 +1,6 @@
 package io.committed.invest.extensions.data.providers;
 
+/** A base implementation of Data Provider */
 public abstract class AbstractDataProvider implements DataProvider {
 
   private final String dataset;
@@ -19,5 +20,4 @@ public abstract class AbstractDataProvider implements DataProvider {
   public String getDatasource() {
     return datasource;
   }
-
 }

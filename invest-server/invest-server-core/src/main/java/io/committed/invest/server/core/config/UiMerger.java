@@ -1,5 +1,7 @@
 package io.committed.invest.server.core.config;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +13,18 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
 import io.committed.invest.core.services.UiUrlService;
 import io.committed.invest.extensions.InvestUiExtension;
 import io.committed.invest.extensions.registry.InvestUiExtensionRegistry;
-import lombok.extern.slf4j.Slf4j;
 
+/**
+ * Mounts all the InvestUiExtensions to be served on the UI path.
+ *
+ * <p>Location of the UI is configured through the {@link UiUrlService} implementation.
+ *
+ * <p>This class simple configures WebFlux to host the resources.
+ */
 @Configuration
 @Slf4j
 public class UiMerger implements WebFluxConfigurer {
@@ -23,8 +32,7 @@ public class UiMerger implements WebFluxConfigurer {
   @Autowired(required = false)
   private InvestUiExtensionRegistry uiRegistry;
 
-  @Autowired
-  private UiUrlService urlService;
+  @Autowired private UiUrlService urlService;
 
   @Bean
   public RouterFunction<ServerResponse> uiExtensionRoutes() {
@@ -35,7 +43,6 @@ public class UiMerger implements WebFluxConfigurer {
     RouterFunction<ServerResponse> combined =
         RouterFunctions.route(RequestPredicates.path("/"), request -> ServerResponse.ok().build());
 
-
     for (final InvestUiExtension e : uiRegistry.getExtensions()) {
 
       final String classPath = e.getStaticResourcePath();
@@ -43,21 +50,23 @@ public class UiMerger implements WebFluxConfigurer {
 
         final String urlPath = urlService.getContextRelativePath(e);
 
-        combined = combined.andNest(RequestPredicates.path(urlPath), RouterFunctions
-            .resources("/**", new ClassPathResource(classPath, e.getClass().getClassLoader())));
+        combined =
+            combined.andNest(
+                RequestPredicates.path(urlPath),
+                RouterFunctions.resources(
+                    "/**", new ClassPathResource(classPath, e.getClass().getClassLoader())));
       }
     }
 
     return RouterFunctions.nest(RequestPredicates.path(urlService.getContextPath()), combined);
   }
 
-
-
   @Override
   public void addCorsMappings(final CorsRegistry registry) {
-    registry.addMapping(urlService.getContextPath() + "/**").allowedHeaders("*")
-        .allowedMethods("GET", "OPTIONS").allowedOrigins("*");
+    registry
+        .addMapping(urlService.getContextPath() + "/**")
+        .allowedHeaders("*")
+        .allowedMethods("GET", "OPTIONS")
+        .allowedOrigins("*");
   }
-
-
 }

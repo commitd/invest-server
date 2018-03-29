@@ -1,12 +1,15 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.committed.invest.core.utils.GeoUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import io.committed.invest.core.utils.GeoUtil;
+
+/** A radius around a centre point. */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +38,12 @@ public class GeoRadius {
 
   @JsonIgnore
   public boolean isValid() {
-    return Double.isFinite(lat) && Double.isFinite(lon) && -180 <= lon && lon <= 180 && -90 <= lat
-        && lat <= 90 && 0 <= radius;
+    return Double.isFinite(lat)
+        && Double.isFinite(lon)
+        && -180 <= lon
+        && lon <= 180
+        && -90 <= lat
+        && lat <= 90
+        && 0 <= radius;
   }
 }

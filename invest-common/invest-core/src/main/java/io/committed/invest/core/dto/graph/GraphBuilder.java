@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+/** Helper to build a {@link Graph} from nodes and edges. */
 public class GraphBuilder {
 
   private final Map<Long, Node> nodes = new HashMap<>();
@@ -31,5 +32,4 @@ public class GraphBuilder {
   public Collection<Node> getNodes() {
     return nodes.values();
   }
-
 }

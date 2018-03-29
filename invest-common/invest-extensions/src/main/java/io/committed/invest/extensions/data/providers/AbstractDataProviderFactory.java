@@ -1,5 +1,10 @@
 package io.committed.invest.extensions.data.providers;
 
+/**
+ * A base implementation of DataProviderFactory
+ *
+ * @param <P> the provider type.
+ */
 public abstract class AbstractDataProviderFactory<P extends DataProvider>
     implements DataProviderFactory<P> {
 
@@ -9,13 +14,12 @@ public abstract class AbstractDataProviderFactory<P extends DataProvider>
 
   private final String database;
 
-  protected AbstractDataProviderFactory(final String id, final Class<P> clazz,
-      final String database) {
+  protected AbstractDataProviderFactory(
+      final String id, final Class<P> clazz, final String database) {
     this.id = id;
     this.dataProvider = clazz;
     this.database = database;
   }
-
 
   @Override
   public String getId() {
@@ -31,6 +35,4 @@ public abstract class AbstractDataProviderFactory<P extends DataProvider>
   public String getDatabase() {
     return database;
   }
-
-
 }

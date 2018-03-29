@@ -1,10 +1,16 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * A term count.
+ *
+ * <p>Used for aggregations (top term in document, etc).
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

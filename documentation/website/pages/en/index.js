@@ -96,17 +96,29 @@ const Features = props => (
   <Block layout="fourColumn">
     {[
       {
-        content: 'This is the content of my feature',
-        image: imgUrl('docusaurus.svg'),
-        imageAlign: 'top',
-        title: 'Feature One',
+        content:
+          "Define the data and query interface you need for your application, and create the implementations which back to the databases you have",
+        imageAlign: "top",
+        title: "Flexible data providers"
       },
       {
-        content: 'The content of my second feature',
-        image: imgUrl('docusaurus.svg'),
-        imageAlign: 'top',
-        title: 'Feature Two',
+        content:
+          "Create Java plugins which extend the server functionality",
+        imageAlign: "top",
+        title: "Server side plugins"
       },
+      {
+        content:
+          "Create new UI views which are wired together at runtime",
+        imageAlign: "top",
+        title: "Plugin UI views"
+      },
+      {
+        content:
+          "Build using GraphQL between server and client",
+        imageAlign: "top",
+        title: "GraphQL"
+      }
     ]}
   </Block>
 );
@@ -114,10 +126,17 @@ const Features = props => (
 const FeatureCallout = props => (
   <div
     className="productShowcaseSection paddingBottom"
-    style={{ textAlign: 'center' }}>
-    <h2>Feature Callout</h2>
-    <MarkdownBlock>These are features of this project</MarkdownBlock>
-  </div>
+    style={{ textAlign: "center" }}
+  >
+    <h2>Technologies</h2>
+    <ul>
+      <li>Spring Boot</li>
+      <li>GraphQL SPQR</li>
+      <li>React</li>
+      <li>React Apollo</li>
+      <li>React Semantic UI</li>
+    </ul>
+  </div >
 );
 
 const LearnHow = props => (
@@ -196,14 +215,14 @@ class Index extends React.Component {
     return (
       <div>
         <HomeSplash language={language} />
-        {/* <div className="mainContainer">
+        <div className="mainContainer">
           <Features />
           <FeatureCallout />
-          <LearnHow />
+          {/* <LearnHow />
           <TryOut />
           <Description />
-          <Showcase language={language} />
-        </div> */}
+          <Showcase language={language} /> */}
+        </div>
       </div>
     );
   }

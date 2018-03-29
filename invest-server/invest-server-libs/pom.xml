@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-server</artifactId>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
   </parent>
   <packaging>jar</packaging>
   <artifactId>invest-server-libs</artifactId>
@@ -88,9 +88,6 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
-
-
-
 
     <!-- Note not including the test dependencies -->
   </dependencies>

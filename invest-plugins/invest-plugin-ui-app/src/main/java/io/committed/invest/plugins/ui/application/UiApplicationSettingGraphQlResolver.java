@@ -2,9 +2,11 @@ package io.committed.invest.plugins.ui.application;
 
 import io.committed.invest.extensions.annotations.GraphQLService;
 import io.committed.invest.extensions.graphql.InvestServerNode;
+
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
 
+/** GraphQL resolver to provide access to the UI application settings */
 @GraphQLService
 public class UiApplicationSettingGraphQlResolver {
 
@@ -15,7 +17,8 @@ public class UiApplicationSettingGraphQlResolver {
   }
 
   @GraphQLQuery(name = "configuration", description = "Configuration for the application")
-  public UiApplicationSettings applicationSettings(@GraphQLContext final InvestServerNode serverNode) {
+  public UiApplicationSettings applicationSettings(
+      @GraphQLContext final InvestServerNode serverNode) {
     return settings;
   }
 }

@@ -8,26 +8,26 @@ draft: false
 heading: false
 ---
 
-Access to data in Invest is a departure from the standard Spring Data approach. The reason for this is because we want to support dynamic, configuration driven dataset taht are not known at compile time. 
+Access to data in Invest is a departure from the standard Spring Data approach. The reason for this is because we want to support dynamic, configuration driven datasets that are not known at compile time. 
 
 We want to support the following:
 
-* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not any of the settings
-* At runtime (via configuration) a user can configure one or more instance of that connector.
+* A developer creates a connector which can access data in a database (or other). The developer is responsible for the database connection but not for any of the settings.
+* At runtime (via configuration) a user can configure one or more instances of that connector.
 * Another developer building a service or API can request all the connectors which provide specific data access.
 
-As we see it current Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
+As we see it, currently Spring Data allows you to have multiple data sources, but these are distinguished by hard coded `@Qualifier`s (ie controlled at development time by the developer).
 
 Note: you can still use pure Spring Data but you will be limited in whatever you code.
 
 ## Data access in Invest
 
-In order to explain data in Invest we will use an example. Let us suppose are building an application to view tweets. The UI would be very simple:
+In order to explain data in Invest we will use an example. Let us suppose we are building an application to view tweets. The UI would be very simple:
 
 * View all the tweets for a user, ordered by time
 * View all tweets containing a hashtag
 
-Working from the API back to the data, we want to provide an interface which defines how we can interact with database.
+Working from the API back to the data, we want to provide an interface which defines how we can interact with the database.
 
 
 In Invest data items are POJOs (Plain Old Java Objects).  
@@ -44,7 +44,7 @@ public class Tweet {
 ```
 
 
-In Invest this interface is called a **DataProvider** and inherits from the interface `DataProvider`.  For those familiar with Spring Data, a DataProvider looks a bit like a SPring Data `Repository` but it doesn't have any default methods (like `findAll()`)
+In Invest this interface is called a **DataProvider** and inherits from the interface `DataProvider`.  For those familiar with Spring Data, a DataProvider looks a bit like a Spring Data `Repository` but it doesn't have any default methods (like `findAll()`)
 
 ```
 public interface TweetDataProvider extends DataProvider {
@@ -59,23 +59,23 @@ public interface TweetDataProvider extends DataProvider {
 } 
 ```
 
-At this stage we've not specified how the data is retrieved or from where. A DataProvider has two methods `getDatabase` and `getDatasource`. These return a unique idnetifier for the database type (something like "mongo", "file", "mysql") and the original source of the data ("twitter", "mastadon"). These values can be anything, but they allow Invest to pick the best providers to use:
+At this stage we've not specified how the data is retrieved or from where. A DataProvider has two methods `getDatabase` and `getDatasource`. These return a unique identifier for the database type (something like "mongo", "file", "mysql") and the original source of the data ("twitter", "mastadon"). These values can be anything, but they allow Invest to pick the best providers to use:
 
 * It may be that for a particular query we want to use a specific database as we know its optimal.
-* If we have two database for the same source (hence containing the same information), we only want to use one as otherwise we'll get duplicate data.
+* If we have two databases for the same source (hence containing the same information), we only want to use one as otherwise we'll get duplicate data.
 
 In order to create the `TweetDataProvider` instance we create one or more `DataProviderFactory`. This will be database specific.
 
 Lets say we have a list of tweets in memory (hardcoded):
 
-public class MemoryDataProviderFactory extends DataProviderFactory<TweetDataProvider> {
+public class MemoryDataProviderFactory implements DataProviderFactory<TweetDataProvider> {
 
     public build(String dataset, String datasource, Map<String,Object> settings) {
         return new MemoryDataProvider();
     }
 }
 
-public class MemoryDataProvider extends TweetDataProvider {
+public class MemoryDataProvider implements TweetDataProvider {
 
     private static final List<Tweet> tweets = Arrays.asList(
         new Tweet(1L, 'User1', 'The first tweet', new Date()),
@@ -98,7 +98,7 @@ You might also have a Mongo implementation:
 
 ```
 
-public class MongoDataProviderFactory extends DataProviderFactory<TweetDataProvider> {
+public class MongoDataProviderFactory implements DataProviderFactory<TweetDataProvider> {
 
     public build(String dataset, String datasource, Map<String,Object> settings) {
         String mongoServerHost = settings.gettOrDefault("host", "localhost")
@@ -108,7 +108,7 @@ public class MongoDataProviderFactory extends DataProviderFactory<TweetDataProvi
     }
 }
 
-public class MongoTweetDataProvider extends TweetDataProvider {
+public class MongoTweetDataProvider implements TweetDataProvider {
 
     public MongoTweetDataProvider(String host, String databaseName) {
         // create mongo client etc

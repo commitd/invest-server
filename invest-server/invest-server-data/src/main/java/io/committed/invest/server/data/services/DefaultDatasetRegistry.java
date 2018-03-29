@@ -1,11 +1,14 @@
 package io.committed.invest.server.data.services;
 
 import java.util.List;
-import io.committed.invest.extensions.data.dataset.Dataset;
-import io.committed.invest.extensions.data.dataset.DatasetRegistry;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import io.committed.invest.extensions.data.dataset.Dataset;
+import io.committed.invest.extensions.data.dataset.DatasetRegistry;
+
+/** Implementation of {@link DatasetRegistry}. */
 public class DefaultDatasetRegistry implements DatasetRegistry {
 
   private final List<Dataset> datasets;

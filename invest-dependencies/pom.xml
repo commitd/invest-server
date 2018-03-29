@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-parent</artifactId>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
   </parent>
   <packaging>pom</packaging>
   <artifactId>invest-dependencies</artifactId>
@@ -22,14 +23,14 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
 
     <!-- Majority of versions are defined by Spring -->
-    <spring-boot.version>2.0.0.M7</spring-boot.version>
+    <spring-boot.version>2.0.0.RELEASE</spring-boot.version>
 
     <!-- Additional versions -->
     <graphql-java.version>7.0</graphql-java.version>
     <graphql-spqr.version>0.9.6</graphql-spqr.version>
-    <guava.version>23.3-jre</guava.version>
-    <bean-matchers.version>0.10</bean-matchers.version>
-    <fast-classpath-scanner.version>2.7.4</fast-classpath-scanner.version>
+    <guava.version>24.0-jre</guava.version>
+    <bean-matchers.version>0.11</bean-matchers.version>
+    <fast-classpath-scanner.version>2.18.1</fast-classpath-scanner.version>
   </properties>
 
   <dependencyManagement>
@@ -113,7 +114,53 @@
         <version>${project.version}</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-graphql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-graphql-ui</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-app</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-graphiql</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-libs</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-livedev</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-server-audit</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-ui-host</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.committed.invest</groupId>
+        <artifactId>invest-plugin-server-auth</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <!-- TODO Messy exclude jackson-module-kotlin If we have this then 
         Spqr's Jackson(s!) will find the Kotlin Module on the classpath. This will 
@@ -140,6 +187,26 @@
     </dependencies>
   </dependencyManagement>
 
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <!-- Silence error javax.interceptor.InterceptorBinding not found -->
+            <additionalDependencies>
+              <additionalDependency>
+                <groupId>javax.interceptor</groupId>
+                <artifactId>javax.interceptor-api</artifactId>
+                <version>1.2</version>
+              </additionalDependency>
+            </additionalDependencies>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
   <!-- This appears to be correct as per web, but it doesn't work: See https://maven.apache.org/plugins/maven-compiler-plugin/examples/module-info.html -->
   <!-- <build> <pluginManagement> <plugins> Support Java9 and sub Java9 <plugin> 
     <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-compiler-plugin</artifactId> 

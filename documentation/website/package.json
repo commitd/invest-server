@@ -2,7 +2,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "examples": "docusaurus-examples",
-    "start": "docusaurus-start",
+    "start": "docusaurus-start --port 4000",
     "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
@@ -11,5 +11,9 @@
   },
   "devDependencies": {
     "docusaurus": "^1.0.5"
+  },
+  "dependencies": {
+    "global": "^4.3.2",
+    "serve": "^6.5.3"
   }
 }

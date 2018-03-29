@@ -1,10 +1,18 @@
 package io.committed.invest.core.dto.analytic;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * A bin for geohash counts.
+ *
+ * <p>Output of, for example, heatmap aggregations.
+ */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class GeoBin {
 
@@ -13,5 +21,4 @@ public class GeoBin {
 
   @JsonProperty("count")
   private long count;
-
 }

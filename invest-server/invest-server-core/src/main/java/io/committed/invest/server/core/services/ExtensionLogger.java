@@ -8,15 +8,21 @@ import io.committed.invest.extensions.InvestExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
 import lombok.extern.slf4j.Slf4j;
 
+/** On boot log the extensions found. */
 @Component
 @Slf4j
 public class ExtensionLogger {
 
-  @Autowired(required = false)
-  private List<InvestExtension> extensions;
+  private final List<InvestExtension> extensions;
 
-  @Autowired(required = false)
-  private List<InvestExtensions> multiExtensions;
+  private final List<InvestExtensions> multiExtensions;
+
+  public ExtensionLogger(
+      @Autowired(required = false) final List<InvestExtension> extensions,
+      @Autowired(required = false) final List<InvestExtensions> multiExtensions) {
+    this.extensions = extensions;
+    this.multiExtensions = multiExtensions;
+  }
 
   @PostConstruct
   public void postConstruct() {
@@ -28,22 +34,20 @@ public class ExtensionLogger {
     }
 
     if (multiExtensions != null && !multiExtensions.isEmpty()) {
-      multiExtensions.forEach(m -> {
-        m.stream().forEach(this::logExtension);
-      });
+      multiExtensions.forEach(m -> m.stream().forEach(this::logExtension));
 
-      total += multiExtensions.stream().reduce(0, (a, e) -> a + e.getExtensions().size(), Integer::sum);
+      total +=
+          multiExtensions.stream().reduce(0, (a, e) -> a + e.getExtensions().size(), Integer::sum);
     }
 
     if (total == 0) {
       log.warn("No extensions found");
     } else {
       log.info("Found {} extensions", total);
-
     }
   }
 
   private void logExtension(final InvestExtension e) {
-    log.info("Found extension {} with name {} of type {}", e.getId(), e.getName(), e.getClass());
+    log.debug("Found extension {} with name {} of type {}", e.getId(), e.getName(), e.getClass());
   }
 }

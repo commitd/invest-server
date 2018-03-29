@@ -1,5 +1,6 @@
 package io.committed.invest.core.dto.graph;
 
+/** Interface for a graph edge. */
 public interface Edge {
 
   long getFrom();
@@ -11,5 +12,4 @@ public interface Edge {
   long getTo();
 
   String getType();
-
 }

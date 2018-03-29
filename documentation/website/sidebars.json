@@ -27,8 +27,7 @@
   "UI": {
     "Introduction": [
       "ui.index",
-      "ui.faq",
-      "ui.gotchas"
+      "ui.faq"
     ],
     "Concepts": [
       "ui.ux",
@@ -40,6 +39,11 @@
       "ui.system-outer",
       "ui.system-plugin",
       "ui.system-url"
+    ],
+    "Developing UIs": [
+      "ui.dev-ui-extension",
+      "ui.dev-app-module",
+      "ui.dev-core-module"
     ],
     "Support": [
       "ui.live-development-plugin",

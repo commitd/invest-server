@@ -7,11 +7,49 @@ hide: false
 draft: false
 ---
 
-Invest plugins are packaged a JAR files and deploued through the Invest Server. Invest UI Plugins are not different. As such they have to `two project`, the first is the web project (written for example in Javascript or Typescript, HTML, CSS) and the second is a Java module which defines the plugin. 
 
-Here we will discuss process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. The Java side is covered in the [elsewhere](../server/dev-ui-extension), which uses a very simple file based `index.html` with `script` tags to illustrate the process. 
 
-If you are developing UI component you should read both, but perhasp start with the one that corresponds to your web development approach.
+This section discusses the UI as being hosted served directly from the file system by Invest, specifically the Invest Ui Host plugin.  Here we will discuss the process from the Web perspective in detail, assuming a modern web development stack based on create-react-app. 
+
+In its simplest form an UI extension need  meet only two conditions. It must have:
+
+* An `index.html` which will be the initial file displayed when the plugin is viewed
+* An `invest.json` which defines some metadata about the plugin.
+
+Rather than use the file system hosting, you may also host the UI through its own Java module which is covered [elsewhere](server.dev-ui-extension.html). That example uses a very simple file based `index.html` with `script` tags to illustrate the process. If you are developing UI component you should read both, but perhaps start with the one that corresponds to your web development approach.
+
+## Options for create a plugin
+
+You can create the `index.html` in any way. It has no prescribed format or content. 
+
+We'd recommend using `create-react-app` and specifically the Typescript variant [create-react-ts](https://github.com/Microsoft/TypeScript-React-Starter). Using this approach you can take advantages of modern Javascript/Typescript approach such as yarn package management, typing, etc. You can use variant `invest-*` libraries in your applications. Typically you wish to include `invest-components`, `invest-types` and `invest-plugins`.  We'd recommend you read the Ketos documentation for more example of building plugins in this manner.
+
+Alternatively you can craft the `index.html` as a traditional web page. In this case you will want to to include the `invest.js` file which is hosted on the server and gives you access to some of the functions that the various `invest-*` libraries have. You can include these in your index.html via the `script`/`link` tags:
+
+```html
+<html>
+    <head>
+        <!-- ALl of these are automatically hosted for you by the server -->
+        <link rel="stylesheet" type="text/css" href="/ui/libs/semantic-2.2.css">
+        <script src="/ui/libs/react-16.0.js"></script>
+        <script src="/ui/libs/react-dom-16.0.js"></script>
+        <script src="/ui/libs/semantic-2.2.js"></script>
+        <script src="/ui/libs/jquery-3.2.js"></script>
+        <script src="/ui/libs/invest.js"></script>
+
+        <!-- You have have other scripts/css you can just place them alongside your index.html -->
+    </head>
+    <body>
+
+        <h1>My plugin</h1>
+
+        <script>
+            // Your javascript code could go here... 
+        </script>
+
+    </body>
+</html>
+```
 
 ## Which web development approach?
 
@@ -23,24 +61,24 @@ Whilst there is no reason that Angular or others could not be used in Invest we'
 
 Ensure you have create-react-app installed:
 
-```
+```bash
 npm install -g create-react-app
 ```
 
-then create a new project (we've called it invest-ui-myplugin but you should pick something different): 
+then create a new project (we've called it invest-ui-myplugin but you should pick something different):
 
-```
+```bash
 create-react-app invest-ui-myplugin --scripts-version=react-scripts-ts
 cd invest-ui-myplugin
 ```
 
-In order to use the live Development Plugin later, in `package.json` add `PORT=3001` to the front of the `start` script. 
+In order to use the live Development Plugin later, in `package.json` add `PORT=3001` to the front of the `start` script.
 
-```json
-    ...
+```bash
+   ...
 "scripts": {
-    "start": "PORT=3001 react-scripts-ts start",
-    ...
+   "start": "PORT=3001 react-scripts-ts start",
+   ...
 ```
 
 Add the `invest-plugin` project as a dependency, and we'll use `semantic-ui-react` with its default CSS:
@@ -49,11 +87,9 @@ Add the `invest-plugin` project as a dependency, and we'll use `semantic-ui-reac
 yarn add invest-plugin semantic-ui-react semantic-ui-css
 ```
 
-**TODO: Proxy mirror...**
-
 You should now have a working web app, which you can test running visiting:
 
-```
+```bash
 yarn start
 ```
 
@@ -61,23 +97,23 @@ which should start the application in development mode and open a browser at htt
 
 You might see an error:
 
-```
+```bash
 ...invest-ui-myplugin/node_modules/@types/graphql/subscription/subscribe.d.ts
 (17,4): error TS2304: Cannot find name 'AsyncIterator'.
 ```
 
-If so, sotp the app, edit `tsconfig.json` and add to the compilerOptions.libs array 'esnext':
+If so, stop the app, edit `tsconfig.json` and add to the compilerOptions.libs array 'esnext':
 
 ```json
 {
-  "compilerOptions": {
-    "outDir": "build/dist",
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["es6", "dom", "esnext"],
-    "sourceMap": true,
-    ...
-``` 
+ "compilerOptions": {
+   "outDir": "build/dist",
+   "module": "esnext",
+   "target": "es5",
+   "lib": ["es6", "dom", "esnext"],
+   "sourceMap": true,
+   ...
+```
 
 Then run `yarn start` again.
 
@@ -87,19 +123,19 @@ As convention dictates, we'll create a HelloWorld plugin. We can start clearing 
 
 * Delete App.css
 * Delete App.tsx.test
-* Amend APp.tsx to read:
+* Amend App.tsx to read:
 
-```typescript
+```ts
 import * as React from 'react';
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <p>Hello world</p>
-      </div>
-    );
-  }
+ render() {
+   return (
+     <div>
+       <p>Hello world</p>
+     </div>
+   );
+ }
 }
 
 export default App;
@@ -107,53 +143,50 @@ export default App;
 
 Now in `index.tsx` we'll add our CSS for `semantic-ui`, add near the top:
 
-```typescript
+```ts
 import 'semantic-ui-css/semantic.min.css'
 ```
 
 Then you can drop in a replacement `ReactDOM.render()`, at the bottom of the file:
 
-```typescript
+```ts
 import { InvestUiPlugin } from 'invest-plugin'
 
 ReactDOM.render(
-  <InvestUiPlugin>
-    <App />
-  </InvestUiPlugin>,
-  document.getElementById('root') as HTMLElement
+ <InvestUiPlugin>
+   <App />
+ </InvestUiPlugin>,
+ document.getElementById('root') as HTMLElement
 )
 ```
 
-**TODO : CHeck type dfn on published files...**
-
-Check back in th ebrower to see that 'Hello World' is displayed.
+Check back in the browser to see that 'Hello World' is displayed.
 
 Run Invest Server with the live development plugin. Clicking on the Live Development plugin will show the same Hello World.
 
-## Interating with the server, using GraphQL
+## Interacting with the server, using GraphQL
 
-Lets request some data form the server. However as the Invest Server may have no exciting pluings etc, lets ust one of the basic inbuilt GraphQL queries. 
+Let's request some data form the server. However as the Invest Server may have no exciting plugins etc, let's just one of the basic inbuilt GraphQL queries.
 
 Our query will be:
 
-```
+```graphql
 query {
-  applicationSettings {
-    title
-  }
-  
-}
+ applicationSettings {
+   title
+ }
+ }
 ```
 
 Which will return JSON:
 
 ```json
 {
-  "data": {
-    "applicationSettings": {
-      "title": "Invest"
-    }
-  }
+ "data": {
+   "applicationSettings": {
+     "title": "Invest"
+   }
+ }
 }
 ```
 
@@ -166,43 +199,43 @@ import { graphql, gql, QueryProps } from 'react-apollo'
 
 // Mirror our GraphQL result in a type safe interface
 interface Response {
-    applicationSettings: {
-        title: string
-    }
+   applicationSettings: {
+       title: string
+   }
 }
 
-// In typscript we need to be very clear about types of props
+// In typescript we need to be very clear about types of props
 // we say here that graphQL is going to provide us with a data field
 // and that it'll have the GraphQL QueryProps (ie loading, refetch())
 // plus the stuff in Response defined above
 interface Props {
-    data?: QueryProps & Partial<Response>
+   data?: QueryProps & Partial<Response>
 }
 
 class Hello extend React.Component<Props> {
-    render() {
-        const { data } = props
+   render() {
+       const { data } = props
 
-        // Check if we have something to display...
-        if (!data || data.loading || !data.applicationSettings) {
-            // Display a placeholder...
-            // In a real app this would be a spinner / loader
-            return 'Waiting for who I am...'
-        }
+       // Check if we have something to display...
+       if (!data || data.loading || !data.applicationSettings) {
+           // Display a placeholder...
+           // In a real app this would be a spinner / loader
+           return 'Waiting for who I am...'
+       }
 
-        // if we do, they print it
-        return (
-            <p>Hello from {data.applicationSettings.title}</p>
-        )
-    }
+       // if we do, they print it
+       return (
+           <p>Hello from {data.applicationSettings.title}</p>
+       )
+   }
 }
 
-// Definte the GraphQL query we want
+// Define the GraphQL query we want
 const TITLE_QUERY = gql`
 query GetTitle {
-  applicationSettings {
-    title
-  }
+ applicationSettings {
+   title
+ }
 }
 `
 
@@ -224,32 +257,29 @@ import * as React from 'react';
 import Hello from './hello'
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Hello />
-      </div>
-    );
-  }
+ render() {
+   return (
+     <div>
+       <Hello />
+     </div>
+   );
+ }
 }
 
 export default App;
 ```
 
-If you look at the browser now (http://localhost:3001 or the live development plugin) you should see 'Hello from Invest' (or whaver your app is called). If you refresh you might see the 'Waiting for who I am...' message flicker.
+If you look at the browser now (http://localhost:3001 or the live development plugin) you should see 'Hello from Invest' (or whatever your app is called). If you refresh you might see the 'Waiting for who I am...' message flicker.
 
-If you really want to see it say that in the http://localhost:3001 tab, use the debug view to place a breakpoint inthe render function of Hello.tsx. 
+If you really want to see it say that in the http://localhost:3001 tab, use the debug view to place a breakpoint in the render function of Hello.tsx.
 
 
-## Interacting with others
-
-**TODO**
 
 ## Adding an action
 
 Our plugin doesn't have any actions itself, but perhaps it could be passed the name of someone to say hello to.
 
-The way a InvestUiPlugin React component recieves a action is through its props. Lets change App.tsx to respond to those props.
+The way a InvestUiPlugin React component receives an action is through its props. Lets change App.tsx to respond to those props.
 
 ```typescript
 
@@ -257,168 +287,125 @@ import { ChildProps } from 'invest-plugin'
 
 // Store the name to say hello to in state
 interface State {
-    name?: string
+   name?: string
 }
 
-// Our action is 'hello', but it has a payload which 
+// Our action is 'hello', but it has a payload which
 // (may) contains the name
 interface NamePayload {
-    name?: string
+   name?: string
 }
 
 // We add props and State types now.
 // ChildProps are the Props that InvestPlugin will give to its
-// React child. 
+// React child.
 class App extends React.Component<ChildProps, State> {
-  
   state: State = {
-      // Start with no name
-      name: null
-  }
+     // Start with no name
+     name: null
+ }
 
-  componentWillReceiveProps(nextProps: Props) {
-    // Process action / payload if its changed
-    if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
-    
-      // If we support the action deal with it
-      if(this.props.action === 'hello') {
-        // Payload is any, but we know it must be a view payload now
-        const payload = nextProps.payload as NamePayload
-        this.setState({
-            name: payload ? payload.name : undefined,
-        })
-      }
-    }
-  }
+ componentWillReceiveProps(nextProps: Props) {
+   // Process action / payload if its changed
+   if (this.props.action !== nextProps.action || !isEqual(this.props.payload, nextProps.payload)) {
   
+     // If we support the action deal with it
+     if(this.props.action === 'hello') {
+       // Payload is any, but we know it must be a view payload now
+       const payload = nextProps.payload as NamePayload
+       this.setState({
+           name: payload ? payload.name : undefined,
+       })
+     }
+   }
+ }
   render() {
-    const { name } = this.state
+   const { name } = this.state
 
-    // Add a second line, but is name is null/undefined/etc
-    // just say 'whoever'
-    return (
-        <div>
-            <Hello />
-            <p>Nice to meet you, {name || 'whoever you are'}.</p>
-        </div>
-        );
-    }
-  }
+   // Add a second line, but is name is null/undefined/etc
+   // just say 'whoever'
+   return (
+       <div>
+           <Hello />
+           <p>Nice to meet you, {name || 'whoever you are'}.</p>
+       </div>
+       );
+   }
+ }
 
 }
 ```
 
-If we view this in the Live development plugin we'll just see the extra line but no name. That's becayse we've not trigger the action.
+If we view this in the Live development plugin we'll just see the extra line but no name. That's because we've not triggered the action.
 
-You can use the Action Development Plugin to send an action to a Plugin. Selec this, then select the Live Development Plugin. In the action textfield enter 'hello' and in the payload enter
+You can use the Action Development Plugin to send an action to a Plugin. Select this, then select the Live Development Plugin. In the action textfield enter 'hello' and in the payload enter
 
-```
+```json
 {
-    name: 'John Smith'
+   "name": "John Smith"
 }
 ```
 
 Click Send to test the action, and the Live Development Plugin should reappear, with 'John Smith' now the name.
 
-**TODO: Write this dev UI plugin!**
-
 
 ## Build the UI plugin
 
-So far we've been running the plugin live, but lets build a produciotn version. Stop the development version (Ctrl+C) and then run
+So far we've been running the plugin live, but let's build a production version. Stop the development version (Ctrl+C) and then run
 
-```
+```bash
 yarn build
 ```
 
-## Wrapping in a Java module
+## Invest.json
 
-We have developed and tested out application as far as we can, but its not pacakged as a Invest JAR plugin. Therefore we can only access it inside the applicaiton through the Live Development Plugin. 
+The invest.json has a standard layout of fields (defined effectively by `PluginJson` class in `invest-ui-plugin-host`):
 
-Rather than repeat the instructions here, we refer to the [Server Java UI extension](../srver/dev-ui-extension) page. There we create a plugin of the same name, but with an index.html as a static Java resource (in src/main/resources).
-
-**TODO: Are we doing the action in that??? I think it makes more sense here**
-
-When using create-react-app or similar the `yarn build` process creates the index.html (and associated files). Therefore we can omit that stage of the Java UI extension guide and replace it with something that copies over the relevant files from the `yarn build` output.The `maven-resources-plugin` does that. 
-
-We'll assume that you have created a directory structure file:
-
-```
-js/ 
-  invest-ui-myplugin/ <- package.json here     
-java/ 
-  invest-ui-myplugin/ <- pom.xml here  
-```
-
-
-To the Maven pom add:
-
+```json
+{
+    "id": "unique_plugin_id",
+    "name": "Friendly name",
+    "description": "Short description",
+    "icon": "user",
+    "roles": ["USER", "DEV", "ADMIN"],
+    "actions": [
+                {
+            "title": "Short name",
+            "description": "What is does",
+            "action": "the.action.name"
+        }
+    ]
+}
 ```
 
- <build>
-    <plugins>
-      <!-- Copy the UI build output to the resources area on the classpath -->
-      <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>3.0.2</version>
-        <executions>
-          <execution>
-            <id>copy-resources</id>
-            <!-- Run the copy After the compilation, but before we package 
-              the JAR up -->
-            <phase>process-classes</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.basedir}/target/classes/ui/invest-ui-myplugin</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>../../js/invest-ui-myplugin/build/dist</directory>
-                  <filtering>false</filtering>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+Here `"id"` should uniquely reference your plugin. It should be URL safe so we'd suggest using lower case alphanumerical charactoers together with - (kebab case).  
 
-    </plugins>
-  </build>
+The `"name"` and `"description"` are displayed in the menu sidebar. The name alone should be very clear to the user, but the description allows a little more information to help the user understand what the view will display.
 
-  ```
+The `"icon"` is a [Semantic UI icon](https://react.semantic-ui.com/elements/icon) which will be displayed next to the name in the side bar. 
 
-Running the following  will do a complete build:
+The `"roles"` specify which user roles should be plugin be displayed to. Typically this will be left empty, meaning everyone. Certain plugins will be for DEVelopers or ADMINistrators only.
 
-```
-cd js/invest-ui-myplugin
-yarn build
-cd ../..
-cd java/invest-ui-myplugin
-mvn clean package
+The `"actions"` section declare which actions can be sent to this plugin. An action in an indication that the plugin should so something in response to input. An action has a payload which carries information about tha action, for example the document to display or the user id to edit. The `"title"` and `"description"` of the action will be displayed to users before they click the action (in another plugin), so should be clear on the result of clicking that action. They might say "Edit user" for example. The `"action"` field in `invest.json` is the string constant. It is freeform, defined by your application needs and your plugins. Obviously the calling plugin and the receiving plugin need to use the same string. Typically the actions are of the form `datatype.method` such as `document.view` or `user.edit`. See the Ketos documentation for some illustrative examples of real world actions.
+
+In the above example we had an action called `hello`. Our `invest.json` might look like:
+
+```json
+{
+    "id": "hello",
+    "name": "Hello",
+    "description": "Displays hello",
+    "icon": "comments",
+    "roles": [],
+    "actions": [
+                {
+            "title": "Hi",
+            "description": "Hi to you",
+            "action": "hello"
+        }
+    ]
+}
 ```
 
-The result will be a JAR file in the `ava/invest-ui-myplugin/target` folder which contains the complete application.
+Your build system will determine where you place your `invest.json`. It needs to be configured such that it is output to the same directory as your `index.html`. For `create-react-app` type projects place it in the `public/` directory.
 
-## A note on different directory structures
-
-If you are developing a UI plugin and have to Javascript and Java projects, how is it best to organise your code? It depends a little on how you view your plugins. 
-
-If you consider each plugin to be standalone, then likely you have it within a separate source code repository. This has the benefit that each plugin is separate and contained, independently versioned, and it is easier to trigger deployment or testing against commits. However it can lead to a lot of small repositories.
-
-In this case there are several way to consider organising your code:
-
-* Consider maven as the super project, as it wraps the javascript. In this case place the web project under src/main/web (alongside src/main/java). The build process can be fully automated through maven to first build the src/main/java, then copy the result from src/main/web/build into the src/main/resources/ui/invest-ui-myplugin (or into target/classess/ui/invest-ui-myplugin directly).
-* Spilt the root folder into java and js subdirectories. Create a build script to first build JS, copy the resources, and then build Maven.
-
-If you have many plugins you might place them in the same repository. If you do you might either:
-* Have a folder for each plugin; or
-* Separate the java from the javascript projects, that is have a top level java directory and another web directory. Each will have a 'invest-ui-myplugin' folder one wil be a maven module for the java aspect and the other yarn/npm module for the web/js aspect. 
-
-If you adopt the former approach then this really is no different to the 'repo per plugin' method as above. If you adopt the latter, then you have the benefits of being able to use yarn workspaces/lerna, plus Maven parents to orchestrate and link all your plugin builds - which better dependency and inter-dependency control. 
-
-They are no right or wrong answers here, however we have found:
-
-* It is tedious to work with many repositories, especially for very small plugins when they form part of a larger application.
-* Using maven/gradle as a build process for Javascript seems attractive but requires more thought and configuration than a simple build shell script.
-* It is nice to have the javascript separate (and obvious) so that 'yarn start' can be run (rather than hidding this within a maven wrapper)

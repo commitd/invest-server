@@ -4,13 +4,13 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-plugins</artifactId>
-    <version>0.2.0</version>
+    <version>0.5.0</version>
   </parent>
   <artifactId>invest-plugin-ui-app</artifactId>
   <name>Invest Plugin UI App</name>
   <description>UI for the main application </description>
   <dependencies>
-      <dependency>
+    <dependency>
       <groupId>io.committed.invest</groupId>
       <artifactId>invest-core</artifactId>
     </dependency>
@@ -22,6 +22,13 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
+    </dependency>
+
+    <!-- Testing -->
+    <dependency>
+      <groupId>io.committed.invest</groupId>
+      <artifactId>invest-test</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

@@ -1,5 +1,4 @@
 package io.committed.invest.extensions;
 
-public interface InvestDataExtension extends InvestExtension {
-
-}
+/** An Invest extension which offers data providers. */
+public interface InvestDataExtension extends InvestExtension {}

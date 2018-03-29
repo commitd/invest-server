@@ -2,14 +2,15 @@ package io.committed.invest.extensions.collections;
 
 import java.util.Collection;
 import java.util.stream.Stream;
-import io.committed.invest.extensions.InvestExtension;
+
 import lombok.Data;
 
+import io.committed.invest.extensions.InvestExtension;
+
 /**
- * A generic collection for invest extension.
+ * A generic collection for Invest Extension.
  *
- * Anyone can create this to hold any type of extension.
- *
+ * <p>This holds hold any type of extension and can be used for any purpose.
  */
 @Data
 public class InvestExtensions {
@@ -21,12 +22,12 @@ public class InvestExtensions {
   }
 
   public Stream<InvestExtension> stream() {
-    return extensions == null ? Stream.empty() : extensions.stream().map(InvestExtension.class::cast);
+    return extensions == null
+        ? Stream.empty()
+        : extensions.stream().map(InvestExtension.class::cast);
   }
 
   public <E extends InvestExtension> Stream<E> stream(final Class<E> clazz) {
-    return stream()
-        .filter(clazz::isInstance)
-        .map(clazz::cast);
+    return stream().filter(clazz::isInstance).map(clazz::cast);
   }
 }
