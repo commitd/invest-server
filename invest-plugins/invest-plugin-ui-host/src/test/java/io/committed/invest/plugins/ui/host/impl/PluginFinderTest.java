@@ -1,29 +1,33 @@
 package io.committed.invest.plugins.ui.host.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.junit.Test;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 import io.committed.invest.plugins.ui.host.data.PluginOverride;
 
 public class PluginFinderTest {
 
+  private File readFileFromResources(String directory) throws URISyntaxException {
+    final ClassLoader classLoader = getClass().getClassLoader();
+    URL url = classLoader.getResource("plugins");
+    return Paths.get(url.toURI()).toFile();
+  }
+
   @Test
-  public void test() {
+  public void test() throws URISyntaxException {
     final UiHostSettings settings = new UiHostSettings();
 
-    final ClassLoader classLoader = getClass().getClassLoader();
-    final File file = new File(classLoader.getResource("plugins").getFile());
+    final File file = readFileFromResources("plugins");
 
     final ObjectMapper mapper = new ObjectMapper();
     final PluginZipReader zipReader = new PluginZipReader(mapper);
@@ -49,7 +53,7 @@ public class PluginFinderTest {
   }
 
   @Test
-  public void testWithOveride() {
+  public void testWithOveride() throws URISyntaxException {
     final UiHostSettings settings = new UiHostSettings();
 
     final PluginOverride override = new PluginOverride();
@@ -58,8 +62,7 @@ public class PluginFinderTest {
     override.getSettings().put("key", "value2");
     settings.setOverride(Arrays.asList(override));
 
-    final ClassLoader classLoader = getClass().getClassLoader();
-    final File file = new File(classLoader.getResource("plugins").getFile());
+    final File file = readFileFromResources("plugins");
 
     final ObjectMapper mapper = new ObjectMapper();
     final PluginZipReader zipReader = new PluginZipReader(mapper);
