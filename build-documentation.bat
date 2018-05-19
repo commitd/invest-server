@@ -9,5 +9,5 @@ cd ..\..
 
 :: Copy the documentation into place
 mkdir build
-copy -r documentation\website\build\ build\documentation\.
+robocopy /s /e documentation\website\build\ build\documentation\.
 
