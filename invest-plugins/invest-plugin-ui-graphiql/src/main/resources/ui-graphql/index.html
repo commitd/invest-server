@@ -116,8 +116,15 @@
             body: JSON.stringify(graphQLParams),
             credentials: 'include',
         }).then(function (response) {
-        	console.log(response)
-            return response.text();
+        		return response.blob();
+        }).then(function (blob) {
+        		return new Promise(function(resolve, reject) {
+            	    var reader = new FileReader();
+            	    reader.onload = function() {
+            	    	  resolve(reader.result)
+            	    }
+            	    reader.readAsText(blob);        		
+            	});
         }).then(function (responseBody) {
             try {
                 return JSON.parse(responseBody);

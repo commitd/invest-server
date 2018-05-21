@@ -2,30 +2,26 @@ package io.committed.invest.server.graphql;
 
 import java.util.Map;
 import java.util.Optional;
-
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-
-import reactor.core.publisher.Mono;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
-
+import io.committed.invest.core.exceptions.InvestRuntimeException;
+import io.committed.invest.core.graphql.InvestRootContext;
+import io.committed.invest.server.graphql.data.GraphQlQuery;
 import graphql.ExecutionInput;
 import graphql.ExecutionInput.Builder;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
-import io.committed.invest.core.exceptions.InvestRuntimeException;
-import io.committed.invest.core.graphql.InvestRootContext;
-import io.committed.invest.server.graphql.data.GraphQlQuery;
+import lombok.extern.slf4j.Slf4j;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * Executes GraphQL queries and mutations.
@@ -49,21 +45,20 @@ public class GraphQlHandler {
   }
 
   public Mono<ServerResponse> postQuery(final ServerRequest request) {
-    return ServerResponse.ok()
-        .body(
-            request
-                .bodyToMono(GraphQlQuery.class)
-                .map(
-                    q ->
-                        ExecutionInput.newExecutionInput()
-                            .operationName(q.getOperationName())
-                            .query(q.getQuery())
-                            .variables(q.getVariables())
-                            .context(buildContext(request))
-                            .build())
-                .map(this::performQuery)
-                .map(ExecutionResult::toSpecification),
-            Map.class);
+    
+    Mono<ExecutionResult> result = request
+    .bodyToMono(GraphQlQuery.class)
+    .map(
+        q ->
+            ExecutionInput.newExecutionInput()
+                .operationName(q.getOperationName())
+                .query(q.getQuery())
+                .variables(q.getVariables())
+                .context(buildContext(request))
+                .build())
+    .flatMap(this::performQuery);
+    
+    return convertResultToServerResponse(result);
   }
 
   public Mono<ServerResponse> getQuery(final ServerRequest request) {
@@ -93,8 +88,9 @@ public class GraphQlHandler {
     final InvestRootContext context = buildContext(request);
     input = input.context(context);
 
-    final ExecutionResult result = performQuery(input.build());
-    return ServerResponse.ok().syncBody(result.toSpecification());
+    final Mono<ExecutionResult> result = performQuery(input.build());
+    
+    return convertResultToServerResponse(result);
   }
 
   private InvestRootContext buildContext(final ServerRequest request) {
@@ -125,17 +121,25 @@ public class GraphQlHandler {
   public Mono<ServerResponse> getSchema(final ServerRequest request) {
     final ExecutionInput input =
         ExecutionInput.newExecutionInput().query(IntrospectionQuery.INTROSPECTION_QUERY).build();
-    final ExecutionResult result = performQuery(input);
-    return ServerResponse.ok().syncBody(result.toSpecification());
+    final Mono<ExecutionResult> result = performQuery(input);
+    return convertResultToServerResponse(result);
   }
 
-  protected ExecutionResult performQuery(final ExecutionInput input) {
+  protected Mono<ExecutionResult> performQuery(final ExecutionInput input) {
     try {
-      return graphQL.execute(input);
+      Mono<ExecutionResult> blockingWrapper = Mono.fromCallable(() -> { 
+        return graphQL.execute(input);
+
+    });
+    return blockingWrapper = blockingWrapper.subscribeOn(Schedulers.elastic());
     } catch (final Exception e) {
       final Throwable rootCause = Throwables.getRootCause(e);
       log.debug("Exception was: ", e);
       throw new InvestRuntimeException(rootCause.getMessage());
     }
+  }
+  
+  private Mono<ServerResponse> convertResultToServerResponse(final Mono<ExecutionResult> result) {
+    return ServerResponse.ok().body(result.map(ExecutionResult::toSpecification), Map.class);
   }
 }
