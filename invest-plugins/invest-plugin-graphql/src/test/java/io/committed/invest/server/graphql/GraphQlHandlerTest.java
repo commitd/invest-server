@@ -65,10 +65,10 @@ public class GraphQlHandlerTest {
     final ExecutionInput input = ExecutionInput.newExecutionInput()
         .query(String.format("query { %s }", method))
         .build();
-    final ExecutionResult result = graphQlHandler.performQuery(input);
+    final Mono<ExecutionResult> result = graphQlHandler.performQuery(input);
 
 
-    assertThat(result.getErrors()).isNotEmpty();
+    assertThat(result.block().getErrors()).isNotEmpty();
 
   }
 
