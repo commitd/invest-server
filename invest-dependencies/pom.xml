@@ -7,7 +7,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-parent</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
   </parent>
   <packaging>pom</packaging>
   <artifactId>invest-dependencies</artifactId>
@@ -23,7 +23,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
 
     <!-- Majority of versions are defined by Spring -->
-    <spring-boot.version>2.0.2.RELEASE</spring-boot.version>
+    <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
 
     <!-- Additional versions -->
     <graphql-java.version>8.0</graphql-java.version>
@@ -31,6 +31,7 @@
     <guava.version>25.0-jre</guava.version>
     <bean-matchers.version>0.11</bean-matchers.version>
     <fast-classpath-scanner.version>2.21</fast-classpath-scanner.version>
+    <lombok.version>1.18.0</lombok.version>
   </properties>
 
   <dependencyManagement>
@@ -40,6 +41,12 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+      	<groupId>org.projectlombok</groupId>
+      	<artifactId>lombok</artifactId>
+      	<version>${lombok.version}</version>
+    <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>io.github.lukehutch</groupId>

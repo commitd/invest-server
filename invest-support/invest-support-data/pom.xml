@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-support</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
   </parent>
   <artifactId>invest-support-data</artifactId>
   <name>Invest Support Data</name>
@@ -32,6 +32,10 @@
       <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
       <optional>true</optional>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.projectlombok</groupId>
+    	<artifactId>lombok</artifactId>
     </dependency>
     
     <!-- Testing -->

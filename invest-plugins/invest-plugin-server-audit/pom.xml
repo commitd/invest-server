@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-plugins</artifactId>
-    <version>0.7.0-SNAPSHOT</version>
+    <version>0.7.0</version>
   </parent>
   <artifactId>invest-plugin-server-audit</artifactId>
   <name>Invest Plugin Audit</name>
@@ -15,7 +15,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
-    
+    <dependency>
+    	<groupId>org.projectlombok</groupId>
+    	<artifactId>lombok</artifactId>
+    </dependency>
+  
     <!-- Testing -->
     <dependency>
       <groupId>io.committed.invest</groupId>
