@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-common</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1-SNAPSHOT</version>
   </parent>
   <artifactId>invest-core</artifactId>
   <name>Invest Core</name>
