@@ -61,14 +61,14 @@
     </dependency>
   </dependencies>
 
-  <build>
+  <!-- <build>
     <plugins>
-    <!--  Resolving https://stackoverflow.com/questions/27808734/jdk8-error-class-file-for-javax-interceptor-interceptorbinding-not-found-whe -->
+      Resolving https://stackoverflow.com/questions/27808734/jdk8-error-class-file-for-javax-interceptor-interceptorbinding-not-found-whe
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <configuration>
-          <!-- Silence error javax.interceptor.InterceptorBinding not found -->
+          Silence error javax.interceptor.InterceptorBinding not found
           <additionalDependencies>
             <additionalDependency>
               <groupId>javax.interceptor</groupId>
@@ -79,5 +79,5 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>
+  </build> -->
 </project>
