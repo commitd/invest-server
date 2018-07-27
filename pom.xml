@@ -27,7 +27,7 @@
   </organization>
 
   <scm>
-    <url>https://bitbucket.org/committed/invest-java</url>
+    <url>https://github.com/commitd/invest-server</url>
   </scm>
 
   <developers>
@@ -224,7 +224,6 @@
     <module>invest-server</module>
     <module>invest-plugin</module>
     <module>invest-plugins</module>
-    <!-- Not included in build presently <module>invest-archetypes</module> -->
     <module>invest-support</module>
   </modules>
 </project>
