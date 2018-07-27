@@ -2,26 +2,32 @@ package io.committed.invest.server.graphql;
 
 import java.util.Map;
 import java.util.Optional;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Throwables;
-import io.committed.invest.core.exceptions.InvestRuntimeException;
-import io.committed.invest.core.graphql.InvestRootContext;
-import io.committed.invest.server.graphql.data.GraphQlQuery;
+
 import graphql.ExecutionInput;
 import graphql.ExecutionInput.Builder;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.introspection.IntrospectionQuery;
 import graphql.schema.GraphQLSchema;
-import lombok.extern.slf4j.Slf4j;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
+
+import io.committed.invest.core.exceptions.InvestRuntimeException;
+import io.committed.invest.core.graphql.InvestRootContext;
+import io.committed.invest.server.graphql.data.GraphQlQuery;
 
 /**
  * Executes GraphQL queries and mutations.
@@ -45,19 +51,20 @@ public class GraphQlHandler {
   }
 
   public Mono<ServerResponse> postQuery(final ServerRequest request) {
-    
-    Mono<ExecutionResult> result = request
-    .bodyToMono(GraphQlQuery.class)
-    .map(
-        q ->
-            ExecutionInput.newExecutionInput()
-                .operationName(q.getOperationName())
-                .query(q.getQuery())
-                .variables(q.getVariables())
-                .context(buildContext(request))
-                .build())
-    .flatMap(this::performQuery);
-    
+
+    Mono<ExecutionResult> result =
+        request
+            .bodyToMono(GraphQlQuery.class)
+            .map(
+                q ->
+                    ExecutionInput.newExecutionInput()
+                        .operationName(q.getOperationName())
+                        .query(q.getQuery())
+                        .variables(q.getVariables())
+                        .context(buildContext(request))
+                        .build())
+            .flatMap(this::performQuery);
+
     return convertResultToServerResponse(result);
   }
 
@@ -89,7 +96,7 @@ public class GraphQlHandler {
     input = input.context(context);
 
     final Mono<ExecutionResult> result = performQuery(input.build());
-    
+
     return convertResultToServerResponse(result);
   }
 
@@ -127,18 +134,19 @@ public class GraphQlHandler {
 
   protected Mono<ExecutionResult> performQuery(final ExecutionInput input) {
     try {
-      Mono<ExecutionResult> blockingWrapper = Mono.fromCallable(() -> { 
-        return graphQL.execute(input);
-
-    });
-    return blockingWrapper = blockingWrapper.subscribeOn(Schedulers.elastic());
+      Mono<ExecutionResult> blockingWrapper =
+          Mono.fromCallable(
+              () -> {
+                return graphQL.execute(input);
+              });
+      return blockingWrapper = blockingWrapper.subscribeOn(Schedulers.elastic());
     } catch (final Exception e) {
       final Throwable rootCause = Throwables.getRootCause(e);
       log.debug("Exception was: ", e);
       throw new InvestRuntimeException(rootCause.getMessage());
     }
   }
-  
+
   private Mono<ServerResponse> convertResultToServerResponse(final Mono<ExecutionResult> result) {
     return ServerResponse.ok().body(result.map(ExecutionResult::toSpecification), Map.class);
   }

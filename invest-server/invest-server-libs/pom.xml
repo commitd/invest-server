@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-server</artifactId>
-    <version>0.7.0</version>
+    <version>0.7.1</version>
   </parent>
   <packaging>jar</packaging>
   <artifactId>invest-server-libs</artifactId>
@@ -46,6 +46,14 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>transport</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.elasticsearch.plugin</groupId>
+        <artifactId>transport-netty4-client</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.data</groupId>

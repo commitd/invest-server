@@ -4,9 +4,12 @@ import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
+
+import graphql.schema.GraphQLScalarType;
+
 import io.committed.invest.core.dto.collections.PropertiesList;
 import io.committed.invest.core.dto.collections.Property;
-import graphql.schema.GraphQLScalarType;
+
 import io.leangen.geantyref.GenericTypeReflector;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.generator.BuildContext;
@@ -18,16 +21,14 @@ import io.leangen.graphql.util.Scalars;
 /**
  * A dedicated mapper to convert {@link PropertiesList} from/to a scalar.
  *
- * <p>
- * This is necessary because of the Object values in the Properties. Allowing SPQR to 'ignore' the
- * content of the PropertiesList and pass it through verbatim as JSON matches the intend of
+ * <p>This is necessary because of the Object values in the Properties. Allowing SPQR to 'ignore'
+ * the content of the PropertiesList and pass it through verbatim as JSON matches the intend of
  * PropertiesList/Map which is a catch all for 'stuff' we don't.
  *
- * <p>
- * Based on SPQR's from ObjectScalarAdaptor
+ * <p>Based on SPQR's from ObjectScalarAdaptor
  */
 public class PropertiesListScalarAdapter extends CachingMapper<GraphQLScalarType, GraphQLScalarType>
-implements OutputConverter<PropertiesList, List<Property>> {
+    implements OutputConverter<PropertiesList, List<Property>> {
 
   private static final AnnotatedType LIST = GenericTypeReflector.annotate(LinkedList.class);
 
@@ -46,16 +47,20 @@ implements OutputConverter<PropertiesList, List<Property>> {
   }
 
   @Override
-  protected GraphQLScalarType toGraphQLType(final String typeName, final AnnotatedType javaType,
-      final OperationMapper operationMapper, final BuildContext buildContext) {
+  protected GraphQLScalarType toGraphQLType(
+      final String typeName,
+      final AnnotatedType javaType,
+      final OperationMapper operationMapper,
+      final BuildContext buildContext) {
     return Scalars.graphQLObjectScalar(typeName);
   }
 
   @Override
-  protected GraphQLScalarType toGraphQLInputType(final String typeName,
+  protected GraphQLScalarType toGraphQLInputType(
+      final String typeName,
       final AnnotatedType javaType,
-      final OperationMapper operationMapper, final BuildContext buildContext) {
+      final OperationMapper operationMapper,
+      final BuildContext buildContext) {
     return toGraphQLType(typeName, javaType, operationMapper, buildContext);
-
   }
 }

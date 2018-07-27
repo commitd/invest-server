@@ -1,6 +1,7 @@
 package io.committed.invest.plugins.ui.host.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -9,8 +10,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.junit.Test;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.committed.invest.plugins.ui.host.UiHostSettings;
 import io.committed.invest.plugins.ui.host.data.PluginJson;
 import io.committed.invest.plugins.ui.host.data.PluginOverride;

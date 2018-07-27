@@ -6,7 +6,7 @@
   <groupId>io.committed.invest</groupId>
   <artifactId>invest-parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.7.0</version>
+  <version>0.7.1</version>
 
   <name>Invest</name>
   <description>Modular plugin based application framework, based on Spring</description>
@@ -27,7 +27,7 @@
   </organization>
 
   <scm>
-    <url>https://bitbucket.org/committed/invest-java</url>
+    <url>https://github.com/commitd/invest-server</url>
   </scm>
 
   <developers>
@@ -44,7 +44,19 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.compiler.source>${java.version}</maven.compiler.source>
 
-    <maven-spotless.version>1.0.0.BETA4</maven-spotless.version>
+    <maven-spotless.version>1.14.0</maven-spotless.version>
+    <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+
+    <!-- Majority of versions are defined by Spring -->
+    <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
+
+    <!-- Additional versions -->
+    <graphql-java.version>8.0</graphql-java.version>
+    <graphql-spqr.version>0.9.7</graphql-spqr.version>
+    <guava.version>25.0-jre</guava.version>
+    <bean-matchers.version>0.11</bean-matchers.version>
+    <fast-classpath-scanner.version>2.21</fast-classpath-scanner.version>
+    <lombok.version>1.18.0</lombok.version>
   </properties>
 
   <!-- These are required for Spring Boot milestones -->
@@ -212,7 +224,6 @@
     <module>invest-server</module>
     <module>invest-plugin</module>
     <module>invest-plugins</module>
-    <!-- Not included in build presently <module>invest-archetypes</module> -->
     <module>invest-support</module>
   </modules>
 </project>

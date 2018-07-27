@@ -1,12 +1,16 @@
 package io.committed.invest.server.core.services;
 
 import java.util.List;
+
 import javax.annotation.PostConstruct;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 import io.committed.invest.extensions.InvestExtension;
 import io.committed.invest.extensions.collections.InvestExtensions;
-import lombok.extern.slf4j.Slf4j;
 
 /** On boot log the extensions found. */
 @Component
