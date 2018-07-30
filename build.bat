@@ -24,4 +24,4 @@ copy invest-plugins\invest-plugin-ui-livedev\target\*.jar build\plugins\.
 copy invest-plugins\invest-plugin-ui-actiondev\target\*.jar build\plugins\.
 
 
-echo "java -Dloader.path=plugins\ -jar invest-server-app-0.7.1.jar" > build\run.sh
+echo "java -Dloader.path=plugins\ -jar invest-server-app-*.jar" > build\run.sh
