@@ -4,7 +4,7 @@
   <parent>
     <groupId>io.committed.invest</groupId>
     <artifactId>invest-plugins</artifactId>
-    <version>0.7.1</version>
+    <version>0.7.2</version>
   </parent>
   <artifactId>invest-plugin-ui-app</artifactId>
   <name>Invest Plugin UI App</name>
